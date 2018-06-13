@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="ht.ihsi.rgph.mobile.views.activity.MenageActivity">
+    tools:context=".epc.views.activity.MenageActivity">
 
 
 

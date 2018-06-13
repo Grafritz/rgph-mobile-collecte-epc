@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppMyTheme_NoActionBar">
         <activity
-            android:name=".views.activity.BatimentActivity"
+            android:name=".epc.views.activity.BatimentActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -27,41 +27,41 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".views.activity.DisplayListActivity"
+            android:name=".epc.views.activity.DisplayListActivity"
             android:label="@string/title_activity_display_list"
-            android:parentActivityName=".views.activity.BatimentActivity"
+            android:parentActivityName=".epc.views.activity.BatimentActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".views.activity.DisplayExpandableListActivity"
+            android:name=".epc.views.activity.DisplayExpandableListActivity"
             android:label="@string/title_activity_display_list"
-            android:parentActivityName=".views.activity.BatimentActivity"
+            android:parentActivityName=".epc.views.activity.BatimentActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".views.activity.LoginActivity"
+            android:name=".epc.views.activity.LoginActivity"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.activity.QuestionnaireBatimentActivity"
+            android:name=".epc.views.activity.QuestionnaireBatimentActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.activity.QuestionnaireLogementActivity"
+            android:name=".epc.views.activity.QuestionnaireLogementActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.activity.QuestionnaireIndividuActivity"
+            android:name=".epc.views.activity.QuestionnaireIndividuActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.activity.QuestionnaireMenageActivity"
+            android:name=".epc.views.activity.QuestionnaireMenageActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.activity.QuestionnaireEmigreActivity"
+            android:name=".epc.views.activity.QuestionnaireEmigreActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.activity.QuestionnaireDecesActivity"
+            android:name=".epc.views.activity.QuestionnaireDecesActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.activity.Settings.SettingsActivity"
+            android:name=".epc.views.activity.Settings.SettingsActivity"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/label_settings"
             android:screenOrientation="portrait"
@@ -72,7 +72,7 @@
             android:screenOrientation="portrait"  />
         -->
         <activity
-            android:name=".views.activity.MenageActivity"
+            android:name=".epc.views.activity.MenageActivity"
             android:screenOrientation="portrait" />
         <!--
             <activity android:name=".views.activity.IndividuEmigreDecesTabMgrActivity"
@@ -80,7 +80,7 @@
         -->
 
         <receiver
-            android:name=".services.ReceiverStartup"
+            android:name=".epc.services.ReceiverStartup"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
@@ -91,13 +91,13 @@
         </receiver>
 
         <activity
-            android:name=".views.activity.DisplayDetailsActivity"
+            android:name=".epc.views.activity.DisplayDetailsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.activity.SplashScreen"
+            android:name=".epc.views.activity.SplashScreen"
             android:screenOrientation="portrait"
             android:theme="@style/AppMyTheme_NoActionBar"></activity>
-        <activity android:name=".views.security.FormulaireUtilisateur"></activity>
+        <activity android:name=".epc.views.security.FormulaireUtilisateur"></activity>
     </application>
 
 </manifest>

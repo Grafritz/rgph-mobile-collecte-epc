@@ -6,7 +6,7 @@
     android:background="@color/bootstrap_gray_lighter"
     android:orientation="vertical"
     android:weightSum="1"
-    tools:context="views.security.FormulaireUtilisateur">
+    tools:context=".epc.views.security.FormulaireUtilisateur">
 
     <ScrollView
         android:layout_width="match_parent"

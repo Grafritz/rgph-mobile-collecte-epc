@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/rgph_gray"
 
-    tools:context=".views.activity.DisplayListActivity">
+    tools:context=".epc.views.activity.DisplayListActivity">
 
 
 

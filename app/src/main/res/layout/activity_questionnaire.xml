@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/RL_Questionnaire"
-    tools:context="ht.ihsi.rgph.mobile.views.activity.QuestionnaireBatimentActivity">
+    tools:context=".epc.views.activity.QuestionnaireBatimentActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"

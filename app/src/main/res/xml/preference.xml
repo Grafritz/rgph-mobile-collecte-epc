@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/label_settings">
+        <EditTextPreference android:key="pref_UserName" android:title="Title Preference" ></EditTextPreference>
+        <EditTextPreference android:key="pref_NomComplet" android:title="" ></EditTextPreference>
+    </PreferenceCategory>
+
+    <EditTextPreference android:key="pref_SDE" android:title="SDE" ></EditTextPreference>
+    <EditTextPreference android:key="pref_UserName2" android:title="xxxxxxxxxxxxxx" ></EditTextPreference>
+</PreferenceScreen>

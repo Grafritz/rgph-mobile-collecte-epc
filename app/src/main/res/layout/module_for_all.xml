@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/rgph_gray"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="1dp"
+        android:background="@color/theme_primary"
+        app:titleTextColor="@color/white"
+        app:subtitleTextColor="@color/white"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/scrollView2"
+        android:fillViewport="true"
+        android:layout_below="@+id/my_toolbar"
+        >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="0dp"
+            style="@style/StyleLayoutPortait"
+            >
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="0dp"
+
+                >
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    android:gravity="center"
+                    android:background="@drawable/border_shadow">
+
+                    <include
+                        android:id="@+id/btn_AjouteModule"
+                        layout="@layout/button_menu_1"
+                        android:layout_marginTop="@dimen/margin_10dp"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        />
+
+                    <include
+                        android:id="@+id/btn_Module_ki_pa_fini"
+                        layout="@layout/button_menu_1"
+                        android:layout_marginTop="@dimen/margin_10dp"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        />
+
+                    <include
+                        android:id="@+id/btn_Module_ki_mal_ranpli"
+                        layout="@layout/button_menu_1"
+                        android:layout_marginTop="@dimen/margin_10dp"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        />
+
+                    <include
+                        android:id="@+id/btn_Module_ki_fini"
+                        layout="@layout/button_menu_1"
+                        android:layout_marginTop="@dimen/margin_10dp"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        />
+                </LinearLayout>
+
+                <!--<Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_Deconnecter"
+                    android:id="@+id/btn_QuitterApplication"
+                    android:layout_gravity="center"
+                    android:background="@color/bootstrap_brand_danger"
+                    android:padding="20dp"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="20dp"
+                    android:layout_marginTop="7dp"
+                    android:shadowColor="#000"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="1.0"
+                    android:textStyle="bold"
+                    />-->
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

@@ -1,0 +1,13 @@
+[
+  {"DeptId":"05","DeptNom":"Artibonite"},
+  {"DeptId":"06","DeptNom":"Centre"},
+  {"DeptId":"08","DeptNom":"Grand-Anse"},
+  {"DeptId":"10","DeptNom":"Nippes"},
+  {"DeptId":"03","DeptNom":"Nord"},
+  {"DeptId":"04","DeptNom":"Nord-Est"},
+  {"DeptId":"09","DeptNom":"Nord-Ouest"},
+  {"DeptId":"01","DeptNom":"Ouest"},
+  {"DeptId":"07","DeptNom":"Sud"},
+  {"DeptId":"02","DeptNom":"Sud-Est"},
+  {"DeptId":"99","DeptNom":"-PA KONNEN-"}
+]

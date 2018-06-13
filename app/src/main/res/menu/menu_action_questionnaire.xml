@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--<item
+        android:id="@+id/btn_actionbar_Settings"
+        android:icon="@drawable/ic_setting"
+        android:title="@string/label_Menu"
+        app:showAsAction="always|withText"
+        />-->
+
+    <item android:id="@+id/btn_actionbar_SaveAndQuit"
+        android:icon="@android:drawable/ic_menu_save"
+        android:title="@string/label_SaveAndQuit"
+        app:showAsAction="withText" />
+
+    <!-- Settings, should always be in the overflow -->
+    <item android:id="@+id/btn_actionbar_Quitter"
+        android:title="@string/label_QuitNotSave"
+        app:showAsAction="withText"/>
+
+</menu>

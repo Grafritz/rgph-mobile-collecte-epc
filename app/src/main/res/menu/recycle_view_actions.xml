@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!-- Search, should appear as action button -->
+
+    <!-- Settings, should always be in the overflow -->
+    <!--<item android:id="@+id/item_Rekomanse"
+        android:title="@string/label_menu_Rekomanse"
+        app:showAsAction="always"
+        android:drawable="@drawable/ic_afficher"/>-->
+    <item android:id="@+id/item_afficher"
+        android:title="@string/label_list_menu_afficher"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_afficher"/>
+
+    <item android:id="@+id/item_modifier"
+        android:title="@string/label_list_menu_modifier"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_edit"/>
+
+    <item android:id="@+id/item_Kontinye"
+        android:title="@string/label_menu_Kontinye"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_kontinye"/>
+
+    <item android:id="@+id/item_Rapport"
+        android:title="@string/label_menu_Rapport"
+        app:showAsAction="always"
+        android:icon="@android:drawable/btn_star_big_on"/>
+
+    <item android:id="@+id/item_RetounenMalRanpli"
+        android:title="@string/label_menu_RetounenMalRanpli"
+        app:showAsAction="always"
+        android:icon="@android:drawable/btn_star_big_on"/>
+
+    <!--
+    <item android:id="@+id/item_module_menu"
+        android:title="@string/label_list_menu_module_menu"
+        app:showAsAction="always"
+        android:drawable="@drawable/ic_module_menu"/>-->
+</menu>

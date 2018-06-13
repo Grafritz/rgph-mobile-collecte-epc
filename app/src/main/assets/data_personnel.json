@@ -1,0 +1,66 @@
+[
+  {"persId":"201"
+  , "sdeId":"0111-90-001-506"
+  , "nom":"Developpeur"
+  , "prenom":"Jean Fritz"
+  , "sexe":"M"
+  , "nomUtilisateur":"Developpeur"
+  , "motDePasse":"passpass"
+  , "email":"duverseau.jeanfritz@gmail.com"
+  , "deptId":"01"
+  , "comId":"0111"
+  , "vqseId":"0111-90"
+  , "zone":"1"
+  , "codeDistrict":"506"
+  , "estActif":true
+  , "ProfileId":99}
+
+,{"persId":"202"
+, "sdeId":"0111-90-001-506"
+, "nom":"IHSI"
+, "prenom":"Superviseur"
+, "sexe":"F"
+, "nomUtilisateur":"supsup"
+, "motDePasse":"passpass"
+, "email":"Admin@gmail.com"
+, "deptId":"01"
+, "comId":"0111"
+, "vqseId":"0111-90"
+, "zone":"1"
+, "codeDistrict":"506"
+, "estActif":false
+, "ProfileId":7}
+
+,{"persId":"218"
+, "sdeId":"0114-90-001-501"
+, "nom":"Agent"
+, "prenom":"IHSI"
+, "sexe":"F"
+, "nomUtilisateur":"agent"
+, "motDePasse":"passpass"
+, "email":"agent@gmail.com"
+, "deptId":"01"
+, "comId":"0114"
+, "vqseId":"0114-90"
+, "zone":"1"
+, "codeDistrict":"0114-501"
+, "estActif":false
+, "ProfileId":8}
+
+,{"persId":"220"
+, "sdeId":"0114-90-001-501"
+, "nom":"Design"
+, "prenom":"Grafritz"
+, "sexe":"M"
+, "nomUtilisateur":"grafritz"
+, "motDePasse":"design"
+, "email":"duverseau.jeanfritz@gmail.com"
+, "deptId":"01"
+, "comId":"0114"
+, "vqseId":"0114-90"
+, "zone":"1"
+, "codeDistrict":"0114-501"
+, "estActif":true
+, "ProfileId":8}
+
+]

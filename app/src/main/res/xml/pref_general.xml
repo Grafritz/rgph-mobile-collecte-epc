@@ -1,0 +1,75 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="prefIsConnected"
+        android:summary="@string/pref_description_ActivationCompte"
+        android:title="@string/pref_title_ActivationCompte"
+        android:enabled="false"
+        />
+
+    <PreferenceCategory android:title="@string/pref_Header_InfoCompteUser" >
+    </PreferenceCategory>
+    <EditTextPreference
+            android:capitalize="words"
+            android:key="prefNomUtilisateur"
+            android:defaultValue="@string/pref_default_UserName"
+            android:title="@string/pref_title_UserName"
+            android:inputType="textCapWords"
+            android:maxLines="1"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:enabled="false"
+        />
+
+
+    <PreferenceCategory android:title="@string/pref_Header_InfoPersonnel" >
+    </PreferenceCategory>
+
+
+    <EditTextPreference
+        android:capitalize="words"
+        android:key="prefSdeId"
+        android:title="@string/pref_title_SdeId"
+        android:inputType="textCapWords"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:enabled="false"
+        />
+
+        <EditTextPreference
+            android:capitalize="words"
+            android:defaultValue="@string/pref_default_PrenomEtNom"
+            android:title="@string/pref_title_PrenomEtNom"
+            android:inputType="textCapWords"
+            android:key="prefPrenomEtNom"
+            android:maxLines="1"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:enabled="false"
+            />
+
+    <EditTextPreference
+        android:capitalize="words"
+        android:key="prefEmail"
+        android:title="@string/label_email"
+        android:inputType="textCapWords"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:enabled="false"
+        />
+
+    <EditTextPreference
+        android:capitalize="words"
+        android:key="prefLastLogin"
+        android:title="@string/label_LastLogin"
+        android:inputType="textCapWords"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:enabled="false"
+        />
+
+</PreferenceScreen>

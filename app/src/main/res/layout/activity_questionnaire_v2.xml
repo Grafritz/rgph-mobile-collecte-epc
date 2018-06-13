@@ -1,0 +1,1288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/RL_Questionnaire"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="1dp"
+        android:background="@color/theme_primary"
+        app:titleTextColor="@color/white"
+        app:subtitleTextColor="@color/white"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:layout_alignLeft="@+id/linearLayoutManContent"
+        android:layout_alignStart="@+id/linearLayoutManContent" />
+
+    <com.miguelcatalan.materialsearchview.MaterialSearchView
+        android:id="@+id/search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/MaterialSearchViewStyle"/>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutManContent"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignLeft="@+id/btn_Precedent"
+        android:layout_alignStart="@+id/btn_Precedent"
+        android:layout_above="@+id/btn_Precedent"
+        android:layout_below="@+id/my_toolbar">
+        <!--<ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/scrollView2"
+            android:layout_below="@+id/my_toolbar"
+            >
+        </ScrollView>-->
+
+        <LinearLayout
+                android:id="@+id/LinearLayoutContent"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/rgph_gray"
+                android:layout_marginTop="0dp"
+                >
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp"
+                    android:gravity="center"
+                    android:layout_margin="0dp"
+                    android:background="@drawable/border_shadow">
+
+                    <TextView
+                        android:id="@+id/header1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="1dp"
+                        android:shadowColor="#000"
+                        android:shadowDx="1"
+                        android:shadowDy="1"
+                        android:shadowRadius="1.0"
+                        android:text="AJOUTE YON NOUVO BATIMAN"
+                        android:textColor="@color/theme_primary"
+                        android:textSize="18dp"
+                        android:textStyle="bold"
+                        android:typeface="serif"
+                        android:visibility="gone"
+                        />
+
+                    <TextView
+                        android:id="@+id/header2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="0dp"
+                        android:shadowColor="#fff"
+                        android:shadowDx="1"
+                        android:shadowDy="1"
+                        android:shadowRadius="0.0"
+                        android:text="00111-10-123-90 "
+                        android:textColor="@color/bootstrap_brand_danger"
+                        android:textSize="20dp"
+                        android:gravity="center"
+                        android:typeface="serif" />
+
+                </LinearLayout>
+
+                <!-- LinearLayout CATEGORIES QUESTION -->
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/border_shadow">
+
+                    <TextView
+                        android:id="@+id/tv_GrandTitre"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/bootstrap_edittext_disabled"
+                        android:textSize="22dp"
+                        android:text="GRAND TITRE"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="@color/bootstrap_gray"
+                        android:textAlignment="center"
+                        android:textStyle="bold"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_DetailsCategorie"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/bootstrap_gray_lightest"
+                        android:textSize="20dp"
+                        android:text="Details Categorie"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:paddingTop="@dimen/margin_5dp"
+                        android:paddingBottom="@dimen/margin_5dp"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="@color/colorBlack"
+                        android:textAlignment="center"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_SousDetailsCategorie"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:textSize="19dp"
+                        android:text="Sous Details Categorie"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:paddingTop="@dimen/margin_5dp"
+                        android:paddingBottom="@dimen/margin_5dp"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="@color/colorBlack"
+                        android:textAlignment="center"
+                        />
+
+                </LinearLayout>
+
+                <!-- LinearLayout LIBELE QUESTION -->
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/border_shadow">
+                    <TextView
+                        android:id="@+id/tv_LibeleQuestion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="22dp"
+                        android:text="LIBELE QUESTION"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:paddingTop="@dimen/margin_5dp"
+                        android:paddingBottom="@dimen/margin_5dp"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="@color/colorBlack"
+                        android:textAlignment="center"
+                        android:layout_marginTop="5dp"
+                        android:textStyle="bold"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_DetailQuestion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="DETAILS QUESTION"
+                        android:textSize="22dp"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:paddingTop="@dimen/margin_5dp"
+                        android:paddingBottom="@dimen/margin_5dp"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textAlignment="center"
+                        android:textStyle="italic"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="5dp"
+                        android:textColor="@color/bootstrap_brand_danger"
+                        />
+                </LinearLayout>
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/scrollView3">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:gravity="center"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/border_shadow">
+
+                        <TextView
+                            android:id="@+id/tv_ReponseData"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textSize="22dp"
+                            android:paddingLeft="@dimen/activity_horizontal_margin"
+                            android:paddingTop="@dimen/margin_5dp"
+                            android:paddingBottom="@dimen/margin_5dp"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textAlignment="center"
+                            android:textStyle="italic"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginBottom="5dp"
+                            android:textColor="@color/bootstrap_brand_success"
+                            android:visibility="gone"
+                            />
+
+                        <com.beardedhen.androidbootstrap.BootstrapEditText
+                            android:id="@+id/et_Reponse"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                            android:layout_marginRight="@dimen/activity_horizontal_margin"
+                            android:singleLine="true"
+                            android:layout_marginTop="12dp"
+                            app:bootstrapBrand="info"
+                            app:bootstrapSize="lg"
+                            android:imeActionId="@integer/imeActionId_EtReponse_6"
+                            android:imeActionLabel="@string/label_QuestionSuivante"
+                            android:imeOptions="actionUnspecified"
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_Reponse"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="..."
+                            android:textSize="20dp"
+                            android:paddingLeft="@dimen/activity_horizontal_margin"
+                            android:paddingTop="@dimen/margin_5dp"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="@color/colorBlack"
+                            android:textStyle="bold"
+                            />
+                        <RelativeLayout
+                            android:id="@+id/RelativeLayout_Reponse"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/my_shape"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="12dp"
+                            android:textSize="20sp"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                            android:layout_marginRight="@dimen/activity_horizontal_margin"
+                            >
+                            <Spinner
+                                android:id="@+id/sp_Reponse"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentEnd="true"
+                                android:prompt="@string/label_Chwazi_yon_Repons"
+                                android:imeActionId="@+id/imeActionId_EtReponse"
+                                android:imeActionLabel="@string/label_QuestionSuivante"
+                                android:imeOptions="actionUnspecified"
+                                android:spinnerMode="dialog"
+                                android:layout_gravity="center"
+                                android:background="@android:color/transparent"
+                                android:gravity="center"
+                                android:textSize="22dp"
+                                android:textColor="@color/colorBlack"
+                                />
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center"
+                                android:src="@mipmap/my_drop" />
+                        </RelativeLayout>
+
+                        <TextView
+                            android:id="@+id/tv_Commune"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Komin:"
+                            android:textSize="20dp"
+                            android:paddingLeft="@dimen/activity_horizontal_margin"
+                            android:paddingTop="@dimen/margin_10dp"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="@color/colorBlack"
+                            android:textStyle="bold"
+                            />
+
+                        <RelativeLayout
+                            android:id="@+id/RelativeLayout_Reponse2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/my_shape"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="@dimen/margin_12dp"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                            android:layout_marginRight="@dimen/activity_horizontal_margin"
+                            >
+                            <Spinner
+                                android:id="@+id/sp_Reponse2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentEnd="true"
+                                android:prompt="@string/label_Chwazi_yon_Repons"
+                                android:imeActionId="@+id/imeActionId_EtReponse"
+                                android:imeActionLabel="@string/label_QuestionSuivante"
+                                android:imeOptions="actionUnspecified"
+                                android:spinnerMode="dialog"
+                                android:layout_gravity="center"
+                                android:background="@android:color/transparent"
+                                android:gravity="center"
+                                android:textColor="@color/colorBlack"
+                                />
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center"
+                                android:src="@mipmap/my_drop" />
+                        </RelativeLayout>
+                        <TextView
+                            android:id="@+id/tv_SectionCommune"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Seksyon Kominal:"
+                            android:textSize="20dp"
+                            android:paddingLeft="@dimen/activity_horizontal_margin"
+                            android:paddingTop="@dimen/margin_10dp"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="@color/colorBlack"
+                            android:textStyle="bold"
+                            />
+
+                        <RelativeLayout
+                            android:id="@+id/RelativeLayout_Reponse3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/my_shape"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                            android:layout_marginRight="@dimen/activity_horizontal_margin"
+                            >
+                            <Spinner
+                                android:id="@+id/sp_Reponse3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentEnd="true"
+                                android:prompt="@string/label_Chwazi_yon_Repons"
+                                android:imeActionId="@+id/imeActionId_EtReponse"
+                                android:imeActionLabel="@string/label_QuestionSuivante"
+                                android:spinnerMode="dialog"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center"
+                                android:background="@android:color/transparent"
+                                android:gravity="center"
+                                android:textColor="@color/colorBlack"
+                                />
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center"
+                                android:src="@mipmap/my_drop" />
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:id="@+id/LinearLDate"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:paddingLeft="@dimen/activity_horizontal_margin"
+                            android:paddingRight="@dimen/activity_horizontal_margin"
+                            >
+                            <RelativeLayout
+                                android:id="@+id/RL_Jour"
+                                android:layout_width="300dp"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/my_shape"
+                                android:orientation="horizontal"
+                                android:layout_weight="1"
+                                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                                android:visibility="visible"
+                                >
+                                <Spinner
+                                    android:id="@+id/sp_Jour"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_gravity="center"
+                                    android:background="@android:color/transparent"
+                                    android:gravity="center"
+                                    android:prompt="@string/label_Chwazi_yon_Jou"
+                                    android:spinnerMode="dialog"
+                                    android:textColor="@color/colorBlack"
+                                    />
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_gravity="center"
+                                    android:src="@mipmap/my_drop" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="300dp"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/my_shape"
+                                android:orientation="horizontal"
+                                android:layout_weight="1"
+                                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                                >
+                                <Spinner
+                                    android:id="@+id/sp_Mois"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_gravity="center"
+                                    android:background="@android:color/transparent"
+                                    android:gravity="center"
+                                    android:prompt="@string/label_Chwazi_yon_Mois"
+                                    android:spinnerMode="dialog"
+                                    android:textColor="@color/colorBlack"
+                                    />
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_gravity="center"
+                                    android:src="@mipmap/my_drop" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="300dp"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/my_shape"
+                                android:orientation="horizontal"
+                                android:layout_weight="1"
+                                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                                >
+                                <Spinner
+                                    android:id="@+id/sp_Annee"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_gravity="center"
+                                    android:background="@android:color/transparent"
+                                    android:gravity="center"
+                                    android:prompt="@string/label_Chwazi_yon_Annee"
+                                    android:spinnerMode="dialog"
+                                    android:textColor="@color/colorBlack"
+                                    />
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_gravity="center"
+                                    android:src="@mipmap/my_drop" />
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/LinearLDate_SaisieJJ_SelectMM_SaisieAAAA"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:paddingLeft="@dimen/activity_horizontal_margin"
+                            android:paddingRight="@dimen/activity_horizontal_margin"
+                            >
+                            <com.beardedhen.androidbootstrap.BootstrapEditText
+                                android:id="@+id/et_Jour"
+                                android:hint="@string/label_Jour"
+                                android:layout_width="300dp"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/my_shape"
+                                android:layout_weight="1"
+                                android:inputType="number"
+                                android:maxLength="2"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:imeActionId="@+id/imeActionId_EtReponse"
+                                android:imeActionLabel="@string/label_QuestionSuivante"
+                                android:imeOptions="actionUnspecified"
+                                app:bootstrapBrand="info"
+                                app:bootstrapSize="lg"
+                                android:layout_alignParentTop="true"
+                                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                                />
+
+                            <RelativeLayout
+                                android:layout_width="300dp"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/my_shape"
+                                android:orientation="horizontal"
+                                android:layout_weight="1"
+                                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                                >
+                                <Spinner
+                                    android:id="@+id/sp_Mois2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_gravity="center"
+                                    android:background="@android:color/transparent"
+                                    android:gravity="center"
+                                    android:prompt="@string/label_Chwazi_yon_Mois"
+                                    android:spinnerMode="dialog"
+                                    android:textColor="@color/colorBlack"
+                                    />
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_gravity="center"
+                                    android:src="@mipmap/my_drop" />
+                            </RelativeLayout>
+
+                            <com.beardedhen.androidbootstrap.BootstrapEditText
+                                android:id="@+id/et_Annee"
+                                android:hint="@string/label_Annee"
+                                android:layout_width="300dp"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/my_shape"
+                                android:layout_weight="1"
+                                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                                android:inputType="number"
+                                android:maxLength="4"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:imeActionId="@+id/imeActionId_EtReponse"
+                                android:imeActionLabel="@string/label_QuestionSuivante"
+                                android:imeOptions="actionUnspecified"
+                                app:bootstrapBrand="info"
+                                app:bootstrapSize="lg"
+                                />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/LL_GaconEtFille"
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:paddingLeft="@dimen/activity_horizontal_margin"
+                            android:paddingRight="@dimen/activity_horizontal_margin"
+                            >
+                            <!-- Konbyen Gason -->
+                            <LinearLayout
+                                android:id="@+id/RL_Gason"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginBottom="@dimen/activity_10dp"
+                                >
+
+                                <TextView
+                                    android:id="@+id/tv_Gason"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="22dp"
+                                    android:layout_weight="1"
+                                    android:text="@string/label_Gason"
+                                    android:textAppearance="?android:attr/textAppearanceLarge"
+                                    android:textColor="@color/colorBlack"
+                                    android:layout_marginTop="5dp"
+                                    android:textStyle="bold"
+                                    />
+
+                                <com.beardedhen.androidbootstrap.BootstrapEditText
+                                    android:id="@+id/et_Gason"
+                                    android:hint="@string/label_Gason"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:inputType="number"
+                                    android:maxLines="1"
+                                    android:singleLine="true"
+                                    android:imeActionId="@+id/imeActionId_EtReponse"
+                                    android:imeActionLabel="@string/label_QuestionSuivante"
+                                    android:imeOptions="actionUnspecified"
+                                    app:bootstrapBrand="info"
+                                    app:bootstrapSize="lg"
+                                    android:layout_alignParentTop="true"
+                                    />
+                            </LinearLayout>
+
+                            <!-- Konbyen Gason -->
+                            <LinearLayout
+                                android:id="@+id/RL_Fi"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginBottom="@dimen/activity_10dp"
+                                >
+
+                                <TextView
+                                    android:id="@+id/tv_Fi"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="22dp"
+                                    android:layout_weight="1"
+                                    android:text="@string/label_Fi"
+                                    android:textAppearance="?android:attr/textAppearanceLarge"
+                                    android:textColor="@color/colorBlack"
+                                    android:layout_marginTop="5dp"
+                                    android:textStyle="bold"
+                                    />
+
+                                <com.beardedhen.androidbootstrap.BootstrapEditText
+                                    android:id="@+id/et_Fi"
+                                    android:hint="@string/label_Fi"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:inputType="number"
+                                    android:maxLines="1"
+                                    android:singleLine="true"
+                                    app:bootstrapBrand="info"
+                                    app:bootstrapSize="lg"
+                                    android:layout_alignParentTop="true"
+                                    android:imeActionId="@integer/imeActionId_EtReponse_6"
+                                    android:imeActionLabel="@string/label_QuestionSuivante"
+                                    android:imeOptions="actionUnspecified"
+                                    />
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/LL_AppareilEtAnimaux"
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:paddingLeft="@dimen/activity_horizontal_margin"
+                            android:paddingRight="@dimen/activity_horizontal_margin"
+                            >
+                            <!-- Aparèy Radyo -->
+                            <LinearLayout
+                                android:id="@+id/RL_ApareyRadyo"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginBottom="@dimen/activity_10dp"
+                                >
+
+                                <TextView
+                                    android:id="@+id/tv_ApareyRadyo"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="22dp"
+                                    android:layout_weight="1"
+                                    android:text="@string/label_ApareyRadyo"
+                                    android:textAppearance="?android:attr/textAppearanceLarge"
+                                    android:textColor="@color/colorBlack"
+                                    android:layout_marginTop="5dp"
+                                    android:textStyle="bold"
+                                    />
+
+                                <com.beardedhen.androidbootstrap.BootstrapEditText
+                                    android:id="@+id/et_ApareyRadyo"
+                                    android:hint="@string/label_ApareyRadyo"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:inputType="number"
+                                    android:maxLines="1"
+                                    android:maxLength="2"
+                                    android:singleLine="true"
+                                    android:imeActionId="@+id/imeActionId_EtReponse"
+                                    android:imeActionLabel="@string/label_QuestionSuivante"
+                                    android:imeOptions="actionUnspecified"
+                                    app:bootstrapBrand="info"
+                                    app:bootstrapSize="lg"
+                                    android:layout_alignParentTop="true"
+                                    />
+                            </LinearLayout>
+
+                            <!-- Televizyon -->
+                            <LinearLayout
+                                android:id="@+id/RL_Televizyon"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginBottom="@dimen/activity_10dp"
+                                >
+
+                                <TextView
+                                    android:id="@+id/tv_Televizyon"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="22dp"
+                                    android:layout_weight="1"
+                                    android:text="@string/label_Televizyon"
+                                    android:textAppearance="?android:attr/textAppearanceLarge"
+                                    android:textColor="@color/colorBlack"
+                                    android:layout_marginTop="5dp"
+                                    android:textStyle="bold"
+                                    />
+
+                                <com.beardedhen.androidbootstrap.BootstrapEditText
+                                    android:id="@+id/et_Televizyon"
+                                    android:hint="@string/label_Televizyon"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:inputType="number"
+                                    android:maxLines="1"
+                                    android:maxLength="2"
+                                    android:singleLine="true"
+                                    android:imeActionId="@+id/imeActionId_EtReponse"
+                                    android:imeActionLabel="@string/label_QuestionSuivante"
+                                    android:imeOptions="actionUnspecified"
+                                    app:bootstrapBrand="info"
+                                    app:bootstrapSize="lg"
+                                    android:layout_alignParentTop="true"
+                                    />
+                            </LinearLayout>
+
+                            <!-- Frijidè /Frizè  -->
+                            <LinearLayout
+                                android:id="@+id/RL_FrijideFrize"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginBottom="@dimen/activity_10dp"
+                                >
+
+                                <TextView
+                                    android:id="@+id/tv_FrijideFrize"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="22dp"
+                                    android:layout_weight="1"
+                                    android:text="@string/label_FrijideFrize"
+                                    android:textAppearance="?android:attr/textAppearanceLarge"
+                                    android:textColor="@color/colorBlack"
+                                    android:layout_marginTop="5dp"
+                                    android:textStyle="bold"
+                                    />
+
+                                <com.beardedhen.androidbootstrap.BootstrapEditText
+                                    android:id="@+id/et_FrijideFrize"
+                                    android:hint="@string/label_FrijideFrize"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:inputType="number"
+                                    android:maxLines="1"
+                                    android:maxLength="2"
+                                    android:singleLine="true"
+                                    android:imeActionId="@+id/imeActionId_EtReponse"
+                                    android:imeActionLabel="@string/label_QuestionSuivante"
+                                    android:imeOptions="actionUnspecified"
+                                    app:bootstrapBrand="info"
+                                    app:bootstrapSize="lg"
+                                    android:layout_alignParentTop="true"
+                                    />
+                            </LinearLayout>
+
+                            <!-- Fou elektrik/ fou ak gaz -->
+                            <LinearLayout
+                                android:id="@+id/RL_FouElektrikFouAkGaz"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginBottom="@dimen/activity_10dp"
+                                >
+
+                                <TextView
+                                    android:id="@+id/tv_FouElektrikFouAkGaz"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="22dp"
+                                    android:layout_weight="1"
+                                    android:text="@string/label_FouElektrikFouAkGaz"
+                                    android:textAppearance="?android:attr/textAppearanceLarge"
+                                    android:textColor="@color/colorBlack"
+                                    android:layout_marginTop="5dp"
+                                    android:textStyle="bold"
+                                    />
+
+                                <com.beardedhen.androidbootstrap.BootstrapEditText
+                                    android:id="@+id/et_FouElektrikFouAkGaz"
+                                    android:hint="@string/label_FouElektrikFouAkGaz"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:inputType="number"
+                                    android:maxLines="1"
+                                    android:maxLength="2"
+                                    android:singleLine="true"
+                                    android:imeActionId="@+id/imeActionId_EtReponse"
+                                    android:imeActionLabel="@string/label_QuestionSuivante"
+                                    android:imeOptions="actionUnspecified"
+                                    app:bootstrapBrand="info"
+                                    app:bootstrapSize="lg"
+                                    android:layout_alignParentTop="true"
+                                    />
+                            </LinearLayout>
+
+                            <!-- Òdinatè PC/Laptòp / Tablèt nimerik -->
+                            <LinearLayout
+                                android:id="@+id/RL_OdinatePCLaptopTabletNimerik"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginBottom="@dimen/activity_10dp"
+                                >
+
+                                <TextView
+                                    android:id="@+id/tv_OdinatePCLaptopTabletNimerik"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="22dp"
+                                    android:layout_weight="1"
+                                    android:text="@string/label_OdinatePCLaptopTabletNimerik"
+                                    android:textAppearance="?android:attr/textAppearanceLarge"
+                                    android:textColor="@color/colorBlack"
+                                    android:layout_marginTop="5dp"
+                                    android:textStyle="bold"
+                                    />
+
+                                <com.beardedhen.androidbootstrap.BootstrapEditText
+                                    android:id="@+id/et_OdinatePCLaptopTabletNimerik"
+                                    android:hint="@string/label_OdinatePCLaptopTabletNimerik"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:inputType="number"
+                                    android:maxLines="1"
+                                    android:maxLength="2"
+                                    android:singleLine="true"
+                                    android:imeActionId="@+id/imeActionId_EtReponse"
+                                    android:imeActionLabel="@string/label_QuestionSuivante"
+                                    android:imeOptions="actionUnspecified"
+                                    app:bootstrapBrand="info"
+                                    app:bootstrapSize="lg"
+                                    android:layout_alignParentTop="true"
+                                    />
+                            </LinearLayout>
+
+                            <!-- Bisiklèt/Motosiklèt -->
+                            <LinearLayout
+                                android:id="@+id/RL_BisikletMotosiklet"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginBottom="@dimen/activity_10dp"
+                                >
+
+                                <TextView
+                                    android:id="@+id/tv_BisikletMotosiklet"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="22dp"
+                                    android:layout_weight="1"
+                                    android:text="@string/label_BisikletMotosiklet"
+                                    android:textAppearance="?android:attr/textAppearanceLarge"
+                                    android:textColor="@color/colorBlack"
+                                    android:layout_marginTop="5dp"
+                                    android:textStyle="bold"
+                                    />
+
+                                <com.beardedhen.androidbootstrap.BootstrapEditText
+                                    android:id="@+id/et_BisikletMotosiklet"
+                                    android:hint="@string/label_BisikletMotosiklet"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:inputType="number"
+                                    android:maxLines="1"
+                                    android:maxLength="2"
+                                    android:singleLine="true"
+                                    android:imeActionId="@+id/imeActionId_EtReponse"
+                                    android:imeActionLabel="@string/label_QuestionSuivante"
+                                    android:imeOptions="actionUnspecified"
+                                    app:bootstrapBrand="info"
+                                    app:bootstrapSize="lg"
+                                    android:layout_alignParentTop="true"
+                                    />
+                            </LinearLayout>
+
+                            <!-- Vwati, Machin   -->
+                            <LinearLayout
+                                android:id="@+id/RL_VwatiMachin"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginBottom="@dimen/activity_10dp"
+                                >
+
+                                <TextView
+                                    android:id="@+id/tv_VwatiMachin"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="22dp"
+                                    android:layout_weight="1"
+                                    android:text="@string/label_VwatiMachin"
+                                    android:textAppearance="?android:attr/textAppearanceLarge"
+                                    android:textColor="@color/colorBlack"
+                                    android:layout_marginTop="5dp"
+                                    android:textStyle="bold"
+                                    />
+
+                                <com.beardedhen.androidbootstrap.BootstrapEditText
+                                    android:id="@+id/et_VwatiMachin"
+                                    android:hint="@string/label_VwatiMachin"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:inputType="number"
+                                    android:maxLines="1"
+                                    android:maxLength="2"
+                                    android:singleLine="true"
+                                    android:imeActionId="@+id/imeActionId_EtReponse"
+                                    android:imeActionLabel="@string/label_QuestionSuivante"
+                                    android:imeOptions="actionUnspecified"
+                                    app:bootstrapBrand="info"
+                                    app:bootstrapSize="lg"
+                                    android:layout_alignParentTop="true"
+                                    />
+                            </LinearLayout>
+
+                            <!-- Kannòt / bato   -->
+                            <LinearLayout
+                                android:id="@+id/RL_KannotBato"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginBottom="@dimen/activity_10dp"
+                                >
+
+                                <TextView
+                                    android:id="@+id/tv_KannotBato"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="22dp"
+                                    android:layout_weight="1"
+                                    android:text="@string/label_KannotBato"
+                                    android:textAppearance="?android:attr/textAppearanceLarge"
+                                    android:textColor="@color/colorBlack"
+                                    android:layout_marginTop="5dp"
+                                    android:textStyle="bold"
+                                    />
+
+                                <com.beardedhen.androidbootstrap.BootstrapEditText
+                                    android:id="@+id/et_KannotBato"
+                                    android:hint="@string/label_KannotBato"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:inputType="number"
+                                    android:maxLines="1"
+                                    android:maxLength="2"
+                                    android:singleLine="true"
+                                    android:imeActionId="@+id/imeActionId_EtReponse"
+                                    android:imeActionLabel="@string/label_QuestionSuivante"
+                                    android:imeOptions="actionUnspecified"
+                                    app:bootstrapBrand="info"
+                                    app:bootstrapSize="lg"
+                                    android:layout_alignParentTop="true"
+                                    />
+                            </LinearLayout>
+
+                            <!-- Invètè / Pano solè/Jeneratris (Delko ) -->
+                            <LinearLayout
+                                android:id="@+id/RL_InvetePanoSoleJeneratrisDelko"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginBottom="@dimen/activity_10dp"
+                                >
+
+                                <TextView
+                                    android:id="@+id/tv_InvetePanoSoleJeneratrisDelko"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="22dp"
+                                    android:layout_weight="1"
+                                    android:text="@string/label_InvetePanoSoleJeneratrisDelko"
+                                    android:textAppearance="?android:attr/textAppearanceLarge"
+                                    android:textColor="@color/colorBlack"
+                                    android:layout_marginTop="5dp"
+                                    android:textStyle="bold"
+                                    />
+
+                                <com.beardedhen.androidbootstrap.BootstrapEditText
+                                    android:id="@+id/et_InvetePanoSoleJeneratrisDelko"
+                                    android:hint="@string/label_InvetePanoSoleJeneratrisDelko"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:inputType="number"
+                                    android:maxLines="1"
+                                    android:maxLength="2"
+                                    android:singleLine="true"
+                                    android:imeActionId="@+id/imeActionId_EtReponse"
+                                    android:imeActionLabel="@string/label_QuestionSuivante"
+                                    android:imeOptions="actionUnspecified"
+                                    app:bootstrapBrand="info"
+                                    app:bootstrapSize="lg"
+                                    android:layout_alignParentTop="true"
+                                    />
+                            </LinearLayout>
+
+                            <!-- Milèt/ Chwal/ Bourik -->
+                            <LinearLayout
+                                android:id="@+id/RL_MiletChwalBourik"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginBottom="@dimen/activity_10dp"
+                                >
+
+                                <TextView
+                                    android:id="@+id/tv_MiletChwalBourik"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="22dp"
+                                    android:layout_weight="1"
+                                    android:text="@string/label_MiletChwalBourik"
+                                    android:textAppearance="?android:attr/textAppearanceLarge"
+                                    android:textColor="@color/colorBlack"
+                                    android:layout_marginTop="5dp"
+                                    android:textStyle="bold"
+                                    />
+
+                                <com.beardedhen.androidbootstrap.BootstrapEditText
+                                    android:id="@+id/et_MiletChwalBourik"
+                                    android:hint="@string/label_MiletChwalBourik"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:inputType="number"
+                                    android:maxLines="1"
+                                    android:maxLength="2"
+                                    android:singleLine="true"
+                                    android:imeActionId="@+id/imeActionId_EtReponse"
+                                    android:imeActionLabel="@string/label_QuestionSuivante"
+                                    android:imeOptions="actionUnspecified"
+                                    app:bootstrapBrand="info"
+                                    app:bootstrapSize="lg"
+                                    android:layout_alignParentTop="true"
+                                    />
+                            </LinearLayout>
+
+                            <!-- Bèf / Vach -->
+                            <LinearLayout
+                                android:id="@+id/RL_BefVach"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginBottom="@dimen/activity_10dp"
+                                >
+
+                                <TextView
+                                    android:id="@+id/tv_BefVach"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="22dp"
+                                    android:layout_weight="1"
+                                    android:text="@string/label_BefVach"
+                                    android:textAppearance="?android:attr/textAppearanceLarge"
+                                    android:textColor="@color/colorBlack"
+                                    android:layout_marginTop="5dp"
+                                    android:textStyle="bold"
+                                    />
+
+                                <com.beardedhen.androidbootstrap.BootstrapEditText
+                                    android:id="@+id/et_BefVach"
+                                    android:hint="@string/label_BefVach"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:inputType="number"
+                                    android:maxLines="1"
+                                    android:maxLength="2"
+                                    android:singleLine="true"
+                                    android:imeActionId="@+id/imeActionId_EtReponse"
+                                    android:imeActionLabel="@string/label_QuestionSuivante"
+                                    android:imeOptions="actionUnspecified"
+                                    app:bootstrapBrand="info"
+                                    app:bootstrapSize="lg"
+                                    android:layout_alignParentTop="true"
+                                    />
+                            </LinearLayout>
+
+                            <!-- Kochon/ Kabrit -->
+                            <LinearLayout
+                                android:id="@+id/RL_KochonKabrit"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginBottom="@dimen/activity_10dp"
+                                >
+
+                                <TextView
+                                    android:id="@+id/tv_KochonKabrit"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="22dp"
+                                    android:layout_weight="1"
+                                    android:text="@string/label_KochonKabrit"
+                                    android:textAppearance="?android:attr/textAppearanceLarge"
+                                    android:textColor="@color/colorBlack"
+                                    android:layout_marginTop="5dp"
+                                    android:textStyle="bold"
+                                    />
+
+                                <com.beardedhen.androidbootstrap.BootstrapEditText
+                                    android:id="@+id/et_KochonKabrit"
+                                    android:hint="@string/label_KochonKabrit"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:inputType="number"
+                                    android:maxLines="1"
+                                    android:maxLength="2"
+                                    android:singleLine="true"
+                                    android:imeActionId="@+id/imeActionId_EtReponse"
+                                    android:imeActionLabel="@string/label_QuestionSuivante"
+                                    android:imeOptions="actionUnspecified"
+                                    app:bootstrapBrand="info"
+                                    app:bootstrapSize="lg"
+                                    android:layout_alignParentTop="true"
+                                    />
+                            </LinearLayout>
+
+                            <!-- Bèt Volay (Poul, Kok, eks.) -->
+                            <LinearLayout
+                                android:id="@+id/RL_BetVolayPoulKok"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginBottom="@dimen/activity_10dp"
+                                >
+
+                                <TextView
+                                    android:id="@+id/tv_BetVolayPoulKok"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="22dp"
+                                    android:layout_weight="1"
+                                    android:text="@string/label_BetVolayPoulKok"
+                                    android:textAppearance="?android:attr/textAppearanceLarge"
+                                    android:textColor="@color/colorBlack"
+                                    android:layout_marginTop="5dp"
+                                    android:textStyle="bold"
+                                    />
+
+                                <com.beardedhen.androidbootstrap.BootstrapEditText
+                                    android:id="@+id/et_BetVolayPoulKok"
+                                    android:hint="@string/label_BetVolayPoulKok"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:inputType="number"
+                                    android:maxLines="1"
+                                    android:maxLength="2"
+                                    android:singleLine="true"
+                                    app:bootstrapBrand="info"
+                                    app:bootstrapSize="lg"
+                                    android:layout_alignParentTop="true"
+                                    android:imeActionId="@integer/imeActionId_EtReponse_6"
+                                    android:imeActionLabel="@string/label_QuestionSuivante"
+                                    android:imeOptions="actionUnspecified"
+                                    />
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                        <!-- recyclerViewReponse -->
+                        <LinearLayout
+                            android:id="@+id/LL_RecyclerView"
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:paddingLeft="@dimen/activity_horizontal_margin"
+                            android:paddingRight="@dimen/activity_horizontal_margin"
+                            >
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/recyclerViewReponse"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </ScrollView>
+
+            </LinearLayout>
+
+        <!--<TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="enfòmasyon sa yo pap anrejistre..."
+            android:textAlignment="center"
+            android:background="@color/bootstrap_brand_danger"
+            android:padding="5dp"
+            />-->
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btn_Precedent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:text="@string/label_QuestionPrecedente"
+        android:background="@drawable/layout_selector_gris"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_weight="1"
+        android:shadowColor="#000"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="1.0"
+        android:textColor="@color/colorBlack"
+        android:textSize="22dp"
+        android:typeface="serif"
+        />
+
+    <Button
+        android:id="@+id/btn_Suivant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_QuestionSuivante"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/layout_selector_bleu"
+        android:textSize="22dp"
+        android:shadowColor="#000"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="1.0"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:typeface="serif"
+        android:clickable="true"
+        android:paddingLeft="20dp"
+        android:layout_margin="5dp"
+        android:paddingRight="20dp"
+        android:layout_weight="1"
+        />
+</RelativeLayout>

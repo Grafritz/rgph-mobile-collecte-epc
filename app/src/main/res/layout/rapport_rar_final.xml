@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bootstrap_gray_lighter"
+    android:weightSum="1">
+
+    <ScrollView
+        android:id="@+id/scrollView_RAR_Final"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/LinearLayout_messageChangerdeModule"
+                style="@style/linearLayoutStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_GrandTitre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp"
+                    android:text="@string/label_TitreRapportFinal"
+                    android:textAlignment="center"
+                    android:textColor="@color/bootstrap_brand_primary"
+                    android:textSize="20dp"
+                    android:textAllCaps="true"
+                    />
+
+
+                <TextView
+                    style="@style/tvTitre_rar_final"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_RAR_F_EVB1" />
+
+                <RelativeLayout
+                    android:id="@+id/RL_RepondantPrincipal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/my_shape"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/sp_RepondantPrincipal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="center"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:imeActionId="@+id/imeActionId_EtReponse"
+                        android:imeActionLabel="@string/label_QuestionSuivante"
+                        android:imeOptions="actionUnspecified"
+                        android:prompt="@string/label_Chwazi_yon_Repons"
+                        android:spinnerMode="dialog" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/my_drop" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_GrandTitre2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="3dp"
+                android:text="@string/label_TitreRapportFinal2"
+                android:textAlignment="center"
+                android:textColor="@color/bootstrap_brand_primary"
+                android:textSize="20dp"
+                android:textAllCaps="true"
+                />
+
+            <LinearLayout
+                style="@style/linearLayoutStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    style="@style/tvTitre_rar_final"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_AktiviteEkonomik"
+                    android:textSize="20dp"
+                    android:textAllCaps="true"
+                    android:textColor="@color/bootstrap_brand_danger"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_AE_EsKeGenMounKiEde"
+                    style="@style/tvTitre_rar_final"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_eskeGenMounKiEde" />
+
+                <RelativeLayout
+                    android:id="@+id/RL_AE_EsKeGenMounKiEde"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/my_shape"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/sp_AE_EsKeGenMounKiEde"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="center"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:imeActionId="@+id/imeActionId_EtReponse"
+                        android:imeActionLabel="@string/label_QuestionSuivante"
+                        android:imeOptions="actionUnspecified"
+                        android:prompt="@string/label_Chwazi_yon_Repons"
+                        android:spinnerMode="dialog" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/my_drop" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tv_AE_IsVivreDansMenage"
+                    style="@style/tvTitre_rar_final"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_Eske_Moun_Sa_Viv_Nan_menaj_la" />
+
+                <RelativeLayout
+                    android:id="@+id/RL_AE_IsVivreDansMenage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/my_shape"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/sp_AE_IsVivreDansMenage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="center"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:imeActionId="@+id/imeActionId_EtReponse"
+                        android:imeActionLabel="@string/label_QuestionSuivante"
+                        android:imeOptions="actionUnspecified"
+                        android:prompt="@string/label_Chwazi_yon_Repons"
+                        android:spinnerMode="dialog" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/my_drop" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tv_AE_RepondantQuiAide"
+                    style="@style/tvTitre_rar_final"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_Kiles_Ki_Ede_Repondan_An" />
+
+                <RelativeLayout
+                    android:id="@+id/RL_AE_RepondantQuiAide"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/my_shape"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/sp_AE_RepondantQuiAide"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="center"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:imeActionId="@+id/imeActionId_EtReponse"
+                        android:imeActionLabel="@string/label_QuestionSuivante"
+                        android:imeOptions="actionUnspecified"
+                        android:prompt="@string/label_Chwazi_yon_Repons"
+                        android:spinnerMode="dialog" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/my_drop" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/linearLayoutStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    style="@style/tvTitre_rar_final"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_Fekondite"
+                    android:textSize="20dp"
+                    android:textAllCaps="true"
+                    android:textColor="@color/bootstrap_brand_danger"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_F_EsKeGenMounKiEde"
+                    style="@style/tvTitre_rar_final"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_eskeGenMounKiEde" />
+
+                <RelativeLayout
+                    android:id="@+id/RL_F_EsKeGenMounKiEde"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/my_shape"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/sp_F_EsKeGenMounKiEde"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="center"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:imeActionId="@+id/imeActionId_EtReponse"
+                        android:imeActionLabel="@string/label_QuestionSuivante"
+                        android:imeOptions="actionUnspecified"
+                        android:prompt="@string/label_Chwazi_yon_Repons"
+                        android:spinnerMode="dialog" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/my_drop" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tv_F_IsVivreDansMenage"
+                    style="@style/tvTitre_rar_final"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_Eske_Moun_Sa_Viv_Nan_menaj_la" />
+
+                <RelativeLayout
+                    android:id="@+id/RL_F_IsVivreDansMenage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/my_shape"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/sp_F_IsVivreDansMenage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="center"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:imeActionId="@+id/imeActionId_EtReponse"
+                        android:imeActionLabel="@string/label_QuestionSuivante"
+                        android:imeOptions="actionUnspecified"
+                        android:prompt="@string/label_Chwazi_yon_Repons"
+                        android:spinnerMode="dialog" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/my_drop" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tv_F_RepondantQuiAide"
+                    style="@style/tvTitre_rar_final"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_Kiles_Ki_Ede_Repondan_An" />
+
+                <RelativeLayout
+                    android:id="@+id/RL_F_RepondantQuiAide"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/my_shape"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/sp_F_RepondantQuiAide"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="center"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:imeActionId="@+id/imeActionId_EtReponse"
+                        android:imeActionLabel="@string/label_QuestionSuivante"
+                        android:imeOptions="actionUnspecified"
+                        android:prompt="@string/label_Chwazi_yon_Repons"
+                        android:spinnerMode="dialog" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/my_drop" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/linearLayoutStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnContinuer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/layout_selector_bleu"
+                    android:clickable="true"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:shadowColor="#000"
+                    android:shadowDx="2"
+                    android:shadowDy="2"
+                    android:shadowRadius="1.0"
+                    android:text="@string/label_Konfime"
+                    android:textColor="@color/white"
+                    android:textSize="22dp"
+                    android:textStyle="bold"
+                    android:typeface="serif"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

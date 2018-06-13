@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/rgph_gray">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:navigationIcon="@drawable/arrow_left"
+        app:collapseIcon="@mipmap/ic_launcher"
+        android:background="@color/theme_primary"
+        app:titleTextColor="@color/white"
+        android:textAlignment="center"
+        app:subtitleTextColor="@color/white"
+        />
+
+    <com.miguelcatalan.materialsearchview.MaterialSearchView
+        android:id="@+id/search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/MaterialSearchViewStyle"/>
+
+    <LinearLayout
+        android:id="@+id/layout_header"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:gravity="center"
+        android:layout_below="@+id/toolbar"
+        android:background="@drawable/border_shadow">
+
+        <TextView
+            android:id="@+id/list_header_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="1dp"
+            android:shadowColor="#000"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="1.0"
+            android:text="BATIMAN KI PA FINI"
+            android:textColor="@color/theme_primary"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:typeface="serif" />
+
+        <TextView
+            android:id="@+id/list_header_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp"
+            android:shadowColor="#fff"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="0.0"
+            android:text="SDE:001-1254-8574-58"
+            android:textColor="@color/bootstrap_brand_danger"
+            android:textSize="18dp"
+            android:gravity="right"
+            android:textStyle="bold"
+            android:typeface="serif" />
+    </LinearLayout>
+
+    <ExpandableListView
+        android:id="@+id/expandable_ListView"
+        android:cacheColorHint="#00000000"
+
+        class="android.support.v7.widget.RecyclerView"
+        android:background="@drawable/border_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
+
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:verticalSpacing="@dimen/margin_5dp"
+        android:layout_below="@+id/layout_header"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+         />
+    <!--
+       android:divider="#f00"
+        android:dividerHeight="1dp"
+        android:listSelector="#"
+    android:dividerHeight="1dp"
+    android:childDivider="#0f0"-->
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+</RelativeLayout>

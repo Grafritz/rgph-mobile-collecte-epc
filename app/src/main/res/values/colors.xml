@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#ff8800</color>
+    <color name="colorOrange">#ff8800</color>
+    <color name="colorGreenDark">#006633</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorRed">#B71C1C</color>
+
+    <color name="year">#999999</color>
+    <color name="title">#000000</color><!-- #222222 #004B95-->
+    <color name="under_title">#C1C6C5</color><!-- #222222-->
+    <color name="rgph_gray">#e7e9e9</color>
+    <color name="white">#ffffff</color>
+
+
+    <color name="colorBgGrandTitre">#304FFE</color>
+    <color name="colorBgSousCategorie">#8C9EFF</color>
+
+
+    <color name="theme_primary">#2196F3</color>
+    <color name="theme_primary_dark">#1976D2</color>
+    <color name="theme_primary_light">#BBDEFB</color>
+
+    <color name="theme_background">#FFFFFF</color>
+    <color name="theme_background_inverse">#212121</color>
+
+    <color name="theme_accent_1">#212121</color>
+
+    <color name="theme_primary_trans">#99212121</color>
+
+    <color name="theme_primary_text">#212121</color>
+    <color name="theme_secondary_text">#727272</color>
+    <color name="theme_primary_text_inverted">#ffffff</color>
+    <color name="theme_secondary_text_inverted">#8affffff</color>
+    <color name="theme_icons">#FFFFFF</color>
+    <color name="theme_divider">#B6B6B6</color>
+
+    <color name="rgph_custom_gray">#6D99A9</color>
+    <color name="rgph_custom_gray_highLight">#c7e2ec</color>
+
+    <color name="rgph_list_image_gb">#05013b68</color>
+    <color name="rgph_list_desc">#1976D2</color>
+
+    <color name="button_pressed">#e4e3e1</color>
+    <color name="button_focused">#ff8a00</color>
+    <color name="button_default">#CCCCCC</color>
+
+    <color name="button_pressed_green">#4DB6AC</color>
+    <color name="button_pressed_orange">#FFB74D</color>
+    <color name="button_pressed_orange2">#FFCA28</color>
+
+    <color name="button_pressed_rougeLight">#FFEBEE</color>
+    <color name="button_pressed_rouge">#EF5350</color>
+
+    <color name="button_pressed_bleuLight">#E3F2FD</color>
+    <color name="button_pressed_bleu">#2196F3</color>
+    <color name="button_pressed_bleuEnd">#90CAF9</color>
+
+    <color name="button_pressed_grisLight">#D6D6D6</color>
+    <color name="button_pressed_gris">#E2E2E2</color>
+    <color name="button_pressed_grisEnd">#BABABA</color>
+
+</resources>

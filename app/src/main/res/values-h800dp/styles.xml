@@ -1,0 +1,33 @@
+<resources>
+    <!-- resolution 800dp et plus pour le mode Portrait  -->
+    <style name="StyleLayoutPortait">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:padding">15dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+    </style>
+
+    <style name="DashboardButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:drawablePadding">5dp</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <!--<item name="android:layout_marginBottom">20dp</item>-->
+        <item name="android:textSize">20dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/theme_primary</item>
+        <item name="android:background">@null</item>
+    </style>
+
+    <style name="DashboardTextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:layout_margin">0dp</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:background">@color/theme_primary</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">20dp</item>
+    </style>
+</resources>

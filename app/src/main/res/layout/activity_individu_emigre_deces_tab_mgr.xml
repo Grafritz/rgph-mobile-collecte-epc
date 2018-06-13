@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    >
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/rgph_gray"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        >
+
+        <LinearLayout
+            android:id="@+id/layout"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:gravity="center"
+            android:elevation="4dp"
+            android:background="@drawable/border_shadow">
+
+            <TextView
+                android:id="@+id/list_header_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="1dp"
+                android:shadowColor="#000"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="1.0"
+                android:text="JERE LOJMAN"
+                android:textColor="@color/theme_primary"
+                android:textSize="25dp"
+                android:textStyle="bold"
+                android:typeface="serif" />
+
+            <TextView
+                android:id="@+id/list_header_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="1dp"
+                android:shadowColor="#fff"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="0.0"
+                android:text="OUEST | PORT-AU-PRINCE | 00111-10-123-90 "
+                android:textColor="@color/bootstrap_brand_danger"
+                android:textSize="18dp"
+                android:gravity="right"
+                android:textStyle="bold"
+                android:typeface="serif" />
+        </LinearLayout>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabLayoutHead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabTextColor="@color/colorWhite"
+            app:tabMaxWidth="0dp"
+            style="@style/MyCustomTabLayout"
+            android:textSize="20dp"
+            app:tabSelectedTextColor="@color/colorOrange"
+
+            android:background="@color/theme_primary"
+            >
+        </android.support.design.widget.TabLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPagerContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
+
+        <TextView
+            android:id="@+id/tv_GrandTitre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorBgSousCategorie"
+            android:textSize="18dp"
+            android:text="SOUS-TITRE 1"
+            android:paddingTop="@dimen/margin_5dp"
+            android:paddingBottom="@dimen/margin_5dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/colorWhite"
+            android:textAlignment="center"
+            />
+
+    </android.support.v4.view.ViewPager>
+</android.support.design.widget.CoordinatorLayout>

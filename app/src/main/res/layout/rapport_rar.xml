@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bootstrap_gray_lighter"
+    android:weightSum="1">
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                style="@style/linearLayoutStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_GrandTitre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp"
+                    android:text="Rapò Ajan Resansè a"
+                    android:textAlignment="center"
+                    android:textColor="@color/bootstrap_brand_primary"
+                    android:textSize="22dp" />
+
+                <TextView
+                    style="@style/tvTitre2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_Raison" />
+
+                <RelativeLayout
+                    android:id="@+id/RL_Rezon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/my_shape"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/sp_Rezon"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="center"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:imeActionId="@+id/imeActionId_EtReponse"
+                        android:imeActionLabel="@string/label_QuestionSuivante"
+                        android:imeOptions="actionUnspecified"
+                        android:prompt="@string/label_Raison"
+                        android:spinnerMode="dialog" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/my_drop" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/LL_LotRezon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_LotRezon"
+                        style="@style/tvTitre2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_LotRezon" />
+
+                    <EditText
+                        android:id="@+id/et_LotRezon"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/my_shape"
+                        android:hint="@string/label_LotRezon"
+                        android:inputType="text"
+                        android:padding="10dp"
+                        android:singleLine="false" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/linearLayoutStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnQuitter"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/layout_selector_gris"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:shadowColor="#000"
+                    android:shadowDx="2"
+                    android:shadowDy="2"
+                    android:shadowRadius="1.0"
+                    android:text="@string/label_QuestionPrecedente"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="22dp"
+                    android:typeface="serif" />
+
+                <Button
+                    android:id="@+id/btnContinuer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="5dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/layout_selector_bleu"
+                    android:clickable="true"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:shadowColor="#000"
+                    android:shadowDx="2"
+                    android:shadowDy="2"
+                    android:shadowRadius="1.0"
+                    android:text="@string/label_Konfime"
+                    android:textColor="@color/white"
+                    android:textSize="22dp"
+                    android:textStyle="bold"
+                    android:typeface="serif"
+
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearLayout_messageChangerdeModule"
+                style="@style/linearLayoutStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_messageChangerdeModule"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp"
+                    android:text="@string/msg_InfoRapportChangerdeModule"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorRed"
+                    android:textSize="18dp" />
+
+                <Button
+                    android:id="@+id/btnContinuerEtChangerdeModule"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/layout_selector_rouge"
+                    android:clickable="true"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:shadowColor="#000"
+                    android:shadowDx="2"
+                    android:shadowDy="2"
+                    android:shadowRadius="1.0"
+                    android:text="@string/label_KonfimeEpiKiteResYo"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="22dp"
+                    android:textStyle="bold"
+                    android:typeface="serif" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,330 @@
+<resources>
+    <string name="app_name">IHSI - Kòlèk RGPH</string>
+    <string name="action_settings">paramèt</string>
+
+
+    <!-- Chaines pour batiment -->
+    <string name="label_batiman">Batiman</string>
+    <string name="label_titre_batiman">RGPH : JERE BATIMAN</string>
+    <string name="label_ajoute_batiman">Ajoute Batiman</string>
+    <string name="label_batiman_ki_pa_fini">Batiman ki pa fini </string>
+    <string name="label_batiman_ki_mal_ranpli">Batiman ki mal ranpli </string>
+    <string name="label_batiman_ki_fini">BATIMAN KI FINI </string>
+    <string name="label_Kont_Itilizate">Kont Itilizatè </string>
+
+    <string name="label_TitreMenuPopUp">{0}</string>
+    <string name="label_MessageMenuPopUp">Ki sa ou vle fè ?</string>
+
+    <string name="label_GoToModuleFille">Ale nan lojman</string>
+    <string name="label_OuvrirFormulaireModule">Afiche Fòmilè  la</string>
+    <string name="label_UpdateFormulaireModule">Modifye Fòmilè  la</string>
+
+    <!-- Chaines pour Module -->
+    <string name="label_ajoute_Module">Ajoute Module</string>
+    <string name="label_Module_ki_pa_fini">Module ki pa fini</string>
+    <string name="label_Module_ki_mal_ranpli">Module ki mal ranpli </string>
+    <string name="label_Module_ki_fini">Module ki fini </string>
+
+    <!-- Chaines pour Logement Collectif -->
+    <string name="label_tit_lojmanKol">RGPH : Jere lojman</string>
+    <string name="label_ajoute_lojmanKol">Ajoute Lojman Kolektif</string>
+    <string name="label_lojmanKol_ki_pa_fini">Lojman Kolektif ki pa fini </string>
+    <string name="label_lojmanKol_ki_mal_ranpli">Lojman Kolektif ki mal ranpli </string>
+    <string name="label_lojmanKol_ki_fini">Lojman Kolektif ki fini </string>
+    <string name="label_lojmanKolektif">Lojman Kolektif </string>
+
+    <!-- Chaines pour Logement Individuel -->
+    <string name="label_tit_JesyonLojman">RGPH : Jere lojman</string>
+    <string name="label_tit_lojmanInd">Jere lojman Endividyèl</string>
+    <string name="label_ajoute_lojmanInd">Ajoute Lojman Endividyèl</string>
+    <string name="label_lojmanInd_ki_pa_fini">Lojman Endividyèl ki pa fini </string>
+    <string name="label_lojmanInd_ki_mal_ranpli">Lojman Endividyèl ki mal ranpli </string>
+    <string name="label_lojmanInd_ki_fini">Lojman Endividyèl ki fini </string>
+    <string name="label_lojmanEndividyel">Lojman Endividyèl </string>
+
+    <!-- Chaines pour Menage -->
+    <string name="label_tit_menage">RGPH : Jere menaj</string>
+    <string name="label_ajoute_menage">Ajoute menaj</string>
+    <string name="label_menaj_ki_pa_fini">Menaj ki pa fini </string>
+    <string name="label_menaj_ki_mal_ranpli">Menaj ki mal ranpli </string>
+    <string name="label_menaj_ki_fini">Menaj ki fini </string>
+    <string name="label_menaj">Menaj </string>
+
+    <!-- Chaines pour Emigrer -->
+    <string name="label_tit_emigre">RGPH : Jere Emigre</string>
+    <string name="label_ajoute_emigre">Ajoute Emigre</string>
+    <string name="label_emigre_ki_pa_fini">Emigre ki pa fini </string>
+    <string name="label_emigre_ki_mal_ranpli">Emigre ki mal ranpli </string>
+    <string name="label_emigre_ki_fini">Emigre ki fini </string>
+    <string name="label_emigre">Emigre </string>
+
+    <!-- Chaines pour Decès -->
+    <string name="label_tit_mounMouri">RGPH : Jere Moun Mouri</string>
+    <string name="label_ajoute_mounMouri">Ajoute Moun Mouri</string>
+    <string name="label_mounMouri_ki_pa_fini">Moun Mouri ki pa fini </string>
+    <string name="label_mounMouri_ki_mal_ranpli">Moun Mouri ki mal ranpli </string>
+    <string name="label_mounMouri_ki_fini">Moun Mouri ki fini </string>
+    <string name="label_mounMouri">Moun Mouri </string>
+
+    <!-- Chaines pour Individus -->
+    <string name="label_tit_moun">RGPH : Jere Moun</string>
+    <string name="label_ajoute_moun">Ajoute Moun</string>
+    <string name="label_moun_ki_pa_fini">Moun ki pa fini </string>
+    <string name="label_moun_ki_mal_ranpli">Moun ki mal ranpli </string>
+    <string name="label_moun_ki_fini">Moun ki fini </string>
+    <string name="label_moun">Moun  </string>
+
+    <string name="label_loginLogout">Login</string>
+    <string name="label_settings">Paramèt yo</string>
+    <string name="label_profil">Profil</string>
+    <string name="label_chargementPleaseWait">Fè yon ti tann sil vou plè...</string>
+    <string name="label_Batiment">Batiman</string>
+    <string name="title_activity_login">Konekte</string>
+
+    <!-- Strings related to login -->
+    <string name="label_CompteUtilisateur">Kont Itilizatè</string>
+    <string name="label_MotDePasse">Kòd sekrè</string>
+    <string name="action_Connecter">Konekte</string>
+    <string name="label_Deconnecter">Dekonekte</string>
+    <string name="msg_MotDePasse_Obligatoire">Ou dwe antre kòd sekrè ou a</string>
+    <string name="msg_Username_Obligatoire">Ou dwe antre yon kont itilizatè</string>
+    <string name="msg_MotDePasse_TropCourt">Kòd sekrè ou antre a trò kout</string>
+    <string name="msg_UserName_ou_MotDePasse_Incorrect">Kont itilizatè oubyen Kòd sekrè ou antre a bon.</string>
+
+    <string name="label_titre_connexion">RGPH:Koneksyon</string>
+    <string name="label_QuestionPrecedente">Tounen</string>
+    <string name="label_QuestionSuivante">Kontinye</string>
+    <string name="label_Chwazi_yon_Repons">Chwazi yon repons</string>
+    <string name="label_email">Email</string>
+
+    <string name="msg_title_succesInformation">.:: Enfòmasyon ::.</string>
+    <string name="msg_title_erreurInformation">.:: Atansyon ::.</string>
+    <string name="msg_Reponse_Ou_Dwe_Ekri_Yon_Repons">Ou dwe ekri yon repons</string>
+    <string name="msg_Reponse_Ou_Dwe_Chwazi_Yon_Repons">Ou dwe chwazi yon repons</string>
+    <string name="msg_Reponse_Ou_Dwe_Chwazi_Yon_Peyi">Ou dwe chwazi yon peyi</string>
+    <string name="msg_Reponse_Ou_Dwe_Chwazi_Yon_Depatman">Ou dwe chwazi yon Depatman</string>
+    <string name="msg_Reponse_Ou_Dwe_Chwazi_Yon_Komin">Ou dwe chwazi yon Komin</string>
+    <string name="msg_Reponse_Ou_Dwe_Chwazi_Yon_DomènEtid">Ou dwe chwazi yon Domèn Etid</string>
+    <string name="msg_Reponse_Ou_Dwe_Chwazi_Yon_lot_Repons">Ou dwe chwazi yon lòt repons ankò</string>
+    <string name="msg_Reponse_Ou_Dwe_Ekri_Let_Oubye_Chif_Selman">Ou dwe ekri lèt oubyen chif sèlman</string>
+    <string name="msg_Reponse_Ou_Dwe_Ekri_Chif_Selman">Ou dwe ekri chif sèlman</string>
+    <string name="msg_Reponse_Ou_Dwe_Ekri_Let_Selman">Ou dwe ekri lèt sèlman</string>
+    <string name="msg_Reponse_Ou_Dwe">Ou dwe </string>
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">Enfòmasyon sou Ajan a</string>
+
+    <string name="pref_title_ActivationCompte">Skew konekte?</string>
+    <string name="pref_description_ActivationCompte">Si ajen an konekte se la ou ap kapab wè sa...</string>
+
+    <string name="pref_title_UserName">@string/label_CompteUtilisateur</string>
+    <string name="pref_default_UserName">...</string>
+    <string name="pref_title_PrenomEtNom">Non ak Siyati</string>
+    <string name="pref_default_PrenomEtNom">...</string>
+
+    <string name="pref_title_SdeId">SDE ID</string>
+    <string name="label_LastLogin">Dat dènye fwa ou konekte</string>
+    <string name="label_DateInscription">Dat yo te enskriw</string>
+    <string name="pref_Header_InfoCompteUser">Enfòmasyon sou kont moun nan</string>
+    <string name="pref_Header_InfoPersonnel">Enfòmasyon Pèsonèl</string>
+    <string name="label_antre_yon_repons">Antre yon repons</string>
+
+    <string name="title_activity_display_list">Display List Data</string>
+
+    <string name="label_search">Tape pou chache yon Batiman</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="search_hint">Tape pou w ka fe yon rechèch</string>
+
+    <string name="btn_batiment_incomplet">BATIMENT KI PA FINI</string>
+    <string name="btn_batiment_mal_rempli">BATIMENT KI MAL RAMPLI</string>
+
+    <string name="btn_logement_collectif">LIST LOJMAN KOLEKTIF</string>
+    <string name="btn_logmment_individuel">LIST LOJMAN INDIVIDYEL</string>
+    <string name="btn_menage">LIST MENAJ</string>
+    <string name="btn_emigre">LIST EMIGRE</string>
+    <string name="btn_deces">LIST MOUN MOURI</string>
+    <string name="btn_individu">LIST INDIVIDI</string>
+
+    <string name="label_list_menu_afficher">Afiche</string>
+    <string name="label_list_menu_modifier">Modifye</string>
+    <string name="label_list_menu_module_menu">Ale nan</string>
+    <string name="label_Non">Non</string>
+    <string name="label_Oui">Wi</string>
+    <string name="label_Mois">- Mwa -</string>
+    <string name="label_Chwazi_yon_Jou">Chwazi yon jou</string>
+    <string name="label_Chwazi_yon_Mois">Chwazi yon Mwa</string>
+    <string name="label_Annee">- Ane -</string>
+    <string name="label_Chwazi_yon_Annee">Chwazi yon Ane</string>
+    <string name="msg_Pakonnen">Pa Konnen</string>
+    <string name="msg_Reponse_Ou_Dwe_Chwazi_Yon_Mwa">Ou dwe chwazi yon mwa</string>
+    <string name="msg_Reponse_Ou_Dwe_Chwazi_Yon_Ane">Ou dwe chwazi yon Ane</string>
+    <string name="label_Chwazi_yon_pays">Chwazi yon peyi</string>
+    <string name="label_Depatman">Depatman</string>
+    <string name="label_Chwazi_yon_Depatman">Chwazi yon depatman</string>
+    <string name="label_Chwazi_yon_Domaine_Etude">Chwazi yon domèn detid</string>
+    <string name="label_Chwazi_yon_Seksyon_kominal">Chwazi yon seksyon kominal</string>
+    <string name="label_Seksyon_kominal">Seksyon kominal</string>
+    <string name="label_Chwazi_yon_Komin">Chwazi yon Komin</string>
+    <string name="label_Komin">Komin</string>
+    <string name="label_Menu">Meni</string>
+    <string name="label_SaveAndQuit">Anregistre epi Kite</string>
+    <string name="label_QuitNotSave">Kite san Anregistre</string>
+    <string name="label_Quit">Kite</string>
+    <string name="msg_QuitterQuestionnaire">Eskew vle kite vre? \n Nou konseyew anregistre anvan ou kite.</string>
+    <string name="label_WI">Wi</string>
+    <string name="msg_Inactif">Inactif</string>
+    <string name="label_Incorrect">Incorrect</string>
+    <string name="msg_WaitAMinit">Tann yon ti moman...</string>
+    <string name="msg_TitreAccueil_FR"><b>Institut Haïtien de Statistique et d\'Informatique <strong>(IHSI)</strong></b></string>
+    <string name="msg_TitreAccueil_CR">Enstiti Ayisyen Estatistik ak Enfòmatik</string>
+    <string name="msg_SousTitreAccueil_FR">Recencement Général de la Population et de l\'habitat</string>
+    <string name="msg_SousTitreAccueil_CR">Ve Resansman Jeneral Popilasyon ak Abita \n (RGPH)</string>
+    <string name="msg_Pa_gen_moun_vivan">Pa gen moun ki vivan nan lojman sa.</string>
+    <string name="msg_Reponse_Ou_Dwe_Chwazi_Yon_SeksyonKominal">Ou dwe chwazi yon Seksyon Kominal</string>
+    <string name="label_Jour">Jou</string>
+    <string name="msg_Reponse_Ou_Dwe_Chwazi_Yon_Jou">Ou dwe chwazi yon jou</string>
+    <string name="label_NomIndividu">Non</string>
+    <string name="label_Siyati">Siyati</string>
+    <string name="label_Seks">Sèks</string>
+    <string name="label_KesyonSeks">Eske se yon</string>
+    <string name="label_Chwazi_seks">Chwazi sèks moun nan</string>
+    <string name="label_RelasyonMounNan">Relasyon ak chèf menaj la</string>
+    <string name="label_Chwazi_RelasyonMounNan">Chwazi relasyon moun nan</string>
+    <string name="msg_Reponse_Ou_Dwe_Ekri_Non_Moun_Nan">Ou dwe ekri Non moun nan</string>
+    <string name="msg_Reponse_Ou_Dwe_Ekri_Siyati_Moun_Nan">Ou dwe ekri Siyati moun nan</string>
+    <string name="msg_Reponse_Ou_Dwe_Chwazi_Seks_Moun_nan">Ou dwe chwazi sèks moun nan</string>
+    <string name="msg_Reponse_Ou_Dwe_Chwazi_Relasyon_Moun_nan">Ou dwe chwazi relasyon moun nan</string>
+    <string name="label_LageMounNan">laj moun nan</string>
+    <string name="label_Chwazi_LajMounNan">Chwazi Laj moun nan</string>
+    <string name="msg_PiPiti_PaseYonLane">Pi piti pase yon lane</string>
+    <string name="msg_Reponse_Ou_Dwe_Chwazi_JouFet_Moun_nan">Ou dwe chwazi jou moun nan te fèt</string>
+    <string name="msg_Reponse_Ou_Dwe_Antre_JouFet_Moun_nan">Ou dwe Antre jou moun nan te fèt</string>
+    <string name="msg_Reponse_Ou_Dwe_Chwazi_MwaFet_Moun_nan">Ou dwe chwazi mwa moun nan te fèt </string>
+    <string name="msg_Reponse_Ou_Dwe_Antre_MwaFet_Moun_nan">Ou dwe Antre mwa moun nan te fèt </string>
+    <string name="msg_Reponse_Ou_Dwe_Chwazi_AneFet_Moun_nan">Ou dwe chwazi ane moun nan te fèt </string>
+    <string name="msg_Reponse_Ou_Dwe_Antre_AneFet_Moun_nan">Ou dwe Antre ane moun nan te fèt </string>
+    <string name="msg_Reponse_Ou_Dwe_Chwazi_Laj_Moun_nan">Ou dwe chwazi laj moun nan </string>
+    <string name="msg_Reponse_Ou_Dwe_Antre_Laj_Moun_nan">Ou dwe antre laj moun nan</string>
+    <string name="label_DateMounNanfet">Dat moun nan fèt</string>
+    <string name="label_menu_Rekomanse">Rekòmanse</string>
+    <string name="label_menu_Kontinye">Kontinye</string>
+    <string name="label_MounNanMenajLa">Eske se nan menaj sa</string>
+    <string name="label_Adresse">Adrès</string>
+    <string name="label_Bitasyon">Bitasyon</string>
+    <string name="label_Lokalite">Lokalite</string>
+    <string name="label_Rec">REC</string>
+    <string name="label_Rgph">RGPH</string>
+    <string name="label_KodSeksyonEnimerasyon">Kòd Seksyon Enimerasyon</string>
+    <string name="label_KodDistriSipevisyon">Kòd Distri Sipevisyon (DS)</string>
+    <string name="label_Chwazi_MounNanMenajLa">Chwazi moun nan menaj la</string>
+    <string name="msg_Reponse_Ou_Dwe_Di_Si_MounNanMenajLa">Ou dwe di si moun nan menaj la</string>
+    <string name="label_Zone">Zòn</string>
+    <string name="label_Chwazi_yon_Zone">Chwazi yon Zòn</string>
+    <string name="msg_Reponse_Ou_Dwe_Chwazi_Yon_Zon">Ou dwe chwazi yon Zòn</string>
+    <string name="msg_Reponse_Ou_Dwe_Ekri_Adresse_la">Ou dwe ekri adresse la</string>
+    <string name="msg_Reponse_Ou_Dwe_Ekri_Bitasyon_an">Ou dwe ekri bitasyon an</string>
+    <string name="msg_Reponse_Ou_Dwe_Ekri_Lokalite_a">Ou dwe ekri Lokalite a</string>
+    <string name="msg_Reponse_Ou_Dwe_Ekri_REC_La">Ou dwe ekri REC Batiman an</string>
+    <string name="msg_Reponse_Ou_Dwe_Ekri_RGPH_La">Ou dwe ekri Code RGPH la</string>
+    <string name="msg_Reponse_numewo_RGPH_paka_000">Ou pa ka ekri 000 (Nimewo sa a pa dwe  000).</string>
+    <string name="msg_Reponse_Ou_Dwe_Ekri_KodSeksyonEnimerasyon_an">Ou dwe ekri Kòd Seksyon Enimerasyon an</string>
+    <string name="msg_Reponse_Ou_Dwe_Ekri_etKodDistriSipevisyon_an">Ou dwe ekri Kòd Distri Sipevisyon a</string>
+    <string name="label_Zone_Urbain">Zòn Iben</string>
+    <string name="label_Zone_Rural">Zòn Riral</string>
+    <string name="label_Raison">Rezon</string>
+    <string name="label_Chwazi_Rezon">Chwazi yon Rezon</string>
+    <string name="label_LotRezon">Lòt rezon</string>
+    <string name="label_Konfime">Konfime</string>
+    <string name="label_KonfimeEpiKiteResYo">Konfime Epi Kite Rès Yo</string>
+    <string name="Rappot_Agent_Resenceur">RAPO AJAN RESANSE</string>
+    <string name="Rappot_Final_Agent_Resenceur">RAPO FINAL AJAN RESANSE</string>
+    <string name="label_QuestionFINI">Fini</string>
+    <string name="msg_Reponse_Ou_Dwe_Antre_YonLotRezon">Ou dwe antre lòt rezon an</string>
+    <string name="msg_Reponse_Ou_Dwe_Chwazi_Yon_Rezon">Ou dwe chwazi yon rezon</string>
+    <string name="msg_Eske_Ou_Vle_Kite_Vre">Eske ou vle kite vre</string>
+    <string name="msg_Eske_Ou_Vle_Kite___">Eske ou vle kite </string>
+    <string name="msg_Ou_Dwe_Chwazi_Moun_Ki_Reponn_Plis_Kesyon">Ou dwe chwazi moun ki reponn plis kesyon nan menaj la</string>
+    <string name="label_ApareyRadyo">Aparèy Radyo</string>
+
+    <string name="msg_Pou_moun_ki_ede">Pou moun ki ede</string>
+    <string name="msg_Pou_di_kiyes_ki_ede_repondan">Pou di kiyes ki ede repondan</string>
+    <string name="msg_Pou_di_Si_moun_sa_moun_sa_ap_viv_nan_menaj_la">pou di Si moun sa ap viv nan menaj la</string>
+    <string name="msg_Nan_seksyon_Aktivite_Ekonomik">Nan seksyon Aktivite Ekonomik</string>
+    <string name="msg_Nan_seksyon_Fekondite">Nan seksyon Fekondite</string>
+
+    <string name="label_Televizyon">Televizyon</string>
+    <string name="label_FrijideFrize">Frijidè /Frizè</string>
+    <string name="label_FouElektrikFouAkGaz">Fou elektrik/ fou ak gaz</string>
+    <string name="label_OdinatePCLaptopTabletNimerik">Òdinatè PC/Laptòp / Tablèt nimerik</string>
+    <string name="label_BisikletMotosiklet">Bisiklèt/Motosiklèt</string>
+    <string name="label_VwatiMachin">Vwati, Machin</string>
+    <string name="label_KannotBato">Kannòt / bato</string>
+    <string name="label_InvetePanoSoleJeneratrisDelko">Invètè / Pano solè/Jeneratris (Delko)</string>
+    <string name="label_MiletChwalBourik">Milèt/ Chwal/ Bourik</string>
+    <string name="label_BefVach">Bèf / Vach</string>
+    <string name="label_KochonKabrit">Kochon/ Kabrit</string>
+    <string name="label_BetVolayPoulKok">Bèt Volay (Poul, Kok, eks.)</string>
+    <string name="label_Gason">Gason</string>
+    <string name="label_Fi">Fi</string>
+    <string name="label_Konbyen">Konbyen</string>
+    <string name="label_Piti">Pitit</string>
+    <string name="label_M4_1DloPouBwe"> Dlo pou Bwè</string>
+    <string name="label_M4_2DloPouFeLotIzaj"> Dlo pou Fè lòt izaj</string>
+    <string name="label_1erSousEnejiPouKwitManje">1e Sous Enèji</string>
+    <string name="label_2emSousEnejiPouKwitManje">2è Sous Enèji</string>
+    <string name="msg_Reponse_Ou_Dwe_Chwazi">Ou dwe chwazi </string>
+    <string name="msg_Reponse_Ou_Dwe_Ekri">Ou dwe ekri </string>
+    <string name="msg_Reponse_Ou_Dwe_Di">Ou dwe di </string>
+    <string name="msg_Reponse_Ou_Dwe_Ekri_Kantite">Ou dwe ekri Kantite </string>
+    <string name="label_E4B_Nivo">Nivo</string>
+    <string name="label_E4B_KlasAneDetid">Klas/Ane Detid</string>
+    <string name="label_KantitePyesAntou">Kantite pyès antou</string>
+    <string name="label_WateKoulwaAkkGaleriPaLadann"><i>(Watè, koulwa ak galeri pa ladann)</i></string>
+    <string name="label_KantiteChanmPouDomi">Kantite chanm pou dòmi</string>
+    <string name="label_menu_Rapport">Rapò</string>
+    <string name="msg_Developpeur">IHSI 2017 | Développer par: Jean Fritz DUVERSEAU</string>
+    <string name="label_Konekte">Konekte</string>
+    <string name="msg_GPSNotAvailable">Sèvis lokalizasyon an pa aktive...</string>
+    <string name="msg_ActiverLeGPS">Aktive GPS la pou ou ka itilize sèvis lokalizasyon an!</string>
+    <string name="label_OpenSettings">Ouvè  Paramèt</string>
+    <string name="label_Coordonnees_du_batiment">Kòd GPS Batiman an</string>
+    <string name="label_Latitude">Latitid</string>
+    <string name="label_Longitude">Longitid</string>
+    <string name="label_ResumeGPS">Pran Pwen GPS</string>
+    <string name="msg_Localisation_Non_Disponnible">Lokalizasyon an pa disponib pou moman sa. Eseye anko!</string>
+    <string name="msg_InfoRapportChangerdeModule">Si  ou pa vle kontinye pran infomasyon sou lòt {0} yo</string>
+    <string name="label_msgInfoRapport">Si ou pa vle kontinye pran enfòmasyon sou rès <b>%1$s</b> ki nan <b>%2$s</b> sa</string>
+    <string name="label_GroupeUtilisateur">Group Itilizatè</string>
+    <string name="label_NonFanmiMounNan">Non fanmi</string>
+    <string name="label_ConfirmationMotDePasse">Konfime kòd sekrè a</string>
+    <string name="label_KontItilizate">Kont Itilizatè</string>
+    <string name="label_Rapo_Sou_Batiman_Yo">Rapò sou batiman</string>
+    <string name="label_menu_RetounenMalRanpli">Retounen Mal rampli</string>
+    <string name="label_CodeSDE">Kòd SDE</string>
+    <string name="label_Rapo">Rapò</string>
+    <string name="msg_Autorisation_BoutonContinuer">Ou pa otorize pou chwazi yon repons \\nSèvi ak bouton [ KONTINYE ] a pouw ka pase kesyon yo</string>
+    <string name="label_TitreRapportFinal">Afichaj otomatik profil repondan prensipal la</string>
+    <string name="label_TitreRapportFinal2">enfòmasyon sou moun ki ede prensipal repondan an reponn kesyon sou aktivite ekonomik ak fekondite</string>
+    <string name="label_RAR_F_EVB1">Ki Moun nan menaj la ki reponn pi fò kesyon yo?</string>
+    <string name="label_RepondantPrincipal">Chwazi yon moun nan list moun ki resanse yo...</string>
+    <string name="label_AktiviteEkonomik">AE. Aktivite Ekonomik</string>
+    <string name="label_Fekondite">F. Fekondite</string>
+    <string name="label_eskeGenMounKiEde">Eske gen Moun ki ede l ?</string>
+    <string name="label_Eske_Moun_Sa_Viv_Nan_menaj_la">Eske Moun sa a viv nan menaj la ?</string>
+    <string name="label_Kiles_Ki_Ede_Repondan_An">Kilès Moun ki ede repondan an ?</string>
+    <string name="msg_Reponse_Ou_Dwe_Antre_JouA">Ou dwe antre Jou a</string>
+    <string name="msg_Reponse_Ou_Dwe_Antre_AneA">Ou dwe antre ane a</string>
+    <string name="msg_Reponse_Jou_ou_antre_a_Pa_bon">Jou ou antre a pa bon</string>
+
+
+    <array name="bootstrap_dropdown_example_data">
+        <item>First item</item>
+        <item>Second item</item>
+        <item>{dropdown_disabled}Disabled item</item>
+        <item>{dropdown_header}Dropdown header</item>
+        <item>Fourth item</item>
+        <item>Fifth item</item>
+        <item>{dropdown_separator}</item>
+        <item>Separated item</item>
+    </array>
+</resources>

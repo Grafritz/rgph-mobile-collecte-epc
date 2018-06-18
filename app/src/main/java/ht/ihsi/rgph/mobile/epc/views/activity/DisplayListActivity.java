@@ -35,8 +35,8 @@ import ht.ihsi.rgph.mobile.epc.constant.Constant;
 import ht.ihsi.rgph.mobile.epc.exceptions.ManagerException;
 import ht.ihsi.rgph.mobile.epc.exceptions.TextEmptyException;
 import ht.ihsi.rgph.mobile.epc.models.BatimentModel;
-import ht.ihsi.rgph.mobile.epc.models.DecesModel;
-import ht.ihsi.rgph.mobile.epc.models.EmigreModel;
+//import ht.ihsi.rgph.mobile.epc.models.DecesModel;
+//import ht.ihsi.rgph.mobile.epc.models.EmigreModel;
 import ht.ihsi.rgph.mobile.epc.models.IndividuModel;
 import ht.ihsi.rgph.mobile.epc.models.KeyValueModel;
 import ht.ihsi.rgph.mobile.epc.models.LogementModel;
@@ -78,8 +78,8 @@ public class DisplayListActivity extends BaseActivity {
     private BatimentModel batimentModel = null;
     private LogementModel logementModel = null;
     private MenageModel menageModel = null;
-    private EmigreModel emigreModel = null;
-    private DecesModel decesModel = null;
+    //private EmigreModel emigreModel = null;
+    //private DecesModel decesModel = null;
     private IndividuModel individuModel = null;
     public Dialog dialog;
 
@@ -235,7 +235,7 @@ public class DisplayListActivity extends BaseActivity {
                 // VERIFIKASYON KI AP FET POU LOJMAN, EMIGRE, DECES, MOUN NAN MENAJ.
                 if (listType == Constant.LIST_MODULE_LOGEMENT_COLLECTIF) {
                     // POU LOJMAN KI NAN BATIMAN // SI PA GEN LOJMAN KOL NAP GADE TOU SI PAGEN LOJ END. POU NOU KA AFICHE LIST YO
-                    if (batimentModel != null && batimentModel.getQb8NbreLogeIndividuel() != null && batimentModel.getQb8NbreLogeIndividuel() > 0) {
+                    if (batimentModel != null && batimentModel.getQb4NbreLogeIndividuel() != null && batimentModel.getQb4NbreLogeIndividuel() > 0) {
                         long NbreTotalLogeIndividuel_KiPaFini = queryRecordMngr.countLogement_ByBatiment_byTypeLog_ByStatus(batimentModel.getBatimentId(), Constant.LOJ_ENDIVIDYEL, moduleStatut);
                         if (NbreTotalLogeIndividuel_KiPaFini > 0) {
                             listType = Constant.LIST_MODULE_LOGEMENT_INDIVIDUEL;
@@ -243,7 +243,7 @@ public class DisplayListActivity extends BaseActivity {
                             new AsynDisplayDataListTask().execute();
                         }
                     }
-                } else if (listType == Constant.LIST_MODULE_EMIGRE) {//|| listType == Constant.LIST_MODULE_DECES || listType == Constant.LIST_MODULE_INDIVIDU_MENAGE ){
+                /*} else if (listType == Constant.LIST_MODULE_EMIGRE) {//|| listType == Constant.LIST_MODULE_DECES || listType == Constant.LIST_MODULE_INDIVIDU_MENAGE ){
                     if (menageModel.getQd1Deces() != null && menageModel.getQd1Deces() == Constant.REPONS_WI_1 ){//&& menageModel.getQd1NbreDecede() != null && menageModel.getQm12NbreDecede() > 0)
                         long NbreDeces = queryRecordMngr.countDecesByMenageByStatus(menageModel.getMenageId(), moduleStatut);
                         if (NbreDeces > 0) {
@@ -251,8 +251,8 @@ public class DisplayListActivity extends BaseActivity {
                             list_header_1.setText(getString(R.string.label_mounMouri) + " "+ moduleStatutString);
                             new AsynDisplayDataListTask().execute();
                         }
-                    }
-                } else if (listType == Constant.LIST_MODULE_DECES) {//|| listType == Constant.LIST_MODULE_INDIVIDU_MENAGE ){
+                    }*/
+                /*} else if (listType == Constant.LIST_MODULE_DECES) {//|| listType == Constant.LIST_MODULE_INDIVIDU_MENAGE ){
                     if ( menageModel.getQm11TotalIndividuVivant() != null && menageModel.getQm11TotalIndividuVivant() > 0 ) {
                         long totalIndividuVivant = queryRecordMngr.countIndByMenageByStatus(menageModel.getMenageId(), moduleStatut);
                         if (totalIndividuVivant > 0) {
@@ -260,7 +260,7 @@ public class DisplayListActivity extends BaseActivity {
                             list_header_1.setText(getString(R.string.label_moun) + " "+ moduleStatutString);
                             new AsynDisplayDataListTask().execute();
                         }
-                    }
+                    }*/
                 }
             }
         } catch (Exception ex) {
@@ -389,7 +389,7 @@ public class DisplayListActivity extends BaseActivity {
                                         // Set Statut Menage
                                         cuRecordMngr.updateStatutMenage(menageModel.getMenageId(), statutMod, false, nomUtilisateur  );
                                     }
-                                }else if ( listType == Constant.LIST_MODULE_EMIGRE ){
+                               /* }else if ( listType == Constant.LIST_MODULE_EMIGRE ){
                                     emigreModel = (EmigreModel) row.getModel();
                                     if( emigreModel !=null ) {
                                         // Set Statut Batiment
@@ -400,8 +400,8 @@ public class DisplayListActivity extends BaseActivity {
                                         cuRecordMngr.updateStatutMenage(emigreModel.getMenageId(), statutMod, true, nomUtilisateur  );
                                         // Set Statut Emigrer
                                         cuRecordMngr.updateStatutEmigre(emigreModel.getEmigreId(), statutMod, false, nomUtilisateur );
-                                    }
-                                }else if ( listType == Constant.LIST_MODULE_DECES ){
+                                    }*/
+                                /*}else if ( listType == Constant.LIST_MODULE_DECES ){
                                     decesModel = (DecesModel) row.getModel();
                                     if( decesModel !=null ) {
                                         // Set Statut Batiment
@@ -412,7 +412,7 @@ public class DisplayListActivity extends BaseActivity {
                                         cuRecordMngr.updateStatutMenage(decesModel.getMenageId(), statutMod, true, nomUtilisateur  );
                                         // Set Statut Deces
                                         cuRecordMngr.updateStatutDeces(decesModel.getDecesId(), statutMod, false, nomUtilisateur  );
-                                    }
+                                    }*/
                                 }else if ( listType == Constant.LIST_MODULE_INDIVIDU_LOGEMENT_COLLECTIF ){
                                     individuModel = (IndividuModel) row.getModel();
                                     if( individuModel !=null ) {
@@ -549,7 +549,7 @@ public class DisplayListActivity extends BaseActivity {
                             + " | Batiman " +  batimentModel.getBatimentId() + " | REC: " +  batimentModel.getQrec()  );
                     startActivity(intent);
                 }
-            }else if(listType == Constant.LIST_MODULE_EMIGRE){
+            /*}else if(listType == Constant.LIST_MODULE_EMIGRE){
                 moduleModel = formDataMngr.checkModule(Constant.FORMULAIRE_EMIGRE, Constant.ACTIF);
                 if( row != null && moduleModel != null ){
                     EmigreModel emigreModel = (EmigreModel) row.getModel();
@@ -576,8 +576,8 @@ public class DisplayListActivity extends BaseActivity {
                             + " | Lojman Endividyèl " +  logementModel.getQlin1NumeroOrdre()
                             + " | Batiman " +  batimentModel.getBatimentId());
                     startActivity(intent);
-                }
-            }else if(listType == Constant.LIST_MODULE_DECES){
+                }*/
+            /*}else if(listType == Constant.LIST_MODULE_DECES){
                 moduleModel = formDataMngr.checkModule(Constant.FORMULAIRE_DECES, Constant.ACTIF);
                 if( row != null && moduleModel != null ){
                     DecesModel decesModel = (DecesModel) row.getModel();
@@ -602,7 +602,7 @@ public class DisplayListActivity extends BaseActivity {
                             + " | Lojman Endividyèl " +  logementModel.getQlin1NumeroOrdre()
                             + " | Batiman " +  batimentModel.getBatimentId());
                     startActivity(intent);
-                }
+                }*/
             }else if( listType == Constant.LIST_MODULE_INDIVIDU_MENAGE ||
                     listType == Constant.LIST_MODULE_INDIVIDU_LOGEMENT_COLLECTIF ){
 
@@ -641,7 +641,7 @@ public class DisplayListActivity extends BaseActivity {
                                 + " | Batiman " + batimentModel.getBatimentId());
                     }else if( logementModel != null && logementModel.getQlCategLogement() != null && logementModel.getQlCategLogement() == Constant.LOJ_KOLEKTIF ) {
                         intent.putExtra(Constant.PARAM_FORM_HEADER_TWO, "Loj Kolektif " + logementModel.getQlin1NumeroOrdre()
-                                + " | Batiman " + batimentModel.getBatimentId() + " | RGPH: " + batimentModel.getQrgph());
+                                + " | Batiman " + batimentModel.getBatimentId() + " | EPC: " + batimentModel.getQepc());
                     }
                     startActivity(intent);
                 }
@@ -719,19 +719,19 @@ public class DisplayListActivity extends BaseActivity {
                     // Si tous les champs du menage ne sont pas totalement remplit
                     goToForm( row, Constant.ACTION_MOFIDIER );
                 } else { // Sinon si tous les champs du Menage sont totalement remplit
-                    if( menModel.getQn1Emigration() != null && menModel.getQn1Emigration() == Constant.REPONS_WI_1 ){// && menModel.getQm11NbreEmigre() != null && menModel.getQm11NbreEmigre() > 0 ){
-                        NbreEmigre = queryRecordMngr.countEmigrerByMenageByStatus( menModel.getMenageId(), moduleStatut );
+                    /*if( menModel.getQn1Emigration() != null && menModel.getQn1Emigration() == Constant.REPONS_WI_1 ){// && menModel.getQm11NbreEmigre() != null && menModel.getQm11NbreEmigre() > 0 ){
+                        NbreEmigre = queryRecordMngr.countAncienMembre_ByMenageByStatus( menModel.getMenageId(), moduleStatut );
                         if ( NbreEmigre > 0) {
                             IsShowEmigrer_KiPaFini = true;
                         }
-                    }
-                    if( menModel.getQd1Deces() != null && menModel.getQd1Deces() == Constant.REPONS_WI_1 ){// && menModel.getQm12NbreDecede() != null &&  menModel.getQm12NbreDecede() > 0 ) {
+                    }*/
+                    /*if( menModel.getQd1Deces() != null && menModel.getQd1Deces() == Constant.REPONS_WI_1 ){// && menModel.getQm12NbreDecede() != null &&  menModel.getQm12NbreDecede() > 0 ) {
                         NbreDeces = queryRecordMngr.countDecesByMenageByStatus( menModel.getMenageId(), moduleStatut );
                         if ( NbreDeces > 0) {
                             IsShowDeces_KiPaFini = true;
                         }
-                    }
-                    if( menModel.getQm11TotalIndividuVivant() != null &&  menModel.getQm11TotalIndividuVivant() > 0 ){
+                    }*/
+                    if( menModel.getQm2TotalIndividuVivant() != null &&  menModel.getQm2TotalIndividuVivant() > 0 ){
                         TotalIndividuVivant = queryRecordMngr.countIndByMenageByStatus( menModel.getMenageId(), moduleStatut );
                         if ( TotalIndividuVivant > 0) {
                             IsShowIndividu_KiPaFini = true;
@@ -809,9 +809,9 @@ public class DisplayListActivity extends BaseActivity {
                     if (logModel.getQlCategLogement() != null && logModel.getQlCategLogement() == Constant.LOJ_ENDIVIDYEL) {
                         // Si c'est un logement Individuel ou aura la liste des Menages si possible
                         long getQlin13NbreTotalMenage = 0;
-                        if (logModel.getQlin8NbreIndividuDepense() != null && logModel.getQlin8NbreIndividuDepense() == Constant.REPONS_WI_1) {
-                            if (logModel.getQlin9NbreTotalMenage() != null) {
-                                getQlin13NbreTotalMenage = logModel.getQlin9NbreTotalMenage();
+                        if (logModel.getQlin4IsHaveIndividuDepense() != null && logModel.getQlin4IsHaveIndividuDepense() == Constant.REPONS_WI_1) {
+                            if (logModel.getQlin5NbreTotalMenage() != null) {
+                                getQlin13NbreTotalMenage = logModel.getQlin5NbreTotalMenage();
                             }
                         } else {
                             getQlin13NbreTotalMenage = 1;
@@ -866,14 +866,14 @@ public class DisplayListActivity extends BaseActivity {
                 } else { // Sinon si tous les champs du logement sont totalement remplit
                     // Liste Individu "KI PA FINI"
                     if ( logModel.getQlCategLogement() != null && logModel.getQlCategLogement() == Constant.LOJ_KOLEKTIF ) {
-                        if ( logModel.getQlc1TypeLogement() <= Constant.LCOL_Lazil_oswa_kote_granmoun_rete_oswa_kay_retrèt_6) {
+                        /*if ( logModel.getQlc1TypeLogement() <= Constant.LCOL_Lazil_oswa_kote_granmoun_rete_oswa_kay_retrèt_6) {
                             if (logModel.getQlcTotalIndividus() != null && logModel.getQlcTotalIndividus() > 0) {
                                 long TotalIndividus = queryRecordMngr.countIndByLogByStatus(logModel.getLogeId(), statutFormulaire);
                                 if (TotalIndividus > 0) {
                                     IsShowIndividus_KiPaFini = true;
                                 }
                             }
-                        }
+                        }*/
 
                         if (IsShowIndividus_KiPaFini) {
                             BatimentModel batimentModel = queryRecordMngr.getBatById(logModel.getBatimentId());
@@ -912,20 +912,20 @@ public class DisplayListActivity extends BaseActivity {
             boolean IsShowLogeIndividuel_KiPaFini = false;
 
             if (batModel != null) {
-                String InfoHeader = "" + "Batiman " + batModel.getBatimentId() + " | RGPH: " + batModel.getQrgph();
+                String InfoHeader = "" + "Batiman " + batModel.getBatimentId() + " | EPC: " + batModel.getQepc();
                 // Verification si le batiment est remplit totalement
                 if (batModel.getIsFieldAllFilled() != null && !batModel.getIsFieldAllFilled()) {
                     // Si tous les champs du Batiment ne sont pas totalement remplit
                     goToForm(row, Constant.ACTION_MOFIDIER);
                 } else { // Sinon si tous les champs du Batiment sont totalement remplit
                     // Liste Logement Collectif "KI PA FINI"
-                    if (batModel.getQb8NbreLogeCollectif() != null && batModel.getQb8NbreLogeCollectif() > 0) {
+                    /*if (batModel.getQb8NbreLogeCollectif() != null && batModel.getQb8NbreLogeCollectif() > 0) {
                         long NbreTotalLogeCollectif_KiPaFini = queryRecordMngr.countLogement_ByBatiment_byTypeLog_ByStatus(batModel.getBatimentId(), Constant.LOJ_KOLEKTIF, moduleStatut);
                         if (NbreTotalLogeCollectif_KiPaFini > 0) {
                             IsShowLogeCollectif_KiPaFini = true;
                         }
-                    }
-                    if (batModel.getQb8NbreLogeIndividuel() != null && batModel.getQb8NbreLogeIndividuel() > 0) {
+                    }*/
+                    if (batModel.getQb4NbreLogeIndividuel() != null && batModel.getQb4NbreLogeIndividuel() > 0) {
                         // Liste Logement Individuel "KI PA FINI"
                         long NbreTotalLogeIndividuel_KiPaFini = queryRecordMngr.countLogement_ByBatiment_byTypeLog_ByStatus(batModel.getBatimentId(), Constant.LOJ_ENDIVIDYEL, moduleStatut);
                         if (NbreTotalLogeIndividuel_KiPaFini > 0) {
@@ -1130,11 +1130,11 @@ public class DisplayListActivity extends BaseActivity {
                     message = "Pa gen menaj nan sistèm nan.";
                 } else if (listType == Constant.LIST_MODULE_EMIGRE) {
                     //targetList.addAll(FakeData.prepareEmigre());
-                    rowDataList = queryRecordMngr.searchListEmigreByMenage(id, moduleStatut);
+                    //rowDataList = queryRecordMngr.searchListEmigreByMenage(id, moduleStatut);
                     message = "Pa gen emigre nan sistèm nan.";
                 } else if (listType == Constant.LIST_MODULE_DECES) {
                     //targetList.addAll(FakeData.prepareDeces());
-                    rowDataList = queryRecordMngr.searchListDecesByMenage(id, moduleStatut);
+                    //rowDataList = queryRecordMngr.searchListDecesByMenage(id, moduleStatut);
                     message = "Pa gen Moun mouri nan sistèm nan.";
                 } else if (listType == Constant.LIST_MODULE_INDIVIDU_LOGEMENT_COLLECTIF) {
                     //targetList.addAll(FakeData.prepareIndividu());
@@ -1196,40 +1196,40 @@ public class DisplayListActivity extends BaseActivity {
             list_header_1.setText(getString(R.string.label_batiman) + " "+ moduleStatutString + " [" + nbrsave + "]");
 
         } else if (listType == Constant.LIST_MODULE_LOGEMENT_COLLECTIF) {
-            nbrTotal = (batimentModel != null && batimentModel.getQb8NbreLogeCollectif() != null)? batimentModel.getQb8NbreLogeCollectif():0;
-            list_header_1.setText(getString(R.string.label_lojmanKolektif) + " "+ moduleStatutString + " [" + nbrsave + "/" + nbrTotal + "]");
+            //nbrTotal = (batimentModel != null && batimentModel.getQb8NbreLogeCollectif() != null)? batimentModel.getQb8NbreLogeCollectif():0;
+            //list_header_1.setText(getString(R.string.label_lojmanKolektif) + " "+ moduleStatutString + " [" + nbrsave + "/" + nbrTotal + "]");
 
         } else if (listType == Constant.LIST_MODULE_LOGEMENT_INDIVIDUEL) {
-            nbrTotal = (batimentModel != null && batimentModel.getQb8NbreLogeIndividuel() != null)? batimentModel.getQb8NbreLogeIndividuel():0;
+            nbrTotal = (batimentModel != null && batimentModel.getQb4NbreLogeIndividuel() != null)? batimentModel.getQb4NbreLogeIndividuel():0;
             list_header_1.setText(getString(R.string.label_lojmanEndividyel) + " "+ moduleStatutString + " [" + nbrsave + "/" + nbrTotal + "]");
 
         } else if (listType == Constant.LIST_MODULE_MENAGE) {
-            nbrTotal = (logementModel != null && logementModel.getQlin8NbreIndividuDepense() != null && logementModel.getQlin8NbreIndividuDepense() == Constant.REPONS_WI_1
-                    && logementModel.getQlin9NbreTotalMenage() != null )? logementModel.getQlin9NbreTotalMenage():0;
+            nbrTotal = (logementModel != null && logementModel.getQlin4IsHaveIndividuDepense() != null && logementModel.getQlin4IsHaveIndividuDepense() == Constant.REPONS_WI_1
+                    && logementModel.getQlin5NbreTotalMenage() != null )? logementModel.getQlin5NbreTotalMenage():0;
             list_header_1.setText(getString(R.string.label_menaj) + " "+ moduleStatutString + " [" + nbrsave + "/" + nbrTotal + "]");
 
         } else if (listType == Constant.LIST_MODULE_EMIGRE) {
-            if (menageModel.getQn1Emigration() != null && menageModel.getQn1Emigration() == Constant.REPONS_WI_1) {
+           /* if (menageModel.getQn1Emigration() != null && menageModel.getQn1Emigration() == Constant.REPONS_WI_1) {
                 if ( menageModel.getQn1NbreEmigre() != null && menageModel.getQn1NbreEmigre() > 0) {
                     nbrTotal = menageModel.getQn1NbreEmigre();
                 }
-            }
+            }*/
             list_header_1.setText(getString(R.string.label_emigre) + " "+ moduleStatutString + " [" + nbrsave + "/" + nbrTotal + "]");
 
         } else if (listType == Constant.LIST_MODULE_DECES) {
-            if ( menageModel.getQd1Deces() != null && menageModel.getQd1Deces() == Constant.REPONS_WI_1) {
+            /*if ( menageModel.getQd1Deces() != null && menageModel.getQd1Deces() == Constant.REPONS_WI_1) {
                 if ( menageModel.getQd1NbreDecede() != null && menageModel.getQd1NbreDecede() > 0) {
                     nbrTotal = menageModel.getQd1NbreDecede();
                 }
-            }
+            }*/
             list_header_1.setText(getString(R.string.label_mounMouri) + " "+ moduleStatutString + " [" + nbrsave + "/" + nbrTotal + "]");
 
         } else if (listType == Constant.LIST_MODULE_INDIVIDU_LOGEMENT_COLLECTIF) {
-            nbrTotal = (logementModel != null && logementModel.getQlcTotalIndividus() != null )? logementModel.getQlcTotalIndividus():0;
+            //nbrTotal = (logementModel != null && logementModel.getQlcTotalIndividus() != null )? logementModel.getQlcTotalIndividus():0;
             list_header_1.setText(getString(R.string.label_moun) + " "+ moduleStatutString + " [" + nbrsave + "/" + nbrTotal + "]");
 
         }else if(listType == Constant.LIST_MODULE_INDIVIDU_MENAGE){
-            nbrTotal = (menageModel != null && menageModel.getQm11TotalIndividuVivant() != null)? menageModel.getQm11TotalIndividuVivant():0;
+            nbrTotal = (menageModel != null && menageModel.getQm2TotalIndividuVivant() != null)? menageModel.getQm2TotalIndividuVivant():0;
             list_header_1.setText(getString(R.string.label_moun) + " "+ moduleStatutString + " [" + nbrsave + "/" + nbrTotal + "]");
 
         }else if(listType == Constant.LIST_MODULE_COMPTE_UTILISATEUR_16){

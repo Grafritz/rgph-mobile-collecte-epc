@@ -33,8 +33,8 @@ import java.util.regex.Pattern;
 
 import ht.ihsi.rgph.mobile.R;
 import ht.ihsi.rgph.mobile.epc.backend.entities.BatimentDao;
-import ht.ihsi.rgph.mobile.epc.backend.entities.DecesDao;
-import ht.ihsi.rgph.mobile.epc.backend.entities.EmigreDao;
+//import ht.ihsi.rgph.mobile.epc.backend.entities.DecesDao;
+//import ht.ihsi.rgph.mobile.epc.backend.entities.EmigreDao;
 import ht.ihsi.rgph.mobile.epc.backend.entities.IndividuDao;
 import ht.ihsi.rgph.mobile.epc.backend.entities.LogementDao;
 import ht.ihsi.rgph.mobile.epc.backend.entities.MenageDao;
@@ -49,8 +49,8 @@ import ht.ihsi.rgph.mobile.epc.models.BaseModel;
 import ht.ihsi.rgph.mobile.epc.models.BatimentModel;
 import ht.ihsi.rgph.mobile.epc.models.CategorieQuestionModel;
 import ht.ihsi.rgph.mobile.epc.models.CommuneModel;
-import ht.ihsi.rgph.mobile.epc.models.DecesModel;
-import ht.ihsi.rgph.mobile.epc.models.EmigreModel;
+//import ht.ihsi.rgph.mobile.epc.models.DecesModel;
+//import ht.ihsi.rgph.mobile.epc.models.EmigreModel;
 import ht.ihsi.rgph.mobile.epc.models.IndividuModel;
 import ht.ihsi.rgph.mobile.epc.models.KeyValueModel;
 import ht.ihsi.rgph.mobile.epc.models.LogementModel;
@@ -62,8 +62,8 @@ import ht.ihsi.rgph.mobile.epc.models.RapportFinalModel;
 import ht.ihsi.rgph.mobile.epc.models.RapportRARModel;
 import ht.ihsi.rgph.mobile.epc.models.VqseModel;
 import ht.ihsi.rgph.mobile.epc.views.activity.QuestionnaireBatimentActivity;
-import ht.ihsi.rgph.mobile.epc.views.activity.QuestionnaireDecesActivity;
-import ht.ihsi.rgph.mobile.epc.views.activity.QuestionnaireEmigreActivity;
+//import ht.ihsi.rgph.mobile.epc.views.activity.QuestionnaireDecesActivity;
+//import ht.ihsi.rgph.mobile.epc.views.activity.QuestionnaireEmigreActivity;
 import ht.ihsi.rgph.mobile.epc.views.activity.QuestionnaireIndividuActivity;
 import ht.ihsi.rgph.mobile.epc.views.activity.QuestionnaireLogementActivity;
 import ht.ihsi.rgph.mobile.epc.views.activity.QuestionnaireMenageActivity;
@@ -103,8 +103,8 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
     private LogementModel logementModel;
     private MenageModel menageModel;
     private IndividuModel individuModel;
-    private EmigreModel emigreModel;
-    private DecesModel decesModel;
+    //private EmigreModel emigreModel;
+    //private DecesModel decesModel;
     //endregion
     ///////////////////////////////////
     public String GrandTitre;
@@ -358,86 +358,6 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
         }
     }//
 
-    // POUR DECES
-    public QuestionnaireFormulaireUtility(ModuleModel frm, DecesModel decesModel, int tbl_TableName, FormDataMngr formDataMngr) {
-        this.tbl_TableName = tbl_TableName;
-        this.codeModule = frm.getCodeModule();
-        //this.formDataMngr = formDataMngr;
-        this.batimentModel = decesModel.getObjBatiment();
-        this.logementModel = decesModel.getObjLogement();
-        this.menageModel = decesModel.getObjMenage();
-
-        if (decesModel.getDecesId() > 0) {
-            this.iDKeys = decesModel.getDecesId();
-            dataBase = decesModel;
-            this.decesModel = decesModel;
-        } else {
-            this.iDKeys = (long) 0;
-        }
-
-        if (!frm.isEstActif()) {
-            // MessageToShow("Fòmilè a pa aktive... ou pap ka kontinye, ale wè sipèvisè ou.","S");
-            // this.Close();
-        }
-        if (tbl_TableName == Constant.FORMULAIRE_DECES) {
-            data = new DecesModel();
-            if (decesModel.getDecesId() > 0) {
-                data = decesModel;
-            }
-
-            // SET KEY - VALUE
-            //dateDebutCollecte = Tools.getDateString_MMddyyyy_HHmmss_a();
-            SetKey_Value(DecesDao.Properties.SdeId.columnName, decesModel.getSdeId());
-            SetKey_Value(DecesDao.Properties.Qd2NoOrdre.columnName, String.valueOf(decesModel.getQd2NoOrdre()).toString());
-            SetKey_Value(DecesDao.Properties.BatimentId.columnName, String.valueOf(decesModel.getBatimentId()).toString());
-            SetKey_Value(DecesDao.Properties.LogeId.columnName, String.valueOf(decesModel.getLogeId()).toString());
-            SetKey_Value(DecesDao.Properties.MenageId.columnName, String.valueOf(decesModel.getMenageId()).toString());
-            this.SetKey_Value(DecesDao.Properties.DateDebutCollecte.columnName, decesModel.getDateDebutCollecte().toString());
-        }
-        LoadFirst_Question(formDataMngr, this.codeModule);
-    }//
-
-    // POUR EMIGRER
-    public QuestionnaireFormulaireUtility(ModuleModel frm, EmigreModel emigreModel, int tbl_TableName, FormDataMngr formDataMngr) {
-        this.tbl_TableName = tbl_TableName;
-        this.codeModule = frm.getCodeModule();
-        //this.formDataMngr = formDataMngr;
-        //this.batimentModel.setBatimentId(emigreModel.getBatimentId());
-        this.batimentModel = emigreModel.getObjBatiment();
-        this.logementModel = emigreModel.getObjLogement();
-        this.menageModel = emigreModel.getObjMenage();
-
-        if (emigreModel.getEmigreId() > 0) {
-            this.iDKeys = emigreModel.getEmigreId();
-            dataBase = emigreModel;
-            this.emigreModel = emigreModel;
-        } else {
-            this.iDKeys = (long) 0;
-        }
-
-        if (!frm.isEstActif()) {
-            // MessageToShow("Fòmilè a pa aktive... ou pap ka kontinye, ale wè sipèvisè ou.","S");
-            // this.Close();
-        }
-        if (tbl_TableName == Constant.FORMULAIRE_EMIGRE) {
-            data = new EmigreModel();
-            if (emigreModel.getEmigreId() > 0) {
-                data = emigreModel;
-            }
-
-            // SET KEY - VALUE
-            //this.SetKey_Value("dateDebutCollecte", this.dateDebutCollecte.toString());
-            SetKey_Value(EmigreDao.Properties.SdeId.columnName, emigreModel.getSdeId());
-            SetKey_Value(EmigreDao.Properties.Qn1numeroOrdre.columnName, String.valueOf(emigreModel.getQn1numeroOrdre()).toString());
-            SetKey_Value(EmigreDao.Properties.BatimentId.columnName, String.valueOf(emigreModel.getBatimentId()).toString());
-            SetKey_Value(EmigreDao.Properties.LogeId.columnName, String.valueOf(emigreModel.getLogeId()).toString());
-            SetKey_Value(EmigreDao.Properties.MenageId.columnName, String.valueOf(emigreModel.getMenageId()).toString());
-            SetKey_Value(EmigreDao.Properties.DateDebutCollecte.columnName, emigreModel.getDateDebutCollecte().toString());
-        }
-        LoadFirst_Question(formDataMngr, this.codeModule);
-    }//
-    //endregion
-
     //region GET / SET
     public Long getiDKeys() {
         return iDKeys;
@@ -561,10 +481,10 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
     public MenageModel getMenageModel() {
         return menageModel;
     }
-    public EmigreModel getEmigreModel() {
-        return emigreModel;
-    }
-    public DecesModel getDecesModel() { return decesModel; }
+    //public EmigreModel getEmigreModel() {
+        //return emigreModel;
+    //}
+    //public DecesModel getDecesModel() { return decesModel; }
 
     public IndividuModel getIndividuModel() {
         return individuModel;
@@ -627,15 +547,6 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
                 //} else {
                 LibelleQuestion = Q.getCodeQuestion() + ". " + Q.getLibelle();
                 //}
-            } else if (Constant.FORMULAIRE_EMIGRE == this.tbl_TableName) {
-                EmigreModel I = (EmigreModel) data;
-                if (I.getQn2aNomComplet() != null) {
-                    String nomComplet = "" + I.getQn2aNomComplet().toString() +"";
-                    LibelleQuestion = Q.getCodeQuestion() + ". " + Q.getLibelle().replace("{0}", nomComplet).replace("(…)", nomComplet);
-                    this.DetailsQuestion = Q.getDetailsQuestion().replace("{0}", nomComplet).replace("(…)", nomComplet);
-                } else {
-                    LibelleQuestion = Q.getCodeQuestion() + ". " + Q.getLibelle();
-                }
             } else if (Constant.FORMULAIRE_INDIVIDUS == this.tbl_TableName) {
                 IndividuModel I = (IndividuModel) data;
                 if (I.getQp2BNom() != null && I.getQp2APrenom() != null) {
@@ -1725,22 +1636,6 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
                 if (!QSuivant_Val.equalsIgnoreCase("")) {
                     this.qSuivant = QSuivant_Val;
                 }
-            } else if (Constant.FORMULAIRE_DECES == this.tbl_TableName) {
-                DecesModel decesModel = (DecesModel) this.data;
-                //MenageModel.queryRecordMngr = this.queryRecordMngr;
-                //MenageModel.formDataMngr = this.formDataMngr;
-                String QSuivant_Val = DecesModel.Check_ContrainteSautChampsValeur(this.nomChamps, decesModel, this.iDKeys, dataBase);
-                if (!QSuivant_Val.equalsIgnoreCase("")) {
-                    this.qSuivant = QSuivant_Val;
-                }
-            } else if (Constant.FORMULAIRE_EMIGRE == this.tbl_TableName) {
-                EmigreModel emigreModel = (EmigreModel) this.data;
-                //MenageModel.queryRecordMngr = this.queryRecordMngr;
-                //MenageModel.formDataMngr = this.formDataMngr;
-                String QSuivant_Val = EmigreModel.Check_ContrainteSautChampsValeur(this.nomChamps, emigreModel, this.iDKeys, dataBase);
-                if (!QSuivant_Val.equalsIgnoreCase("")) {
-                    this.qSuivant = QSuivant_Val;
-                }
             } else if (Constant.FORMULAIRE_INDIVIDUS == this.tbl_TableName) {
                 IndividuModel individuModel = (IndividuModel) this.data;
                 IndividuModel.queryRecordMngr = queryRecordMngr;
@@ -2018,19 +1913,19 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
             individuModel.setMenageId(this.menageModel.getMenageId());
             individuModel.setQp2APrenom(NonIndividu);
             individuModel.setQp2BNom(SiyatiIndividu);
-            individuModel.setQp3LienDeParente(Short.valueOf(relasyonMounNan));
-            individuModel.setQp3HabiteDansMenage(Short.valueOf(mounNanMenajLa));
+            individuModel.setQ9LienDeParente(Short.valueOf(relasyonMounNan));
+            individuModel.setQ5HabiteDansMenage(Short.valueOf(mounNanMenajLa));
             individuModel.setQp4Sexe(Short.valueOf(sexe));
-            individuModel.setQp5bAge(Short.valueOf(ageIndividu));
-            individuModel.setQp5DateNaissanceJour(Short.valueOf(jour));
-            individuModel.setQp5DateNaissanceMois(Short.valueOf(mois));
-            individuModel.setQp5DateNaissanceAnnee(Integer.valueOf(annee));
+            individuModel.setQ8Age(Short.valueOf(ageIndividu));
+            individuModel.setQ7DateNaissanceJour(Short.valueOf(jour));
+            individuModel.setQ7DateNaissanceMois(Short.valueOf(mois));
+            individuModel.setQ7DateNaissanceAnnee(Integer.valueOf(annee));
             individuModel.setDateDebutCollecte(this.dateDebutCollecte);
 
-            if (individuModel.getQp3HabiteDansMenage() == 2 ||
-                    individuModel.getQp3HabiteDansMenage() == 4 ||
-                    individuModel.getQp3HabiteDansMenage() == 8 ||
-                    individuModel.getQp3HabiteDansMenage() == 9) {
+            if (individuModel.getQ5HabiteDansMenage() == 2 ||
+                    individuModel.getQ5HabiteDansMenage() == 4 ||
+                    individuModel.getQ5HabiteDansMenage() == 8 ||
+                    individuModel.getQ5HabiteDansMenage() == 9) {
                 individuModel.setIsFieldAllFilled(true);
                 individuModel.setStatut((short) Constant.STATUT_MODULE_KI_FINI_1);
                 if ( (short) nbrInd_NoOrdre <= 1 ) {
@@ -2676,9 +2571,6 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
             String CodeReponse = ValReponse1;
             String NomChamps = this.nomChamps;
             // SET KEY - VALUE
-            if (this.nomChamps.equalsIgnoreCase(BatimentDao.Properties.Qb7Utilisation1.columnName)) {
-
-            }
             this.SetKey_Value(this.nomChamps, CodeReponse);
             // TEST AU NIVEAU DES CHAMPS
             this.Check_DataField_EditText(et_Reponse);
@@ -2695,7 +2587,7 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
     public void CheckValueBefore_Batiment(QueryRecordMngr queryRecordMngr //, CURecordMngr cuRecordMngr, int typeDeSauvegarde
             , String departementId, String communeId, String vqseId
             , String zoneId, String kodSeksyonEnimerasyon, String kodDistriSipevisyon
-            , EditText et_Adresse, EditText et_Bitasyon, EditText et_Lokalite, String recCode, EditText et_RGPH
+            , EditText et_Adresse, EditText et_Bitasyon, EditText et_Lokalite, String recCode, EditText et_EPC
             , EditText et_Latitude, EditText et_Longitude, String codeAgentRecenceur) throws TextEmptyException {
         try {
             String message = "";
@@ -2765,23 +2657,23 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
             //    Tools.Check_Constraint_NombreCaratereMinimal(Constant.CHIFFRE, 3, et_REC);
             //}
 
-            et_RGPH.setError(null);
-            String etRGPH = et_RGPH.getText().toString();
-            if (TextUtils.isEmpty(etRGPH)) {
-                message = context.getString(R.string.msg_Reponse_Ou_Dwe_Ekri_RGPH_La);
-                et_RGPH.setError(message);
-                et_RGPH.requestFocus();
+            et_EPC.setError(null);
+            String etEPC = et_EPC.getText().toString();
+            if (TextUtils.isEmpty(etEPC)) {
+                message = context.getString(R.string.msg_Reponse_Ou_Dwe_Ekri_EPC_La);
+                et_EPC.setError(message);
+                et_EPC.requestFocus();
                 throw new TextEmptyException(message);
 
-            }else if( etRGPH.equalsIgnoreCase("000") ){
+            }else if( etEPC.equalsIgnoreCase("000") ){
                 message = context.getString(R.string.msg_Reponse_numewo_RGPH_paka_000);
-                et_RGPH.setError(message);
-                et_RGPH.requestFocus();
+                et_EPC.setError(message);
+                et_EPC.requestFocus();
                 throw new TextEmptyException(message);
 
             } else {
-                Tools.Check_DataField_CHIFFRE_LETTRE(context, Constant.CHIFFRE, et_RGPH);
-                Tools.Check_Constraint_NombreCaratereMinimal(Constant.CHIFFRE, 3, et_RGPH);
+                Tools.Check_DataField_CHIFFRE_LETTRE(context, Constant.CHIFFRE, et_EPC);
+                Tools.Check_Constraint_NombreCaratereMinimal(Constant.CHIFFRE, 3, et_EPC);
             }
 
             // --- Contrainte lieu au document de specification --- //
@@ -2794,7 +2686,7 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
             this.SetKey_Value(BatimentDao.Properties.Qhabitation.columnName, etBitasyon);
             this.SetKey_Value(BatimentDao.Properties.Qlocalite.columnName, etLokalite);
             this.SetKey_Value(BatimentDao.Properties.Qrec.columnName, recCode);
-            this.SetKey_Value(BatimentDao.Properties.Qrgph.columnName, etRGPH);
+            this.SetKey_Value(BatimentDao.Properties.Qepc.columnName, etEPC);
             this.SetKey_Value(BatimentDao.Properties.SdeId.columnName, kodSeksyonEnimerasyon);
             this.SetKey_Value(BatimentDao.Properties.DisctrictId.columnName, kodDistriSipevisyon);
             this.SetKey_Value(BatimentDao.Properties.Latitude.columnName, etLatitude);
@@ -2864,20 +2756,6 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
                 logeId = (this.logementModel.getLogeId() != null ? this.logementModel.getLogeId() : Long.valueOf(0));
                 menageId = (this.menageModel.getMenageId() != null ? this.menageModel.getMenageId() : Long.valueOf(0));
                 numeroOrdre = (this.menageModel.getQm1NoOrdre() != null ? this.menageModel.getQm1NoOrdre() : Long.valueOf(0));
-
-            }else if (this.tbl_TableName == Constant.FORMULAIRE_EMIGRE ) {
-                batimentId = (this.batimentModel.getBatimentId() != null ? this.batimentModel.getBatimentId() : Long.valueOf(0));
-                logeId = (this.logementModel.getLogeId() != null ? this.logementModel.getLogeId() : Long.valueOf(0));
-                menageId = (this.menageModel.getMenageId() != null ? this.menageModel.getMenageId() : Long.valueOf(0));
-                emigreId = (this.emigreModel.getEmigreId() != null ? this.emigreModel.getEmigreId() : Long.valueOf(0));
-                numeroOrdre = (this.emigreModel.getQn1numeroOrdre() != null ? this.emigreModel.getQn1numeroOrdre() : Long.valueOf(0));
-
-            }else if(this.tbl_TableName==Constant.FORMULAIRE_DECES) {
-                batimentId = (this.batimentModel.getBatimentId() != null ? this.batimentModel.getBatimentId() : Long.valueOf(0));
-                logeId = (this.logementModel.getLogeId() != null ? this.logementModel.getLogeId() : Long.valueOf(0));
-                menageId = (this.menageModel.getMenageId() != null ? this.menageModel.getMenageId() : Long.valueOf(0));
-                decesId = (this.decesModel.getDecesId() != null ? this.decesModel.getDecesId() : Long.valueOf(0));
-                numeroOrdre = (this.decesModel.getQd2NoOrdre() != null ? this.decesModel.getQd2NoOrdre() : Long.valueOf(0));
 
             }else if( this.tbl_TableName == Constant.FORMULAIRE_INDIVIDUS ) {
                 batimentId = (this.batimentModel.getBatimentId() != null ? this.batimentModel.getBatimentId() : Long.valueOf(0));
@@ -3087,8 +2965,8 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
             et_NonIndividu.setText("" + individuModel.getQp2APrenom());
             et_SiyatiIndividu.setText("" + individuModel.getQp2BNom());
             this.setReponse(sp_Sexe, "" + individuModel.getQp4Sexe(), Constant.CLASSE_KEY_VALUE_MODEL);
-            this.setReponse(sp_RelasyonMounNan, "" + individuModel.getQp3LienDeParente(), Constant.CLASSE_KEY_VALUE_MODEL);
-            this.setReponse(sp_MounNanMenajLa, "" + individuModel.getQp3HabiteDansMenage(), Constant.CLASSE_KEY_VALUE_MODEL);
+            this.setReponse(sp_RelasyonMounNan, "" + individuModel.getQ9LienDeParente(), Constant.CLASSE_KEY_VALUE_MODEL);
+            this.setReponse(sp_MounNanMenajLa, "" + individuModel.getQ5HabiteDansMenage(), Constant.CLASSE_KEY_VALUE_MODEL);
         }else{
             dialog.setTitle("Ajoute Moun sa nan menaj sa [" + nbrInd_NoOrdre + " / " + Nbre_TotalIndividu + "]");
             tv_NumeroIndividu.setText("Moun " + nbrInd_NoOrdre);
@@ -3116,10 +2994,10 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
                 QuestionnaireMenageActivity.tempInfoQuestions.add(temp);
 
             }else if(Constant.SetValueTempInfoQuestion_Emigre == typeDeSauvegarde ){
-                QuestionnaireEmigreActivity.tempInfoQuestions.add(temp);
+                //QuestionnaireEmigreActivity.tempInfoQuestions.add(temp);
 
             }else if(Constant.SetValueTempInfoQuestion_Deces == typeDeSauvegarde ){
-                QuestionnaireDecesActivity.tempInfoQuestions.add(temp);
+                //QuestionnaireDecesActivity.tempInfoQuestions.add(temp);
             }
         } catch (Exception ex) {
             ToastUtility.LogCat( "Exception-SetValueTempInfoQuestion(): getMessage: ", ex);
@@ -3903,48 +3781,33 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
                     }
                     String textAdditionnel="";
                     if( qf.getTbl_TableName() == Constant.FORMULAIRE_BATIMENT ){
-                        if (qf.getNomChamps().equalsIgnoreCase( BatimentDao.Properties.Qb8NbreLogeCollectif.columnName )) {
-                            textAdditionnel =" Lojman Kolektif";
-                            chiffeDeDepart = 0;
-                        }else if (qf.getNomChamps().equalsIgnoreCase( BatimentDao.Properties.Qb8NbreLogeIndividuel.columnName )) {
+                        if (qf.getNomChamps().equalsIgnoreCase( BatimentDao.Properties.Qb4NbreLogeIndividuel.columnName )) {
                             textAdditionnel =" Lojman Endividyèl";
                             BatimentModel batimentModel = (BatimentModel) qf.getData();
                             if( batimentModel!=null){
-                                if( batimentModel.getQb8NbreLogeCollectif()!=null && batimentModel.getQb8NbreLogeCollectif() > 0 ){
+                                if( batimentModel.getQb4NbreLogeIndividuel()!=null && batimentModel.getQb4NbreLogeIndividuel() > 0 ){
                                     chiffeDeDepart = 0;
                                 }
                             }
                         }
                     }else  if( qf.getTbl_TableName() == Constant.FORMULAIRE_LOGEMENT_COLLECTIF ){
-                        if (qf.getNomChamps().equalsIgnoreCase( LogementDao.Properties.QlcTotalIndividus.columnName )) {
+                        /*if (qf.getNomChamps().equalsIgnoreCase( LogementDao.Properties.QlcTotalIndividus.columnName )) {
 
                             textAdditionnel =" Moun";
-                        }
+                        }*/
                     }else  if( qf.getTbl_TableName() == Constant.FORMULAIRE_LOGEMENT_INDIVIDUEL ){
-                        if (qf.getNomChamps().equalsIgnoreCase( LogementDao.Properties.Qlin6NombrePiece.columnName )) {
-                            chiffeDeDepart = 1;
-                            textAdditionnel =" Pyès";
-                        }else if (qf.getNomChamps().equalsIgnoreCase( LogementDao.Properties.Qlin7NbreChambreACoucher.columnName )) {
-                            chiffeDeDepart = 0;
-                            textAdditionnel =" Chanm ";
-                            LogementModel logementModel = (LogementModel) qf.getData();
-                            if( logementModel!=null){
-                                if( logementModel.getQlin6NombrePiece()!=null ){
-                                    nombreLimite = logementModel.getQlin6NombrePiece();
-                                }
-                            }
-                        }else if (qf.getNomChamps().equalsIgnoreCase( LogementDao.Properties.Qlin9NbreTotalMenage.columnName )) {
+                        if (qf.getNomChamps().equalsIgnoreCase( LogementDao.Properties.Qlin5NbreTotalMenage.columnName )) {
                             textAdditionnel =" Menaj";
                             chiffeDeDepart = 2;
                         }
                     }else  if( qf.getTbl_TableName() == Constant.FORMULAIRE_MENAGE ){
-                        if (qf.getNomChamps().equalsIgnoreCase( MenageDao.Properties.Qm11TotalIndividuVivant.columnName )) {
+                        if (qf.getNomChamps().equalsIgnoreCase( MenageDao.Properties.Qm2TotalIndividuVivant.columnName )) {
                             textAdditionnel =" Moun";
-                        }else if (qf.getNomChamps().equalsIgnoreCase( MenageDao.Properties.Qn1NbreEmigre.columnName )) {
+                        }/*else if (qf.getNomChamps().equalsIgnoreCase( MenageDao.Properties.Qn1NbreEmigre.columnName )) {
                             textAdditionnel =" Emigre";
                         }else if (qf.getNomChamps().equalsIgnoreCase( MenageDao.Properties.Qd1NbreDecede.columnName )) {
                             textAdditionnel =" Moun Mouri";
-                        }
+                        }*/
                     }
 
                     qf.Load_Quantite(context, chiffeDeDepart, nombreLimite, textAdditionnel, recyclerViewReponse, radioListAdapterKeyValue,  getItemClickListenerKeyValue);
@@ -4124,23 +3987,23 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
                 dataBase = menageModel;
             }
             // SAVE EMIGRER
-            if ( this.tbl_TableName == Constant.FORMULAIRE_EMIGRE ) {
+            /*if ( this.tbl_TableName == Constant.FORMULAIRE_EMIGRE ) {
                 //ToastUtility.LogCat( "PREPARE TO SAVE FORMULAIRE_EMIGRE" );
                 EmigreModel emigreModel = (EmigreModel) this.data;
                 this.emigreModel = cuRecordMngr.SaveEmigre(this.iDKeys, emigreModel, this.TypeEvenement, nomUtilisateur );
                 this.iDKeys =  this.emigreModel.getEmigreId();
                 dataBase = emigreModel;
                 //ToastUtility.LogCat( "AFTER Save emigreModel ID:" + emigreModel.getEmigreId() );
-            }
+            }*/
             // SAVE DECES
-            if ( this.tbl_TableName == Constant.FORMULAIRE_DECES ) {
+           /* if ( this.tbl_TableName == Constant.FORMULAIRE_DECES ) {
                 //ToastUtility.LogCat( "PREPARE TO SAVE FORMULAIRE_DECES" );
                 DecesModel decesModel = (DecesModel) this.data;
                 this.decesModel = cuRecordMngr.SaveDeces(this.iDKeys, decesModel, this.TypeEvenement, nomUtilisateur );
                 this.iDKeys =  this.decesModel.getDecesId();
                 dataBase = decesModel;
                 //ToastUtility.LogCat("AFTER Save decesModel ID:" + decesModel.getDecesId() );
-            }
+            }*/
             // SAVE INdividu
             if ( this.tbl_TableName == Constant.FORMULAIRE_INDIVIDUS ) {
                 //ToastUtility.LogCat( "PREPARE TO SAVE FORMULAIRE_INDIVIDUS" );
@@ -4166,9 +4029,9 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
                 BatimentModel b = (BatimentModel) this.data;
                 if (b.getQb1Etat() != null && b.getQb1Etat() == Constant.BATIMAN_PA_KA_WE_5  ) {
                     return "" + Constant.STATUT_MODULE_KI_FINI_1;
-                }else if (b.getQb6StatutOccupation() != null &&  b.getQb6StatutOccupation()== Constant.BATIMAN_OKIPE_1 ) {
+                }else if (b.getQb3StatutOccupation() != null &&  b.getQb3StatutOccupation()== Constant.BATIMAN_OKIPE_1 ) {
                     return "" + Constant.STATUT_MODULE_KI_PA_FINI_3;
-                }else if (b.getQb6StatutOccupation() != null &&  b.getQb6StatutOccupation() == Constant.BATIMAN_TOUJOU_VID_2  ) {
+                }else if (b.getQb3StatutOccupation() != null &&  b.getQb3StatutOccupation() == Constant.BATIMAN_TOUJOU_VID_2  ) {
                     return "" + Constant.STATUT_MODULE_KI_FINI_1;
                 }
             }
@@ -4202,10 +4065,10 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
                 }*/
             }
             if (tbl_TableName == Constant.FORMULAIRE_LOGEMENT_COLLECTIF){
-                LogementModel b = (LogementModel)this.data;
+                /*LogementModel b = (LogementModel)this.data;
                 if (b.getQlc1TypeLogement() != null && b.getQlc1TypeLogement() > Constant.LCOL_Lazil_oswa_kote_granmoun_rete_oswa_kay_retrèt_6){
                     return "" + Constant.STATUT_MODULE_KI_FINI_1;
-                }
+                }*/
             }
             if (tbl_TableName == Constant.FORMULAIRE_MENAGE){
                 MenageModel b = (MenageModel) this.data;
@@ -4264,24 +4127,24 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
             //****************************************//
             // ********* CALCUL POUR EMIGRE **********//
             //****************************************//
-            int NbreTotalEmigre = 0;
+            /*int NbreTotalEmigre = 0;
             if (this.getMenageModel().getQn1Emigration() != null &&
                     this.getMenageModel().getQn1Emigration() == Constant.REPONS_WI_1) {
                 if (this.getMenageModel().getQn1NbreEmigre() != null && this.getMenageModel().getQn1NbreEmigre() > 0) {
                     NbreTotalEmigre = this.getMenageModel().getQn1NbreEmigre();
                 }
-            }
+            }*/
 
-            if (NbreTotalEmigre > 0) {
-                long nbreTotalEmigre_FiniEtBienRemplit = queryRecordMngr.countEmigrer_AllFilled_ByMenage_ByStatus(this.getMenageModel().getMenageId(), statutFormulaire, isFillAllField);
+            /*if (NbreTotalEmigre > 0) {
+                long nbreTotalEmigre_FiniEtBienRemplit = queryRecordMngr.countAncienMembre_AllFilled_ByMenage_ByStatus(this.getMenageModel().getMenageId(), statutFormulaire, isFillAllField);
                 if (NbreTotalEmigre != nbreTotalEmigre_FiniEtBienRemplit) {
                     IsStatutMenageFini = false;
                 }
-            }
+            }*/
             //****************************************//
             //*********  CALCUL POUR DECES  **********//
             //****************************************//
-            int NbreTotalDeces = 0;
+            /*int NbreTotalDeces = 0;
             if ( this.getMenageModel().getQd1Deces() != null &&
                     this.getMenageModel().getQd1Deces() == Constant.REPONS_WI_1) {
                 if (this.getMenageModel().getQd1NbreDecede() != null && this.getMenageModel().getQd1NbreDecede() > 0) {
@@ -4293,11 +4156,11 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
                         IsStatutMenageFini = false;
                     }
                 }
-            }
+            }*/
             //****************************************//
             //*******  CALCUL POUR INDIVIDUS  ********//
             //****************************************//
-            int Nbre_TotalIndividu = this.getMenageModel().getQm11TotalIndividuVivant();
+            int Nbre_TotalIndividu = this.getMenageModel().getQm2TotalIndividuVivant();
             if (Nbre_TotalIndividu > 0) {
                 long NbreTotalIndividu_FiniEtBienRemplit = queryRecordMngr.countIndividus_AllFilled_ByMenage_ByStatus(this.getMenageModel().getMenageId(), statutFormulaire, isFillAllField);
                 if (Nbre_TotalIndividu != NbreTotalIndividu_FiniEtBienRemplit) {
@@ -4338,7 +4201,7 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
 
             if(typeLogement == Constant.LOJ_KOLEKTIF){
                 //region LOGEMENT COLLECTIF
-                /*******  CALCUL POUR INDIVIDUS DANS LE LOGEMENT COLLECTIF  ********/
+                /*******  CALCUL POUR INDIVIDUS DANS LE LOGEMENT COLLECTIF  ********//*
                 int Nbre_TotalIndividu = 0;//this.getLogementModel().getQlcTotalIndividus();
                 if( this.getLogementModel().getQlc1TypeLogement() != null && this.getLogementModel().getQlc1TypeLogement() <= Constant.LCOL_Lazil_oswa_kote_granmoun_rete_oswa_kay_retrèt_6 ){
                     if (this.getLogementModel().getQlcTotalIndividus() != null && this.getLogementModel().getQlcTotalIndividus() > 0) {
@@ -4351,17 +4214,17 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
                     if ( Nbre_TotalIndividu != NbreTotalIndividu_FiniEtBienRemplit ){
                         IsStatutLogementFini=false;
                     }
-                }
+                }*/
                 //endregion
             }else if(typeLogement == Constant.LOJ_ENDIVIDYEL){
                 //region LOGEMENT INDIVIDUEL
                 /*******  CALCUL POUR MENAGE DANS LE LOGEMENT  ********/
                 int nbre_TotalMenage = 0;
-                if( this.getLogementModel().getQlin9NbreTotalMenage() != null ){
-                    nbre_TotalMenage = this.getLogementModel().getQlin9NbreTotalMenage();
+                if( this.getLogementModel().getQlin5NbreTotalMenage() != null ){
+                    nbre_TotalMenage = this.getLogementModel().getQlin5NbreTotalMenage();
                 }
-                if ( this.getLogementModel().getQlin8NbreIndividuDepense() != null &&
-                        this.getLogementModel().getQlin8NbreIndividuDepense() == Constant.REPONS_NON_2 ){
+                if ( this.getLogementModel().getQlin4IsHaveIndividuDepense() != null &&
+                        this.getLogementModel().getQlin4IsHaveIndividuDepense() == Constant.REPONS_NON_2 ){
                     nbre_TotalMenage = 1;
                 }
                 // On verifie s'il existe de menage dans le logement Individuel
@@ -4419,11 +4282,11 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
 
             //*******  CALCUL POUR INDIVIDUS DANS LE LOGEMENT COLLECTIF  ********//
             int Nbre_TotalIndividu = 0;
-            if( this.getLogementModel().getQlc1TypeLogement() != null && this.getLogementModel().getQlc1TypeLogement() <= Constant.LCOL_Lazil_oswa_kote_granmoun_rete_oswa_kay_retrèt_6 ){
+           /* if( this.getLogementModel().getQlc1TypeLogement() != null && this.getLogementModel().getQlc1TypeLogement() <= Constant.LCOL_Lazil_oswa_kote_granmoun_rete_oswa_kay_retrèt_6 ){
                 if (this.getLogementModel().getQlcTotalIndividus() != null && this.getLogementModel().getQlcTotalIndividus() > 0) {
                     Nbre_TotalIndividu = this.getLogementModel().getQlcTotalIndividus();
                 }
-            }
+            }*/
             if (Nbre_TotalIndividu > 0) {
                 // On Calcul le nombre d'individu fini et bien remplit
                 long NbreTotalIndividu_FiniEtBienRemplit = queryRecordMngr.countIndividus_AllFilled_ByLogement_ByStatus( this.getLogementModel().getLogeId(), statutFormulaire, isFillAllField);
@@ -4450,7 +4313,7 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
             //****************************************************//
             //********** CALCUL POUR LOGEMENT COLLECTIF **********//
             //****************************************************//
-            int Nbre_TotalLogeCollectif = this.getBatimentModel().getQb8NbreLogeCollectif();
+            /*int Nbre_TotalLogeCollectif = this.getBatimentModel().getQb8NbreLogeCollectif();
             // On verifie s'il existe de logement Collectif dans le batiment
             if( Nbre_TotalLogeCollectif > 0 ) {
                 // On Calcul le nombre de logement Collectif fini et bien remplit
@@ -4458,8 +4321,8 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
                 if ( Nbre_TotalLogeCollectif != NbreTotalLogeCollectif_FiniEtBienRemplit ){
                     IsStatutBatimentFini=false;
                 }
-            }
-            int Nbre_TotalLogeIndividuel = this.getBatimentModel().getQb8NbreLogeIndividuel();
+            }*/
+            int Nbre_TotalLogeIndividuel = this.getBatimentModel().getQb4NbreLogeIndividuel();
             // On verifie s'il existe de logement Individuel dans le batiment
             if( Nbre_TotalLogeIndividuel > 0 ) {
                 // On Calcul le nombre de logement Individuel fini et bien remplit

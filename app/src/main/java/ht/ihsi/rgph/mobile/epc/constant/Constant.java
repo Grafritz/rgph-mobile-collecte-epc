@@ -7,7 +7,7 @@ import android.view.Gravity;
  */
  public interface Constant {
 
-    String DATABASE_NAME="rgph_data-db";
+    String DATABASE_NAME="epc_data";
 
     int JOU_RESANSMAN=10;
     int MWA_RESANSMAN=06;
@@ -334,6 +334,7 @@ import android.view.Gravity;
     String Qm5SrcEnergieCuison1Et2 = "Qm5SrcEnergieCuison1Et2";
     String Qm10TotalDomestiqueGaconEtFille = "Qm10TotalDomestiqueGaconEtFille";
     String Qm11CallFormListeIndividu = "Qm11CallFormListeIndividu";
+    String CallFormListeAncienMembreMenage = "CallFormListeAncienMembreMenage";
 
     String Qf1NbrEnfantGarconEtFillessssssss = "Qf1NbrEnfantGarconEtFille";
     String Qf1NbreEnfantNeVivantGarconEtFille = "Qf1NbreEnfantNeVivantGarconEtFille";

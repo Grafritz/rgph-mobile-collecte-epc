@@ -7,7 +7,7 @@ import ht.ihsi.rgph.mobile.epc.managers.QueryRecordMngr;
 import ht.ihsi.rgph.mobile.epc.utilities.Tools;
 
 /**
- * Created by ajordany on 3/21/2016.
+ * Created by Jfduvers on 3/21/2016.
  */
 public class MenageModel extends BaseModel{
 
@@ -17,42 +17,15 @@ public class MenageModel extends BaseModel{
     private Long batimentId;
     private String sdeId;
     private Short qm1NoOrdre;
-    private Short qm2ModeJouissance;
-    private Short qm3ModeObtentionLoge;
-    private Short qm4_1ModeAprovEauABoire;
-    private Short qm4_2ModeAprovEauAUsageCourant;
-    private Short qm5SrcEnergieCuisson1;
-    private Short qm5SrcEnergieCuisson2;
-    private Short qm6TypeEclairage;
-    private Short qm7ModeEvacDechet;
-    private Short qm8EndroitBesoinPhysiologique;
-    private Integer qm9NbreRadio1;
-    private Integer qm9NbreTelevision2;
-    private Integer qm9NbreRefrigerateur3;
-    private Integer qm9NbreFouElectrique4;
-    private Integer qm9NbreOrdinateur5;
-    private Integer qm9NbreMotoBicyclette6;
-    private Integer qm9NbreVoitureMachine7;
-    private Integer qm9NbreBateau8;
-    private Integer qm9NbrePanneauGeneratrice9;
-    private Integer qm9NbreMilletChevalBourique10;
-    private Integer qm9NbreBoeufVache11;
-    private Integer qm9NbreCochonCabrit12;
-    private Integer qm9NbreBeteVolaille13;
-    private Short qm10AvoirPersDomestique;
-    private Short qm10TotalDomestiqueFille;
-    private Short qm10TotalDomestiqueGarcon;
-    private Integer qm11TotalIndividuVivant;
-    private Short qn1Emigration;
-    private Short qn1NbreEmigre;
-    private Short qd1Deces;
-    private Short qd1NbreDecede;
+    private Short qm2TotalIndividuVivant;
+    private Short qm22IsHaveAncienMembre;
+    private Short qm22TotalAncienMembre;
     private Short statut;
     private Boolean isValidated;
+    private Boolean isFieldAllFilled;
     private String dateDebutCollecte;
     private String dateFinCollecte;
     private Integer dureeSaisie;
-    private Boolean isFieldAllFilled;
     private Boolean isContreEnqueteMade;
     private String codeAgentRecenceur;
     private Boolean isVerified=false;
@@ -84,11 +57,8 @@ public class MenageModel extends BaseModel{
         menageId = Long.valueOf(0);
         batimentId = Long.valueOf(0);
         logeId = Long.valueOf(0);
-        qn1NbreEmigre = 0;
-        qd1NbreDecede = 0;
-        qm11TotalIndividuVivant = 0;
-        qm10TotalDomestiqueGarcon = 0;
-        qm10TotalDomestiqueFille = 0;
+        qm2TotalIndividuVivant = 0;
+        qm22TotalAncienMembre = 0;
     }
     //endregion
 
@@ -133,244 +103,28 @@ public class MenageModel extends BaseModel{
         this.qm1NoOrdre = qm1NoOrdre;
     }
 
-    public Short getQm2ModeJouissance() {
-        return qm2ModeJouissance;
+    public Short getQm2TotalIndividuVivant() {
+        return qm2TotalIndividuVivant;
     }
 
-    public void setQm2ModeJouissance(Short qm2ModeJouissance) {
-        this.qm2ModeJouissance = qm2ModeJouissance;
+    public void setQm2TotalIndividuVivant(Short qm2TotalIndividuVivant) {
+        this.qm2TotalIndividuVivant = qm2TotalIndividuVivant;
     }
 
-    public Short getQm3ModeObtentionLoge() {
-        return qm3ModeObtentionLoge;
+    public Short getQm22IsHaveAncienMembre() {
+        return qm22IsHaveAncienMembre;
     }
 
-    public void setQm3ModeObtentionLoge(Short qm3ModeObtentionLoge) {
-        this.qm3ModeObtentionLoge = qm3ModeObtentionLoge;
+    public void setQm22IsHaveAncienMembre(Short qm22IsHaveAncienMembre) {
+        this.qm22IsHaveAncienMembre = qm22IsHaveAncienMembre;
     }
 
-    public Short getQm4_1ModeAprovEauABoire() {
-        return qm4_1ModeAprovEauABoire;
+    public Short getQm22TotalAncienMembre() {
+        return qm22TotalAncienMembre;
     }
 
-    public void setQm4_1ModeAprovEauABoire(Short qm4_1ModeAprovEauABoire) {
-        this.qm4_1ModeAprovEauABoire = qm4_1ModeAprovEauABoire;
-    }
-
-    public Short getQm4_2ModeAprovEauAUsageCourant() {
-        return qm4_2ModeAprovEauAUsageCourant;
-    }
-
-    public void setQm4_2ModeAprovEauAUsageCourant(Short qm4_2ModeAprovEauAUsageCourant) {
-        this.qm4_2ModeAprovEauAUsageCourant = qm4_2ModeAprovEauAUsageCourant;
-    }
-
-    public Short getQm5SrcEnergieCuisson1() {
-        return qm5SrcEnergieCuisson1;
-    }
-
-    public void setQm5SrcEnergieCuisson1(Short qm5SrcEnergieCuisson1) {
-        this.qm5SrcEnergieCuisson1 = qm5SrcEnergieCuisson1;
-    }
-
-    public Short getQm5SrcEnergieCuisson2() {
-        return qm5SrcEnergieCuisson2;
-    }
-
-    public void setQm5SrcEnergieCuisson2(Short qm5SrcEnergieCuisson2) {
-        this.qm5SrcEnergieCuisson2 = qm5SrcEnergieCuisson2;
-    }
-
-    public Short getQm6TypeEclairage() {
-        return qm6TypeEclairage;
-    }
-
-    public void setQm6TypeEclairage(Short qm6TypeEclairage) {
-        this.qm6TypeEclairage = qm6TypeEclairage;
-    }
-
-    public Short getQm7ModeEvacDechet() {
-        return qm7ModeEvacDechet;
-    }
-
-    public void setQm7ModeEvacDechet(Short qm7ModeEvacDechet) {
-        this.qm7ModeEvacDechet = qm7ModeEvacDechet;
-    }
-
-    public Short getQm8EndroitBesoinPhysiologique() {
-        return qm8EndroitBesoinPhysiologique;
-    }
-
-    public void setQm8EndroitBesoinPhysiologique(Short qm8EndroitBesoinPhysiologique) {
-        this.qm8EndroitBesoinPhysiologique = qm8EndroitBesoinPhysiologique;
-    }
-
-    public Integer getQm9NbreRadio1() {
-        return qm9NbreRadio1;
-    }
-
-    public void setQm9NbreRadio1(Integer qm9NbreRadio1) {
-        this.qm9NbreRadio1 = qm9NbreRadio1;
-    }
-
-    public Integer getQm9NbreTelevision2() {
-        return qm9NbreTelevision2;
-    }
-
-    public void setQm9NbreTelevision2(Integer qm9NbreTelevision2) {
-        this.qm9NbreTelevision2 = qm9NbreTelevision2;
-    }
-
-    public Integer getQm9NbreRefrigerateur3() {
-        return qm9NbreRefrigerateur3;
-    }
-
-    public void setQm9NbreRefrigerateur3(Integer qm9NbreRefrigerateur3) {
-        this.qm9NbreRefrigerateur3 = qm9NbreRefrigerateur3;
-    }
-
-    public Integer getQm9NbreFouElectrique4() {
-        return qm9NbreFouElectrique4;
-    }
-
-    public void setQm9NbreFouElectrique4(Integer qm9NbreFouElectrique4) {
-        this.qm9NbreFouElectrique4 = qm9NbreFouElectrique4;
-    }
-
-    public Integer getQm9NbreOrdinateur5() {
-        return qm9NbreOrdinateur5;
-    }
-
-    public void setQm9NbreOrdinateur5(Integer qm9NbreOrdinateur5) {
-        this.qm9NbreOrdinateur5 = qm9NbreOrdinateur5;
-    }
-
-    public Integer getQm9NbreMotoBicyclette6() {
-        return qm9NbreMotoBicyclette6;
-    }
-
-    public void setQm9NbreMotoBicyclette6(Integer qm9NbreMotoBicyclette6) {
-        this.qm9NbreMotoBicyclette6 = qm9NbreMotoBicyclette6;
-    }
-
-    public Integer getQm9NbreVoitureMachine7() {
-        return qm9NbreVoitureMachine7;
-    }
-
-    public void setQm9NbreVoitureMachine7(Integer qm9NbreVoitureMachine7) {
-        this.qm9NbreVoitureMachine7 = qm9NbreVoitureMachine7;
-    }
-
-    public Integer getQm9NbreBateau8() {
-        return qm9NbreBateau8;
-    }
-
-    public void setQm9NbreBateau8(Integer qm9NbreBateau8) {
-        this.qm9NbreBateau8 = qm9NbreBateau8;
-    }
-
-    public Integer getQm9NbrePanneauGeneratrice9() {
-        return qm9NbrePanneauGeneratrice9;
-    }
-
-    public void setQm9NbrePanneauGeneratrice9(Integer qm9NbrePanneauGeneratrice9) {
-        this.qm9NbrePanneauGeneratrice9 = qm9NbrePanneauGeneratrice9;
-    }
-
-    public Integer getQm9NbreMilletChevalBourique10() {
-        return qm9NbreMilletChevalBourique10;
-    }
-
-    public void setQm9NbreMilletChevalBourique10(Integer qm9NbreMilletChevalBourique10) {
-        this.qm9NbreMilletChevalBourique10 = qm9NbreMilletChevalBourique10;
-    }
-
-    public Integer getQm9NbreBoeufVache11() {
-        return qm9NbreBoeufVache11;
-    }
-
-    public void setQm9NbreBoeufVache11(Integer qm9NbreBoeufVache11) {
-        this.qm9NbreBoeufVache11 = qm9NbreBoeufVache11;
-    }
-
-    public Integer getQm9NbreCochonCabrit12() {
-        return qm9NbreCochonCabrit12;
-    }
-
-    public void setQm9NbreCochonCabrit12(Integer qm9NbreCochonCabrit12) {
-        this.qm9NbreCochonCabrit12 = qm9NbreCochonCabrit12;
-    }
-
-    public Integer getQm9NbreBeteVolaille13() {
-        return qm9NbreBeteVolaille13;
-    }
-
-    public void setQm9NbreBeteVolaille13(Integer qm9NbreBeteVolaille13) {
-        this.qm9NbreBeteVolaille13 = qm9NbreBeteVolaille13;
-    }
-
-    public Short getQm10AvoirPersDomestique() {
-        return qm10AvoirPersDomestique;
-    }
-
-    public void setQm10AvoirPersDomestique(Short qm10AvoirPersDomestique) {
-        this.qm10AvoirPersDomestique = qm10AvoirPersDomestique;
-    }
-
-    public Short getQm10TotalDomestiqueFille() {
-        return qm10TotalDomestiqueFille;
-    }
-
-    public void setQm10TotalDomestiqueFille(Short qm10TotalDomestiqueFille) {
-        this.qm10TotalDomestiqueFille = qm10TotalDomestiqueFille;
-    }
-
-    public Short getQm10TotalDomestiqueGarcon() {
-        return qm10TotalDomestiqueGarcon;
-    }
-
-    public void setQm10TotalDomestiqueGarcon(Short qm10TotalDomestiqueGarcon) {
-        this.qm10TotalDomestiqueGarcon = qm10TotalDomestiqueGarcon;
-    }
-
-    public Integer getQm11TotalIndividuVivant() {
-        return qm11TotalIndividuVivant;
-    }
-
-    public void setQm11TotalIndividuVivant(Integer qm11TotalIndividuVivant) {
-        this.qm11TotalIndividuVivant = qm11TotalIndividuVivant;
-    }
-
-    public Short getQn1Emigration() {
-        return qn1Emigration;
-    }
-
-    public void setQn1Emigration(Short qn1Emigration) {
-        this.qn1Emigration = qn1Emigration;
-    }
-
-    public Short getQn1NbreEmigre() {
-        return qn1NbreEmigre;
-    }
-
-    public void setQn1NbreEmigre(Short qn1NbreEmigre) {
-        this.qn1NbreEmigre = qn1NbreEmigre;
-    }
-
-    public Short getQd1Deces() {
-        return qd1Deces;
-    }
-
-    public void setQd1Deces(Short qd1Deces) {
-        this.qd1Deces = qd1Deces;
-    }
-
-    public Short getQd1NbreDecede() {
-        return qd1NbreDecede;
-    }
-
-    public void setQd1NbreDecede(Short qd1NbreDecede) {
-        this.qd1NbreDecede = qd1NbreDecede;
+    public void setQm22TotalAncienMembre(Short qm22TotalAncienMembre) {
+        this.qm22TotalAncienMembre = qm22TotalAncienMembre;
     }
 
     public Short getStatut() {
@@ -387,6 +141,14 @@ public class MenageModel extends BaseModel{
 
     public void setIsValidated(Boolean isValidated) {
         this.isValidated = isValidated;
+    }
+
+    public Boolean getIsFieldAllFilled() {
+        return isFieldAllFilled;
+    }
+
+    public void setIsFieldAllFilled(Boolean isFieldAllFilled) {
+        this.isFieldAllFilled = isFieldAllFilled;
     }
 
     public String getDateDebutCollecte() {
@@ -413,14 +175,6 @@ public class MenageModel extends BaseModel{
         this.dureeSaisie = dureeSaisie;
     }
 
-    public Boolean getIsFieldAllFilled() {
-        return isFieldAllFilled;
-    }
-
-    public void setIsFieldAllFilled(Boolean isFieldAllFilled) {
-        this.isFieldAllFilled = isFieldAllFilled;
-    }
-
     public Boolean getIsContreEnqueteMade() {
         return isContreEnqueteMade;
     }
@@ -436,109 +190,17 @@ public class MenageModel extends BaseModel{
     public void setCodeAgentRecenceur(String codeAgentRecenceur) {
         this.codeAgentRecenceur = codeAgentRecenceur;
     }
+
+    public Boolean getIsVerified() {
+        return isVerified;
+    }
+
+    public void setIsVerified(Boolean isVerified) {
+        this.isVerified = isVerified;
+    }
     //endregion
 
     // region |-| GETTER SETTER SYSTEME |-|
-    public String getQm4ModeAprobEauBoireEtUsageCourant() {// "00-00"
-        return qm4_1ModeAprovEauABoire + "-" + qm4_2ModeAprovEauAUsageCourant;
-    }
-    public void setQm4ModeAprobEauBoireEtUsageCourant(String value) {
-        try {
-            String[] AprobEauBoireEtUsageCourant = value.split("-"); // 00-00
-            String ModeAprovEauABoire  = AprobEauBoireEtUsageCourant[0]; // Mode Aprov Eau A Boire
-            String ModeAprovEauAUsageCourant = AprobEauBoireEtUsageCourant[1];  // Mode Aprov Eau A Usage Courant
-            qm4_1ModeAprovEauABoire = Short.valueOf(ModeAprovEauABoire);
-            qm4_2ModeAprovEauAUsageCourant = Short.valueOf(ModeAprovEauAUsageCourant);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public String getQm5SrcEnergieCuison1Et2() {// "00-00"
-        return qm5SrcEnergieCuisson1 + "-" + qm5SrcEnergieCuisson2;
-    }
-    public void setQm5SrcEnergieCuison1Et2(String value) {
-        try {
-            String[] SrcEnergieCuison1Et2 = value.split("-"); // 00-00
-            String SrcEnergieCuisson1  = SrcEnergieCuison1Et2[0]; // Src Energie Cuisson 1
-            String SrcEnergieCuisson2 = SrcEnergieCuison1Et2[1];  // Src Energie Cuisson 2
-            qm5SrcEnergieCuisson1 = Short.valueOf(SrcEnergieCuisson1);
-            qm5SrcEnergieCuisson2 = Short.valueOf(SrcEnergieCuisson2);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public String getQm9NbrAppareilsEtAnimaux() {// "00-00"
-        String result = qm9NbreRadio1 + "-" + qm9NbreTelevision2
-                + "-" + qm9NbreRefrigerateur3 + "-" + qm9NbreFouElectrique4
-                + "-" + qm9NbreOrdinateur5 + "-" + qm9NbreMotoBicyclette6
-                + "-" + qm9NbreVoitureMachine7 + "-" + qm9NbreBateau8
-                + "-" + qm9NbrePanneauGeneratrice9 + "-" + qm9NbreMilletChevalBourique10
-                + "-" + qm9NbreBoeufVache11 + "-" + qm9NbreCochonCabrit12 + "-" + qm9NbreBeteVolaille13;
-        return result;
-    }
-    public void setQm9NbrAppareilsEtAnimaux(String value) {
-        try {
-            String[] nbrItems = value.split("-");
-            String nbrItem  = nbrItems[0]; //
-            qm9NbreRadio1 = Integer.valueOf(nbrItem);
-
-            nbrItem  = nbrItems[1]; //
-            qm9NbreTelevision2 = Integer.valueOf(nbrItem);
-
-            nbrItem  = nbrItems[2]; //
-            qm9NbreRefrigerateur3 = Integer.valueOf(nbrItem);
-
-            nbrItem  = nbrItems[3]; //
-            qm9NbreFouElectrique4 = Integer.valueOf(nbrItem);
-
-            nbrItem  = nbrItems[4]; //
-            qm9NbreOrdinateur5 = Integer.valueOf(nbrItem);
-
-            nbrItem  = nbrItems[5]; //
-            qm9NbreMotoBicyclette6 = Integer.valueOf(nbrItem);
-
-            nbrItem  = nbrItems[6]; //
-            qm9NbreVoitureMachine7 = Integer.valueOf(nbrItem);
-
-            nbrItem  = nbrItems[7]; //
-            qm9NbreBateau8 = Integer.valueOf(nbrItem);
-
-            nbrItem  = nbrItems[8]; //
-            qm9NbrePanneauGeneratrice9 = Integer.valueOf(nbrItem);
-
-            nbrItem  = nbrItems[9]; //
-            qm9NbreMilletChevalBourique10 = Integer.valueOf(nbrItem);
-
-            nbrItem  = nbrItems[10]; //
-            qm9NbreBoeufVache11 = Integer.valueOf(nbrItem);
-
-            nbrItem  = nbrItems[11]; //
-            qm9NbreCochonCabrit12 = Integer.valueOf(nbrItem);
-
-            nbrItem  = nbrItems[12]; //
-            qm9NbreBeteVolaille13 = Integer.valueOf(nbrItem);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public String getQm10TotalDomestiqueGaconEtFille() {// "00-00"
-        return  qm10TotalDomestiqueGarcon + "-" + qm10TotalDomestiqueFille;
-    }
-    public void setQm10TotalDomestiqueGaconEtFille(String value) {
-        try {
-            String[] nbrItems = value.split("-");
-            String nbrItem  = nbrItems[0]; //
-            qm10TotalDomestiqueGarcon = Short.valueOf(nbrItem);
-            nbrItem  = nbrItems[1]; //
-            qm10TotalDomestiqueFille = Short.valueOf(nbrItem);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public String getQm11CallFormListeIndividu() {
         return qm11CallFormListeIndividu;
     }
@@ -588,89 +250,31 @@ public class MenageModel extends BaseModel{
         try{
             String QSuivant = "";
 
-            // Qm10 Total Domestique Garcon et Total Domestique Fille
-            if (nomChamps.equalsIgnoreCase(Constant.Qm10TotalDomestiqueGaconEtFille)) {
-                if(menageModel.getQm10TotalDomestiqueGarcon()!=null && menageModel.getQm10TotalDomestiqueFille()!=null
-                        && menageModel.getQm10TotalDomestiqueGarcon() <= 0 && menageModel.getQm10TotalDomestiqueFille() <= 0){
-                    throw new TextEmptyException("Kantite domestik gason oubyen kantite fi pa ka zero...");
-                }
-            }
-            if (nomChamps.equalsIgnoreCase(MenageDao.Properties.Qm11TotalIndividuVivant.columnName)) {
+            if (nomChamps.equalsIgnoreCase(MenageDao.Properties.Qm2TotalIndividuVivant.columnName)) {
                 long Nbre_Individu_DejaSave=0;
-                if( menageModel.getQm11TotalIndividuVivant()!=null && menageModel.getQm11TotalIndividuVivant() <= 0 ){
-                    QSuivant = "N1";
+                if( menageModel.getQm2TotalIndividuVivant()!=null && menageModel.getQm2TotalIndividuVivant() <= 0 ){
+                    QSuivant = "M2.2";
                 }
                 if ( menageModel.getMenageId()!=null && menageModel.getMenageId() > 0 ) {
                     Nbre_Individu_DejaSave = queryRecordMngr.countIndByMenage(menageModel.getMenageId());
                 }
-                if(menageModel.getQm11TotalIndividuVivant()!=null && menageModel.getQm11TotalIndividuVivant() < Nbre_Individu_DejaSave ){
+                if(menageModel.getQm2TotalIndividuVivant()!=null && menageModel.getQm2TotalIndividuVivant() < Nbre_Individu_DejaSave ){
                     throw new TextEmptyException("Ou paka retire nan kantite ke ou te mete a. "
                             + "\n  paske ou gentan anregistre [" + Nbre_Individu_DejaSave + "] moun deja pou menaj sa.");
                 }
             }
 
-            //M5.1	AK KI SA YO PLIS SEVI POU KWIT MANJE ?  (Bay tip ki pi sèvi a anvan)
-            if (nomChamps.equalsIgnoreCase( MenageDao.Properties.Qm5SrcEnergieCuisson2.columnName )) {
-                //if (nomChamps.equalsIgnoreCase( Constant.Qm5SrcEnergieCuison1Et2 )) {
-            /* Vérifier que source 1 ≠ source 2 .
-                Si source 1 = source 2, afficher un message d'erreur et permettre à l'Agent Recenseur de  corriger pour pouvoir continuer.
-                Permettre à l’Agent Recenseur d’inscrire « 00 » dans les autres cases vides s’il s’agit d’une seule source d’énergie pour la cuisson. */
-                if ( menageModel.getQm5SrcEnergieCuisson1()!=null && menageModel.getQm5SrcEnergieCuisson1() == 99 ){
-                    throw new TextEmptyException("Repons ou Chwazi pou 1e sous la pa bon [" + Tools.getString_Reponse("99", MenageDao.Properties.Qm5SrcEnergieCuisson1.columnName) + "] .");
-                }
-                if ( menageModel.getQm5SrcEnergieCuisson1()!=null && menageModel.getQm5SrcEnergieCuisson2()!=null
-                        && menageModel.getQm5SrcEnergieCuisson1() == menageModel.getQm5SrcEnergieCuisson2() ){
-                    throw new TextEmptyException("Paka gen de menm sous deneji pou fè manje. Si se yon sèl sous ki genyen, "
-                            + " Chwazi [" + Tools.getString_Reponse("99", MenageDao.Properties.Qm5SrcEnergieCuisson1.columnName) + "] pou dezyèm sous la."
-                            + "\n \n Ou te chwazi : " + Tools.getString_Reponse(""+ menageModel.getQm5SrcEnergieCuisson1(), MenageDao.Properties.Qm5SrcEnergieCuisson1.columnName));
+            // ANCIEN MEMBRE
+           if (nomChamps.equalsIgnoreCase(MenageDao.Properties.Qm22TotalAncienMembre.columnName)) {
+                if( menageModel.getMenageId()!=null &&  menageModel.getMenageId() > 0 &&  menageModel.getQm22TotalAncienMembre()!=null ) {
+                    long nbreAncienMembreSave = queryRecordMngr.countAncienMembreByMenage(menageModel.getMenageId());
+                    if ( nbreAncienMembreSave > menageModel.getQm22TotalAncienMembre()) {
+                        throw new TextEmptyException("Ou gentan antre " + nbreAncienMembreSave + " Ansyen Manm."
+                                + "\n \n Ou ka ajoute men ou paka retire sou kantite sa a.");
+                    }
                 }
             }
 
-            // EMIGRER
-           if (nomChamps.equalsIgnoreCase(MenageDao.Properties.Qn1NbreEmigre.columnName)) {
-                if( menageModel.getMenageId()!=null &&  menageModel.getMenageId() > 0 &&  menageModel.getQn1NbreEmigre()!=null ) {
-                    long nbreEmigreFilleSave = queryRecordMngr.countEmigrerByMenage(menageModel.getMenageId());
-                    if ( nbreEmigreFilleSave > menageModel.getQn1NbreEmigre()) {
-                        throw new TextEmptyException("Ou gentan antre " + nbreEmigreFilleSave + " Emigre."
-                                + "\n \n Ou ka ajoute men ou paka retire sou kantite sa a.");
-                    }
-                }
-            }
-             /*if (nomChamps.equalsIgnoreCase(MenageDao.Properties.Qn1NbreEmigreGarcon.columnName)) {
-                if( menageModel.getQn1NbreEmigreFille() <= 0 && menageModel.getQn1NbreEmigreGarcon() <= 0){
-                    throw new TextEmptyException("Kantite gason oubyen kantite fi Emigre pa ka zero...");
-                }
-                if( menageModel.getMenageId() > 0) {
-                    long nbreEmigreGarconSave = queryRecordMngr.countEmigrerByMenageBySexe(menageModel.getMenageId(), Constant.HOMME_1);
-                    if ( nbreEmigreGarconSave > menageModel.getQn1NbreEmigreGarcon()) {
-                        throw new TextEmptyException("Ou gentan antre " + nbreEmigreGarconSave + " gason ki Emigre."
-                                + "\n \n Ou ka ajoute men ou paka retire sou kantite sa a.");
-                    }
-                }
-            }*/
-
-            // DECES
-            if (nomChamps.equalsIgnoreCase(MenageDao.Properties.Qd1NbreDecede.columnName)) {
-                if( menageModel.getMenageId() > 0 &&  menageModel.getQd1NbreDecede()!=null ) {
-                    long nbreDecesFilleSave = queryRecordMngr.countDecesByMenage(menageModel.getMenageId());
-                    if ( nbreDecesFilleSave > menageModel.getQd1NbreDecede()) {
-                        throw new TextEmptyException("Ou gentan antre " + nbreDecesFilleSave + " moun ki mouri."
-                                + "\n \n Ou ka ajoute men ou paka retire sou kantite sa a.");
-                    }
-                }
-            }
-            /*if (nomChamps.equalsIgnoreCase(MenageDao.Properties.Qd1NbreDecedeGarcon.columnName)) {
-                if( menageModel.getQd1NbreDecedeFille() <= 0 && menageModel.getQd1NbreDecedeGarcon() <= 0){
-                    throw new TextEmptyException("Kantite gason ou kantite fi ki mouri pa ka zero...");
-                }
-                if( menageModel.getMenageId() > 0) {
-                    long nbreDecesGarconSave = queryRecordMngr.countDecesByMenageBySexe(menageModel.getMenageId(), Constant.HOMME_1);
-                    if ( nbreDecesGarconSave > menageModel.getQd1NbreDecedeGarcon()) {
-                        throw new TextEmptyException("Ou gentan antre " + nbreDecesGarconSave + " Gason ki mouri."
-                                + "\n \n Ou ka ajoute men ou paka retire sou kantite sa a.");
-                    }
-                }
-            }*/
             return QSuivant;
         } catch (Exception ex){
             throw ex;

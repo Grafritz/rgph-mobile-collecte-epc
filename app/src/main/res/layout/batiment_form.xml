@@ -433,7 +433,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/label_Rgph"
+                        android:text="@string/label_EPC"
                         style="@style/tvTitre2"
                         />
                     <EditText
@@ -442,7 +442,7 @@
                         android:padding="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/label_Rgph"
+                        android:hint="@string/label_EPC"
                         android:inputType="number"
                         android:maxLines="1"
                         android:maxLength="3"

@@ -194,7 +194,7 @@
     <string name="msg_Reponse_Ou_Dwe_Ekri_Siyati_Moun_Nan">Ou dwe ekri Siyati moun nan</string>
     <string name="msg_Reponse_Ou_Dwe_Chwazi_Seks_Moun_nan">Ou dwe chwazi sèks moun nan</string>
     <string name="msg_Reponse_Ou_Dwe_Chwazi_Relasyon_Moun_nan">Ou dwe chwazi relasyon moun nan</string>
-    <string name="label_LageMounNan">laj moun nan</string>
+    <string name="label_LageMounNan">Laj moun nan</string>
     <string name="label_Chwazi_LajMounNan">Chwazi Laj moun nan</string>
     <string name="msg_PiPiti_PaseYonLane">Pi piti pase yon lane</string>
     <string name="msg_Reponse_Ou_Dwe_Chwazi_JouFet_Moun_nan">Ou dwe chwazi jou moun nan te fèt</string>
@@ -209,11 +209,12 @@
     <string name="label_menu_Rekomanse">Rekòmanse</string>
     <string name="label_menu_Kontinye">Kontinye</string>
     <string name="label_MounNanMenajLa">Eske se nan menaj sa</string>
+    <string name="label_Eske_se_isit_la_toujou_rete">Eske se isit la li toujou rete...</string>
     <string name="label_Adresse">Adrès</string>
     <string name="label_Bitasyon">Bitasyon</string>
     <string name="label_Lokalite">Lokalite</string>
     <string name="label_Rec">REC</string>
-    <string name="label_Rgph">RGPH</string>
+    <string name="label_EPC">EPC</string>
     <string name="label_KodSeksyonEnimerasyon">Kòd Seksyon Enimerasyon</string>
     <string name="label_KodDistriSipevisyon">Kòd Distri Sipevisyon (DS)</string>
     <string name="label_Chwazi_MounNanMenajLa">Chwazi moun nan menaj la</string>
@@ -225,7 +226,7 @@
     <string name="msg_Reponse_Ou_Dwe_Ekri_Bitasyon_an">Ou dwe ekri bitasyon an</string>
     <string name="msg_Reponse_Ou_Dwe_Ekri_Lokalite_a">Ou dwe ekri Lokalite a</string>
     <string name="msg_Reponse_Ou_Dwe_Ekri_REC_La">Ou dwe ekri REC Batiman an</string>
-    <string name="msg_Reponse_Ou_Dwe_Ekri_RGPH_La">Ou dwe ekri Code RGPH la</string>
+    <string name="msg_Reponse_Ou_Dwe_Ekri_EPC_La">Ou dwe ekri Code EPC la</string>
     <string name="msg_Reponse_numewo_RGPH_paka_000">Ou pa ka ekri 000 (Nimewo sa a pa dwe  000).</string>
     <string name="msg_Reponse_Ou_Dwe_Ekri_KodSeksyonEnimerasyon_an">Ou dwe ekri Kòd Seksyon Enimerasyon an</string>
     <string name="msg_Reponse_Ou_Dwe_Ekri_etKodDistriSipevisyon_an">Ou dwe ekri Kòd Distri Sipevisyon a</string>
@@ -315,6 +316,17 @@
     <string name="msg_Reponse_Ou_Dwe_Antre_JouA">Ou dwe antre Jou a</string>
     <string name="msg_Reponse_Ou_Dwe_Antre_AneA">Ou dwe antre ane a</string>
     <string name="msg_Reponse_Jou_ou_antre_a_Pa_bon">Jou ou antre a pa bon</string>
+    <string name="label_MembreMenageDepuisQuand">Depi kilè li fè pati Menaj sa a?</string>
+    <string name="label_DateMembreMenage">Nan ki dat moun ki vini aprè resansman te rive nan menaj la</string>
+    <string name="label_Nationalite">Ki nasyonalite</string>
+    <string name="label_PaysNationalite">Ki peyi etranje</string>
+    <string name="label_NiveauEtude">Ki pi wo nivo li rive nan lekòl/Inivèsite?</string>
+    <string name="label_StatutMatrimonial">Estati Matrimonyal</string>
+    <string name="Label_Titre_Form_MounKapVivNanMenajLa">Enfòmasyon sou moun kap viv nan menaj la kounyeya</string>
+    <string name="label_EstMortOuQuitter">Eske se kite li kite menaj la oswa li mouri</string>
+    <string name="label_DateQuitterMenage">Nan ki dat li te pati, kite manaj la?</string>
+    <string name="label_DateMouri">Nan ki dat li te mouri?</string>
+    <string name="Label_Titre_Form_MounKiPaNanMenajLa">Moun ki pa nan Menaj la ankò après (Moman, Dat resansman an)</string>
 
 
     <array name="bootstrap_dropdown_example_data">

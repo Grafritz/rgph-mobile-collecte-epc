@@ -3,8 +3,8 @@ package ht.ihsi.rgph.mobile.epc.managers;
 import ht.ihsi.rgph.mobile.epc.exceptions.ManagerException;
 import ht.ihsi.rgph.mobile.epc.exceptions.TextEmptyException;
 import ht.ihsi.rgph.mobile.epc.models.BatimentModel;
-import ht.ihsi.rgph.mobile.epc.models.DecesModel;
-import ht.ihsi.rgph.mobile.epc.models.EmigreModel;
+//import ht.ihsi.rgph.mobile.epc.models.DecesModel;
+//import ht.ihsi.rgph.mobile.epc.models.EmigreModel;
 import ht.ihsi.rgph.mobile.epc.models.IndividuModel;
 import ht.ihsi.rgph.mobile.epc.models.LogementModel;
 import ht.ihsi.rgph.mobile.epc.models.MenageModel;
@@ -13,7 +13,7 @@ import ht.ihsi.rgph.mobile.epc.models.RapportFinalModel;
 import ht.ihsi.rgph.mobile.epc.models.RapportRARModel;
 
 /**
- * Created by jadme on 3/22/2016.
+ * Created by Jfduvers on 3/22/2016.
  */
 public interface CURecordMngr {
 
@@ -47,25 +47,11 @@ public interface CURecordMngr {
     MenageModel saveMenage(MenageModel menage, String userCode) throws ManagerException;
     MenageModel SaveMenage(Long id, MenageModel menage, int typeEvenement, String userCode) throws ManagerException;
 
-    /**
-     * Save a new deces
-     *
-     * @param deces the object deces
-     * @return DecesModel
-     * @throws ManagerException
-     */
-    DecesModel saveDeces(DecesModel deces, String userCode) throws ManagerException;
-    DecesModel SaveDeces(Long id, DecesModel deces, int typeEvenement, String userCode) throws ManagerException;
+    //DecesModel saveDeces(DecesModel deces, String userCode) throws ManagerException;
+    //DecesModel SaveDeces(Long id, DecesModel deces, int typeEvenement, String userCode) throws ManagerException;
 
-    /**
-     * Save a new emigre.
-     *
-     * @param emigre
-     * @return EmigreModel
-     * @throws ManagerException
-     */
-    EmigreModel saveEmigre(EmigreModel emigre, String userCode) throws ManagerException;
-    EmigreModel SaveEmigre(Long id, EmigreModel emigre, int typeEvenement, String userCode) throws ManagerException;
+    //EmigreModel saveEmigre(EmigreModel emigre, String userCode) throws ManagerException;
+    //EmigreModel SaveEmigre(Long id, EmigreModel emigre, int typeEvenement, String userCode) throws ManagerException;
 
     /**
      * Save a new individu.
@@ -130,25 +116,11 @@ public interface CURecordMngr {
     MenageModel updateMenage(MenageModel menage, String userCode) throws ManagerException;
     int updateStatutMenage(long idMenage, short Statut, boolean isFieldAllFilled, String userCode) throws ManagerException;
 
-    /**
-     * Update an Emigre
-     *
-     * @param emigre the object emigre
-     * @return EmigreModel
-     * @throws ManagerException
-     */
-    EmigreModel updateEmigre(EmigreModel emigre, String userCode) throws ManagerException;
-    int updateStatutEmigre(long idEmigre, short Statut, boolean isFieldAllFilled, String userCode) throws ManagerException;
+    //EmigreModel updateEmigre(EmigreModel emigre, String userCode) throws ManagerException;
+    //int updateStatutEmigre(long idEmigre, short Statut, boolean isFieldAllFilled, String userCode) throws ManagerException;
 
-    /**
-     * Update a deces.
-     *
-     * @param deces
-     * @return DecesModel
-     * @throws ManagerException
-     */
-    DecesModel updateDeces(DecesModel deces, String userCode) throws ManagerException;
-    int updateStatutDeces(long idDeces, short Statut, boolean isFieldAllFilled, String userCode) throws ManagerException;
+    //DecesModel updateDeces(DecesModel deces, String userCode) throws ManagerException;
+    //int updateStatutDeces(long idDeces, short Statut, boolean isFieldAllFilled, String userCode) throws ManagerException;
 
     /**
      * Update an individu.
@@ -173,15 +145,7 @@ public interface CURecordMngr {
      */
     <T> T updateEntity(T entite) throws ManagerException;
 
-    /**
-     * Increment or decrement the number of Logement Collectif in a batiment and change the status
-     * @param batId the id of a batiment
-     * @param status the status of the batiment
-     * @return BatimentModel
-     * @throws ManagerException
-     */
-
-    BatimentModel incNbLogCAndStatInBat(long batId, int status) throws ManagerException;
+    //BatimentModel incNbLogCAndStatInBat(long batId, int status) throws ManagerException;
 
     /**
      * Increment or decrement the number of Logement Individuel in a batiment and change the status

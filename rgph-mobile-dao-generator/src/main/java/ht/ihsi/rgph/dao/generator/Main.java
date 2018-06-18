@@ -8,11 +8,11 @@ import de.greenrobot.daogenerator.Schema;
 public class Main {
 
     //region DYNAMIC QUESTION
-    public static final String DESTINATION_PACKAGE_NAME="ht.ihsi.rgph.mobile.backend.entities";
+    public static final String DESTINATION_PACKAGE_NAME="ht.ihsi.rgph.mobile.epc.backend.entities";
     public static final String PERSONNEL_OBJECT="Personnel";
     public static final String CATEGORIE_QUESTION_OBJECT="CategorieQuestion";
     public static final String QUESTION_OBJECT="Question";
-    public static final String REPONSE_OBJECT="Reponse";
+    //public static final String REPONSE_OBJECT="Reponse";
     public static final String QUESTION_REPONSE_OBJECT="QuestionReponse";
     public static final String MODULE_OBJECT="Module";
     public static final String QUESTION_MODULE_OBJECT="QuestionModule";
@@ -25,7 +25,7 @@ public class Main {
     public static final String TBL_PERSONNEL ="tbl_personnel";
     public static final String TBL_CATEGORIE_QUESTION ="tbl_categorie_question";
     public static final String TBL_QUESTION ="tbl_question";
-    public static final String TBL_REPONSE ="tbl_reponse";
+    //public static final String TBL_REPONSE ="tbl_reponse";
     public static final String TBL_QUESTION_REPONSE ="tbl_question_reponse";
     public static final String TBL_MODULE ="tbl_module";
     public static final String TBL_QUESTION_MODULE ="tbl_question_module";
@@ -42,8 +42,9 @@ public class Main {
     public static final String BATIMENT_OBJECT="Batiment";
     public static final String LOGEMENT_OBJECT="Logement";
     public static final String MENAGE_OBJECT="Menage";
-    public static final String EMIGRE_OBJECT="Emigre";
-    public static final String DECES_OBJECT="Deces";
+    //public static final String EMIGRE_OBJECT="Emigre";
+    public static final String ANCIEN_MEMBRE_OBJECT="AncienMembre";
+    //public static final String DECES_OBJECT="Deces";
     public static final String INDIVIDU_OBJECT="Individu";
     public static final String RapportRAR_OBJECT="RapportRAR";
     public static final String RapportRAR_FINAL_OBJECT="RapportFinal";
@@ -51,14 +52,15 @@ public class Main {
     public static final String TBL_BATIMENT_OBJECT="tbl_batiment";
     public static final String TBL_LOGEMENT_OBJECT="tbl_logement";
     public static final String TBL_MENAGE_OBJECT="tbl_menage";
-    public static final String TBL_EMIGRE_OBJECT="tbl_emigre";
-    public static final String TBL_DECES_OBJECT="tbl_deces";
+    public static final String TBL_ANCIEN_MEMBRE_OBJECT="tbl_AncienMembre";
+    //public static final String TBL_EMIGRE_OBJECT="tbl_emigre";
+    //public static final String TBL_DECES_OBJECT="tbl_deces";
     public static final String TBL_INDIVIDU_OBJECT="tbl_individu";
     public static final String TBL_RapportRAR_OBJECT="tbl_rapportrar";
     public static final String TBL_RapportRAR_FINAL_OBJECT="tbl_rapportfinal";
     //endregion
 
-    public static final int DATABASE_VERSION = 3; // Ajout Champs [ isVerified ]
+    public static final int DATABASE_VERSION = 1;
 
     public static void main(String args[]) throws Exception {
 
@@ -128,13 +130,17 @@ public class Main {
         menage.setTableName(TBL_MENAGE_OBJECT);
         QuestionsGen.createMenageEntity(menage);
 
-        Entity emigre =schema.addEntity(EMIGRE_OBJECT);
-        emigre.setTableName(TBL_EMIGRE_OBJECT);
-        QuestionsGen.createEmigreEntity(emigre);
+        Entity AncienMembre =schema.addEntity(ANCIEN_MEMBRE_OBJECT);
+        AncienMembre.setTableName(TBL_ANCIEN_MEMBRE_OBJECT);
+        QuestionsGen.createAncienMembreEntity(AncienMembre);
 
-        Entity deces=schema.addEntity(DECES_OBJECT);
-        deces.setTableName(TBL_DECES_OBJECT);
-        QuestionsGen.createDecesEntity(deces);
+        //Entity deces=schema.addEntity(DECES_OBJECT);
+        //deces.setTableName(TBL_DECES_OBJECT);
+        //QuestionsGen.createDecesEntity(deces);
+
+        Entity individu=schema.addEntity(INDIVIDU_OBJECT);
+        individu.setTableName(TBL_INDIVIDU_OBJECT);
+        QuestionsGen.createIndividuEntity(individu);
 
         Entity rapportRAR = schema.addEntity(RapportRAR_OBJECT);
         rapportRAR.setTableName(TBL_RapportRAR_OBJECT);
@@ -143,10 +149,6 @@ public class Main {
         Entity rapport_FINAL_RAR = schema.addEntity(RapportRAR_FINAL_OBJECT);
         rapport_FINAL_RAR.setTableName(TBL_RapportRAR_FINAL_OBJECT);
         QuestionsGen.createRapportFinalRAREntity(rapport_FINAL_RAR);
-
-        Entity individu=schema.addEntity(INDIVIDU_OBJECT);
-        individu.setTableName(TBL_INDIVIDU_OBJECT);
-        QuestionsGen.createIndividuEntity(individu);
 
 
         //region Relationships

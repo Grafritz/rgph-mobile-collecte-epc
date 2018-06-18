@@ -17,17 +17,11 @@ public class Batiment {
     private String qlocalite;
     private String qadresse;
     private String qrec;
-    private String qrgph;
+    private String qepc;
     private Short qb1Etat;
     private Short qb2Type;
-    private Short qb3NombreEtage;
-    private Short qb4MateriauMur;
-    private Short qb5MateriauToit;
-    private Short qb6StatutOccupation;
-    private Short qb7Utilisation1;
-    private Short qb7Utilisation2;
-    private Short qb8NbreLogeCollectif;
-    private Short qb8NbreLogeIndividuel;
+    private Short qb3StatutOccupation;
+    private Short qb4NbreLogeIndividuel;
     private Short statut;
     private String dateEnvoi;
     private Boolean isValidated;
@@ -41,7 +35,7 @@ public class Batiment {
     private String latitude;
     private String longitude;
     private String codeAgentRecenceur;
-    private Boolean isVerified=false;
+    private Boolean isVerified;
 
     public Batiment() {
     }
@@ -50,7 +44,7 @@ public class Batiment {
         this.batimentId = batimentId;
     }
 
-    public Batiment(Long batimentId, String deptId, String comId, String vqseId, String sdeId, Short zone, String disctrictId, String qhabitation, String qlocalite, String qadresse, String qrec, String qrgph, Short qb1Etat, Short qb2Type, Short qb3NombreEtage, Short qb4MateriauMur, Short qb5MateriauToit, Short qb6StatutOccupation, Short qb7Utilisation1, Short qb7Utilisation2, Short qb8NbreLogeCollectif, Short qb8NbreLogeIndividuel, Short statut, String dateEnvoi, Boolean isValidated, Boolean isSynchroToAppSup, Boolean isSynchroToCentrale, String dateDebutCollecte, String dateFinCollecte, Integer dureeSaisie, Boolean isFieldAllFilled, Boolean isContreEnqueteMade, String latitude, String longitude, String codeAgentRecenceur, Boolean isVerified) {
+    public Batiment(Long batimentId, String deptId, String comId, String vqseId, String sdeId, Short zone, String disctrictId, String qhabitation, String qlocalite, String qadresse, String qrec, String qepc, Short qb1Etat, Short qb2Type, Short qb3StatutOccupation, Short qb4NbreLogeIndividuel, Short statut, String dateEnvoi, Boolean isValidated, Boolean isSynchroToAppSup, Boolean isSynchroToCentrale, String dateDebutCollecte, String dateFinCollecte, Integer dureeSaisie, Boolean isFieldAllFilled, Boolean isContreEnqueteMade, String latitude, String longitude, String codeAgentRecenceur, Boolean isVerified) {
         this.batimentId = batimentId;
         this.deptId = deptId;
         this.comId = comId;
@@ -62,17 +56,11 @@ public class Batiment {
         this.qlocalite = qlocalite;
         this.qadresse = qadresse;
         this.qrec = qrec;
-        this.qrgph = qrgph;
+        this.qepc = qepc;
         this.qb1Etat = qb1Etat;
         this.qb2Type = qb2Type;
-        this.qb3NombreEtage = qb3NombreEtage;
-        this.qb4MateriauMur = qb4MateriauMur;
-        this.qb5MateriauToit = qb5MateriauToit;
-        this.qb6StatutOccupation = qb6StatutOccupation;
-        this.qb7Utilisation1 = qb7Utilisation1;
-        this.qb7Utilisation2 = qb7Utilisation2;
-        this.qb8NbreLogeCollectif = qb8NbreLogeCollectif;
-        this.qb8NbreLogeIndividuel = qb8NbreLogeIndividuel;
+        this.qb3StatutOccupation = qb3StatutOccupation;
+        this.qb4NbreLogeIndividuel = qb4NbreLogeIndividuel;
         this.statut = statut;
         this.dateEnvoi = dateEnvoi;
         this.isValidated = isValidated;
@@ -177,12 +165,12 @@ public class Batiment {
         this.qrec = qrec;
     }
 
-    public String getQrgph() {
-        return qrgph;
+    public String getQepc() {
+        return qepc;
     }
 
-    public void setQrgph(String qrgph) {
-        this.qrgph = qrgph;
+    public void setQepc(String qepc) {
+        this.qepc = qepc;
     }
 
     public Short getQb1Etat() {
@@ -201,68 +189,20 @@ public class Batiment {
         this.qb2Type = qb2Type;
     }
 
-    public Short getQb3NombreEtage() {
-        return qb3NombreEtage;
+    public Short getQb3StatutOccupation() {
+        return qb3StatutOccupation;
     }
 
-    public void setQb3NombreEtage(Short qb3NombreEtage) {
-        this.qb3NombreEtage = qb3NombreEtage;
+    public void setQb3StatutOccupation(Short qb3StatutOccupation) {
+        this.qb3StatutOccupation = qb3StatutOccupation;
     }
 
-    public Short getQb4MateriauMur() {
-        return qb4MateriauMur;
+    public Short getQb4NbreLogeIndividuel() {
+        return qb4NbreLogeIndividuel;
     }
 
-    public void setQb4MateriauMur(Short qb4MateriauMur) {
-        this.qb4MateriauMur = qb4MateriauMur;
-    }
-
-    public Short getQb5MateriauToit() {
-        return qb5MateriauToit;
-    }
-
-    public void setQb5MateriauToit(Short qb5MateriauToit) {
-        this.qb5MateriauToit = qb5MateriauToit;
-    }
-
-    public Short getQb6StatutOccupation() {
-        return qb6StatutOccupation;
-    }
-
-    public void setQb6StatutOccupation(Short qb6StatutOccupation) {
-        this.qb6StatutOccupation = qb6StatutOccupation;
-    }
-
-    public Short getQb7Utilisation1() {
-        return qb7Utilisation1;
-    }
-
-    public void setQb7Utilisation1(Short qb7Utilisation1) {
-        this.qb7Utilisation1 = qb7Utilisation1;
-    }
-
-    public Short getQb7Utilisation2() {
-        return qb7Utilisation2;
-    }
-
-    public void setQb7Utilisation2(Short qb7Utilisation2) {
-        this.qb7Utilisation2 = qb7Utilisation2;
-    }
-
-    public Short getQb8NbreLogeCollectif() {
-        return qb8NbreLogeCollectif;
-    }
-
-    public void setQb8NbreLogeCollectif(Short qb8NbreLogeCollectif) {
-        this.qb8NbreLogeCollectif = qb8NbreLogeCollectif;
-    }
-
-    public Short getQb8NbreLogeIndividuel() {
-        return qb8NbreLogeIndividuel;
-    }
-
-    public void setQb8NbreLogeIndividuel(Short qb8NbreLogeIndividuel) {
-        this.qb8NbreLogeIndividuel = qb8NbreLogeIndividuel;
+    public void setQb4NbreLogeIndividuel(Short qb4NbreLogeIndividuel) {
+        this.qb4NbreLogeIndividuel = qb4NbreLogeIndividuel;
     }
 
     public Short getStatut() {

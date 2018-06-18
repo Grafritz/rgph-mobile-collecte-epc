@@ -5,16 +5,18 @@ import android.util.Log;
 
 import java.util.List;
 
+import ht.ihsi.rgph.mobile.epc.backend.entities.AncienMembre;
+import ht.ihsi.rgph.mobile.epc.backend.entities.AncienMembreDao;
 import ht.ihsi.rgph.mobile.epc.backend.entities.BatimentDao;
-import ht.ihsi.rgph.mobile.epc.backend.entities.DecesDao;
-import ht.ihsi.rgph.mobile.epc.backend.entities.EmigreDao;
+//import ht.ihsi.rgph.mobile.epc.backend.entities.DecesDao;
+//import ht.ihsi.rgph.mobile.epc.backend.entities.EmigreDao;
 import ht.ihsi.rgph.mobile.epc.backend.entities.IndividuDao;
 import ht.ihsi.rgph.mobile.epc.backend.entities.LogementDao;
 import ht.ihsi.rgph.mobile.epc.backend.entities.MenageDao;
 import ht.ihsi.rgph.mobile.epc.backend.entities.RapportRARDao;
 import ht.ihsi.rgph.mobile.epc.backend.entities.Batiment;
-import ht.ihsi.rgph.mobile.epc.backend.entities.Deces;
-import ht.ihsi.rgph.mobile.epc.backend.entities.Emigre;
+//import ht.ihsi.rgph.mobile.epc.backend.entities.Deces;
+//import ht.ihsi.rgph.mobile.epc.backend.entities.Emigre;
 import ht.ihsi.rgph.mobile.epc.backend.entities.Individu;
 import ht.ihsi.rgph.mobile.epc.backend.entities.Logement;
 import ht.ihsi.rgph.mobile.epc.backend.entities.Menage;
@@ -23,9 +25,10 @@ import ht.ihsi.rgph.mobile.epc.backend.entities.RapportRAR;
 import ht.ihsi.rgph.mobile.epc.constant.Constant;
 import ht.ihsi.rgph.mobile.epc.exceptions.ManagerException;
 import ht.ihsi.rgph.mobile.epc.mappers.ModelMapper;
+import ht.ihsi.rgph.mobile.epc.models.AncienMembreModel;
 import ht.ihsi.rgph.mobile.epc.models.BatimentModel;
-import ht.ihsi.rgph.mobile.epc.models.DecesModel;
-import ht.ihsi.rgph.mobile.epc.models.EmigreModel;
+//import ht.ihsi.rgph.mobile.epc.models.DecesModel;
+//import ht.ihsi.rgph.mobile.epc.models.EmigreModel;
 import ht.ihsi.rgph.mobile.epc.models.IndividuModel;
 import ht.ihsi.rgph.mobile.epc.models.LogementModel;
 import ht.ihsi.rgph.mobile.epc.models.MenageModel;
@@ -33,7 +36,7 @@ import ht.ihsi.rgph.mobile.epc.models.RowDataListModel;
 import ht.ihsi.rgph.mobile.epc.utilities.Shared_Preferences;
 
 /**
- * Created by jadme on 3/21/2016.
+ * Created by Jfduvers on 3/21/2016.
  */
 public class QueryRecordMngrImpl extends AbstractDatabaseManager implements QueryRecordMngr {
 
@@ -407,13 +410,12 @@ public class QueryRecordMngrImpl extends AbstractDatabaseManager implements Quer
     }
 
     @Override
-    public long countDecesByMenage(long menageId) {
-        //Log.i(MANAGERS, "Inside of countDecesByMenage!");
+    public long countAncienMembreByMenage(long menageId) {
         long result=0;
         try {
             openReadableDb();
-            result=daoSession.getDecesDao().queryBuilder()
-                    .where(DecesDao.Properties.MenageId.eq(menageId)).count();
+            result=daoSession.getAncienMembreDao().queryBuilder()
+                    .where(AncienMembreDao.Properties.MenageId.eq(menageId)).count();
             daoSession.clear();
         }catch(Exception ex){
              Log.e(MANAGERS, "Exception <> unable count data from the database : " + ex.getMessage());
@@ -422,15 +424,14 @@ public class QueryRecordMngrImpl extends AbstractDatabaseManager implements Quer
     }
 
     @Override
-    public long countDeces_AllFilled_ByMenage_ByStatus(long menageId, int statutFormulaire, boolean isFillAllField) {
-        //Log.i(MANAGERS, "Inside of countDeces_AllFilled_ByMenage_ByStatus! menageId:"+menageId + " / statutFormulaire:" + statutFormulaire + " / isFillAllField:" + isFillAllField);
+    public long countAncienMembre_AllFilled_ByMenage_ByStatus(long menageId, int statutFormulaire, boolean isFillAllField) {
         long result=0;
         try {
             openReadableDb();
-            result=daoSession.getDecesDao().queryBuilder()
-                    .where(DecesDao.Properties.MenageId.eq(menageId))
-                    .where(DecesDao.Properties.Statut.eq(statutFormulaire))
-                    .where(DecesDao.Properties.IsFieldAllFilled.eq(isFillAllField)).count();
+            result=daoSession.getAncienMembreDao().queryBuilder()
+                    .where(AncienMembreDao.Properties.MenageId.eq(menageId))
+                    .where(AncienMembreDao.Properties.Statut.eq(statutFormulaire))
+                    .where(AncienMembreDao.Properties.IsFieldAllFilled.eq(isFillAllField)).count();
             daoSession.clear();
         }catch(Exception ex){
             Log.e(MANAGERS, "Exception <> unable count data from the database : " + ex.getMessage());
@@ -439,94 +440,13 @@ public class QueryRecordMngrImpl extends AbstractDatabaseManager implements Quer
     }
 
     @Override
-    public long countDecesByMenageBySexe(long menageId, int sexe) {
-        //Log.i(MANAGERS, "Inside of countDecesByMenageBySexe! : menageId:" + menageId +" / sexe:"+ sexe);
+    public long countAncienMembre_ByMenageByStatus(long menageId, int status) {
         long result=0;
         try {
             openReadableDb();
-            result=daoSession.getDecesDao().queryBuilder()
-                    .where(DecesDao.Properties.MenageId.eq(menageId))
-                    .where(DecesDao.Properties.Qd2aSexe.eq(sexe)).count();
-            daoSession.clear();
-        }catch(Exception ex){
-            Log.e(MANAGERS, "Exception <> unable count data from the database : " + ex.getMessage());
-        }
-        return result;
-    }
-
-    @Override
-    public long countDecesByMenageByStatus(long menageId, int status) {
-        //Log.i(MANAGERS, "Inside of countDecesByMenageByStatus!");
-        long result=0;
-        try {
-            openReadableDb();
-            result=daoSession.getDecesDao().queryBuilder()
-                    .where(DecesDao.Properties.MenageId.eq(menageId))
-                    .where(DecesDao.Properties.Statut.eq(status)).count();
-            daoSession.clear();
-        }catch(Exception ex){
-             Log.e(MANAGERS, "Exception <> unable count data from the database : " + ex.getMessage());
-        }
-        return result;
-    }
-
-    @Override
-    public long countEmigrerByMenage(long menageId) {
-        //Log.i(MANAGERS, "Inside of countEmigrerByMenage!");
-        long result=0;
-        try {
-            openReadableDb();
-            result=daoSession.getEmigreDao().queryBuilder()
-                    .where(EmigreDao.Properties.MenageId.eq(menageId)).count();
-            daoSession.clear();
-        }catch(Exception ex){
-             Log.e(MANAGERS, "Exception <> unable count data from the database : " + ex.getMessage());
-        }
-        return result;
-    }
-
-    @Override
-    public long countEmigrer_AllFilled_ByMenage_ByStatus(long menageId, int statutFormulaire, boolean isFillAllField) {
-        //Log.i(MANAGERS, "Inside of countEmigrer_AllFilled_ByMenage_ByStatus! menageId:"+menageId + " / statutFormulaire:" + statutFormulaire + " / isFillAllField:" + isFillAllField);
-        long result=0;
-        try {
-            openReadableDb();
-            result=daoSession.getEmigreDao().queryBuilder()
-                    .where(EmigreDao.Properties.MenageId.eq(menageId))
-                    .where(EmigreDao.Properties.Statut.eq(statutFormulaire))
-                    .where(EmigreDao.Properties.IsFieldAllFilled.eq(isFillAllField)).count();
-            daoSession.clear();
-        }catch(Exception ex){
-            Log.e(MANAGERS, "Exception <> unable count data from the database : " + ex.getMessage());
-        }
-        return result;
-    }
-
-    @Override
-    public long countEmigrerByMenageBySexe(long menageId, int sexe) {
-        //Log.i(MANAGERS, "Inside of countEmigrerByMenageBySexe! menageId:"+menageId + " / sexe:" + sexe);
-        long result=0;
-        try {
-            openReadableDb();
-            result=daoSession.getEmigreDao().queryBuilder()
-                    .where(EmigreDao.Properties.MenageId.eq(menageId))
-                    .where(EmigreDao.Properties.Qn2bSexe.eq(sexe)).count();
-            daoSession.clear();
-        }catch(Exception ex){
-            Log.e(MANAGERS, "Exception <> unable count data from the database : " + ex.getMessage());
-        }
-        return result;
-    }
-
-    @Override
-    public long countEmigrerByMenageByStatus(long menageId, int status) {
-        //Log.i(MANAGERS, "Inside of countEmigrerByMenageByStatus!");
-        long result=0;
-        try {
-            openReadableDb();
-            result=daoSession.getEmigreDao().queryBuilder()
-                    .where(EmigreDao.Properties.MenageId.eq(menageId))
-                    .where(EmigreDao.Properties.Statut.eq(status)).count();
+            result=daoSession.getAncienMembreDao().queryBuilder()
+                    .where(AncienMembreDao.Properties.MenageId.eq(menageId))
+                    .where(AncienMembreDao.Properties.Statut.eq(status)).count();
             daoSession.clear();
         }catch(Exception ex){
              Log.e(MANAGERS, "Exception <> unable count data from the database : " + ex.getMessage());
@@ -1042,158 +962,6 @@ public class QueryRecordMngrImpl extends AbstractDatabaseManager implements Quer
         return result;
     }
 
-    /**
-     * return the list of emigre by menage
-     *
-     * @param menageId
-     * @return
-     * @throws ManagerException
-     */
-    @Override
-    public List<EmigreModel> searchEmigreByMenage(int menageId) throws ManagerException {
-        //Log.i(MANAGERS, "Inside of searchEmigreByMenage!");
-        List<EmigreModel> result=null;
-        try {
-            openReadableDb();
-            List<Emigre> emigres=daoSession.getEmigreDao().queryBuilder()
-                    .where(EmigreDao.Properties.MenageId.eq(menageId)).list();
-            if(emigres!=null && emigres.size()>0){
-                result= ModelMapper.MapToEmigreModel(emigres);
-            }
-            daoSession.clear();
-        }catch(Exception ex){
-             Log.e(MANAGERS, "Exception <> unable to get data from the database"+ex.getMessage());
-            throw  new ManagerException("<> unable to get data from the database",ex);
-        }
-        return result;
-    }
-
-    @Override
-    public List<RowDataListModel> searchListEmigreByMenage(long menageId,Short statut) throws ManagerException {
-        //Log.i(MANAGERS, "Inside of searchEmigreByMenage!");
-        List<RowDataListModel> result=null;
-        try {
-            openReadableDb();
-            List<Emigre> emigres=daoSession.getEmigreDao().queryBuilder()
-                    .where(EmigreDao.Properties.MenageId.eq(menageId))
-                    .where(EmigreDao.Properties.Statut.eq(statut)).list();
-
-            result= ModelMapper.MapToRowsEmigre(emigres);
-            daoSession.clear();
-        }catch(Exception ex){
-             Log.e(MANAGERS, "Exception <> unable to get data from the database"+ex.getMessage());
-            throw  new ManagerException("<> unable to get data from the database",ex);
-        }
-        return result;
-    }
-
-    @Override
-    public List<RowDataListModel> searchListEmigreByMenage(long menageId) throws ManagerException {
-        //Log.i(MANAGERS, "Inside of searchEmigreByMenage!");
-        List<RowDataListModel> result=null;
-        try {
-            openReadableDb();
-            List<Emigre> emigres=daoSession.getEmigreDao().queryBuilder()
-                    .where(EmigreDao.Properties.MenageId.eq(menageId)).list();
-
-            result= ModelMapper.MapToRowsEmigre(emigres);
-            daoSession.clear();
-        }catch(Exception ex){
-            Log.e(MANAGERS, "Exception <> unable to get data from the database"+ex.getMessage());
-            throw  new ManagerException("<> unable to get data from the database",ex);
-        }
-        return result;
-    }
-
-    /**
-     * return emigre by id
-     *
-     * @param emigreId
-     * @return
-     * @throws ManagerException
-     */
-    @Override
-    public EmigreModel getEmigreById(long emigreId) throws ManagerException {
-        //Log.i(MANAGERS, "Inside of getEmigreById!");
-        EmigreModel result=null;
-        try {
-            openReadableDb();
-            Emigre emigre=daoSession.getEmigreDao().queryBuilder()
-                    .where(EmigreDao.Properties.EmigreId.eq(emigreId)).unique();
-            if(emigre!=null){
-                result= ModelMapper.MapToEmigreModel(emigre);
-            }
-            daoSession.clear();
-        }catch(Exception ex){
-             Log.e(MANAGERS, "Exception <> unable to get data from the database"+ex.getMessage());
-            throw  new ManagerException("<> unable to get data from the database",ex);
-        }
-        return result;
-    }
-
-    /**
-     * return the list of Deces by menage
-     *
-     * @param menageId
-     * @return
-     * @throws ManagerException
-     */
-    @Override
-    public List<DecesModel> searchDecesByMenage(long menageId) throws ManagerException {
-        //Log.i(MANAGERS, "Inside of searchDecesByMenage!");
-        List<DecesModel> result=null;
-        try {
-            openReadableDb();
-            List<Deces> deces=daoSession.getDecesDao().queryBuilder()
-                    .where(DecesDao.Properties.MenageId.eq(menageId)).list();
-            if(deces!=null && deces.size()>0){
-                result= ModelMapper.MapToDecesModel(deces);
-            }
-            daoSession.clear();
-        }catch(Exception ex){
-             Log.e(MANAGERS, "Exception <> unable to get data from the database"+ex.getMessage());
-            throw  new ManagerException("<> unable to get data from the database",ex);
-        }
-        return result;
-    }
-
-    @Override
-    public List<RowDataListModel> searchListDecesByMenage(long menageId,Short statut) throws ManagerException {
-        //Log.i(MANAGERS, "Inside of searchDecesByMenage!");
-        List<RowDataListModel> result=null;
-        try {
-            openReadableDb();
-            List<Deces> deces=daoSession.getDecesDao().queryBuilder()
-                    .where(DecesDao.Properties.MenageId.eq(menageId))
-                    .where(DecesDao.Properties.Statut.eq(statut)).list();
-
-            result= ModelMapper.MapToRowsDeces(deces);
-            daoSession.clear();
-        }catch(Exception ex){
-             Log.e(MANAGERS, "Exception <> unable to get data from the database"+ex.getMessage());
-            throw  new ManagerException("<> unable to get data from the database",ex);
-        }
-        return result;
-    }
-
-    @Override
-    public List<RowDataListModel> searchListDecesByMenage(long menageId) throws ManagerException {
-        //Log.i(MANAGERS, "Inside of searchDecesByMenage!");
-        List<RowDataListModel> result=null;
-        try {
-            openReadableDb();
-            List<Deces> deces=daoSession.getDecesDao().queryBuilder()
-                    .where(DecesDao.Properties.MenageId.eq(menageId)).list();
-
-            result= ModelMapper.MapToRowsDeces(deces);
-            daoSession.clear();
-        }catch(Exception ex){
-            Log.e(MANAGERS, "Exception <> unable to get data from the database"+ex.getMessage());
-            throw  new ManagerException("<> unable to get data from the database",ex);
-        }
-        return result;
-    }
-
     @Override
     public List<RowDataListModel> searchListRapportByIdBatiment(long batimentId) throws ManagerException {
         //Log.i(MANAGERS, "Inside of searchListRapportByIdBatiment! batimentId:" + batimentId);
@@ -1221,7 +989,7 @@ public class QueryRecordMngrImpl extends AbstractDatabaseManager implements Quer
             openReadableDb();
             Individu ind = daoSession.getIndividuDao().queryBuilder()
                     .where(IndividuDao.Properties.Q1NoOrdre.eq(NoOrdre))
-                    .where(IndividuDao.Properties.Qp3LienDeParente.eq(IdLienDeParente))
+                    .where(IndividuDao.Properties.Q9LienDeParente.eq(IdLienDeParente))
                     .where(IndividuDao.Properties.MenageId.eq(IdMenage)).unique();
             if(ind!=null){
                 result= ModelMapper.MapToIndividuModel(ind);
@@ -1243,7 +1011,7 @@ public class QueryRecordMngrImpl extends AbstractDatabaseManager implements Quer
             openReadableDb();
             Individu ind = daoSession.getIndividuDao().queryBuilder()
                     .where(IndividuDao.Properties.Q1NoOrdre.eq(NoOrdre))
-                    .where(IndividuDao.Properties.Qp3LienDeParente.eq(IdLienDeParente))
+                    .where(IndividuDao.Properties.Q9LienDeParente.eq(IdLienDeParente))
                     .where(IndividuDao.Properties.LogeId.eq(IdLogement)).unique();
             if(ind!=null){
                 result= ModelMapper.MapToIndividuModel(ind);
@@ -1252,6 +1020,26 @@ public class QueryRecordMngrImpl extends AbstractDatabaseManager implements Quer
         }catch(Exception ex){
             Log.e(MANAGERS, "<> unable to get data Individu by NoOrdre, IdLienDeParente, IdLogement from the database \n "+ex.getMessage());
             throw  new ManagerException("<> unable to get data Individu by NoOrdre, IdLienDeParente, IdLogement from the database",ex);
+        }
+        return result;
+    }
+
+    @Override
+    public AncienMembreModel searchAncienMembre_ByNoOrdre_ByIdLienDeParente_ByIdMenage(int NoOrdre, int IdLienDeParente, long IdMenage) throws ManagerException {
+        AncienMembreModel result=null;
+        try {
+            openReadableDb();
+            AncienMembre ind = daoSession.getAncienMembreDao().queryBuilder()
+                    .where(AncienMembreDao.Properties.Q1NoOrdre.eq(NoOrdre))
+                    .where(AncienMembreDao.Properties.Q10LienDeParente.eq(IdLienDeParente))
+                    .where(AncienMembreDao.Properties.MenageId.eq(IdMenage)).unique();
+            if(ind!=null){
+                result= ModelMapper.MapToAncienMembreModel(ind);
+            }
+            daoSession.clear();
+        }catch(Exception ex){
+            Log.e(MANAGERS, "<> unable to get data AncienMembre by NoOrdre, IdLienDeParente, IdMenage from the database \n "+ex.getMessage());
+            throw  new ManagerException("<> unable to get data AncienMembre by NoOrdre, IdLienDeParente, IdMenage from the database",ex);
         }
         return result;
     }
@@ -1289,7 +1077,7 @@ public class QueryRecordMngrImpl extends AbstractDatabaseManager implements Quer
         try {
             openReadableDb();
             result=daoSession.getIndividuDao().queryBuilder()
-                    .where(IndividuDao.Properties.Qp3LienDeParente.eq(IdLienDeParente))
+                    .where(IndividuDao.Properties.Q9LienDeParente.eq(IdLienDeParente))
                     .where(IndividuDao.Properties.MenageId.eq(IdMenage)).count();
             daoSession.clear();
         }catch(Exception ex){
@@ -1304,67 +1092,13 @@ public class QueryRecordMngrImpl extends AbstractDatabaseManager implements Quer
         try {
             openReadableDb();
             result=daoSession.getIndividuDao().queryBuilder()
-                    .where(IndividuDao.Properties.Qp3LienDeParente.eq(IdLienDeParente))
+                    .where(IndividuDao.Properties.Q9LienDeParente.eq(IdLienDeParente))
                     .where(IndividuDao.Properties.LogeId.eq(LogeId)).count();
             daoSession.clear();
         }catch(Exception ex){
             Log.e(MANAGERS, "Exception <> unable count data from the database" + ex.getMessage());
         }
         return (int) result;
-    }
-
-    @Override
-    public EmigreModel searchEmigre_ByNoOrdre_ByIdMenage(int noOrdre, long idMenage) throws ManagerException {
-        //Log.i(MANAGERS, "Inside of searchEmigre_ByNoOrdre_ByIdMenage!"
-        //        + "NoOrdre:" + noOrdre +" / IdMenage:" +idMenage);
-        EmigreModel result=null;
-        try {
-            openReadableDb();
-            Emigre ind = daoSession.getEmigreDao().queryBuilder()
-                    .where(EmigreDao.Properties.Qn1numeroOrdre.eq(noOrdre))
-                    .where(EmigreDao.Properties.MenageId.eq(idMenage)).unique();
-
-            if(ind != null){
-                if( ind.getStatut() != null &&
-                        ind.getStatut() != Constant.STATUT_MODULE_KI_FINI_1 ) {
-                    result = ModelMapper.MapToEmigreModel(ind);
-                }else{
-                    result = null;
-                }
-            }
-            daoSession.clear();
-        }catch(Exception ex){
-            Log.e(MANAGERS, "<> unable to get data Emigre by NoOrdre, IdMenage from the database \n "+ex.getMessage());
-            throw  new ManagerException("<> unable to get data Emigre by NoOrdre, IdMenage from the database",ex);
-        }
-        return result;
-    }
-
-    @Override
-    public DecesModel searchDeces_ByNoOrdre_ByIdMenage(int noOrdre, long idMenage) throws ManagerException {
-        //Log.i(MANAGERS, "Inside of searchDeces_ByNoOrdre_ByIdMenage!"
-        //        + "NoOrdre:" + noOrdre +" / IdMenage:" +idMenage);
-        DecesModel result=null;
-        try {
-            openReadableDb();
-            Deces ind = daoSession.getDecesDao().queryBuilder()
-                    .where(DecesDao.Properties.Qd2NoOrdre.eq(noOrdre))
-                    .where(DecesDao.Properties.MenageId.eq(idMenage)).unique();
-
-            if(ind != null){
-                if( ind.getStatut() != null &&
-                        ind.getStatut() != Constant.STATUT_MODULE_KI_FINI_1 ) {
-                    result = ModelMapper.MapToDecesModel(ind);
-                }else{
-                    result = null;
-                }
-            }
-            daoSession.clear();
-        }catch(Exception ex){
-            Log.e(MANAGERS, "<> unable to get data Deces by NoOrdre, IdMenage from the database \n "+ex.getMessage());
-            throw  new ManagerException("<> unable to get data Deces by NoOrdre, IdMenage from the database",ex);
-        }
-        return result;
     }
 
     @Override
@@ -1449,34 +1183,6 @@ public class QueryRecordMngrImpl extends AbstractDatabaseManager implements Quer
         }
         return result;
     }
-
-    /**
-     * return a unique Deces by id
-     *
-     * @param decesId
-     * @return
-     * @throws ManagerException
-     */
-    @Override
-    public DecesModel getDecesById(long decesId) throws ManagerException {
-        //Log.i(MANAGERS, "Inside of getDecesById!");
-        DecesModel result=null;
-        try {
-            openReadableDb();
-             Deces deces=daoSession.getDecesDao().queryBuilder()
-                    .where(DecesDao.Properties.DecesId.eq(decesId)).unique();
-            if(deces!=null){
-                result= ModelMapper.MapToDecesModel(deces);
-            }
-            daoSession.clear();
-        }catch(Exception ex){
-             Log.e(MANAGERS, "Exception <> unable to get data from the database"+ex.getMessage());
-            throw  new ManagerException("<> unable to get data from the database",ex);
-        }
-        return result;
-    }
-
-
     //endregion
 
     //region additional MAppers

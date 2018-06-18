@@ -11,42 +11,15 @@ public class Menage {
     private Long batimentId;
     private String sdeId;
     private Short qm1NoOrdre;
-    private Short qm2ModeJouissance;
-    private Short qm3ModeObtentionLoge;
-    private Short qm4_1ModeAprovEauABoire;
-    private Short qm4_2ModeAprovEauAUsageCourant;
-    private Short qm5SrcEnergieCuisson1;
-    private Short qm5SrcEnergieCuisson2;
-    private Short qm6TypeEclairage;
-    private Short qm7ModeEvacDechet;
-    private Short qm8EndroitBesoinPhysiologique;
-    private Integer qm9NbreRadio1;
-    private Integer qm9NbreTelevision2;
-    private Integer qm9NbreRefrigerateur3;
-    private Integer qm9NbreFouElectrique4;
-    private Integer qm9NbreOrdinateur5;
-    private Integer qm9NbreMotoBicyclette6;
-    private Integer qm9NbreVoitureMachine7;
-    private Integer qm9NbreBateau8;
-    private Integer qm9NbrePanneauGeneratrice9;
-    private Integer qm9NbreMilletChevalBourique10;
-    private Integer qm9NbreBoeufVache11;
-    private Integer qm9NbreCochonCabrit12;
-    private Integer qm9NbreBeteVolaille13;
-    private Short qm10AvoirPersDomestique;
-    private Short qm10TotalDomestiqueFille;
-    private Short qm10TotalDomestiqueGarcon;
-    private Integer qm11TotalIndividuVivant;
-    private Short qn1Emigration;
-    private Short qn1NbreEmigre;
-    private Short qd1Deces;
-    private Short qd1NbreDecede;
+    private Short qm2TotalIndividuVivant;
+    private Short qm22IsHaveAncienMembre;
+    private Short qm22TotalAncienMembre;
     private Short statut;
     private Boolean isValidated;
+    private Boolean isFieldAllFilled;
     private String dateDebutCollecte;
     private String dateFinCollecte;
     private Integer dureeSaisie;
-    private Boolean isFieldAllFilled;
     private Boolean isContreEnqueteMade;
     private String codeAgentRecenceur;
     private Boolean isVerified;
@@ -58,48 +31,21 @@ public class Menage {
         this.menageId = menageId;
     }
 
-    public Menage(Long menageId, Long logeId, Long batimentId, String sdeId, Short qm1NoOrdre, Short qm2ModeJouissance, Short qm3ModeObtentionLoge, Short qm4_1ModeAprovEauABoire, Short qm4_2ModeAprovEauAUsageCourant, Short qm5SrcEnergieCuisson1, Short qm5SrcEnergieCuisson2, Short qm6TypeEclairage, Short qm7ModeEvacDechet, Short qm8EndroitBesoinPhysiologique, Integer qm9NbreRadio1, Integer qm9NbreTelevision2, Integer qm9NbreRefrigerateur3, Integer qm9NbreFouElectrique4, Integer qm9NbreOrdinateur5, Integer qm9NbreMotoBicyclette6, Integer qm9NbreVoitureMachine7, Integer qm9NbreBateau8, Integer qm9NbrePanneauGeneratrice9, Integer qm9NbreMilletChevalBourique10, Integer qm9NbreBoeufVache11, Integer qm9NbreCochonCabrit12, Integer qm9NbreBeteVolaille13, Short qm10AvoirPersDomestique, Short qm10TotalDomestiqueFille, Short qm10TotalDomestiqueGarcon, Integer qm11TotalIndividuVivant, Short qn1Emigration, Short qn1NbreEmigre, Short qd1Deces, Short qd1NbreDecede, Short statut, Boolean isValidated, String dateDebutCollecte, String dateFinCollecte, Integer dureeSaisie, Boolean isFieldAllFilled, Boolean isContreEnqueteMade, String codeAgentRecenceur, Boolean isVerified) {
+    public Menage(Long menageId, Long logeId, Long batimentId, String sdeId, Short qm1NoOrdre, Short qm2TotalIndividuVivant, Short qm22IsHaveAncienMembre, Short qm22TotalAncienMembre, Short statut, Boolean isValidated, Boolean isFieldAllFilled, String dateDebutCollecte, String dateFinCollecte, Integer dureeSaisie, Boolean isContreEnqueteMade, String codeAgentRecenceur, Boolean isVerified) {
         this.menageId = menageId;
         this.logeId = logeId;
         this.batimentId = batimentId;
         this.sdeId = sdeId;
         this.qm1NoOrdre = qm1NoOrdre;
-        this.qm2ModeJouissance = qm2ModeJouissance;
-        this.qm3ModeObtentionLoge = qm3ModeObtentionLoge;
-        this.qm4_1ModeAprovEauABoire = qm4_1ModeAprovEauABoire;
-        this.qm4_2ModeAprovEauAUsageCourant = qm4_2ModeAprovEauAUsageCourant;
-        this.qm5SrcEnergieCuisson1 = qm5SrcEnergieCuisson1;
-        this.qm5SrcEnergieCuisson2 = qm5SrcEnergieCuisson2;
-        this.qm6TypeEclairage = qm6TypeEclairage;
-        this.qm7ModeEvacDechet = qm7ModeEvacDechet;
-        this.qm8EndroitBesoinPhysiologique = qm8EndroitBesoinPhysiologique;
-        this.qm9NbreRadio1 = qm9NbreRadio1;
-        this.qm9NbreTelevision2 = qm9NbreTelevision2;
-        this.qm9NbreRefrigerateur3 = qm9NbreRefrigerateur3;
-        this.qm9NbreFouElectrique4 = qm9NbreFouElectrique4;
-        this.qm9NbreOrdinateur5 = qm9NbreOrdinateur5;
-        this.qm9NbreMotoBicyclette6 = qm9NbreMotoBicyclette6;
-        this.qm9NbreVoitureMachine7 = qm9NbreVoitureMachine7;
-        this.qm9NbreBateau8 = qm9NbreBateau8;
-        this.qm9NbrePanneauGeneratrice9 = qm9NbrePanneauGeneratrice9;
-        this.qm9NbreMilletChevalBourique10 = qm9NbreMilletChevalBourique10;
-        this.qm9NbreBoeufVache11 = qm9NbreBoeufVache11;
-        this.qm9NbreCochonCabrit12 = qm9NbreCochonCabrit12;
-        this.qm9NbreBeteVolaille13 = qm9NbreBeteVolaille13;
-        this.qm10AvoirPersDomestique = qm10AvoirPersDomestique;
-        this.qm10TotalDomestiqueFille = qm10TotalDomestiqueFille;
-        this.qm10TotalDomestiqueGarcon = qm10TotalDomestiqueGarcon;
-        this.qm11TotalIndividuVivant = qm11TotalIndividuVivant;
-        this.qn1Emigration = qn1Emigration;
-        this.qn1NbreEmigre = qn1NbreEmigre;
-        this.qd1Deces = qd1Deces;
-        this.qd1NbreDecede = qd1NbreDecede;
+        this.qm2TotalIndividuVivant = qm2TotalIndividuVivant;
+        this.qm22IsHaveAncienMembre = qm22IsHaveAncienMembre;
+        this.qm22TotalAncienMembre = qm22TotalAncienMembre;
         this.statut = statut;
         this.isValidated = isValidated;
+        this.isFieldAllFilled = isFieldAllFilled;
         this.dateDebutCollecte = dateDebutCollecte;
         this.dateFinCollecte = dateFinCollecte;
         this.dureeSaisie = dureeSaisie;
-        this.isFieldAllFilled = isFieldAllFilled;
         this.isContreEnqueteMade = isContreEnqueteMade;
         this.codeAgentRecenceur = codeAgentRecenceur;
         this.isVerified = isVerified;
@@ -145,244 +91,28 @@ public class Menage {
         this.qm1NoOrdre = qm1NoOrdre;
     }
 
-    public Short getQm2ModeJouissance() {
-        return qm2ModeJouissance;
+    public Short getQm2TotalIndividuVivant() {
+        return qm2TotalIndividuVivant;
     }
 
-    public void setQm2ModeJouissance(Short qm2ModeJouissance) {
-        this.qm2ModeJouissance = qm2ModeJouissance;
+    public void setQm2TotalIndividuVivant(Short qm2TotalIndividuVivant) {
+        this.qm2TotalIndividuVivant = qm2TotalIndividuVivant;
     }
 
-    public Short getQm3ModeObtentionLoge() {
-        return qm3ModeObtentionLoge;
+    public Short getQm22IsHaveAncienMembre() {
+        return qm22IsHaveAncienMembre;
     }
 
-    public void setQm3ModeObtentionLoge(Short qm3ModeObtentionLoge) {
-        this.qm3ModeObtentionLoge = qm3ModeObtentionLoge;
+    public void setQm22IsHaveAncienMembre(Short qm22IsHaveAncienMembre) {
+        this.qm22IsHaveAncienMembre = qm22IsHaveAncienMembre;
     }
 
-    public Short getQm4_1ModeAprovEauABoire() {
-        return qm4_1ModeAprovEauABoire;
+    public Short getQm22TotalAncienMembre() {
+        return qm22TotalAncienMembre;
     }
 
-    public void setQm4_1ModeAprovEauABoire(Short qm4_1ModeAprovEauABoire) {
-        this.qm4_1ModeAprovEauABoire = qm4_1ModeAprovEauABoire;
-    }
-
-    public Short getQm4_2ModeAprovEauAUsageCourant() {
-        return qm4_2ModeAprovEauAUsageCourant;
-    }
-
-    public void setQm4_2ModeAprovEauAUsageCourant(Short qm4_2ModeAprovEauAUsageCourant) {
-        this.qm4_2ModeAprovEauAUsageCourant = qm4_2ModeAprovEauAUsageCourant;
-    }
-
-    public Short getQm5SrcEnergieCuisson1() {
-        return qm5SrcEnergieCuisson1;
-    }
-
-    public void setQm5SrcEnergieCuisson1(Short qm5SrcEnergieCuisson1) {
-        this.qm5SrcEnergieCuisson1 = qm5SrcEnergieCuisson1;
-    }
-
-    public Short getQm5SrcEnergieCuisson2() {
-        return qm5SrcEnergieCuisson2;
-    }
-
-    public void setQm5SrcEnergieCuisson2(Short qm5SrcEnergieCuisson2) {
-        this.qm5SrcEnergieCuisson2 = qm5SrcEnergieCuisson2;
-    }
-
-    public Short getQm6TypeEclairage() {
-        return qm6TypeEclairage;
-    }
-
-    public void setQm6TypeEclairage(Short qm6TypeEclairage) {
-        this.qm6TypeEclairage = qm6TypeEclairage;
-    }
-
-    public Short getQm7ModeEvacDechet() {
-        return qm7ModeEvacDechet;
-    }
-
-    public void setQm7ModeEvacDechet(Short qm7ModeEvacDechet) {
-        this.qm7ModeEvacDechet = qm7ModeEvacDechet;
-    }
-
-    public Short getQm8EndroitBesoinPhysiologique() {
-        return qm8EndroitBesoinPhysiologique;
-    }
-
-    public void setQm8EndroitBesoinPhysiologique(Short qm8EndroitBesoinPhysiologique) {
-        this.qm8EndroitBesoinPhysiologique = qm8EndroitBesoinPhysiologique;
-    }
-
-    public Integer getQm9NbreRadio1() {
-        return qm9NbreRadio1;
-    }
-
-    public void setQm9NbreRadio1(Integer qm9NbreRadio1) {
-        this.qm9NbreRadio1 = qm9NbreRadio1;
-    }
-
-    public Integer getQm9NbreTelevision2() {
-        return qm9NbreTelevision2;
-    }
-
-    public void setQm9NbreTelevision2(Integer qm9NbreTelevision2) {
-        this.qm9NbreTelevision2 = qm9NbreTelevision2;
-    }
-
-    public Integer getQm9NbreRefrigerateur3() {
-        return qm9NbreRefrigerateur3;
-    }
-
-    public void setQm9NbreRefrigerateur3(Integer qm9NbreRefrigerateur3) {
-        this.qm9NbreRefrigerateur3 = qm9NbreRefrigerateur3;
-    }
-
-    public Integer getQm9NbreFouElectrique4() {
-        return qm9NbreFouElectrique4;
-    }
-
-    public void setQm9NbreFouElectrique4(Integer qm9NbreFouElectrique4) {
-        this.qm9NbreFouElectrique4 = qm9NbreFouElectrique4;
-    }
-
-    public Integer getQm9NbreOrdinateur5() {
-        return qm9NbreOrdinateur5;
-    }
-
-    public void setQm9NbreOrdinateur5(Integer qm9NbreOrdinateur5) {
-        this.qm9NbreOrdinateur5 = qm9NbreOrdinateur5;
-    }
-
-    public Integer getQm9NbreMotoBicyclette6() {
-        return qm9NbreMotoBicyclette6;
-    }
-
-    public void setQm9NbreMotoBicyclette6(Integer qm9NbreMotoBicyclette6) {
-        this.qm9NbreMotoBicyclette6 = qm9NbreMotoBicyclette6;
-    }
-
-    public Integer getQm9NbreVoitureMachine7() {
-        return qm9NbreVoitureMachine7;
-    }
-
-    public void setQm9NbreVoitureMachine7(Integer qm9NbreVoitureMachine7) {
-        this.qm9NbreVoitureMachine7 = qm9NbreVoitureMachine7;
-    }
-
-    public Integer getQm9NbreBateau8() {
-        return qm9NbreBateau8;
-    }
-
-    public void setQm9NbreBateau8(Integer qm9NbreBateau8) {
-        this.qm9NbreBateau8 = qm9NbreBateau8;
-    }
-
-    public Integer getQm9NbrePanneauGeneratrice9() {
-        return qm9NbrePanneauGeneratrice9;
-    }
-
-    public void setQm9NbrePanneauGeneratrice9(Integer qm9NbrePanneauGeneratrice9) {
-        this.qm9NbrePanneauGeneratrice9 = qm9NbrePanneauGeneratrice9;
-    }
-
-    public Integer getQm9NbreMilletChevalBourique10() {
-        return qm9NbreMilletChevalBourique10;
-    }
-
-    public void setQm9NbreMilletChevalBourique10(Integer qm9NbreMilletChevalBourique10) {
-        this.qm9NbreMilletChevalBourique10 = qm9NbreMilletChevalBourique10;
-    }
-
-    public Integer getQm9NbreBoeufVache11() {
-        return qm9NbreBoeufVache11;
-    }
-
-    public void setQm9NbreBoeufVache11(Integer qm9NbreBoeufVache11) {
-        this.qm9NbreBoeufVache11 = qm9NbreBoeufVache11;
-    }
-
-    public Integer getQm9NbreCochonCabrit12() {
-        return qm9NbreCochonCabrit12;
-    }
-
-    public void setQm9NbreCochonCabrit12(Integer qm9NbreCochonCabrit12) {
-        this.qm9NbreCochonCabrit12 = qm9NbreCochonCabrit12;
-    }
-
-    public Integer getQm9NbreBeteVolaille13() {
-        return qm9NbreBeteVolaille13;
-    }
-
-    public void setQm9NbreBeteVolaille13(Integer qm9NbreBeteVolaille13) {
-        this.qm9NbreBeteVolaille13 = qm9NbreBeteVolaille13;
-    }
-
-    public Short getQm10AvoirPersDomestique() {
-        return qm10AvoirPersDomestique;
-    }
-
-    public void setQm10AvoirPersDomestique(Short qm10AvoirPersDomestique) {
-        this.qm10AvoirPersDomestique = qm10AvoirPersDomestique;
-    }
-
-    public Short getQm10TotalDomestiqueFille() {
-        return qm10TotalDomestiqueFille;
-    }
-
-    public void setQm10TotalDomestiqueFille(Short qm10TotalDomestiqueFille) {
-        this.qm10TotalDomestiqueFille = qm10TotalDomestiqueFille;
-    }
-
-    public Short getQm10TotalDomestiqueGarcon() {
-        return qm10TotalDomestiqueGarcon;
-    }
-
-    public void setQm10TotalDomestiqueGarcon(Short qm10TotalDomestiqueGarcon) {
-        this.qm10TotalDomestiqueGarcon = qm10TotalDomestiqueGarcon;
-    }
-
-    public Integer getQm11TotalIndividuVivant() {
-        return qm11TotalIndividuVivant;
-    }
-
-    public void setQm11TotalIndividuVivant(Integer qm11TotalIndividuVivant) {
-        this.qm11TotalIndividuVivant = qm11TotalIndividuVivant;
-    }
-
-    public Short getQn1Emigration() {
-        return qn1Emigration;
-    }
-
-    public void setQn1Emigration(Short qn1Emigration) {
-        this.qn1Emigration = qn1Emigration;
-    }
-
-    public Short getQn1NbreEmigre() {
-        return qn1NbreEmigre;
-    }
-
-    public void setQn1NbreEmigre(Short qn1NbreEmigre) {
-        this.qn1NbreEmigre = qn1NbreEmigre;
-    }
-
-    public Short getQd1Deces() {
-        return qd1Deces;
-    }
-
-    public void setQd1Deces(Short qd1Deces) {
-        this.qd1Deces = qd1Deces;
-    }
-
-    public Short getQd1NbreDecede() {
-        return qd1NbreDecede;
-    }
-
-    public void setQd1NbreDecede(Short qd1NbreDecede) {
-        this.qd1NbreDecede = qd1NbreDecede;
+    public void setQm22TotalAncienMembre(Short qm22TotalAncienMembre) {
+        this.qm22TotalAncienMembre = qm22TotalAncienMembre;
     }
 
     public Short getStatut() {
@@ -399,6 +129,14 @@ public class Menage {
 
     public void setIsValidated(Boolean isValidated) {
         this.isValidated = isValidated;
+    }
+
+    public Boolean getIsFieldAllFilled() {
+        return isFieldAllFilled;
+    }
+
+    public void setIsFieldAllFilled(Boolean isFieldAllFilled) {
+        this.isFieldAllFilled = isFieldAllFilled;
     }
 
     public String getDateDebutCollecte() {
@@ -423,14 +161,6 @@ public class Menage {
 
     public void setDureeSaisie(Integer dureeSaisie) {
         this.dureeSaisie = dureeSaisie;
-    }
-
-    public Boolean getIsFieldAllFilled() {
-        return isFieldAllFilled;
-    }
-
-    public void setIsFieldAllFilled(Boolean isFieldAllFilled) {
-        this.isFieldAllFilled = isFieldAllFilled;
     }
 
     public Boolean getIsContreEnqueteMade() {

@@ -3,9 +3,10 @@ package ht.ihsi.rgph.mobile.epc.managers;
 import java.util.List;
 
 import ht.ihsi.rgph.mobile.epc.exceptions.ManagerException;
+import ht.ihsi.rgph.mobile.epc.models.AncienMembreModel;
 import ht.ihsi.rgph.mobile.epc.models.BatimentModel;
-import ht.ihsi.rgph.mobile.epc.models.DecesModel;
-import ht.ihsi.rgph.mobile.epc.models.EmigreModel;
+//import ht.ihsi.rgph.mobile.epc.models.DecesModel;
+//import ht.ihsi.rgph.mobile.epc.models.EmigreModel;
 import ht.ihsi.rgph.mobile.epc.models.IndividuModel;
 import ht.ihsi.rgph.mobile.epc.models.LogementModel;
 import ht.ihsi.rgph.mobile.epc.models.MenageModel;
@@ -13,7 +14,7 @@ import ht.ihsi.rgph.mobile.epc.models.RowDataListModel;
 import ht.ihsi.rgph.mobile.epc.utilities.Shared_Preferences;
 
 /**
- * Created by jadme on 3/21/2016.
+ * Created by Jfduvers on 3/21/2016.
  */
  public interface QueryRecordMngr {
 
@@ -41,24 +42,26 @@ import ht.ihsi.rgph.mobile.epc.utilities.Shared_Preferences;
 
     List<RowDataListModel> searchListIndByStaAndLog(Short status, long logId)  throws ManagerException;
 
-    List<RowDataListModel> searchListEmigreByMenage(long menageId, Short statut) throws ManagerException;
-    List<RowDataListModel> searchListEmigreByMenage(long menageId) throws ManagerException;
+    //List<RowDataListModel> searchListEmigreByMenage(long menageId, Short statut) throws ManagerException;
+    //List<RowDataListModel> searchListEmigreByMenage(long menageId) throws ManagerException;
 
-    List<RowDataListModel> searchListDecesByMenage(long menageId, Short statut) throws ManagerException;
-    List<RowDataListModel> searchListDecesByMenage(long menageId) throws ManagerException;
+    //List<RowDataListModel> searchListDecesByMenage(long menageId, Short statut) throws ManagerException;
+    //List<RowDataListModel> searchListDecesByMenage(long menageId) throws ManagerException;
 
     List<RowDataListModel> searchListRapportByIdBatiment(long batimentId) throws ManagerException;
 
     // POUR CONTRAINTE
     IndividuModel searchIndividu_ByNoOrdre_ByIdLienDeParente_ByIdMenage(int NoOrdre, int IdLienDeParente, long IdMenage) throws ManagerException;
     IndividuModel searchIndividu_ByNoOrdre_ByIdLienDeParente_ByIdLogement(int NoOrdre, int IdLienDeParente, long IdMenage) throws ManagerException;
+
+    AncienMembreModel searchAncienMembre_ByNoOrdre_ByIdLienDeParente_ByIdMenage(int NoOrdre, int IdLienDeParente, long IdMenage) throws ManagerException;
     IndividuModel searchIndividu_ByNoOrdre_ByIdLogement(int noOrdre, long idLogement) throws ManagerException;
 
     int CountMarie_Ou_Madanm_ByIdLienDeParente_ByIdMenage( int IdLienDeParente, long IdMenage) throws ManagerException;
     int CountMarie_Ou_Madanm_ByIdLienDeParente_ByIdLogement( int IdLienDeParente, long IdMenage) throws ManagerException;
 
-    EmigreModel searchEmigre_ByNoOrdre_ByIdMenage(int noOrdre, long idMenage) throws ManagerException;
-    DecesModel searchDeces_ByNoOrdre_ByIdMenage(int noOrdre, long idMenage) throws ManagerException;
+    //EmigreModel searchEmigre_ByNoOrdre_ByIdMenage(int noOrdre, long idMenage) throws ManagerException;
+    //DecesModel searchDeces_ByNoOrdre_ByIdMenage(int noOrdre, long idMenage) throws ManagerException;
     IndividuModel searchIndividu_ByNoOrdre_ByIdMenage(int NoOrdre, long IdMenage, boolean statut) throws ManagerException;
 
     MenageModel searchMenage_ByNoOrdre_ByIdLogement(int NoOrdre, long idLogement) throws ManagerException;
@@ -163,39 +166,19 @@ import ht.ihsi.rgph.mobile.epc.utilities.Shared_Preferences;
     * @param menageId the id of a Menage.
     * @return int
     */
-   long countDecesByMenage(long menageId);
+   //long countDecesByMenage(long menageId);
 
-    long countDeces_AllFilled_ByMenage_ByStatus(long menageId, int statutFormulaire, boolean isFillAllField);
+    //long countDeces_AllFilled_ByMenage_ByStatus(long menageId, int statutFormulaire, boolean isFillAllField);
 
-    long countDecesByMenageBySexe(long menageId, int sexe);
-   /**
-    * Return the number of Deces by type of Menage.
-    *
-    * @param menageId the id of a Menage.
-    * @param status the status of a Menage
-    * @return int
-    */
-   long countDecesByMenageByStatus(long menageId, int status);
+    //long countDecesByMenageBySexe(long menageId, int sexe);
 
-    /**
-     * Return the number of Emigrer by type of Menage.
-     *
-     * @param menageId the id of a Menage.
-     * @return int
-     */
-    long countEmigrerByMenage(long menageId);
+   //long countDecesByMenageByStatus(long menageId, int status);
 
-    long countEmigrer_AllFilled_ByMenage_ByStatus(long menageId, int statutFormulaire, boolean isFillAllField);
+    long countAncienMembreByMenage(long menageId);
 
-    long countEmigrerByMenageBySexe(long menageId, int sexe);
-    /**
-     * Return the number of Emigrer by type of Menage.
-     *
-     * @param menageId the id of a Menage.
-     * @param status the status of a Menage
-     * @return int
-     */
-    long countEmigrerByMenageByStatus(long menageId, int status);
+    long countAncienMembre_AllFilled_ByMenage_ByStatus(long menageId, int statutFormulaire, boolean isFillAllField);
+
+    long countAncienMembre_ByMenageByStatus(long menageId, int status);
 
     long countRapport_ByBatiment(long batId);
 
@@ -287,41 +270,15 @@ import ht.ihsi.rgph.mobile.epc.utilities.Shared_Preferences;
      */
     List<IndividuModel> searchIndByStaAndLog(int status, long logId) throws ManagerException;
 
-    /**
-     * return the list of emigre by menage
-     *
-     * @param menageId
-     * @return
-     * @throws ManagerException
-     */
-    List<EmigreModel> searchEmigreByMenage(int menageId)throws ManagerException;
+    //List<EmigreModel> searchEmigreByMenage(int menageId)throws ManagerException;
 
-    /**
-     * return emigre by id
-     *
-     * @param emigreId
-     * @return
-     * @throws ManagerException
-     */
-    EmigreModel getEmigreById(long emigreId)throws ManagerException;
+    //EmigreModel getEmigreById(long emigreId)throws ManagerException;
 
-    /**
-     * return the list of Deces by menage
-     *
-     * @param menageId
-     * @return
-     * @throws ManagerException
-     */
-    List<DecesModel> searchDecesByMenage(long menageId)throws ManagerException;
 
-    /**
-     * return a unique Deces by id
-     *
-     * @param decesId
-     * @return
-     * @throws ManagerException
-     */
-    DecesModel getDecesById(long decesId)throws ManagerException;
+    //List<DecesModel> searchDecesByMenage(long menageId)throws ManagerException;
+
+
+    //DecesModel getDecesById(long decesId)throws ManagerException;
 
     void closeDbConnections();
 

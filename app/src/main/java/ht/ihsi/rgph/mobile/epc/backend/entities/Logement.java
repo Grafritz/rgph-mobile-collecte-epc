@@ -11,24 +11,16 @@ public class Logement {
     private String sdeId;
     private Short qlCategLogement;
     private Short qlin1NumeroOrdre;
-    private Short qlc1TypeLogement;
-    private Short qlc2bTotalGarcon;
-    private Short qlc2bTotalFille;
-    private Short qlcTotalIndividus;
     private Short qlin2StatutOccupation;
-    private Short qlin3ExistenceLogement;
-    private Short qlin4TypeLogement;
-    private Short qlin5MateriauSol;
-    private Short qlin6NombrePiece;
-    private Short qlin7NbreChambreACoucher;
-    private Short qlin8NbreIndividuDepense;
-    private Short qlin9NbreTotalMenage;
+    private Short qlin3TypeLogement;
+    private Short qlin4IsHaveIndividuDepense;
+    private Short qlin5NbreTotalMenage;
     private Short statut;
     private Boolean isValidated;
+    private Boolean isFieldAllFilled;
     private String dateDebutCollecte;
     private String dateFinCollecte;
     private Integer dureeSaisie;
-    private Boolean isFieldAllFilled;
     private Boolean isContreEnqueteMade;
     private Short nbrTentative;
     private String codeAgentRecenceur;
@@ -41,30 +33,22 @@ public class Logement {
         this.logeId = logeId;
     }
 
-    public Logement(Long logeId, Long batimentId, String sdeId, Short qlCategLogement, Short qlin1NumeroOrdre, Short qlc1TypeLogement, Short qlc2bTotalGarcon, Short qlc2bTotalFille, Short qlcTotalIndividus, Short qlin2StatutOccupation, Short qlin3ExistenceLogement, Short qlin4TypeLogement, Short qlin5MateriauSol, Short qlin6NombrePiece, Short qlin7NbreChambreACoucher, Short qlin8NbreIndividuDepense, Short qlin9NbreTotalMenage, Short statut, Boolean isValidated, String dateDebutCollecte, String dateFinCollecte, Integer dureeSaisie, Boolean isFieldAllFilled, Boolean isContreEnqueteMade, Short nbrTentative, String codeAgentRecenceur, Boolean isVerified) {
+    public Logement(Long logeId, Long batimentId, String sdeId, Short qlCategLogement, Short qlin1NumeroOrdre, Short qlin2StatutOccupation, Short qlin3TypeLogement, Short qlin4IsHaveIndividuDepense, Short qlin5NbreTotalMenage, Short statut, Boolean isValidated, Boolean isFieldAllFilled, String dateDebutCollecte, String dateFinCollecte, Integer dureeSaisie, Boolean isContreEnqueteMade, Short nbrTentative, String codeAgentRecenceur, Boolean isVerified) {
         this.logeId = logeId;
         this.batimentId = batimentId;
         this.sdeId = sdeId;
         this.qlCategLogement = qlCategLogement;
         this.qlin1NumeroOrdre = qlin1NumeroOrdre;
-        this.qlc1TypeLogement = qlc1TypeLogement;
-        this.qlc2bTotalGarcon = qlc2bTotalGarcon;
-        this.qlc2bTotalFille = qlc2bTotalFille;
-        this.qlcTotalIndividus = qlcTotalIndividus;
         this.qlin2StatutOccupation = qlin2StatutOccupation;
-        this.qlin3ExistenceLogement = qlin3ExistenceLogement;
-        this.qlin4TypeLogement = qlin4TypeLogement;
-        this.qlin5MateriauSol = qlin5MateriauSol;
-        this.qlin6NombrePiece = qlin6NombrePiece;
-        this.qlin7NbreChambreACoucher = qlin7NbreChambreACoucher;
-        this.qlin8NbreIndividuDepense = qlin8NbreIndividuDepense;
-        this.qlin9NbreTotalMenage = qlin9NbreTotalMenage;
+        this.qlin3TypeLogement = qlin3TypeLogement;
+        this.qlin4IsHaveIndividuDepense = qlin4IsHaveIndividuDepense;
+        this.qlin5NbreTotalMenage = qlin5NbreTotalMenage;
         this.statut = statut;
         this.isValidated = isValidated;
+        this.isFieldAllFilled = isFieldAllFilled;
         this.dateDebutCollecte = dateDebutCollecte;
         this.dateFinCollecte = dateFinCollecte;
         this.dureeSaisie = dureeSaisie;
-        this.isFieldAllFilled = isFieldAllFilled;
         this.isContreEnqueteMade = isContreEnqueteMade;
         this.nbrTentative = nbrTentative;
         this.codeAgentRecenceur = codeAgentRecenceur;
@@ -111,38 +95,6 @@ public class Logement {
         this.qlin1NumeroOrdre = qlin1NumeroOrdre;
     }
 
-    public Short getQlc1TypeLogement() {
-        return qlc1TypeLogement;
-    }
-
-    public void setQlc1TypeLogement(Short qlc1TypeLogement) {
-        this.qlc1TypeLogement = qlc1TypeLogement;
-    }
-
-    public Short getQlc2bTotalGarcon() {
-        return qlc2bTotalGarcon;
-    }
-
-    public void setQlc2bTotalGarcon(Short qlc2bTotalGarcon) {
-        this.qlc2bTotalGarcon = qlc2bTotalGarcon;
-    }
-
-    public Short getQlc2bTotalFille() {
-        return qlc2bTotalFille;
-    }
-
-    public void setQlc2bTotalFille(Short qlc2bTotalFille) {
-        this.qlc2bTotalFille = qlc2bTotalFille;
-    }
-
-    public Short getQlcTotalIndividus() {
-        return qlcTotalIndividus;
-    }
-
-    public void setQlcTotalIndividus(Short qlcTotalIndividus) {
-        this.qlcTotalIndividus = qlcTotalIndividus;
-    }
-
     public Short getQlin2StatutOccupation() {
         return qlin2StatutOccupation;
     }
@@ -151,60 +103,28 @@ public class Logement {
         this.qlin2StatutOccupation = qlin2StatutOccupation;
     }
 
-    public Short getQlin3ExistenceLogement() {
-        return qlin3ExistenceLogement;
+    public Short getQlin3TypeLogement() {
+        return qlin3TypeLogement;
     }
 
-    public void setQlin3ExistenceLogement(Short qlin3ExistenceLogement) {
-        this.qlin3ExistenceLogement = qlin3ExistenceLogement;
+    public void setQlin3TypeLogement(Short qlin3TypeLogement) {
+        this.qlin3TypeLogement = qlin3TypeLogement;
     }
 
-    public Short getQlin4TypeLogement() {
-        return qlin4TypeLogement;
+    public Short getQlin4IsHaveIndividuDepense() {
+        return qlin4IsHaveIndividuDepense;
     }
 
-    public void setQlin4TypeLogement(Short qlin4TypeLogement) {
-        this.qlin4TypeLogement = qlin4TypeLogement;
+    public void setQlin4IsHaveIndividuDepense(Short qlin4IsHaveIndividuDepense) {
+        this.qlin4IsHaveIndividuDepense = qlin4IsHaveIndividuDepense;
     }
 
-    public Short getQlin5MateriauSol() {
-        return qlin5MateriauSol;
+    public Short getQlin5NbreTotalMenage() {
+        return qlin5NbreTotalMenage;
     }
 
-    public void setQlin5MateriauSol(Short qlin5MateriauSol) {
-        this.qlin5MateriauSol = qlin5MateriauSol;
-    }
-
-    public Short getQlin6NombrePiece() {
-        return qlin6NombrePiece;
-    }
-
-    public void setQlin6NombrePiece(Short qlin6NombrePiece) {
-        this.qlin6NombrePiece = qlin6NombrePiece;
-    }
-
-    public Short getQlin7NbreChambreACoucher() {
-        return qlin7NbreChambreACoucher;
-    }
-
-    public void setQlin7NbreChambreACoucher(Short qlin7NbreChambreACoucher) {
-        this.qlin7NbreChambreACoucher = qlin7NbreChambreACoucher;
-    }
-
-    public Short getQlin8NbreIndividuDepense() {
-        return qlin8NbreIndividuDepense;
-    }
-
-    public void setQlin8NbreIndividuDepense(Short qlin8NbreIndividuDepense) {
-        this.qlin8NbreIndividuDepense = qlin8NbreIndividuDepense;
-    }
-
-    public Short getQlin9NbreTotalMenage() {
-        return qlin9NbreTotalMenage;
-    }
-
-    public void setQlin9NbreTotalMenage(Short qlin9NbreTotalMenage) {
-        this.qlin9NbreTotalMenage = qlin9NbreTotalMenage;
+    public void setQlin5NbreTotalMenage(Short qlin5NbreTotalMenage) {
+        this.qlin5NbreTotalMenage = qlin5NbreTotalMenage;
     }
 
     public Short getStatut() {
@@ -221,6 +141,14 @@ public class Logement {
 
     public void setIsValidated(Boolean isValidated) {
         this.isValidated = isValidated;
+    }
+
+    public Boolean getIsFieldAllFilled() {
+        return isFieldAllFilled;
+    }
+
+    public void setIsFieldAllFilled(Boolean isFieldAllFilled) {
+        this.isFieldAllFilled = isFieldAllFilled;
     }
 
     public String getDateDebutCollecte() {
@@ -245,14 +173,6 @@ public class Logement {
 
     public void setDureeSaisie(Integer dureeSaisie) {
         this.dureeSaisie = dureeSaisie;
-    }
-
-    public Boolean getIsFieldAllFilled() {
-        return isFieldAllFilled;
-    }
-
-    public void setIsFieldAllFilled(Boolean isFieldAllFilled) {
-        this.isFieldAllFilled = isFieldAllFilled;
     }
 
     public Boolean getIsContreEnqueteMade() {

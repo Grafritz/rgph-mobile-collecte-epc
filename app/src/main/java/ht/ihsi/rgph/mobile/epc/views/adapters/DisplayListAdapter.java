@@ -23,8 +23,8 @@ import java.util.List;
 import ht.ihsi.rgph.mobile.R;
 import ht.ihsi.rgph.mobile.epc.constant.Constant;
 import ht.ihsi.rgph.mobile.epc.models.BatimentModel;
-import ht.ihsi.rgph.mobile.epc.models.DecesModel;
-import ht.ihsi.rgph.mobile.epc.models.EmigreModel;
+//import ht.ihsi.rgph.mobile.epc.models.DecesModel;
+//import ht.ihsi.rgph.mobile.epc.models.EmigreModel;
 import ht.ihsi.rgph.mobile.epc.models.IndividuModel;
 import ht.ihsi.rgph.mobile.epc.models.LogementModel;
 import ht.ihsi.rgph.mobile.epc.models.MenageModel;
@@ -106,8 +106,8 @@ public class DisplayListAdapter extends RecyclerView.Adapter<DisplayListAdapter.
         private BatimentModel batimentModel=null;
         private LogementModel logementModel=null;
         private MenageModel menageModel=null;
-        private EmigreModel emigreModel=null;
-        private DecesModel decesModel=null;
+        //private EmigreModel emigreModel=null;
+        //private DecesModel decesModel=null;
         private IndividuModel individuModel=null;
 
         public DetailRowViewHolder(View view){
@@ -322,7 +322,7 @@ public class DisplayListAdapter extends RecyclerView.Adapter<DisplayListAdapter.
                 }
                 return Constant.MODULE_NAME_INDIVIDU + " " + numeroOrdre;
 
-            }else if(listType==Constant.LIST_MODULE_EMIGRE){
+            /*}else if(listType==Constant.LIST_MODULE_EMIGRE){
                 if(!row.isEmpty()){
                     emigreModel = (EmigreModel) row.getModel();
                     numeroOrdre = (this.emigreModel.getQn1numeroOrdre() != null ? this.emigreModel.getQn1numeroOrdre() : Long.valueOf(0));
@@ -334,7 +334,7 @@ public class DisplayListAdapter extends RecyclerView.Adapter<DisplayListAdapter.
                     decesModel = (DecesModel) row.getModel();
                     numeroOrdre = (this.decesModel.getQd2NoOrdre() != null ? this.decesModel.getQd2NoOrdre() : Long.valueOf(0));
                 }
-                return Constant.MODULE_NAME_DECES + " " + numeroOrdre;
+                return Constant.MODULE_NAME_DECES + " " + numeroOrdre;*/
             }else{
                 return "";
             }

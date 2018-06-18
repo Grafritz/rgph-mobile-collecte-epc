@@ -25,8 +25,8 @@ import java.util.regex.Pattern;
 
 import ht.ihsi.rgph.mobile.R;
 import ht.ihsi.rgph.mobile.epc.backend.entities.BatimentDao;
-import ht.ihsi.rgph.mobile.epc.backend.entities.DecesDao;
-import ht.ihsi.rgph.mobile.epc.backend.entities.EmigreDao;
+//import ht.ihsi.rgph.mobile.epc.backend.entities.DecesDao;
+//import ht.ihsi.rgph.mobile.epc.backend.entities.EmigreDao;
 import ht.ihsi.rgph.mobile.epc.backend.entities.IndividuDao;
 import ht.ihsi.rgph.mobile.epc.backend.entities.LogementDao;
 import ht.ihsi.rgph.mobile.epc.backend.entities.MenageDao;
@@ -125,42 +125,9 @@ public class Tools
                 keyValueModels.add(new KeyValueModel("0", "Non"));
                 keyValueModels.add(new KeyValueModel("true", "Wi"));
                 keyValueModels.add(new KeyValueModel("false", "Non"));
-            }else if (nomChamps.equalsIgnoreCase(BatimentDao.Properties.Qb6StatutOccupation.columnName)){
+            }else if (nomChamps.equalsIgnoreCase(BatimentDao.Properties.Qb3StatutOccupation.columnName)){
                 keyValueModels.add(new KeyValueModel("1", "1.Okipe"));
                 keyValueModels.add(new KeyValueModel("2", "2.Toujou vid"));
-            }else if (nomChamps.equalsIgnoreCase(BatimentDao.Properties.Qb7Utilisation1.columnName)){
-                keyValueModels.add(new KeyValueModel("1", "1. Lokal kote moun rete"));
-                keyValueModels.add(new KeyValueModel("10", "Lokal kote w twouve pou pi piti yon menaj  "));
-                keyValueModels.add(new KeyValueModel("11", "Òfelina, santdakèy oswa ebèjman"));
-                keyValueModels.add(new KeyValueModel("12", "Kay retrete (Kay kote yo gade ti granmoun), Azil "));
-                keyValueModels.add(new KeyValueModel("13", "Kay pou mè, pè, pastè rete / kay ki pou legliz, presbitè"));
-                keyValueModels.add(new KeyValueModel("14", "Pansyon fanmi"));
-                keyValueModels.add(new KeyValueModel("15", "Sant detansyon (Prizon)"));
-                keyValueModels.add(new KeyValueModel("16", "Sant Fomasyon (Entèna)"));
-                keyValueModels.add(new KeyValueModel("17", "Yon lòt lokal kote w jwen n yon lojman kolektif (Kote w jwen n plizyè moun, ki pa oblije fanmi, rete)"));
-                keyValueModels.add(new KeyValueModel("18", "Lòt "));
-                keyValueModels.add(new KeyValueModel("2", "2. Lokal ki gen yon enstitisyon ki bay sèvis sosyal de baz, kilt, kilti  ak lwazi"));
-                keyValueModels.add(new KeyValueModel("20", "Lekòl Etablisman preskolè/eskolè"));
-                keyValueModels.add(new KeyValueModel("21", "Inivèsite/ Lekòl siperyè"));
-                keyValueModels.add(new KeyValueModel("22", "Etablisman ki bay swen sante (Lopital,  sant sante, dispansè ak tout lòt kay ki itilize pou bay swen sante )"));
-                keyValueModels.add(new KeyValueModel("23", "Kote yo fè mès, reinyon ak priyè  (tanp, legliz, peristil, moske, ...)"));
-                keyValueModels.add(new KeyValueModel("24", "Bibliyotèk, mize, sant kiltirèl"));
-                keyValueModels.add(new KeyValueModel("25", "Sant pou moun pran plezi yo, amize yo"));
-                keyValueModels.add(new KeyValueModel("26", "Lòt "));
-                keyValueModels.add(new KeyValueModel("3", "3. Lokal ki gen Biwo leta, antrepriz ak lòt etablisman "));
-                keyValueModels.add(new KeyValueModel("30", "Biwo administrasyon piblik/Konplèks Administratif"));
-                keyValueModels.add(new KeyValueModel("31", "Komisarya"));
-                keyValueModels.add(new KeyValueModel("32", "Izin, faktori "));
-                keyValueModels.add(new KeyValueModel("33", "Atelye (atizan)"));
-                keyValueModels.add(new KeyValueModel("34", "Komès: Magazen, Konplèks komèsyal "));
-                keyValueModels.add(new KeyValueModel("35", "Komès : Boutik "));
-                keyValueModels.add(new KeyValueModel("36", "Mache piblik"));
-                keyValueModels.add(new KeyValueModel("37", "Lotèl / Obèj/ Restoran"));
-                keyValueModels.add(new KeyValueModel("38", "Biwo pou antrepriz ki bay sèvis "));
-                keyValueModels.add(new KeyValueModel("39", "Lòt antrepriz ki bay sèvis (estidyo, sibèkafe, ..)"));
-                keyValueModels.add(new KeyValueModel("40", "Pò, ayewopò, ayewoga, pòs fwontyè"));
-                keyValueModels.add(new KeyValueModel("41", "Lòt"));
-                keyValueModels.add(new KeyValueModel("4", "Pa geyen yon dezièm itilizasyon"));
             }else if (nomChamps.equalsIgnoreCase(BatimentDao.Properties.Qb2Type.columnName)){
                 keyValueModels.add(new KeyValueModel("1", "1. Kay atè ….. ale nan B4"));
                 keyValueModels.add(new KeyValueModel("2", "2. Todi …… ale nan B4"));
@@ -178,58 +145,15 @@ public class Tools
                 keyValueModels.add(new KeyValueModel("2", "2. Okipe toutan, men moun yo pa la"));
                 keyValueModels.add(new KeyValueModel("3", "3. Okipe yon lè konsa"));
                 keyValueModels.add(new KeyValueModel("4", "4. Pa okipe"));
-            }else if (nomChamps.equalsIgnoreCase(LogementDao.Properties.Qlin4TypeLogement.columnName)){
+            }else if (nomChamps.equalsIgnoreCase(LogementDao.Properties.Qlin3TypeLogement.columnName)){
                 keyValueModels.add(new KeyValueModel("1", "1. Apatman"));
                 keyValueModels.add(new KeyValueModel("2", "2. Pyès (pyès kay)"));
                 keyValueModels.add(new KeyValueModel("3", "3. Lòt"));
-            }else if (nomChamps.equalsIgnoreCase(LogementDao.Properties.Qlin8NbreIndividuDepense.columnName)){
+            }else if (nomChamps.equalsIgnoreCase(LogementDao.Properties.Qlin4IsHaveIndividuDepense.columnName)){
                 keyValueModels.add(new KeyValueModel("1", "1- Wi"));
                 keyValueModels.add(new KeyValueModel("2", "2- Non"));
-            }else if (nomChamps.equalsIgnoreCase(LogementDao.Properties.Qlc1TypeLogement.columnName)){
-                keyValueModels.add(new KeyValueModel("1", "1. Pansyon Fanmi"));
-                keyValueModels.add(new KeyValueModel("2", "2. Kouvan/ Monastè"));
-                keyValueModels.add(new KeyValueModel("3", "3. Presbitè"));
-                keyValueModels.add(new KeyValueModel("4", "4. Òfelina"));
-                keyValueModels.add(new KeyValueModel("5", "5. Akademi polis"));
-                keyValueModels.add(new KeyValueModel("6", "6. Lazil oswa kote granmoun rete oswa kay retrèt"));
-                keyValueModels.add(new KeyValueModel("7", "7. Sant detansyon  (Prizon)"));
-                keyValueModels.add(new KeyValueModel("8", "8. Komisarya"));
-                keyValueModels.add(new KeyValueModel("9", "9. Lekol-Entèna"));
-                keyValueModels.add(new KeyValueModel("10", "10. Kanmpis inivèsitè (Kay pou etidian oswa lòt tip ki sanble ak sa)"));
-                keyValueModels.add(new KeyValueModel("11", "11. Kote yo priye, fè reinyon ak lot.... (tanp, legliz, peristil, moske)"));
-                keyValueModels.add(new KeyValueModel("12", "12. Lopital"));
-                keyValueModels.add(new KeyValueModel("13", "13. Lojman pou pèsonèl (pèsonèl medikal, ...)"));
-                keyValueModels.add(new KeyValueModel("14", "14. Lotèl / Obèj"));
-                keyValueModels.add(new KeyValueModel("15", "15. Lòt lojman kolektif"));
-                // MENAGE //
-            }else if (nomChamps.equalsIgnoreCase(MenageDao.Properties.Qm5SrcEnergieCuisson1.columnName)){
-                keyValueModels.add(new KeyValueModel("1", "1. Bwa / Pay"));
-                keyValueModels.add(new KeyValueModel("2", "2. Gaz (Bonbòn)"));
-                keyValueModels.add(new KeyValueModel("3", "3. Elektrisite (Kouran)"));
-                keyValueModels.add(new KeyValueModel("4", "4. Chabon bwa"));
-                keyValueModels.add(new KeyValueModel("5", "5. Chabon Brikèt"));
-                keyValueModels.add(new KeyValueModel("6", "6. Kewozèn"));
-                keyValueModels.add(new KeyValueModel("7", "7. Enèji solè"));
-                keyValueModels.add(new KeyValueModel("8", "8. Lòt"));
-                keyValueModels.add(new KeyValueModel("9", "9. Pa konsène"));
-                keyValueModels.add(new KeyValueModel("99", "99. PA GEN LOT SOUS"));
                 // INDIVIDU //
-            }else if (nomChamps.equalsIgnoreCase(IndividuDao.Properties.Qp8MereEncoreVivante.columnName)){
-                keyValueModels.add(new KeyValueModel("1", "1- Wi"));
-                keyValueModels.add(new KeyValueModel("2", "2- Non"));
-                keyValueModels.add(new KeyValueModel("3", "3- Pa konnen"));
-            }else if (nomChamps.equalsIgnoreCase(IndividuDao.Properties.Qe2FreqentationScolaireOuUniv.columnName)){
-                keyValueModels.add(new KeyValueModel("1", "1. Wi, preskolè"));
-                keyValueModels.add(new KeyValueModel("2", "2. Wi, Primè / Fondamantal 1e sik"));
-                keyValueModels.add(new KeyValueModel("3", "3. Wi, Primè / Fondamantal 2e sik"));
-                keyValueModels.add(new KeyValueModel("4", "4. Wi, segondè  /  Fondamantal 3e sik"));
-                keyValueModels.add(new KeyValueModel("5", "5. Wi, segondè (3e – Filo)"));
-                keyValueModels.add(new KeyValueModel("6", "6. Wi, Inivèsite"));
-                keyValueModels.add(new KeyValueModel("7", "7. Wi, Lekol pwofesyonel"));
-                keyValueModels.add(new KeyValueModel("8", "8. Non, sant alfabetizasyon"));
-                keyValueModels.add(new KeyValueModel("9", "9. Non, okenn"));
-                keyValueModels.add(new KeyValueModel("10", "10. Pa  konnen"));
-            }else if (nomChamps.equalsIgnoreCase(IndividuDao.Properties.Qsm1StatutMatrimonial.columnName)){
+            }else if (nomChamps.equalsIgnoreCase(IndividuDao.Properties.Q12StatutMatrimonial.columnName)){
                 keyValueModels.add(new KeyValueModel("1", "1. Selibatè"));
                 keyValueModels.add(new KeyValueModel("2", "2. Marye"));
                 keyValueModels.add(new KeyValueModel("3", "3. Plase"));
@@ -239,7 +163,7 @@ public class Tools
                 keyValueModels.add(new KeyValueModel("7", "7. Kite, Separe apre plasay"));
                 keyValueModels.add(new KeyValueModel("8", "8. Divòse"));
                 keyValueModels.add(new KeyValueModel("9", "9. Lòt"));
-            }else if (nomChamps.equalsIgnoreCase(IndividuDao.Properties.Qp3HabiteDansMenage.columnName)){
+            }else if (nomChamps.equalsIgnoreCase(IndividuDao.Properties.Q5HabiteDansMenage.columnName)){
                 keyValueModels.add(new KeyValueModel("1", "1- Wi li toujou la, se la li dómi, manje ak tout lót moun ki nan lojman an"));
                 keyValueModels.add(new KeyValueModel("2", "2- Wi li toujou la, men li okipe zafè l ak manjel a pa .....   fini la a pou moun sa a"));
                 keyValueModels.add(new KeyValueModel("3", "3- Wi li toujou la, men li fë yon deplase pou mwens pase 6 mwa"));
@@ -249,7 +173,7 @@ public class Tools
                 keyValueModels.add(new KeyValueModel("7", "7- Li fèk vini men li gen entansyon rete la a"));
                 keyValueModels.add(new KeyValueModel("8", "8- Li fèk vini li gen entansyon rete la a, men lap  okipe zafè l ak manje l a pa  .....   fini la a pou moun sa a"));
                 keyValueModels.add(new KeyValueModel("9", "9- Li nan kay la pou mwens ke 6 mwa  .... fini la a pou moun sa a"));
-            }else if (nomChamps.equalsIgnoreCase(IndividuDao.Properties.Qp3LienDeParente.columnName)){
+            }else if (nomChamps.equalsIgnoreCase(IndividuDao.Properties.Q9LienDeParente.columnName)){
                 keyValueModels.add(new KeyValueModel("1", "01- Chèf menaj la"));
                 keyValueModels.add(new KeyValueModel("2", "02- Mari / Madanm"));
                 keyValueModels.add(new KeyValueModel("3", "03- Pitit gason / Piti fi"));
@@ -267,15 +191,15 @@ public class Tools
             }else if (nomChamps.equalsIgnoreCase(IndividuDao.Properties.Qp4Sexe .columnName)){
                 keyValueModels.add(new KeyValueModel("1", "Yon Gason"));
                 keyValueModels.add(new KeyValueModel("2", "Yon Fi"));
-            }else if (nomChamps.equalsIgnoreCase(EmigreDao.Properties.Qn2bSexe.columnName)){
+            /*}else if (nomChamps.equalsIgnoreCase(EmigreDao.Properties.Qn2bSexe.columnName)){
                 keyValueModels.add(new KeyValueModel("1", "Gason"));
-                keyValueModels.add(new KeyValueModel("2", "Fi"));
+                keyValueModels.add(new KeyValueModel("2", "Fi"));*/
             /*}else if (nomChamps.equalsIgnoreCase(EmigreDao.Properties.Qn2bResidenceActuelle.columnName)){
                 keyValueModels.add(new KeyValueModel("1", "Ap viv nan peyi letranje"));
                 keyValueModels.add(new KeyValueModel("2", "Ap viv an Ayiti"));
                 keyValueModels.add(new KeyValueModel("3", "Non, li Mouri"));
                 keyValueModels.add(new KeyValueModel("4", "Pa konnen"));*/
-            }else if (nomChamps.equalsIgnoreCase(EmigreDao.Properties.Qn2eDernierPaysResidence.columnName)){
+            /*}else if (nomChamps.equalsIgnoreCase(EmigreDao.Properties.Qn2eDernierPaysResidence.columnName)){
                 keyValueModels.add(new KeyValueModel("1", "01. Etazini"));
                 keyValueModels.add(new KeyValueModel("2", "02. Repiblik Domikèn"));
                 keyValueModels.add(new KeyValueModel("3", "03. Kanada"));
@@ -291,17 +215,17 @@ public class Tools
                 keyValueModels.add(new KeyValueModel("13", "13. Venezwela"));
                 keyValueModels.add(new KeyValueModel("14", "14. Turk e Kaykos"));
                 keyValueModels.add(new KeyValueModel("15", "15. Lòt"));
-                keyValueModels.add(new KeyValueModel("16", "16. Pa konnen"));
-            }else if (nomChamps.equalsIgnoreCase(DecesDao.Properties.Qd2aSexe.columnName)){
+                keyValueModels.add(new KeyValueModel("16", "16. Pa konnen"));*/
+           /* }else if (nomChamps.equalsIgnoreCase(DecesDao.Properties.Qd2aSexe.columnName)){
                 keyValueModels.add(new KeyValueModel("1", "Gason"));
-                keyValueModels.add(new KeyValueModel("2", "Fi"));
-            }else if (nomChamps.equalsIgnoreCase(DecesDao.Properties.Qd2c1CirconstanceDeces.columnName)){
+                keyValueModels.add(new KeyValueModel("2", "Fi"));*/
+          /*  }else if (nomChamps.equalsIgnoreCase(DecesDao.Properties.Qd2c1CirconstanceDeces.columnName)){
                 keyValueModels.add(new KeyValueModel("1", "1. Pandan li  ansent "));
                 keyValueModels.add(new KeyValueModel("2", "2. Pandan li tap akouche"));
                 keyValueModels.add(new KeyValueModel("3", "3. Karannde (42) jou (anviwon yon mwa edmi) aprè gwosès oswa aprè akouchman an"));
                 keyValueModels.add(new KeyValueModel("4", "4. Lòt "));
-                keyValueModels.add(new KeyValueModel("5", "5. Pa konnen"));
-            }else if (nomChamps.equalsIgnoreCase(DecesDao.Properties.Qd2c2CauseDeces.columnName)){
+                keyValueModels.add(new KeyValueModel("5", "5. Pa konnen"));*/
+           /* }else if (nomChamps.equalsIgnoreCase(DecesDao.Properties.Qd2c2CauseDeces.columnName)){
                 keyValueModels.add(new KeyValueModel("1", "1. Emoraji"));
                 keyValueModels.add(new KeyValueModel("2", "2. Enfeksyon"));
                 keyValueModels.add(new KeyValueModel("3", "3. Eklanmsi (Tansyon)"));
@@ -309,7 +233,7 @@ public class Tools
                 keyValueModels.add(new KeyValueModel("5", "5. Fos kouch"));
                 keyValueModels.add(new KeyValueModel("6", "6. Avotman ki fèt nan move kondisyon"));
                 keyValueModels.add(new KeyValueModel("7", "7. Lòt"));
-                keyValueModels.add(new KeyValueModel("8", "8. Pa konnen"));
+                keyValueModels.add(new KeyValueModel("8", "8. Pa konnen"));*/
             }else if (nomChamps.equalsIgnoreCase(PersonnelDao.Properties.ProfileId.columnName)) {
                 keyValueModels.add(new KeyValueModel("" + Constant.PRIVILEGE_DEVELOPPEUR, "Devlopè"));
                 keyValueModels.add(new KeyValueModel("" + Constant.PRIVILEGE_ASTIC, "ACTIC"));

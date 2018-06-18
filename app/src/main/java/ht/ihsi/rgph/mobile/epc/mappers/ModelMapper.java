@@ -6,9 +6,10 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import ht.ihsi.rgph.mobile.epc.backend.entities.AncienMembre;
 import ht.ihsi.rgph.mobile.epc.backend.entities.BatimentDao;
-import ht.ihsi.rgph.mobile.epc.backend.entities.DecesDao;
-import ht.ihsi.rgph.mobile.epc.backend.entities.EmigreDao;
+//import ht.ihsi.rgph.mobile.epc.backend.entities.DecesDao;
+//import ht.ihsi.rgph.mobile.epc.backend.entities.EmigreDao;
 import ht.ihsi.rgph.mobile.epc.backend.entities.IndividuDao;
 import ht.ihsi.rgph.mobile.epc.backend.entities.LogementDao;
 import ht.ihsi.rgph.mobile.epc.backend.entities.MenageDao;
@@ -17,9 +18,9 @@ import ht.ihsi.rgph.mobile.epc.backend.entities.RapportRARDao;
 import ht.ihsi.rgph.mobile.epc.backend.entities.Batiment;
 import ht.ihsi.rgph.mobile.epc.backend.entities.CategorieQuestion;
 import ht.ihsi.rgph.mobile.epc.backend.entities.Commune;
-import ht.ihsi.rgph.mobile.epc.backend.entities.Deces;
+//import ht.ihsi.rgph.mobile.epc.backend.entities.Deces;
 import ht.ihsi.rgph.mobile.epc.backend.entities.Departement;
-import ht.ihsi.rgph.mobile.epc.backend.entities.Emigre;
+//import ht.ihsi.rgph.mobile.epc.backend.entities.Emigre;
 import ht.ihsi.rgph.mobile.epc.backend.entities.Individu;
 import ht.ihsi.rgph.mobile.epc.backend.entities.Logement;
 import ht.ihsi.rgph.mobile.epc.backend.entities.Menage;
@@ -36,12 +37,13 @@ import ht.ihsi.rgph.mobile.epc.constant.Constant;
 import ht.ihsi.rgph.mobile.epc.managers.CURecordMngr;
 import ht.ihsi.rgph.mobile.epc.managers.QueryRecordMngr;
 import ht.ihsi.rgph.mobile.epc.managers.QueryRecordMngrImpl;
+import ht.ihsi.rgph.mobile.epc.models.AncienMembreModel;
 import ht.ihsi.rgph.mobile.epc.models.BatimentModel;
 import ht.ihsi.rgph.mobile.epc.models.CategorieQuestionModel;
 import ht.ihsi.rgph.mobile.epc.models.CommuneModel;
-import ht.ihsi.rgph.mobile.epc.models.DecesModel;
+//import ht.ihsi.rgph.mobile.epc.models.DecesModel;
 import ht.ihsi.rgph.mobile.epc.models.DepartementModel;
-import ht.ihsi.rgph.mobile.epc.models.EmigreModel;
+//import ht.ihsi.rgph.mobile.epc.models.EmigreModel;
 import ht.ihsi.rgph.mobile.epc.models.IndividuModel;
 import ht.ihsi.rgph.mobile.epc.models.KeyValueModel;
 import ht.ihsi.rgph.mobile.epc.models.LogementModel;
@@ -78,7 +80,7 @@ public class ModelMapper {
                 RowDataListModel r = new RowDataListModel();
                 // BatimentModel bat =
                 r.setTitle("#" + ind.getQ1NoOrdre() +" : " + ind.getQp2APrenom()+"  " + ind.getQp2BNom() );
-                r.setDesc("<b>Relasyon:</b>" + Tools.getString_Reponse(""+ind.getQp3LienDeParente(), IndividuDao.Properties.Qp3LienDeParente.columnName)
+                r.setDesc("<b>Relasyon:</b>" + Tools.getString_Reponse(""+ind.getQ9LienDeParente(), IndividuDao.Properties.Q9LienDeParente.columnName)
                         + " | <b>Sèks:</b>" + Tools.getString_Reponse(""+ind.getQp4Sexe(), IndividuDao.Properties.Qp4Sexe.columnName)
                         + " | <b>Fòm ranpli nèt:</b>" + Tools.getString_Reponse(""+ind.getIsFieldAllFilled(), IndividuDao.Properties.IsFieldAllFilled.columnName));
                 r.setIsComplete(false);
@@ -103,7 +105,7 @@ public class ModelMapper {
                 RowDataListModel r = new RowDataListModel();
                 // BatimentModel bat =
                 r.setTitle("#" + ind.getQ1NoOrdre() +" : " + ind.getQp2APrenom()+"  " + ind.getQp2BNom() );
-                r.setDesc("<b>Relasyon:</b>" + Tools.getString_Reponse(""+ind.getQp3LienDeParente(), IndividuDao.Properties.Qp3LienDeParente.columnName)
+                r.setDesc("<b>Relasyon:</b>" + Tools.getString_Reponse(""+ind.getQ9LienDeParente(), IndividuDao.Properties.Q9LienDeParente.columnName)
                         + " | <b>Sèks:</b>" + Tools.getString_Reponse(""+ind.getQp4Sexe(), IndividuDao.Properties.Qp4Sexe.columnName)
                         + " | <b>Fòm ranpli nèt:</b>" + Tools.getString_Reponse(""+ind.getIsFieldAllFilled(), IndividuDao.Properties.IsFieldAllFilled.columnName));
                         //+ "<br />Sde:" + ind.getSdeId() + "/Batiman-" + ind.getBatimentId() + "/Lojman Endividyèl-" + ind.getLogeId() + "/Menaj-" + ind.getMenageId());
@@ -122,102 +124,33 @@ public class ModelMapper {
         return result;
     }
 
-    public static List<RowDataListModel> MapToRowsDeces(List<Deces> deces){
-
-        List<RowDataListModel> result=new ArrayList<>() ;
-        if(deces!=null && deces.size()>0) {
-            for (Deces d: deces) {
-                RowDataListModel r = new RowDataListModel();
-                r.setTitle("#" + d.getQd2NoOrdre() +" Moun Mouri ");
-                r.setDesc(""
-                        + " <b>Sèks:</b>" + Tools.getString_Reponse(""+d.getQd2aSexe(), DecesDao.Properties.Qd2aSexe.columnName)
-                        + " | <b>laj li mouri:</b> " +  d.getQd2bAgeDecede()
-                        + " <br /> <b>Sikonstans:</b> " +  Tools.getString_Reponse(""+ d.getQd2c1CirconstanceDeces(), DecesDao.Properties.Qd2c1CirconstanceDeces.columnName)
-                        + " <br /> <b>Kauz:</b> " +  Tools.getString_Reponse(""+ d.getQd2c2CauseDeces(), DecesDao.Properties.Qd2c2CauseDeces.columnName)
-                        + " | <b>Fòm ranpli nèt:</b>" + Tools.getString_Reponse(""+ d.getIsFieldAllFilled(), DecesDao.Properties.IsFieldAllFilled.columnName));
-                r.setIsComplete(d.getIsFieldAllFilled());
-                r.setIsModuleMenu(false);
-                r.setModel(MapToDecesModel(d));
-                result.add(r);
-            }
-        }else{
-           /* RowDataListModel r = new RowDataListModel();
-            r.setTitle("AUCUN ELELEMENT TROUVE!!!");
-            r.setDesc("");
-            result.add(r);*/
-            result = null;
-        }
-        return result;
-    }
-
-    public static List<RowDataListModel> MapToRowsEmigre(List<Emigre> emigres){
-
-        List<RowDataListModel> result=new ArrayList<>() ;
-        if(emigres!=null && emigres.size()>0) {
-            for (Emigre e: emigres) {
-                RowDataListModel r = new RowDataListModel();
-                r.setTitle("#" + e.getQn1numeroOrdre() +" : " + e.getQn2aNomComplet() );
-                //r.setTitle("Emigre-" + e.getQn1numeroOrdre());
-                r.setDesc(""
-                        + " <b>Sèks:</b>" + Tools.getString_Reponse(""+e.getQn2bSexe(), EmigreDao.Properties.Qn2bSexe.columnName)
-                        + " | <b>laj li pati:</b> " +  e.getQn2cAgeAuMomentDepart()
-                        + " <br /> Rezidans " +  Tools.getString_Reponse(""+ e.getQn2eDernierPaysResidence(), EmigreDao.Properties.Qn2eDernierPaysResidence.columnName)
-                        + " | <b>Fòm ranpli nèt:</b>" + Tools.getString_Reponse(""+e.getIsFieldAllFilled(), EmigreDao.Properties.IsFieldAllFilled.columnName));
-                r.setIsComplete(e.getIsFieldAllFilled());
-                r.setIsModuleMenu(false);
-                r.setModel(MapToEmigreModel(e));
-                result.add(r);
-            }
-        }else{
-           /* RowDataListModel r = new RowDataListModel();
-            r.setTitle("AUCUN ELELEMENT TROUVE!!!");
-            r.setDesc("");
-            result.add(r);*/
-            result = null;
-        }
-        return result;
-    }
-
     public static List<RowDataListModel> MapToRowsMenage(Context context, List<Menage> menages){
         int statutFormulaire = Constant.STATUT_MODULE_KI_FINI_1;
         boolean isFillAllField = true;
         List<RowDataListModel> result=new ArrayList<>() ;
         if(menages!=null && menages.size()>0) {
-            long NbreEmigre = 0;
-            long NbreEmigreSave = 0;
-            long NbreEmigreF = 0;
-            long NbreEmigreG = 0;
-
-            long NbreDeces = 0;
-            long NbreDecesSave = 0;
-            long NbreDecesF = 0;
-            long NbreDecesG = 0;
+            long NbreAncienMembre = 0;
+            long NbreAncienMembreSave = 0;
             long TotalIndividuVivant = 0;
+
             QueryRecordMngr queryRecordMngr = new QueryRecordMngrImpl(context);
             for (Menage m : menages) {
 
-                if( m.getQn1NbreEmigre() != null && m.getQn1NbreEmigre() > 0 ){
-                    NbreEmigre = m.getQn1NbreEmigre();
+                if( m.getQm22TotalAncienMembre() != null && m.getQm22TotalAncienMembre() > 0 ){
+                    NbreAncienMembre = m.getQm22TotalAncienMembre();
                 }
-                if( NbreEmigre > 0 ){
-                    NbreEmigreSave = queryRecordMngr.countEmigrer_AllFilled_ByMenage_ByStatus(m.getMenageId(), statutFormulaire, isFillAllField);
-                }
-                if( m.getQd1NbreDecede() != null &&  m.getQd1NbreDecede() > 0 ) {
-                    NbreDeces = m.getQd1NbreDecede();
-                }
-                if( NbreDeces > 0 ){
-                    NbreDecesSave = queryRecordMngr.countDeces_AllFilled_ByMenage_ByStatus(m.getMenageId(), statutFormulaire, isFillAllField);
+                if( NbreAncienMembre > 0 ){
+                    NbreAncienMembreSave = queryRecordMngr.countAncienMembre_AllFilled_ByMenage_ByStatus(m.getMenageId(), statutFormulaire, isFillAllField);
                 }
 
-                if( m.getQm11TotalIndividuVivant() != null &&  m.getQm11TotalIndividuVivant() > 0 ){
+                if( m.getQm2TotalIndividuVivant() != null &&  m.getQm2TotalIndividuVivant() > 0 ){
                     TotalIndividuVivant = queryRecordMngr.countIndividus_AllFilled_ByMenage_ByStatus(m.getMenageId(), statutFormulaire, isFillAllField);
                 }
 
                 RowDataListModel r = new RowDataListModel();
                 r.setTitle("#"+ m.getQm1NoOrdre()+" Menaj");
-                r.setDesc("<b> Emigre:</b> "+ NbreEmigreSave +"/" + NbreEmigre
-                        +"<b> | Moun mouri:</b> "+ NbreDecesSave +"/" + NbreDeces
-                        + " | <b> Moun Vivan:</b>"+ TotalIndividuVivant +"/"+m.getQm11TotalIndividuVivant()
+                r.setDesc("<b> Ansyem Manm:</b> "+ NbreAncienMembreSave +"/" + NbreAncienMembre
+                        + " | <b> Manm:</b>"+ TotalIndividuVivant +"/"+m.getQm2TotalIndividuVivant()
                         + " | <b>Fòm ranpli nèt:</b>" + Tools.getString_Reponse(""+m.getIsFieldAllFilled(), MenageDao.Properties.IsFieldAllFilled.columnName));
                 r.setIsComplete(m.getIsFieldAllFilled());
                 r.setIsModuleMenu(true);
@@ -265,32 +198,15 @@ public class ModelMapper {
             int statutFormulaire = Constant.STATUT_MODULE_KI_FINI_1;
             boolean isFillAllField = true;
             //****************************************************//
-            //********** CALCUL POUR LOGEMENT COLLECTIF **********//
+            //********* CALCUL POUR LOGEMENT INDIVIDUEL *********//
             //****************************************************//
-            if(typeLogement == Constant.LOJ_KOLEKTIF){
-                //*******  CALCUL POUR INDIVIDUS DANS LE LOGEMENT COLLECTIF  ********//
-                int Nbre_TotalIndividu = 0;//this.getLogementModel().getQlcTotalIndividus();
-                if( logementModel.getQlc1TypeLogement() != null && logementModel.getQlc1TypeLogement() <= 5){
-                    if ( logementModel.getQlcTotalIndividus() != null && logementModel.getQlcTotalIndividus() > 0) {
-                        Nbre_TotalIndividu = logementModel.getQlcTotalIndividus();
-                    }
-                }
-                if (Nbre_TotalIndividu > 0) {
-                    // On Calcul le nombre d'individu fini et bien remplit
-                    long NbreTotalIndividu_FiniEtBienRemplit = queryRecordMngr.countIndividus_AllFilled_ByLogement_ByStatus( logementModel.getLogeId(), statutFormulaire, isFillAllField);
-                    if ( Nbre_TotalIndividu != NbreTotalIndividu_FiniEtBienRemplit ){
-                        IsStatutLogementFini=false;
-                    }
-                }
-            }else if(typeLogement == Constant.LOJ_ENDIVIDYEL){
-                //********* CALCUL POUR LOGEMENT INDIVIDUEL *********//
-                //*******  CALCUL POUR MENAGE DANS LE LOGEMENT  ********//
+            //******  CALCUL POUR MENAGE DANS LE LOGEMENT  *******//
                 int nbre_TotalMenage = 0;
-                if( logementModel.getQlin9NbreTotalMenage() != null ){
-                    nbre_TotalMenage = logementModel.getQlin9NbreTotalMenage();
+                if( logementModel.getQlin5NbreTotalMenage() != null ){
+                    nbre_TotalMenage = logementModel.getQlin5NbreTotalMenage();
                 }
-                if ( logementModel.getQlin8NbreIndividuDepense() != null &&
-                        logementModel.getQlin8NbreIndividuDepense() == Constant.REPONS_NON_2 ){
+                if ( logementModel.getQlin4IsHaveIndividuDepense() != null &&
+                        logementModel.getQlin4IsHaveIndividuDepense() == Constant.REPONS_NON_2 ){
                     nbre_TotalMenage = 1;
                 }
                 // On verifie s'il existe de menage dans le logement Individuel
@@ -300,7 +216,6 @@ public class ModelMapper {
                         IsStatutLogementFini=false;
                     }
                 }
-            }
 
             // SI TOUT CE PASSE TRES BIEN ON PASSE LE STATUT DU LOGEMENT A FINI\
             if ( IsStatutLogementFini ) {
@@ -318,11 +233,11 @@ public class ModelMapper {
         }
     }
 
-    public static List<RowDataListModel> MapToRowsLogement(Context context, List<Logement> loges){
+    public static List<RowDataListModel> MapToRowsLogement(Context context, List<Logement> loges) {
         int statutFormulaire = Constant.STATUT_MODULE_KI_FINI_1;
         boolean isFillAllField = true;
-        List<RowDataListModel> result=new ArrayList<>() ;
-        if(loges!=null && loges.size()>0) {
+        List<RowDataListModel> result = new ArrayList<>();
+        if (loges != null && loges.size() > 0) {
             boolean IsStatutLogementFini = true;
             long NbreTotalIndividu_FiniEtBienRemplit = 0;
             long NbreTotalMenage = 0;
@@ -331,62 +246,42 @@ public class ModelMapper {
             for (Logement log : loges) {
                 RowDataListModel r = new RowDataListModel();
                 r.setId(log.getLogeId());
-                if(log.getQlCategLogement() == Constant.LOJ_KOLEKTIF){
 
-                    r.setTitle("#"+ log.getQlin1NumeroOrdre()+" Lojman Kolektif" );
-                    String garconEtFille = "";
-                    if(log.getQlc1TypeLogement()!= null && log.getQlc1TypeLogement() > 6){
-                        garconEtFille = "<br /><b>Kte Gason:</b>" + log.getQlc2bTotalGarcon() + " | <b>Kte Fi:</b>" + log.getQlc2bTotalGarcon();
-                    }else{
-                        if( log.getQlcTotalIndividus() != null && log.getQlcTotalIndividus() > 0 ){
-                            NbreTotalIndividu_FiniEtBienRemplit = queryRecordMngr.countIndividus_AllFilled_ByLogement_ByStatus(log.getLogeId(), statutFormulaire, isFillAllField);
-                            if ( log.getQlcTotalIndividus() != NbreTotalIndividu_FiniEtBienRemplit ){
-                                IsStatutLogementFini=false;
-                            }
-
-                        }
-                        garconEtFille = "<br /><b>Kte Moun:</b> "+ NbreTotalIndividu_FiniEtBienRemplit +"/" + log.getQlcTotalIndividus();
+                r.setTitle("#" + log.getQlin1NumeroOrdre() + " Lojman Endividyèl");
+                String kteMenaj = "", nbrTentative = "";
+                NbreTotalMenage = queryRecordMngr.countMenage_AllFilled_ByLogement_ByStatus(log.getLogeId(), statutFormulaire, isFillAllField);
+                if (log.getQlin2StatutOccupation() != null && log.getQlin2StatutOccupation() == Constant.LOJMAN_OKIPE_TOUTAN_MEN_MOUN_YO_PA_LA_2) {
+                    if (log.getNbrTentative() != null) {
+                        nbrTentative = " <br /> <b>Nbr Tantativ:</b> " + (log.getNbrTentative() - 1);
                     }
-                    r.setDesc("<b>Tip Lojman:</b>" + Tools.getString_Reponse("" + log.getQlc1TypeLogement(), LogementDao.Properties.Qlc1TypeLogement.columnName)
-                            + garconEtFille
-                            + " | <b>Fòm ranpli nèt:</b>" + Tools.getString_Reponse(""+log.getIsFieldAllFilled(), LogementDao.Properties.IsFieldAllFilled.columnName));
-                }else if(log.getQlCategLogement() == Constant.LOJ_ENDIVIDYEL){
-                    r.setTitle("#"+ log.getQlin1NumeroOrdre()+" Lojman Endividyèl" );
-                    String kteMenaj = "", nbrTentative = "";
-                    NbreTotalMenage = queryRecordMngr.countMenage_AllFilled_ByLogement_ByStatus(log.getLogeId(), statutFormulaire, isFillAllField);
-                    if( log.getQlin2StatutOccupation() != null && log.getQlin2StatutOccupation() == Constant.LOJMAN_OKIPE_TOUTAN_MEN_MOUN_YO_PA_LA_2   ){
-                       if( log.getNbrTentative() != null ) {
-                           nbrTentative = " <br /> <b>Nbr Tantativ:</b> " + (log.getNbrTentative()-1);
-                       }
-                    }
-                    if( log.getQlin8NbreIndividuDepense() != null && log.getQlin8NbreIndividuDepense()== Constant.REPONS_WI_1){
-                        kteMenaj = "<br /><b>Kte Menaj:</b> "+ NbreTotalMenage +"/"  + log.getQlin9NbreTotalMenage();
-                    }else{
-                        if( log.getQlin2StatutOccupation() != null && log.getQlin2StatutOccupation() != Constant.LOJMAN_OKIPE_TOUTAN_MEN_MOUN_YO_PA_LA_2   ) {
-                            kteMenaj = "<br /><b>Kte Menaj:</b> " + NbreTotalMenage + "/1";
-                        }
-                    }
-                    String typeLogement = "";
-                    if( log.getQlin4TypeLogement() != null && log.getQlin4TypeLogement()>0){
-                        typeLogement = "<br /><b>Tip Lojman:</b>" + Tools.getString_Reponse("" + log.getQlin4TypeLogement(), LogementDao.Properties.Qlin4TypeLogement.columnName);
-                    }
-                    r.setDesc("<b>Lojman sa:</b>" + Tools.getString_Reponse("" + log.getQlin2StatutOccupation(), LogementDao.Properties.Qlin2StatutOccupation.columnName)
-                            + typeLogement + kteMenaj + nbrTentative
-                            + " | <b>Fòm ranpli nèt:</b>" + Tools.getString_Reponse(""+log.getIsFieldAllFilled(), LogementDao.Properties.IsFieldAllFilled.columnName));
                 }
+                if (log.getQlin4IsHaveIndividuDepense() != null && log.getQlin4IsHaveIndividuDepense() == Constant.REPONS_WI_1) {
+                    kteMenaj = "<br /><b>Kte Menaj:</b> " + NbreTotalMenage + "/" + log.getQlin5NbreTotalMenage();
+                } else {
+                    if (log.getQlin2StatutOccupation() != null && log.getQlin2StatutOccupation() != Constant.LOJMAN_OKIPE_TOUTAN_MEN_MOUN_YO_PA_LA_2) {
+                        kteMenaj = "<br /><b>Kte Menaj:</b> " + NbreTotalMenage + "/1";
+                    }
+                }
+                String typeLogement = "";
+                if (log.getQlin3TypeLogement() != null && log.getQlin3TypeLogement() > 0) {
+                    typeLogement = "<br /><b>Tip Lojman:</b>" + Tools.getString_Reponse("" + log.getQlin3TypeLogement(), LogementDao.Properties.Qlin3TypeLogement.columnName);
+                }
+                r.setDesc("<b>Lojman sa:</b>" + Tools.getString_Reponse("" + log.getQlin2StatutOccupation(), LogementDao.Properties.Qlin2StatutOccupation.columnName)
+                        + typeLogement + kteMenaj + nbrTentative
+                        + " | <b>Fòm ranpli nèt:</b>" + Tools.getString_Reponse("" + log.getIsFieldAllFilled(), LogementDao.Properties.IsFieldAllFilled.columnName));
 
                 r.setIsComplete(log.getIsFieldAllFilled());
-                if( log.getQlin2StatutOccupation() != null && log.getQlin2StatutOccupation() == Constant.LOJMAN_OKIPE_TOUTAN_MEN_MOUN_YO_PA_LA_2
-                        && log.getNbrTentative() != null && log.getNbrTentative() < 4 ){
+                if (log.getQlin2StatutOccupation() != null && log.getQlin2StatutOccupation() == Constant.LOJMAN_OKIPE_TOUTAN_MEN_MOUN_YO_PA_LA_2
+                        && log.getNbrTentative() != null && log.getNbrTentative() < 4) {
                     r.setIsModuleMenu(false);
                     r.setIsComplete(false);
-                }else{
+                } else {
                     r.setIsModuleMenu(log.getIsFieldAllFilled());
                 }
                 r.setModel(MapToLogementModel(log));
                 result.add(r);
             }
-        }else{
+        } else {
             result = null;
         }
         return result;
@@ -401,24 +296,20 @@ public class ModelMapper {
             for (Batiment bat : bats) {
                 long LogCol = 0;
                 long LogInd = 0;
-                if( bat.getQb8NbreLogeCollectif()!=null && bat.getQb8NbreLogeCollectif() > 0 ){
-                    LogCol = queryRecordMngr.countLogement_AllFilled_ByBatiment_byTypeLog_ByStatus(bat.getBatimentId(), Constant.LOJ_KOLEKTIF, statutFormulaire, isFillAllField);
-                }
-                if( bat.getQb8NbreLogeIndividuel()!=null && bat.getQb8NbreLogeIndividuel() > 0 ){
+                if( bat.getQb4NbreLogeIndividuel()!=null && bat.getQb4NbreLogeIndividuel() > 0 ){
                     LogInd = queryRecordMngr.countLogement_AllFilled_ByBatiment_byTypeLog_ByStatus(bat.getBatimentId(), Constant.LOJ_ENDIVIDYEL, statutFormulaire, isFillAllField);
                 }
                 RowDataListModel r = new RowDataListModel();
                 r.setId(bat.getBatimentId());
 
-                r.setTitle("<b>#"+ bat.getBatimentId() +" Batiman</b> "+ ( bat.getQrgph()!= null ? " | RGPH: " + bat.getQrgph():"")
+                r.setTitle("<b>#"+ bat.getBatimentId() +" Batiman</b> "+ ( bat.getQepc()!= null ? " | EPC: " + bat.getQepc():"")
                         + ""+ ( bat.getQadresse()!= null ? " | <i> " + bat.getQadresse() + "</i>" :"")
                         + ""+ ( bat.getQhabitation()!= null ? " | <b>Bit:</b> " + bat.getQhabitation() :"")
                         + ""+ ( bat.getQlocalite()!= null ? " | <b>Lok:</b> " + bat.getQlocalite() :""));
                 r.setDesc( ( bat.getQb1Etat()!= null ? "<b>Eta:</b> " + Tools.getString_Reponse("" + bat.getQb1Etat(), BatimentDao.Properties.Qb1Etat.columnName):"")
                         + ( bat.getQb2Type()!= null ? "<br /><b>Kalite:</b> " + Tools.getString_Reponse("" + bat.getQb2Type(), BatimentDao.Properties.Qb2Type.columnName):"")
-                        + ""+ ( bat.getQb8NbreLogeCollectif()!= null ? "<br /><b>Loj kol:</b> " + LogCol + "/" + bat.getQb8NbreLogeCollectif():"")
-                        + ""+ ( bat.getQb8NbreLogeIndividuel()!= null ? " | <b>Loj End:</b> " + LogInd + "/" + bat.getQb8NbreLogeIndividuel():"")
-                        + ""+ ( bat.getQb6StatutOccupation()!= null ? "<br /><b>Estati:</b> " + Tools.getString_Reponse("" + bat.getQb6StatutOccupation(), BatimentDao.Properties.Qb6StatutOccupation.columnName):"")
+                        + ""+ ( bat.getQb4NbreLogeIndividuel()!= null ? " <br /><b>Loj End:</b> " + LogInd + "/" + bat.getQb4NbreLogeIndividuel():"")
+                        + ""+ ( bat.getQb3StatutOccupation()!= null ? "<br /><b>Estati:</b> " + Tools.getString_Reponse("" + bat.getQb3StatutOccupation(), BatimentDao.Properties.Qb3StatutOccupation.columnName):"")
                         + " | <b>Fòm ranpli nèt:</b>" + Tools.getString_Reponse(""+bat.getIsFieldAllFilled(), BatimentDao.Properties.IsFieldAllFilled.columnName)
                 );
                 r.setIsComplete(bat.getIsFieldAllFilled());
@@ -440,9 +331,9 @@ public class ModelMapper {
             QueryRecordMngr queryRecordMngr = new QueryRecordMngrImpl(context);
             for (Batiment bat : bats) {
                 long nbrRap=0;
-                if( bat.getQb8NbreLogeCollectif()!=null && bat.getQb8NbreLogeCollectif() > 0 ){
+                //if( bat.getQb4NbreLogeCollectif()!=null && bat.getQb4NbreLogeCollectif() > 0 ){
                     nbrRap = queryRecordMngr.countRapport_ByBatiment(bat.getBatimentId());
-                }
+                //}
                 RowDataListModel r = new RowDataListModel();
                 r.setId(bat.getBatimentId());
 
@@ -676,22 +567,6 @@ public class ModelMapper {
         return result;
     }
 
-    public static List<EmigreModel> MapToEmigreModel(List<Emigre> emigres) {
-        List<EmigreModel> result = new ArrayList<EmigreModel>();
-        for (Emigre emigre : emigres) {
-            result.add(MapToEmigreModel(emigre));
-        }
-        return result;
-    }
-
-    public static List<DecesModel> MapToDecesModel(List<Deces> deces) {
-        List<DecesModel> result = new ArrayList<DecesModel>();
-        for (Deces d : deces) {
-            result.add(MapToDecesModel(d));
-        }
-        return result;
-    }
-
     public static List<IndividuModel> MapToIndividuModel(List<Individu> inds) {
         List<IndividuModel> result = new ArrayList<IndividuModel>();
         for (Individu ind : inds) {
@@ -749,563 +624,280 @@ public class ModelMapper {
     //endregion
 
     //region "Map To EntityModel"
-    public static BatimentModel MapToBatimentModel(Batiment batiment) {
+    public static BatimentModel MapToBatimentModel(Batiment entity) {
         BatimentModel bat = new BatimentModel();
-        bat.setBatimentId(batiment.getBatimentId());
-        bat.setDeptId(batiment.getDeptId());
-        bat.setComId(batiment.getComId());
-        bat.setVqseId(batiment.getVqseId());
-        bat.setSdeId(batiment.getSdeId());
-        bat.setZone(batiment.getZone());
-        bat.setDisctrictId(batiment.getDisctrictId());
-        bat.setQhabitation(batiment.getQhabitation());
-        bat.setQlocalite(batiment.getQlocalite());
-        bat.setQadresse(batiment.getQadresse());
-        bat.setQrec(batiment.getQrec());
-        bat.setQrgph(batiment.getQrgph());
-        bat.setQb1Etat(batiment.getQb1Etat());
-        bat.setQb2Type(batiment.getQb2Type());
-        bat.setQb3NombreEtage(batiment.getQb3NombreEtage());
-        bat.setQb4MateriauMur(batiment.getQb4MateriauMur());
-        bat.setQb5MateriauToit(batiment.getQb5MateriauToit());
-        bat.setQb6StatutOccupation(batiment.getQb6StatutOccupation());
-        bat.setQb7Utilisation1(batiment.getQb7Utilisation1());
-        bat.setQb7Utilisation2(batiment.getQb7Utilisation2());
-        bat.setQb8NbreLogeCollectif(batiment.getQb8NbreLogeCollectif());
-        bat.setQb8NbreLogeIndividuel(batiment.getQb8NbreLogeIndividuel());
-        bat.setStatut(batiment.getStatut());
-        bat.setDateEnvoi(batiment.getDateEnvoi());
-        bat.setIsValidated(batiment.getIsValidated());
-        bat.setIsSynchroToAppSup(batiment.getIsSynchroToAppSup());
-        bat.setIsSynchroToCentrale(batiment.getIsSynchroToCentrale());
-        bat.setDateDebutCollecte(batiment.getDateDebutCollecte());
-        bat.setDateFinCollecte(batiment.getDateFinCollecte());
-        bat.setDureeSaisie(batiment.getDureeSaisie());
-        bat.setIsFieldAllFilled(batiment.getIsFieldAllFilled());
-        bat.setIsContreEnqueteMade(batiment.getIsContreEnqueteMade());
-        bat.setLatitude(batiment.getLatitude());
-        bat.setLongitude(batiment.getLongitude());
-        bat.setCodeAgentRecenceur(batiment.getCodeAgentRecenceur());
+        bat.setBatimentId(entity.getBatimentId());
+        bat.setDeptId(entity.getDeptId());
+        bat.setComId(entity.getComId());
+        bat.setVqseId(entity.getVqseId());
+        bat.setSdeId(entity.getSdeId());
+        bat.setZone(entity.getZone());
+        bat.setDisctrictId(entity.getDisctrictId());
+        bat.setQhabitation(entity.getQhabitation());
+        bat.setQlocalite(entity.getQlocalite());
+        bat.setQadresse(entity.getQadresse());
+        bat.setQrec(entity.getQrec());
+        bat.setQepc(entity.getQepc());
+        bat.setQb1Etat(entity.getQb1Etat());
+        bat.setQb2Type(entity.getQb2Type());
+        bat.setQb3StatutOccupation(entity.getQb3StatutOccupation());
+        bat.setQb4NbreLogeIndividuel(entity.getQb4NbreLogeIndividuel());
+        bat.setStatut(entity.getStatut());
+        bat.setDateEnvoi(entity.getDateEnvoi());
+        bat.setIsValidated(entity.getIsValidated());
+        bat.setIsSynchroToAppSup(entity.getIsSynchroToAppSup());
+        bat.setIsSynchroToCentrale(entity.getIsSynchroToCentrale());
+        bat.setDateDebutCollecte(entity.getDateDebutCollecte());
+        bat.setDateFinCollecte(entity.getDateFinCollecte());
+        bat.setDureeSaisie(entity.getDureeSaisie());
+        bat.setIsFieldAllFilled(entity.getIsFieldAllFilled());
+        bat.setIsContreEnqueteMade(entity.getIsContreEnqueteMade());
+        bat.setLatitude(entity.getLatitude());
+        bat.setLongitude(entity.getLongitude());
+        bat.setCodeAgentRecenceur(entity.getCodeAgentRecenceur());
+        bat.setIsVerified(entity.getIsVerified());
         return bat;
     }
 
-    public static LogementModel MapToLogementModel(Logement logement) {
+    public static LogementModel MapToLogementModel(Logement entity) {
         LogementModel log = new LogementModel();
-        log.setLogeId(logement.getLogeId());
-        log.setBatimentId(logement.getBatimentId());
-        log.setSdeId(logement.getSdeId());
-        log.setQlCategLogement(logement.getQlCategLogement());
-        log.setQlin1NumeroOrdre(logement.getQlin1NumeroOrdre());
-        log.setQlc1TypeLogement(logement.getQlc1TypeLogement());
-        log.setQlc2bTotalGarcon(logement.getQlc2bTotalGarcon());
-        log.setQlc2bTotalFille(logement.getQlc2bTotalFille());
-        log.setQlcTotalIndividus(logement.getQlcTotalIndividus());
-        log.setQlin2StatutOccupation(logement.getQlin2StatutOccupation());
-        log.setQlin3ExistenceLogement(logement.getQlin3ExistenceLogement());
-        log.setQlin4TypeLogement(logement.getQlin4TypeLogement());
-        log.setQlin5MateriauSol(logement.getQlin5MateriauSol());
-        log.setQlin6NombrePiece(logement.getQlin6NombrePiece());
-        log.setQlin7NbreChambreACoucher(logement.getQlin7NbreChambreACoucher());
-        log.setQlin8NbreIndividuDepense(logement.getQlin8NbreIndividuDepense());
-        log.setQlin9NbreTotalMenage(logement.getQlin9NbreTotalMenage());
-        log.setStatut(logement.getStatut());
-        log.setIsValidated(logement.getIsValidated());
-        log.setDateDebutCollecte(logement.getDateDebutCollecte());
-        log.setDateFinCollecte(logement.getDateFinCollecte());
-        log.setDureeSaisie(logement.getDureeSaisie());
-        log.setIsFieldAllFilled(logement.getIsFieldAllFilled());
-        log.setIsContreEnqueteMade(logement.getIsContreEnqueteMade());
-        log.setNbrTentative(logement.getNbrTentative());
-        log.setCodeAgentRecenceur(logement.getCodeAgentRecenceur());
+        log.setLogeId(entity.getLogeId());
+        log.setBatimentId(entity.getBatimentId());
+        log.setSdeId(entity.getSdeId());
+        log.setQlCategLogement(entity.getQlCategLogement());
+        log.setQlin1NumeroOrdre(entity.getQlin1NumeroOrdre());
+        log.setQlin2StatutOccupation(entity.getQlin2StatutOccupation());
+        log.setQlin3TypeLogement(entity.getQlin3TypeLogement());
+        log.setQlin4IsHaveIndividuDepense(entity.getQlin4IsHaveIndividuDepense());
+        log.setQlin5NbreTotalMenage(entity.getQlin5NbreTotalMenage());
+        log.setStatut(entity.getStatut());
+        log.setIsValidated(entity.getIsValidated());
+        log.setIsFieldAllFilled(entity.getIsFieldAllFilled());
+        log.setDateDebutCollecte(entity.getDateDebutCollecte());
+        log.setDateFinCollecte(entity.getDateFinCollecte());
+        log.setDureeSaisie(entity.getDureeSaisie());
+        log.setIsContreEnqueteMade(entity.getIsContreEnqueteMade());
+        log.setNbrTentative(entity.getNbrTentative());
+        log.setCodeAgentRecenceur(entity.getCodeAgentRecenceur());
+        log.setIsVerified(entity.getIsVerified());
         return log;
     }
 
-    public static MenageModel MapToMenageModel(Menage menage) {
+    public static MenageModel MapToMenageModel(Menage entity) {
         MenageModel men = new MenageModel();
-        men.setMenageId(menage.getMenageId());
-        men.setLogeId(menage.getLogeId());
-        men.setBatimentId(menage.getBatimentId());
-        men.setSdeId(menage.getSdeId());
-        men.setQm1NoOrdre(menage.getQm1NoOrdre());
-        men.setQm2ModeJouissance(menage.getQm2ModeJouissance());
-        men.setQm3ModeObtentionLoge(menage.getQm3ModeObtentionLoge());
-        men.setQm4_1ModeAprovEauABoire(menage.getQm4_1ModeAprovEauABoire());
-        men.setQm4_2ModeAprovEauAUsageCourant(menage.getQm4_2ModeAprovEauAUsageCourant());
-        men.setQm5SrcEnergieCuisson1(menage.getQm5SrcEnergieCuisson1());
-        men.setQm5SrcEnergieCuisson2(menage.getQm5SrcEnergieCuisson2());
-        men.setQm6TypeEclairage(menage.getQm6TypeEclairage());
-        men.setQm7ModeEvacDechet(menage.getQm7ModeEvacDechet());
-        men.setQm8EndroitBesoinPhysiologique(menage.getQm8EndroitBesoinPhysiologique());
-        men.setQm9NbreRadio1(menage.getQm9NbreRadio1());
-        men.setQm9NbreTelevision2(menage.getQm9NbreTelevision2());
-        men.setQm9NbreRefrigerateur3(menage.getQm9NbreRefrigerateur3());
-        men.setQm9NbreFouElectrique4(menage.getQm9NbreFouElectrique4());
-        men.setQm9NbreOrdinateur5(menage.getQm9NbreOrdinateur5());
-        men.setQm9NbreMotoBicyclette6(menage.getQm9NbreMotoBicyclette6());
-        men.setQm9NbreVoitureMachine7(menage.getQm9NbreVoitureMachine7());
-        men.setQm9NbreBateau8(menage.getQm9NbreBateau8());
-        men.setQm9NbrePanneauGeneratrice9(menage.getQm9NbrePanneauGeneratrice9());
-        men.setQm9NbreMilletChevalBourique10(menage.getQm9NbreMilletChevalBourique10());
-        men.setQm9NbreBoeufVache11(menage.getQm9NbreBoeufVache11());
-        men.setQm9NbreCochonCabrit12(menage.getQm9NbreCochonCabrit12());
-        men.setQm9NbreBeteVolaille13(menage.getQm9NbreBeteVolaille13());
-        men.setQm10AvoirPersDomestique(menage.getQm10AvoirPersDomestique());
-        men.setQm10TotalDomestiqueFille(menage.getQm10TotalDomestiqueFille());
-        men.setQm10TotalDomestiqueGarcon(menage.getQm10TotalDomestiqueGarcon());
-        men.setQm11TotalIndividuVivant(menage.getQm11TotalIndividuVivant());
-        men.setQn1Emigration(menage.getQn1Emigration());
-        men.setQn1NbreEmigre(menage.getQn1NbreEmigre());
-        men.setQd1Deces(menage.getQd1Deces());
-        men.setQd1NbreDecede(menage.getQd1NbreDecede());
-        men.setStatut(menage.getStatut());
-        men.setIsValidated(menage.getIsValidated());
-        men.setDateDebutCollecte(menage.getDateDebutCollecte());
-        men.setDateFinCollecte(menage.getDateFinCollecte());
-        men.setDureeSaisie(menage.getDureeSaisie());
-        men.setIsFieldAllFilled(menage.getIsFieldAllFilled());
-        men.setIsContreEnqueteMade(menage.getIsContreEnqueteMade());
-        men.setCodeAgentRecenceur(menage.getCodeAgentRecenceur());
+        men.setMenageId(entity.getMenageId());
+        men.setLogeId(entity.getLogeId());
+        men.setBatimentId(entity.getBatimentId());
+        men.setSdeId(entity.getSdeId());
+        men.setQm1NoOrdre(entity.getQm1NoOrdre());
+        men.setQm2TotalIndividuVivant(entity.getQm2TotalIndividuVivant());
+        men.setQm22IsHaveAncienMembre(entity.getQm22IsHaveAncienMembre());
+        men.setQm22TotalAncienMembre(entity.getQm22TotalAncienMembre());
+        men.setStatut(entity.getStatut());
+        men.setIsValidated(entity.getIsValidated());
+        men.setIsFieldAllFilled(entity.getIsFieldAllFilled());
+        men.setDateDebutCollecte(entity.getDateDebutCollecte());
+        men.setDateFinCollecte(entity.getDateFinCollecte());
+        men.setDureeSaisie(entity.getDureeSaisie());
+        men.setIsContreEnqueteMade(entity.getIsContreEnqueteMade());
+        men.setCodeAgentRecenceur(entity.getCodeAgentRecenceur());
+        men.setIsVerified(entity.getIsVerified());
         return men;
     }
 
-    public static EmigreModel MapToEmigreModel(Emigre emigre) {
-        EmigreModel em = new EmigreModel();
-        em.setEmigreId(emigre.getEmigreId());
-        em.setMenageId(emigre.getMenageId());
-        em.setLogeId(emigre.getLogeId());
-        em.setBatimentId(emigre.getBatimentId());
-        em.setSdeId(emigre.getSdeId());
-        em.setQn1numeroOrdre(emigre.getQn1numeroOrdre());
-        em.setQn2aNomComplet(emigre.getQn2aNomComplet());
-        em.setQn2bSexe(emigre.getQn2bSexe());
-        em.setQn2cAgeAuMomentDepart(emigre.getQn2cAgeAuMomentDepart());
-        em.setQn2dVivantToujours(emigre.getQn2dVivantToujours());
-        em.setQn2eDernierPaysResidence(emigre.getQn2eDernierPaysResidence());
-        em.setStatut(emigre.getStatut());
-        em.setIsFieldAllFilled(emigre.getIsFieldAllFilled());
-        em.setDateDebutCollecte(emigre.getDateDebutCollecte());
-        em.setDateFinCollecte(emigre.getDateFinCollecte());
-        em.setDureeSaisie(emigre.getDureeSaisie());
-        em.setCodeAgentRecenceur(emigre.getCodeAgentRecenceur());
-        return em;
-    }
-
-    public static DecesModel MapToDecesModel(Deces deces) {
-        DecesModel dec = new DecesModel();
-        dec.setDecesId(deces.getDecesId());
-        dec.setMenageId(deces.getMenageId());
-        dec.setLogeId(deces.getLogeId());
-        dec.setBatimentId(deces.getBatimentId());
-        dec.setSdeId(deces.getSdeId());
-        dec.setQd2NoOrdre(deces.getQd2NoOrdre());
-        dec.setQd2aSexe(deces.getQd2aSexe());
-        dec.setQd2bAgeDecede(deces.getQd2bAgeDecede());
-        dec.setQd2c1CirconstanceDeces(deces.getQd2c1CirconstanceDeces());
-        dec.setQd2c2CauseDeces(deces.getQd2c2CauseDeces());
-        dec.setStatut(deces.getStatut());
-        dec.setIsFieldAllFilled(deces.getIsFieldAllFilled());
-        dec.setDateDebutCollecte(deces.getDateDebutCollecte());
-        dec.setDateFinCollecte(deces.getDateFinCollecte());
-        dec.setDureeSaisie(deces.getDureeSaisie());
-        dec.setIsContreEnqueteMade(deces.getIsContreEnqueteMade());
-        dec.setCodeAgentRecenceur(deces.getCodeAgentRecenceur());
-        return dec;
-    }
-
-    public static IndividuModel MapToIndividuModel(Individu individu) {
+    public static IndividuModel MapToIndividuModel(Individu entity) {
         IndividuModel ind = new IndividuModel();
-        //region "KARAKTERISTIK MOUN NAN -|- POU TOUT MANM MENAJ LA -|- KARAKTERISTIK DEMOGRAFIK"
-        ind.setIndividuId(individu.getIndividuId());
-        ind.setMenageId(individu.getMenageId());
-        ind.setLogeId(individu.getLogeId());
-        ind.setBatimentId(individu.getBatimentId());
-        ind.setSdeId(individu.getSdeId());
-        ind.setQ1NoOrdre(individu.getQ1NoOrdre());
-        ind.setQp2APrenom(individu.getQp2APrenom());
-        ind.setQp2BNom(individu.getQp2BNom());
-        ind.setQp3LienDeParente(individu.getQp3LienDeParente());
-        ind.setQp3HabiteDansMenage(individu.getQp3HabiteDansMenage());
-        ind.setQp4Sexe(individu.getQp4Sexe());
-        ind.setQp5DateNaissanceJour(individu.getQp5DateNaissanceJour());
-        ind.setQp5DateNaissanceMois(individu.getQp5DateNaissanceMois());
-        ind.setQp5DateNaissanceAnnee(individu.getQp5DateNaissanceAnnee());
-        ind.setQp5bAge(individu.getQp5bAge());
-        ind.setQp6religion(individu.getQp6religion());
-        ind.setQp6AutreReligion(individu.getQp6AutreReligion());
-        ind.setQp7Nationalite(individu.getQp7Nationalite());
-        ind.setQp7PaysNationalite(individu.getQp7PaysNationalite());
-        ind.setQp8MereEncoreVivante(individu.getQp8MereEncoreVivante());
-        ind.setQp9EstPlusAge(individu.getQp9EstPlusAge());
-        ind.setQp10LieuNaissance(individu.getQp10LieuNaissance());
-        ind.setQp10CommuneNaissance(individu.getQp10CommuneNaissance());
-        ind.setQp10VqseNaissance(individu.getQp10VqseNaissance());
-        ind.setQp10PaysNaissance(individu.getQp10PaysNaissance());
-        ind.setQp11PeriodeResidence(individu.getQp11PeriodeResidence());
-        ind.setQp12DomicileAvantRecensement(individu.getQp12DomicileAvantRecensement());
-        ind.setQp12CommuneDomicileAvantRecensement(individu.getQp12CommuneDomicileAvantRecensement());
-        ind.setQp12VqseDomicileAvantRecensement(individu.getQp12VqseDomicileAvantRecensement());
-        ind.setQp12PaysDomicileAvantRecensement(individu.getQp12PaysDomicileAvantRecensement());
-        //endregion
-        //region "KARAKTERISTIK MOUN NAN -|- EDIKASYON -|- POU MOUN KI GEN 3 LANE OSWA PLIS"
-        ind.setQe1EstAlphabetise(individu.getQe1EstAlphabetise());
-        ind.setQe2FreqentationScolaireOuUniv(individu.getQe2FreqentationScolaireOuUniv());
-        ind.setQe3typeEcoleOuUniv(individu.getQe3typeEcoleOuUniv());
-        ind.setQe4aNiveauEtude(individu.getQe4aNiveauEtude());
-        ind.setQe4bDerniereClasseOUAneEtude(individu.getQe4bDerniereClasseOUAneEtude());
-        ind.setQe5DiplomeUniversitaire(individu.getQe5DiplomeUniversitaire());
-        ind.setQe6DomaineEtudeUniversitaire(individu.getQe6DomaineEtudeUniversitaire());
-        //endregion
-        //region "KARAKTERISTIK MOUN NAN -|- AKTIVITE AK FONKSYÒNMAN MOUN NAN(POU MOUN KI GEN 5 LANE OSWA PLIS) -|- LIMITASYON NAN ZAFE WE"
-        ind.setQaf1HandicapVoir(individu.getQaf1HandicapVoir());
-
-        //region "KARAKTERISTIK MOUN NAN -|- AKTIVITE AK FONKSYÒNMAN MOUN NAN(POU MOUN KI GEN 5 LANE OSWA PLIS) -|- LIMITASYON NAN ZAFE TANDE"
-        ind.setQaf2HandicapEntendre(individu.getQaf2HandicapEntendre());
-
-        //region "KARAKTERISTIK MOUN NAN -|- AKTIVITE AK FONKSYÒNMAN MOUN NAN(POU MOUN KI GEN 5 LANE OSWA PLIS) -|- LIMITASYON NAN ZAFE MACHE (BOUJE)"
-        ind.setQaf3HandicapMarcher(individu.getQaf3HandicapMarcher());
-        //endregion
-        //region "KARAKTERISTIK MOUN NAN -|- AKTIVITE AK FONKSYÒNMAN MOUN NAN(POU MOUN KI GEN 5 LANE OSWA PLIS) -|- LIMITASYON KOYITIV"
-        ind.setQaf4HandicapSouvenir(individu.getQaf4HandicapSouvenir());
-        //endregion
-        //region "KARAKTERISTIK MOUN NAN -|- AKTIVITE AK FONKSYÒNMAN MOUN NAN(POU MOUN KI GEN 5 LANE OSWA PLIS) -|- OKIPE TET LI"
-        ind.setQaf5HandicapPourSeSoigner(individu.getQaf5HandicapPourSeSoigner());
-        //endregion
-        //region "KARAKTERISTIK MOUN NAN -|- AKTIVITE AK FONKSYÒNMAN MOUN NAN(POU MOUN KI GEN 5 LANE OSWA PLIS) -|- LIMITASYON KOMINIKATIF"
-        ind.setQaf6HandicapCommuniquer(individu.getQaf6HandicapCommuniquer());
-        //endregion
-        //region "KARAKTERISTIK MOUN NAN -|- NOUVEL TEKNOLOJI NAN KOMINIKASYON(POU MOUN KI GEN 10 LANE OSWA PLIS) -|- POSESYON TELEFON SELILE"
-        ind.setQt1PossessionTelCellulaire(individu.getQt1PossessionTelCellulaire());
-        //endregion
-        //region "KARAKTERISTIK MOUN NAN -|- NOUVEL TEKNOLOJI NAN KOMINIKASYON(POU MOUN KI GEN 10 LANE OSWA PLIS) -|- ITILIZASYON  ENTENET AK AKSE "
-        ind.setQt2UtilisationInternet(individu.getQt2UtilisationInternet());
-        //endregion
-        //region "KARAKTERISTIK MOUN NAN -|- MIGRASYON : RETOUNEN VIN VIV AN AYITI(POU MOUN KI GEN 10 LANE OSWA PLIS) -|- TAN LI FE LI TAP VIV NAN LOT PEYI A"
-        ind.setQem1DejaVivreAutrePays(individu.getQem1DejaVivreAutrePays());
-        ind.setQem1AutrePays(individu.getQem1AutrePays());
-        //endregion
-        //region "KARAKTERISTIK MOUN NAN -|- MIGRASYON : RETOUNEN VIN VIV AN AYITI(POU MOUN KI GEN 10 LANE OSWA PLIS) -|- DAT RETOU A"
-        ind.setQem2MoisRetour(individu.getQem2MoisRetour());
-        ind.setQem2AnneeRetour(individu.getQem2AnneeRetour());
-        //endregion
-        //region "KARAKTERISTIK MOUN NAN  -|- Pou moun ki genyen dis (10) lane epi plis -|- ESTATI MATRIMONYAL"
-        ind.setQsm1StatutMatrimonial(individu.getQsm1StatutMatrimonial());
-        //endregion
-        //region "KARAKTERISTIK MOUN NAN  -|- Pou moun ki genyen dis (10) lane epi plis -|- Aktivite Ekonomik"
-        ind.setQa1ActEconomiqueDerniereSemaine(individu.getQa1ActEconomiqueDerniereSemaine());
-        ind.setQa2ActAvoirDemele1(individu.getQa2ActAvoirDemele1());
-        ind.setQa2ActDomestique2(individu.getQa2ActDomestique2());
-        ind.setQa2ActCultivateur3(individu.getQa2ActCultivateur3());
-        ind.setQa2ActAiderParent4(individu.getQa2ActAiderParent4());
-        ind.setQa2ActAutre5(individu.getQa2ActAutre5());
-        ind.setQa3StatutEmploie(individu.getQa3StatutEmploie());
-        ind.setQa4SecteurInstitutionnel(individu.getQa4SecteurInstitutionnel());
-        ind.setQa5TypeBienProduitParEntreprise(individu.getQa5TypeBienProduitParEntreprise());
-        ind.setQa5PreciserTypeBienProduitParEntreprise(individu.getQa5PreciserTypeBienProduitParEntreprise());
-        ind.setQa6LieuActDerniereSemaine(individu.getQa6LieuActDerniereSemaine());
-        ind.setQa7FoncTravail(individu.getQa7FoncTravail());
-        ind.setQa8EntreprendreDemarcheTravail(individu.getQa8EntreprendreDemarcheTravail());
-        ind.setQa9VouloirTravailler(individu.getQa9VouloirTravailler());
-        ind.setQa10DisponibilitePourTravail(individu.getQa10DisponibilitePourTravail());
-        ind.setQa11RecevoirTransfertArgent(individu.getQa11RecevoirTransfertArgent());
-        //endregion
-        //region "FEGONDITE -|- POU FANM KI GEN 13 LANE OSWA PLIS -|- "
-        ind.setQf1aNbreEnfantNeVivantM(individu.getQf1aNbreEnfantNeVivantM());
-        ind.setQf1bNbreEnfantNeVivantF(individu.getQf1bNbreEnfantNeVivantF());
-        ind.setQf2aNbreEnfantVivantM(individu.getQf2aNbreEnfantVivantM());
-        ind.setQf2bNbreEnfantVivantF(individu.getQf2bNbreEnfantVivantF());
-        ind.setQf3DernierEnfantJour(individu.getQf3DernierEnfantJour());
-        ind.setQf3DernierEnfantMois(individu.getQf3DernierEnfantMois());
-        ind.setQf3DernierEnfantAnnee(individu.getQf3DernierEnfantAnnee());
-        ind.setQf4DENeVivantVit(individu.getQf4DENeVivantVit());
-        ind.setStatut(individu.getStatut());
-        ind.setIsFieldAllFilled(individu.getIsFieldAllFilled());
-        ind.setDateDebutCollecte(individu.getDateDebutCollecte());
-        ind.setDateFinCollecte(individu.getDateFinCollecte());
-        ind.setDureeSaisie(individu.getDureeSaisie());
-        ind.setIsContreEnqueteMade(individu.getIsContreEnqueteMade());
-        ind.setCodeAgentRecenceur(individu.getCodeAgentRecenceur());
-        //endregion
-
+        ind.setIndividuId(entity.getIndividuId());
+        ind.setMenageId(entity.getMenageId());
+        ind.setLogeId(entity.getLogeId());
+        ind.setBatimentId(entity.getBatimentId());
+        ind.setSdeId(entity.getSdeId());
+        ind.setQ1NoOrdre(entity.getQ1NoOrdre());
+        ind.setQp2APrenom(entity.getQp2APrenom());
+        ind.setQp2BNom(entity.getQp2BNom());
+        ind.setQp4Sexe(entity.getQp4Sexe());
+        ind.setQ5HabiteDansMenage(entity.getQ5HabiteDansMenage());
+        ind.setQ6aMembreMenageDepuisQuand(entity.getQ6aMembreMenageDepuisQuand());
+        ind.setQ6bDateMembreMenageJour(entity.getQ6bDateMembreMenageJour());
+        ind.setQ6bDateMembreMenageMois(entity.getQ6bDateMembreMenageMois());
+        ind.setQ6bDateMembreMenageAnnee(entity.getQ6bDateMembreMenageAnnee());
+        ind.setQ7DateNaissanceJour(entity.getQ7DateNaissanceJour());
+        ind.setQ7DateNaissanceMois(entity.getQ7DateNaissanceMois());
+        ind.setQ7DateNaissanceAnnee(entity.getQ7DateNaissanceAnnee());
+        ind.setQ8Age(entity.getQ8Age());
+        ind.setQ9LienDeParente(entity.getQ9LienDeParente());
+        ind.setQp10Nationalite(entity.getQ10Nationalite());
+        ind.setQp10PaysNationalite(entity.getQ10PaysNationalite());
+        ind.setQ11NiveauEtude(entity.getQ11NiveauEtude());
+        ind.setQ12StatutMatrimonial(entity.getQ12StatutMatrimonial());
+        ind.setStatut(entity.getStatut());
+        ind.setIsValidated(entity.getIsValidated());
+        ind.setIsFieldAllFilled(entity.getIsFieldAllFilled());
+        ind.setDateDebutCollecte(entity.getDateDebutCollecte());
+        ind.setDateFinCollecte(entity.getDateFinCollecte());
+        ind.setDureeSaisie(entity.getDureeSaisie());
+        ind.setIsContreEnqueteMade(entity.getIsContreEnqueteMade());
+        ind.setCodeAgentRecenceur(entity.getCodeAgentRecenceur());
+        ind.setIsVerified(entity.getIsVerified());
         return ind;
+    }
+    public static AncienMembreModel MapToAncienMembreModel(AncienMembre entity) {
+        AncienMembreModel anc = new AncienMembreModel();
+        anc.setAncienMembreId(entity.getAncienMembreId());
+        anc.setMenageId(entity.getMenageId());
+        anc.setLogeId(entity.getLogeId());
+        anc.setBatimentId(entity.getBatimentId());
+        anc.setSdeId(entity.getSdeId());
+        anc.setQ1NoOrdre(entity.getQ1NoOrdre());
+        anc.setQp2APrenom(entity.getQp2APrenom());
+        anc.setQp2BNom(entity.getQp2BNom());
+        anc.setQp4Sexe(entity.getQp4Sexe());
+        anc.setQ5EstMortOuQuitter(entity.getQ5EstMortOuQuitter());
+        anc.setQ6HabiteDansMenage(entity.getQ6HabiteDansMenage());
+        anc.setQ7DateQuitterMenageJour(entity.getQ7DateQuitterMenageJour());
+        anc.setQ7DateQuitterMenageMois(entity.getQ7DateQuitterMenageMois());
+        anc.setQ7DateQuitterMenageAnnee(entity.getQ7DateQuitterMenageAnnee());
+        anc.setQ7bDateMouriJour(entity.getQ7bDateMouriJour());
+        anc.setQ7bDateMouriMois(entity.getQ7bDateMouriMois());
+        anc.setQ7bDateMouriAnnee(entity.getQ7bDateMouriAnnee());
+        anc.setQ8DateNaissanceJour(entity.getQ8DateNaissanceJour());
+        anc.setQ8DateNaissanceMois(entity.getQ8DateNaissanceMois());
+        anc.setQ8DateNaissanceAnnee(entity.getQ8DateNaissanceAnnee());
+        anc.setQ9Age(entity.getQ9Age());
+        anc.setQ10LienDeParente(entity.getQ10LienDeParente());
+        anc.setQ11Nationalite(entity.getQ11Nationalite());
+        anc.setQ11PaysNationalite(entity.getQ11PaysNationalite());
+        anc.setQ12NiveauEtude(entity.getQ12NiveauEtude());
+        anc.setQ12StatutMatrimonial(entity.getQ12StatutMatrimonial());
+        anc.setStatut(entity.getStatut());
+        anc.setIsValidated(entity.getIsValidated());
+        anc.setIsFieldAllFilled(entity.getIsFieldAllFilled());
+        anc.setDateDebutCollecte(entity.getDateDebutCollecte());
+        anc.setDateFinCollecte(entity.getDateFinCollecte());
+        anc.setDureeSaisie(entity.getDureeSaisie());
+        anc.setIsContreEnqueteMade(entity.getIsContreEnqueteMade());
+        anc.setCodeAgentRecenceur(entity.getCodeAgentRecenceur());
+        anc.setIsVerified(entity.getIsVerified());
+        return anc;
     }
     //endregion
 
     //region Map To Entity
-    public static Batiment MapToBatiment(BatimentModel batiment) {
+    public static Batiment MapToBatiment(BatimentModel entity) {
         Batiment bat = new Batiment();
-        //bat.setBatimentId(batiment.getBatimentId());
-        bat.setDeptId(batiment.getDeptId());
-        bat.setComId(batiment.getComId());
-        bat.setVqseId(batiment.getVqseId());
-        bat.setSdeId(batiment.getSdeId());
-        bat.setZone(batiment.getZone());
-        bat.setDisctrictId(batiment.getDisctrictId());
-        bat.setQhabitation(batiment.getQhabitation());
-        bat.setQlocalite(batiment.getQlocalite());
-        bat.setQadresse(batiment.getQadresse());
-        bat.setQrec(batiment.getQrec());
-        bat.setQrgph(batiment.getQrgph());
-        bat.setQb1Etat(batiment.getQb1Etat());
-        bat.setQb2Type(batiment.getQb2Type());
-        bat.setQb3NombreEtage(batiment.getQb3NombreEtage());
-        bat.setQb4MateriauMur(batiment.getQb4MateriauMur());
-        bat.setQb5MateriauToit(batiment.getQb5MateriauToit());
-        bat.setQb6StatutOccupation(batiment.getQb6StatutOccupation());
-        bat.setQb7Utilisation1(batiment.getQb7Utilisation1());
-        bat.setQb7Utilisation2(batiment.getQb7Utilisation2());
-        bat.setQb8NbreLogeCollectif(batiment.getQb8NbreLogeCollectif());
-        bat.setQb8NbreLogeIndividuel(batiment.getQb8NbreLogeIndividuel());
-        bat.setStatut(batiment.getStatut());
-        bat.setDateEnvoi(batiment.getDateEnvoi());
-        bat.setIsValidated(batiment.getIsValidated());
-        bat.setIsSynchroToAppSup(batiment.getIsSynchroToAppSup());
-        bat.setIsSynchroToCentrale(batiment.getIsSynchroToCentrale());
-        bat.setDateDebutCollecte(batiment.getDateDebutCollecte());
-        bat.setDateFinCollecte(batiment.getDateFinCollecte());
-        bat.setDureeSaisie(batiment.getDureeSaisie());
-        bat.setIsFieldAllFilled(batiment.getIsFieldAllFilled());
-        bat.setIsContreEnqueteMade(batiment.getIsContreEnqueteMade());
-        bat.setLatitude(batiment.getLatitude());
-        bat.setLongitude(batiment.getLongitude());
-        bat.setCodeAgentRecenceur(batiment.getCodeAgentRecenceur());
+        //bat.setBatimentId(entity.getBatimentId());
+        bat.setDeptId(entity.getDeptId());
+        bat.setComId(entity.getComId());
+        bat.setVqseId(entity.getVqseId());
+        bat.setSdeId(entity.getSdeId());
+        bat.setZone(entity.getZone());
+        bat.setDisctrictId(entity.getDisctrictId());
+        bat.setQhabitation(entity.getQhabitation());
+        bat.setQlocalite(entity.getQlocalite());
+        bat.setQadresse(entity.getQadresse());
+        bat.setQrec(entity.getQrec());
+        bat.setQepc(entity.getQepc());
+        bat.setQb1Etat(entity.getQb1Etat());
+        bat.setQb2Type(entity.getQb2Type());
+        bat.setQb3StatutOccupation(entity.getQb3StatutOccupation());
+        bat.setQb4NbreLogeIndividuel(entity.getQb4NbreLogeIndividuel());
+        bat.setStatut(entity.getStatut());
+        bat.setDateEnvoi(entity.getDateEnvoi());
+        bat.setIsValidated(entity.getIsValidated());
+        bat.setIsSynchroToAppSup(entity.getIsSynchroToAppSup());
+        bat.setIsSynchroToCentrale(entity.getIsSynchroToCentrale());
+        bat.setDateDebutCollecte(entity.getDateDebutCollecte());
+        bat.setDateFinCollecte(entity.getDateFinCollecte());
+        bat.setDureeSaisie(entity.getDureeSaisie());
+        bat.setIsFieldAllFilled(entity.getIsFieldAllFilled());
+        bat.setIsContreEnqueteMade(entity.getIsContreEnqueteMade());
+        bat.setLatitude(entity.getLatitude());
+        bat.setLongitude(entity.getLongitude());
+        bat.setCodeAgentRecenceur(entity.getCodeAgentRecenceur());
+        bat.setIsVerified(entity.getIsVerified());
         return bat;
     }
 
-    public static Logement MapToLogement(LogementModel logement) {
+    public static Logement MapToLogement(LogementModel entity) {
         Logement log = new Logement();
-        //log.setLogeId(logement.getLogeId());
-        log.setBatimentId(logement.getBatimentId());
-        log.setSdeId(logement.getSdeId());
-        log.setQlCategLogement(logement.getQlCategLogement());
-        log.setQlin1NumeroOrdre(logement.getQlin1NumeroOrdre());
-        log.setQlc1TypeLogement(logement.getQlc1TypeLogement());
-        log.setQlc2bTotalGarcon(logement.getQlc2bTotalGarcon());
-        log.setQlc2bTotalFille(logement.getQlc2bTotalFille());
-        log.setQlcTotalIndividus(logement.getQlcTotalIndividus());
-        log.setQlin2StatutOccupation(logement.getQlin2StatutOccupation());
-        log.setQlin3ExistenceLogement(logement.getQlin3ExistenceLogement());
-        log.setQlin4TypeLogement(logement.getQlin4TypeLogement());
-        log.setQlin5MateriauSol(logement.getQlin5MateriauSol());
-        log.setQlin6NombrePiece(logement.getQlin6NombrePiece());
-        log.setQlin7NbreChambreACoucher(logement.getQlin7NbreChambreACoucher());
-        log.setQlin8NbreIndividuDepense(logement.getQlin8NbreIndividuDepense());
-        log.setQlin9NbreTotalMenage(logement.getQlin9NbreTotalMenage());
-        log.setStatut(logement.getStatut());
-        log.setIsValidated(logement.getIsValidated());
-        log.setDateDebutCollecte(logement.getDateDebutCollecte());
-        log.setDateFinCollecte(logement.getDateFinCollecte());
-        log.setDureeSaisie(logement.getDureeSaisie());
-        log.setIsFieldAllFilled(logement.getIsFieldAllFilled());
-        log.setIsContreEnqueteMade(logement.getIsContreEnqueteMade());
-        log.setNbrTentative(logement.getNbrTentative());
-        log.setCodeAgentRecenceur(logement.getCodeAgentRecenceur());
+        //log.setLogeId(entity.getLogeId());
+        log.setBatimentId(entity.getBatimentId());
+        log.setSdeId(entity.getSdeId());
+        log.setQlCategLogement(entity.getQlCategLogement());
+        log.setQlin1NumeroOrdre(entity.getQlin1NumeroOrdre());
+        log.setQlin2StatutOccupation(entity.getQlin2StatutOccupation());
+        log.setQlin3TypeLogement(entity.getQlin3TypeLogement());
+        log.setQlin4IsHaveIndividuDepense(entity.getQlin4IsHaveIndividuDepense());
+        log.setQlin5NbreTotalMenage(entity.getQlin5NbreTotalMenage());
+        log.setStatut(entity.getStatut());
+        log.setIsValidated(entity.getIsValidated());
+        log.setIsFieldAllFilled(entity.getIsFieldAllFilled());
+        log.setDateDebutCollecte(entity.getDateDebutCollecte());
+        log.setDateFinCollecte(entity.getDateFinCollecte());
+        log.setDureeSaisie(entity.getDureeSaisie());
+        log.setIsContreEnqueteMade(entity.getIsContreEnqueteMade());
+        log.setNbrTentative(entity.getNbrTentative());
+        log.setCodeAgentRecenceur(entity.getCodeAgentRecenceur());
+        log.setIsVerified(entity.getIsVerified());
         return log;
     }
 
-    public static Menage MapToMenage(MenageModel menage) {
+    public static Menage MapToMenage(MenageModel entity) {
         Menage men = new Menage();
-        //men.setMenageId(menage.getMenageId());
-        men.setLogeId(menage.getLogeId());
-        men.setBatimentId(menage.getBatimentId());
-        men.setSdeId(menage.getSdeId());
-        men.setQm1NoOrdre(menage.getQm1NoOrdre());
-        men.setQm2ModeJouissance(menage.getQm2ModeJouissance());
-        men.setQm3ModeObtentionLoge(menage.getQm3ModeObtentionLoge());
-        men.setQm4_1ModeAprovEauABoire(menage.getQm4_1ModeAprovEauABoire());
-        men.setQm4_2ModeAprovEauAUsageCourant(menage.getQm4_2ModeAprovEauAUsageCourant());
-        men.setQm5SrcEnergieCuisson1(menage.getQm5SrcEnergieCuisson1());
-        men.setQm5SrcEnergieCuisson2(menage.getQm5SrcEnergieCuisson2());
-        men.setQm6TypeEclairage(menage.getQm6TypeEclairage());
-        men.setQm7ModeEvacDechet(menage.getQm7ModeEvacDechet());
-        men.setQm8EndroitBesoinPhysiologique(menage.getQm8EndroitBesoinPhysiologique());
-        men.setQm9NbreRadio1(menage.getQm9NbreRadio1());
-        men.setQm9NbreTelevision2(menage.getQm9NbreTelevision2());
-        men.setQm9NbreRefrigerateur3(menage.getQm9NbreRefrigerateur3());
-        men.setQm9NbreFouElectrique4(menage.getQm9NbreFouElectrique4());
-        men.setQm9NbreOrdinateur5(menage.getQm9NbreOrdinateur5());
-        men.setQm9NbreMotoBicyclette6(menage.getQm9NbreMotoBicyclette6());
-        men.setQm9NbreVoitureMachine7(menage.getQm9NbreVoitureMachine7());
-        men.setQm9NbreBateau8(menage.getQm9NbreBateau8());
-        men.setQm9NbrePanneauGeneratrice9(menage.getQm9NbrePanneauGeneratrice9());
-        men.setQm9NbreMilletChevalBourique10(menage.getQm9NbreMilletChevalBourique10());
-        men.setQm9NbreBoeufVache11(menage.getQm9NbreBoeufVache11());
-        men.setQm9NbreCochonCabrit12(menage.getQm9NbreCochonCabrit12());
-        men.setQm9NbreBeteVolaille13(menage.getQm9NbreBeteVolaille13());
-        men.setQm10AvoirPersDomestique(menage.getQm10AvoirPersDomestique());
-        men.setQm10TotalDomestiqueFille(menage.getQm10TotalDomestiqueFille());
-        men.setQm10TotalDomestiqueGarcon(menage.getQm10TotalDomestiqueGarcon());
-        men.setQm11TotalIndividuVivant(menage.getQm11TotalIndividuVivant());
-        men.setQn1Emigration(menage.getQn1Emigration());
-        men.setQn1NbreEmigre(menage.getQn1NbreEmigre());
-        men.setQd1Deces(menage.getQd1Deces());
-        men.setQd1NbreDecede(menage.getQd1NbreDecede());
-        men.setStatut(menage.getStatut());
-        men.setIsValidated(menage.getIsValidated());
-        men.setDateDebutCollecte(menage.getDateDebutCollecte());
-        men.setDateFinCollecte(menage.getDateFinCollecte());
-        men.setDureeSaisie(menage.getDureeSaisie());
-        men.setIsFieldAllFilled(menage.getIsFieldAllFilled());
-        men.setIsContreEnqueteMade(menage.getIsContreEnqueteMade());
-        men.setCodeAgentRecenceur(menage.getCodeAgentRecenceur());
+        //men.setMenageId(entity.getMenageId());
+        men.setLogeId(entity.getLogeId());
+        men.setBatimentId(entity.getBatimentId());
+        men.setSdeId(entity.getSdeId());
+        men.setQm1NoOrdre(entity.getQm1NoOrdre());
+        men.setQm2TotalIndividuVivant(entity.getQm2TotalIndividuVivant());
+        men.setQm22IsHaveAncienMembre(entity.getQm22IsHaveAncienMembre());
+        men.setQm22TotalAncienMembre(entity.getQm22TotalAncienMembre());
+        men.setStatut(entity.getStatut());
+        men.setIsValidated(entity.getIsValidated());
+        men.setIsFieldAllFilled(entity.getIsFieldAllFilled());
+        men.setDateDebutCollecte(entity.getDateDebutCollecte());
+        men.setDateFinCollecte(entity.getDateFinCollecte());
+        men.setDureeSaisie(entity.getDureeSaisie());
+        men.setIsContreEnqueteMade(entity.getIsContreEnqueteMade());
+        men.setCodeAgentRecenceur(entity.getCodeAgentRecenceur());
+        men.setIsVerified(entity.getIsVerified());
         return men;
     }
 
-    public static Emigre MapToEmigre(EmigreModel emigre) {
-        Emigre em = new Emigre();
-        //em.setEmigreId(emigre.getEmigreId());
-        em.setMenageId(emigre.getMenageId());
-        em.setLogeId(emigre.getLogeId());
-        em.setBatimentId(emigre.getBatimentId());
-        em.setSdeId(emigre.getSdeId());
-        em.setQn1numeroOrdre(emigre.getQn1numeroOrdre());
-        em.setQn2aNomComplet(emigre.getQn2aNomComplet());
-        em.setQn2bSexe(emigre.getQn2bSexe());
-        em.setQn2cAgeAuMomentDepart(emigre.getQn2cAgeAuMomentDepart());
-        em.setQn2dVivantToujours(emigre.getQn2dVivantToujours());
-        em.setQn2eDernierPaysResidence(emigre.getQn2eDernierPaysResidence());
-        em.setStatut(emigre.getStatut());
-        em.setIsFieldAllFilled(emigre.getIsFieldAllFilled());
-        em.setDateDebutCollecte(emigre.getDateDebutCollecte());
-        em.setDateFinCollecte(emigre.getDateFinCollecte());
-        em.setDureeSaisie(emigre.getDureeSaisie());
-        em.setCodeAgentRecenceur(emigre.getCodeAgentRecenceur());
-        return em;
-    }
-
-    public static Deces MapToDeces(DecesModel deces) {
-        Deces dec = new Deces();
-        //dec.setDecesId(deces.getDecesId());
-        dec.setMenageId(deces.getMenageId());
-        dec.setLogeId(deces.getLogeId());
-        dec.setBatimentId(deces.getBatimentId());
-        dec.setSdeId(deces.getSdeId());
-        dec.setQd2NoOrdre(deces.getQd2NoOrdre());
-        dec.setQd2aSexe(deces.getQd2aSexe());
-        dec.setQd2bAgeDecede(deces.getQd2bAgeDecede());
-        dec.setQd2c1CirconstanceDeces(deces.getQd2c1CirconstanceDeces());
-        dec.setQd2c2CauseDeces(deces.getQd2c2CauseDeces());
-        dec.setStatut(deces.getStatut());
-        dec.setIsFieldAllFilled(deces.getIsFieldAllFilled());
-        dec.setDateDebutCollecte(deces.getDateDebutCollecte());
-        dec.setDateFinCollecte(deces.getDateFinCollecte());
-        dec.setDureeSaisie(deces.getDureeSaisie());
-        dec.setIsContreEnqueteMade(deces.getIsContreEnqueteMade());
-        dec.setCodeAgentRecenceur(deces.getCodeAgentRecenceur());
-        return dec;
-    }
-
-    public static Individu MapToIndividu(IndividuModel individu) {
+    public static Individu MapToIndividu(IndividuModel entity) {
         Individu ind = new Individu();
-        //region "KARAKTERISTIK MOUN NAN -|- POU TOUT MANM MENAJ LA -|- KARAKTERISTIK DEMOGRAFIK"
-        //ind.setIndividuId(individu.getIndividuId());
-        ind.setMenageId(individu.getMenageId());
-        ind.setLogeId(individu.getLogeId());
-        ind.setBatimentId(individu.getBatimentId());
-        ind.setSdeId(individu.getSdeId());
-        ind.setQ1NoOrdre(individu.getQ1NoOrdre());
-        ind.setQp2APrenom(individu.getQp2APrenom());
-        ind.setQp2BNom(individu.getQp2BNom());
-        ind.setQp3LienDeParente(individu.getQp3LienDeParente());
-        ind.setQp3HabiteDansMenage(individu.getQp3HabiteDansMenage());
-        ind.setQp4Sexe(individu.getQp4Sexe());
-        ind.setQp5DateNaissanceJour(individu.getQp5DateNaissanceJour());
-        ind.setQp5DateNaissanceMois(individu.getQp5DateNaissanceMois());
-        ind.setQp5DateNaissanceAnnee(individu.getQp5DateNaissanceAnnee());
-        ind.setQp5bAge(individu.getQp5bAge());
-        ind.setQp6religion(individu.getQp6religion());
-        ind.setQp6AutreReligion(individu.getQp6AutreReligion());
-        ind.setQp7Nationalite(individu.getQp7Nationalite());
-        ind.setQp7PaysNationalite(individu.getQp7PaysNationalite());
-        ind.setQp8MereEncoreVivante(individu.getQp8MereEncoreVivante());
-        ind.setQp9EstPlusAge(individu.getQp9EstPlusAge());
-        ind.setQp10LieuNaissance(individu.getQp10LieuNaissance());
-        ind.setQp10CommuneNaissance(individu.getQp10CommuneNaissance());
-        ind.setQp10VqseNaissance(individu.getQp10VqseNaissance());
-        ind.setQp10PaysNaissance(individu.getQp10PaysNaissance());
-        ind.setQp11PeriodeResidence(individu.getQp11PeriodeResidence());
-        ind.setQp12DomicileAvantRecensement(individu.getQp12DomicileAvantRecensement());
-        ind.setQp12CommuneDomicileAvantRecensement(individu.getQp12CommuneDomicileAvantRecensement());
-        ind.setQp12VqseDomicileAvantRecensement(individu.getQp12VqseDomicileAvantRecensement());
-        ind.setQp12PaysDomicileAvantRecensement(individu.getQp12PaysDomicileAvantRecensement());
-        //endregion
-        //region "KARAKTERISTIK MOUN NAN -|- EDIKASYON -|- POU MOUN KI GEN 3 LANE OSWA PLIS"
-        ind.setQe1EstAlphabetise(individu.getQe1EstAlphabetise());
-        ind.setQe2FreqentationScolaireOuUniv(individu.getQe2FreqentationScolaireOuUniv());
-        ind.setQe3typeEcoleOuUniv(individu.getQe3typeEcoleOuUniv());
-        ind.setQe4aNiveauEtude(individu.getQe4aNiveauEtude());
-        ind.setQe4bDerniereClasseOUAneEtude(individu.getQe4bDerniereClasseOUAneEtude());
-        ind.setQe5DiplomeUniversitaire(individu.getQe5DiplomeUniversitaire());
-        ind.setQe6DomaineEtudeUniversitaire(individu.getQe6DomaineEtudeUniversitaire());
-        //endregion
-        //region "KARAKTERISTIK MOUN NAN -|- AKTIVITE AK FONKSYÒNMAN MOUN NAN(POU MOUN KI GEN 5 LANE OSWA PLIS) -|- LIMITASYON NAN ZAFE WE"
-        ind.setQaf1HandicapVoir(individu.getQaf1HandicapVoir());
-
-        //region "KARAKTERISTIK MOUN NAN -|- AKTIVITE AK FONKSYÒNMAN MOUN NAN(POU MOUN KI GEN 5 LANE OSWA PLIS) -|- LIMITASYON NAN ZAFE TANDE"
-        ind.setQaf2HandicapEntendre(individu.getQaf2HandicapEntendre());
-
-        //region "KARAKTERISTIK MOUN NAN -|- AKTIVITE AK FONKSYÒNMAN MOUN NAN(POU MOUN KI GEN 5 LANE OSWA PLIS) -|- LIMITASYON NAN ZAFE MACHE (BOUJE)"
-        ind.setQaf3HandicapMarcher(individu.getQaf3HandicapMarcher());
-        //endregion
-        //region "KARAKTERISTIK MOUN NAN -|- AKTIVITE AK FONKSYÒNMAN MOUN NAN(POU MOUN KI GEN 5 LANE OSWA PLIS) -|- LIMITASYON KOYITIV"
-        ind.setQaf4HandicapSouvenir(individu.getQaf4HandicapSouvenir());
-        //endregion
-        //region "KARAKTERISTIK MOUN NAN -|- AKTIVITE AK FONKSYÒNMAN MOUN NAN(POU MOUN KI GEN 5 LANE OSWA PLIS) -|- OKIPE TET LI"
-        ind.setQaf5HandicapPourSeSoigner(individu.getQaf5HandicapPourSeSoigner());
-        //endregion
-        //region "KARAKTERISTIK MOUN NAN -|- AKTIVITE AK FONKSYÒNMAN MOUN NAN(POU MOUN KI GEN 5 LANE OSWA PLIS) -|- LIMITASYON KOMINIKATIF"
-        ind.setQaf6HandicapCommuniquer(individu.getQaf6HandicapCommuniquer());
-        //endregion
-        //region "KARAKTERISTIK MOUN NAN -|- NOUVEL TEKNOLOJI NAN KOMINIKASYON(POU MOUN KI GEN 10 LANE OSWA PLIS) -|- POSESYON TELEFON SELILE"
-        ind.setQt1PossessionTelCellulaire(individu.getQt1PossessionTelCellulaire());
-        //endregion
-        //region "KARAKTERISTIK MOUN NAN -|- NOUVEL TEKNOLOJI NAN KOMINIKASYON(POU MOUN KI GEN 10 LANE OSWA PLIS) -|- ITILIZASYON  ENTENET AK AKSE "
-        ind.setQt2UtilisationInternet(individu.getQt2UtilisationInternet());
-        //endregion
-        //region "KARAKTERISTIK MOUN NAN -|- MIGRASYON : RETOUNEN VIN VIV AN AYITI(POU MOUN KI GEN 10 LANE OSWA PLIS) -|- TAN LI FE LI TAP VIV NAN LOT PEYI A"
-        ind.setQem1DejaVivreAutrePays(individu.getQem1DejaVivreAutrePays());
-        ind.setQem1AutrePays(individu.getQem1AutrePays());
-        //endregion
-        //region "KARAKTERISTIK MOUN NAN -|- MIGRASYON : RETOUNEN VIN VIV AN AYITI(POU MOUN KI GEN 10 LANE OSWA PLIS) -|- DAT RETOU A"
-        ind.setQem2MoisRetour(individu.getQem2MoisRetour());
-        ind.setQem2AnneeRetour(individu.getQem2AnneeRetour());
-        //endregion
-        //region "KARAKTERISTIK MOUN NAN  -|- Pou moun ki genyen dis (10) lane epi plis -|- ESTATI MATRIMONYAL"
-        ind.setQsm1StatutMatrimonial(individu.getQsm1StatutMatrimonial());
-        //endregion
-        //region "KARAKTERISTIK MOUN NAN  -|- Pou moun ki genyen dis (10) lane epi plis -|- Aktivite Ekonomik"
-        ind.setQa1ActEconomiqueDerniereSemaine(individu.getQa1ActEconomiqueDerniereSemaine());
-        ind.setQa2ActAvoirDemele1(individu.getQa2ActAvoirDemele1());
-        ind.setQa2ActDomestique2(individu.getQa2ActDomestique2());
-        ind.setQa2ActCultivateur3(individu.getQa2ActCultivateur3());
-        ind.setQa2ActAiderParent4(individu.getQa2ActAiderParent4());
-        ind.setQa2ActAutre5(individu.getQa2ActAutre5());
-        ind.setQa3StatutEmploie(individu.getQa3StatutEmploie());
-        ind.setQa4SecteurInstitutionnel(individu.getQa4SecteurInstitutionnel());
-        ind.setQa5TypeBienProduitParEntreprise(individu.getQa5TypeBienProduitParEntreprise());
-        ind.setQa5PreciserTypeBienProduitParEntreprise(individu.getQa5PreciserTypeBienProduitParEntreprise());
-        ind.setQa6LieuActDerniereSemaine(individu.getQa6LieuActDerniereSemaine());
-        ind.setQa7FoncTravail(individu.getQa7FoncTravail());
-        ind.setQa8EntreprendreDemarcheTravail(individu.getQa8EntreprendreDemarcheTravail());
-        ind.setQa9VouloirTravailler(individu.getQa9VouloirTravailler());
-        ind.setQa10DisponibilitePourTravail(individu.getQa10DisponibilitePourTravail());
-        ind.setQa11RecevoirTransfertArgent(individu.getQa11RecevoirTransfertArgent());
-        //endregion
-        //region "FEGONDITE -|- POU FANM KI GEN 13 LANE OSWA PLIS -|- "
-        ind.setQf1aNbreEnfantNeVivantM(individu.getQf1aNbreEnfantNeVivantM());
-        ind.setQf1bNbreEnfantNeVivantF(individu.getQf1bNbreEnfantNeVivantF());
-        ind.setQf2aNbreEnfantVivantM(individu.getQf2aNbreEnfantVivantM());
-        ind.setQf2bNbreEnfantVivantF(individu.getQf2bNbreEnfantVivantF());
-        ind.setQf3DernierEnfantJour(individu.getQf3DernierEnfantJour());
-        ind.setQf3DernierEnfantMois(individu.getQf3DernierEnfantMois());
-        ind.setQf3DernierEnfantAnnee(individu.getQf3DernierEnfantAnnee());
-        ind.setQf4DENeVivantVit(individu.getQf4DENeVivantVit());
-        ind.setStatut(individu.getStatut());
-        ind.setIsFieldAllFilled(individu.getIsFieldAllFilled());
-        ind.setDateDebutCollecte(individu.getDateDebutCollecte());
-        ind.setDateFinCollecte(individu.getDateFinCollecte());
-        ind.setDureeSaisie(individu.getDureeSaisie());
-        ind.setIsContreEnqueteMade(individu.getIsContreEnqueteMade());
-        ind.setCodeAgentRecenceur(individu.getCodeAgentRecenceur());
+        //ind.setIndividuId(entity.getIndividuId());
+        ind.setMenageId(entity.getMenageId());
+        ind.setLogeId(entity.getLogeId());
+        ind.setBatimentId(entity.getBatimentId());
+        ind.setSdeId(entity.getSdeId());
+        ind.setQ1NoOrdre(entity.getQ1NoOrdre());
+        ind.setQp2APrenom(entity.getQp2APrenom());
+        ind.setQp2BNom(entity.getQp2BNom());
+        ind.setQp4Sexe(entity.getQp4Sexe());
+        ind.setQ5HabiteDansMenage(entity.getQ5HabiteDansMenage());
+        ind.setQ6aMembreMenageDepuisQuand(entity.getQ6aMembreMenageDepuisQuand());
+        ind.setQ6bDateMembreMenageJour(entity.getQ6bDateMembreMenageJour());
+        ind.setQ6bDateMembreMenageMois(entity.getQ6bDateMembreMenageMois());
+        ind.setQ6bDateMembreMenageAnnee(entity.getQ6bDateMembreMenageAnnee());
+        ind.setQ7DateNaissanceJour(entity.getQ7DateNaissanceJour());
+        ind.setQ7DateNaissanceMois(entity.getQ7DateNaissanceMois());
+        ind.setQ7DateNaissanceAnnee(entity.getQ7DateNaissanceAnnee());
+        ind.setQ8Age(entity.getQ8Age());
+        ind.setQ9LienDeParente(entity.getQ9LienDeParente());
+        ind.setQ10Nationalite(entity.getQp10Nationalite());
+        ind.setQ10PaysNationalite(entity.getQp10PaysNationalite());
+        ind.setQ11NiveauEtude(entity.getQ11NiveauEtude());
+        ind.setQ12StatutMatrimonial(entity.getQ12StatutMatrimonial());
+        ind.setStatut(entity.getStatut());
+        ind.setIsValidated(entity.getIsValidated());
+        ind.setIsFieldAllFilled(entity.getIsFieldAllFilled());
+        ind.setDateDebutCollecte(entity.getDateDebutCollecte());
+        ind.setDateFinCollecte(entity.getDateFinCollecte());
+        ind.setDureeSaisie(entity.getDureeSaisie());
+        ind.setIsContreEnqueteMade(entity.getIsContreEnqueteMade());
+        ind.setCodeAgentRecenceur(entity.getCodeAgentRecenceur());
+        ind.setIsVerified(entity.getIsVerified());
         return ind;
     }
     //endregion

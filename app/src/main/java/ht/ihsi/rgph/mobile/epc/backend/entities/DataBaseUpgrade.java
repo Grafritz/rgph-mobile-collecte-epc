@@ -13,7 +13,7 @@ import static ht.ihsi.rgph.mobile.epc.backend.entities.DaoMaster.dropAllTables;
  */
 
 public class DataBaseUpgrade {
-    public final static int UPGRADE_TO_VERSION_3 = 3; //[ MISE A JOUR 23-Mai-2018 ]
+    public final static int UPGRADE_TO_VERSION_3 = 3;
 
     //region UPDATA
     public static void onUpgrade(Context context, SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -21,7 +21,7 @@ public class DataBaseUpgrade {
             oldVersion++;
             switch (oldVersion) {//switch (newVersion) {
                 case UPGRADE_TO_VERSION_3:
-                    MiseAJour_AllDataBase(context, db, true);
+                    //MiseAJour_AllDataBase(context, db, true);
                     break;
             }
         }

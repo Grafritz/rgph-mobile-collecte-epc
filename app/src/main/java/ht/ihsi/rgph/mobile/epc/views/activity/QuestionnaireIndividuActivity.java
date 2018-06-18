@@ -682,96 +682,12 @@ public class QuestionnaireIndividuActivity extends BaseActivity implements Seria
     }//
     //endregion
 
-
-    private void AddIndividu_LCol_EnBoucle() {
-        try{
-            String dateDebutCollect = Tools.getDateString_MMddyyyy_HHmmss_a();
-            if( QF.getLogementModel().getQlCategLogement() == Constant.LOJ_KOLEKTIF ){
-                // Verification si l'individu se trouve dans un logement Collectif
-                QF.SetStatutLogement(queryRecordMngr, cuRecordMngr, Constant.LOJ_KOLEKTIF);
-
-                int NbreTotalIndividus = QF.getLogementModel().getQlcTotalIndividus();
-                long nbreTotalIndividus_DejaSave = queryRecordMngr.countIndByLog(QF.getLogementModel().getLogeId());
-                int nbr_ou_NoOrdre = ((int) nbreTotalIndividus_DejaSave + 1);
-
-                if (NbreTotalIndividus == nbreTotalIndividus_DejaSave) {
-                    // On lui permet de voir la liste des Individus deja enregistrer.
-                    // Et qui est soit remplit Totalement ou pas
-                    if (QuestionnaireLogementActivity.CounterForIndividu_LogCol >= NbreTotalIndividus) {
-                        // On verifi si tous les individus sont bien enregistrer....
-                        finish();
-                    } else {
-                        // On selectionne l'Emigre qui n'a pas un statut FINI
-                        IndividuModel individuModelLK = null;
-                        do {
-                            individuModelLK = queryRecordMngr.searchIndividu_ByNoOrdre_ByIdLogement(QuestionnaireLogementActivity.CounterForIndividu_LogCol, QF.getLogementModel().getLogeId());
-                            QuestionnaireLogementActivity.CounterForIndividu_LogCol += 1;
-                        }
-                        while (individuModelLK == null && QuestionnaireLogementActivity.CounterForIndividu_LogCol <= NbreTotalIndividus);
-
-                        if (individuModelLK != null) {
-                            IndividuModel individuM_OBJ = new IndividuModel();
-                            IndividuModel.queryRecordMngr = queryRecordMngr;
-                            individuM_OBJ.setSdeId(QF.getLogementModel().getSdeId());
-                            individuM_OBJ.setQ1NoOrdre((short) nbr_ou_NoOrdre);
-                            individuM_OBJ.setDateDebutCollecte(dateDebutCollect);
-                            individuM_OBJ = individuModelLK;
-
-                            this.SetFieldIndividus(individuM_OBJ, NbreTotalIndividus, Constant.ACTION_MOFIDIER);
-
-                            message = "Kontinye pran enfòmasyon sou Moun " + nbr_ou_NoOrdre + " an";// \n [ Ou deja antre "+ (nbr_ou_NoOrdre-1) + " / " + NbreTotalIndividus + "]";
-                            ToastUtility.ToastMessage(this, message, Constant.GravityCenter);
-                            //Tools.AlertDialogMsg(this, message, "S");
-                        }else {
-                            if ( NbreTotalIndividus == nbreTotalIndividus_DejaSave ) {
-                                //
-                                if (QF.getqSuivant().toString().equalsIgnoreCase(Constant.FIN)) {
-                                    finish();
-                                }else {
-                                    // On Passe a la question suivante
-                                    Suivant_Click();
-                                }
-                            } else {
-                                Precedent_Click(QF);
-                            }
-                        }
-                    }
-                }else { // Si tous les individus ne sont pas encore enregistrer dans la base
-                    IndividuModel individuM_OBJ = new IndividuModel();
-                    IndividuModel.queryRecordMngr = queryRecordMngr;
-                    individuM_OBJ.setSdeId(QF.getLogementModel().getSdeId());
-                    individuM_OBJ.setQ1NoOrdre((short) nbr_ou_NoOrdre);
-                    individuM_OBJ.setDateDebutCollecte(dateDebutCollect);
-
-                    this.SetFieldIndividus(individuM_OBJ, NbreTotalIndividus, Constant.ACTION_MOFIDIER);
-
-                    message = "Kòmanse pran enfòmasyon sou Moun " + nbr_ou_NoOrdre + " an";// \n [ Ou deja antre "+ (nbr_ou_NoOrdre-1) + " / " + NbreTotalIndividus + "]";
-                    ToastUtility.ToastMessage(this, message, Constant.GravityCenter);
-                    //Tools.AlertDialogMsg(this, message, "S");
-                }
-            }
-
-            if( QF.getLogementModel().getQlCategLogement() == Constant.LOJ_ENDIVIDYEL ){
-                ContinuerAvecIndividuMenage_EnBoucle();
-            }
-        }catch (ManagerException ex) {
-            message = "Erreur:";
-            Tools.AlertDialogMsg(this, message +"\n"+ ex.getMessage());
-            ToastUtility.LogCat("ManagerException: ShowPopUp_AddIndividu :" + ex.toString());
-        } catch (Exception ex) {
-            message = "Erreur:";
-            ToastUtility.LogCat("Exception: ShowPopUp_AddIndividu :" + message +" / " + ex.toString());
-            Tools.AlertDialogMsg(this, message +"\n"+ ex.toString());
-            ex.printStackTrace();
-        }
-    }
-
     private void ContinuerAvecIndividuMenage_EnBoucle() {
         try{
             String dateDebutCollect = Tools.getDateString_MMddyyyy_HHmmss_a();
             if( QF.getLogementModel().getQlCategLogement() == Constant.LOJ_ENDIVIDYEL ) {
                 // Verification si l'individu se trouve dans un logement Collectif
-                int NbreTotalIndividus = QF.getMenageModel().getQm11TotalIndividuVivant();
+                int NbreTotalIndividus = QF.getMenageModel().getQm2TotalIndividuVivant();
                 // On verifie s'il existe d'individu dans le menage
                 if (NbreTotalIndividus > 0) {
                     long nbreTotalIndividus_DejaSave = queryRecordMngr.countIndByMenage(QF.getMenageModel().getMenageId());
@@ -1324,7 +1240,7 @@ public class QuestionnaireIndividuActivity extends BaseActivity implements Seria
                             //}
                             // On met le boucle ici pour les individus dans les Logement Collectif
                             if( QF.getLogementModel().getQlCategLogement() == Constant.LOJ_KOLEKTIF ) {
-                                AddIndividu_LCol_EnBoucle();
+                                //AddIndividu_LCol_EnBoucle();
                             }else  if( QF.getLogementModel().getQlCategLogement() == Constant.LOJ_ENDIVIDYEL ) {
                                 // On met le boucle ici pour les individus dans les Menage
                                 ContinuerAvecIndividuMenage_EnBoucle();
@@ -1345,11 +1261,11 @@ public class QuestionnaireIndividuActivity extends BaseActivity implements Seria
                 LinearLayout_messageChangerdeModule.setVisibility(View.VISIBLE);
 
                 if (QF.getLogementModel() != null && QF.getLogementModel().getQlCategLogement() == Constant.LOJ_KOLEKTIF) {
-                    if (QuestionnaireLogementActivity.CounterForIndividu_LogCol - 1 >= QF.getLogementModel().getQlcTotalIndividus()) {
+                   /* if (QuestionnaireLogementActivity.CounterForIndividu_LogCol - 1 >= QF.getLogementModel().getQlcTotalIndividus()) {
                         LinearLayout_messageChangerdeModule.setVisibility(View.GONE);
-                    }
+                    }*/
                 } else if (QF.getLogementModel() != null && QF.getLogementModel().getQlCategLogement() == Constant.LOJ_ENDIVIDYEL) {
-                    if (QuestionnaireMenageActivity.CounterForIndividu >= QF.getMenageModel().getQm11TotalIndividuVivant()) {
+                    if (QuestionnaireMenageActivity.CounterForIndividu >= QF.getMenageModel().getQm2TotalIndividuVivant()) {
                         LinearLayout_messageChangerdeModule.setVisibility(View.GONE);
                     }
                 }
@@ -1363,10 +1279,10 @@ public class QuestionnaireIndividuActivity extends BaseActivity implements Seria
                                 dialog.dismiss();
                             }
                             if (QF.getLogementModel() != null && QF.getLogementModel().getQlCategLogement() == Constant.LOJ_KOLEKTIF) {
-                                QuestionnaireLogementActivity.CounterForIndividu_LogCol = QF.getLogementModel().getQlcTotalIndividus();
+                                //QuestionnaireLogementActivity.CounterForIndividu_LogCol = QF.getLogementModel().getQlcTotalIndividus();
                                 finishAfter = true;
                             } else if (QF.getLogementModel() != null && QF.getLogementModel().getQlCategLogement() == Constant.LOJ_ENDIVIDYEL) {
-                                QuestionnaireMenageActivity.CounterForIndividu = QF.getMenageModel().getQm11TotalIndividuVivant();
+                                QuestionnaireMenageActivity.CounterForIndividu = QF.getMenageModel().getQm2TotalIndividuVivant();
                                 finishAfter = true;
                             }
 
@@ -1374,7 +1290,7 @@ public class QuestionnaireIndividuActivity extends BaseActivity implements Seria
                                 finish();
                             } else {
                                 // On met le boucle ici pour les individus dans les Logement Collectif
-                                AddIndividu_LCol_EnBoucle();
+                                //AddIndividu_LCol_EnBoucle();
                             }
                         } catch (TextEmptyException ex) {
                             Tools.AlertDialogMsg(QuestionnaireIndividuActivity.this, ex.getMessage());
@@ -1437,19 +1353,19 @@ public class QuestionnaireIndividuActivity extends BaseActivity implements Seria
                         QF.Load_Relation(this, sp_RelasyonMounNan);
 
                         tv_RelasyonMounNan = (TextView) dialog.findViewById(R.id.tv_RelasyonMounNan);
-                        tv_DateMounNanfet = (TextView) dialog.findViewById(R.id.tv_DateMounNanfet);
+                        tv_DateMounNanfet = (TextView) dialog.findViewById(R.id.tv_DateNaissance);
                         tv_LageMounNan = (TextView) dialog.findViewById(R.id.tv_LageMounNan);
                         RL_RelasyonMounNan = (RelativeLayout) dialog.findViewById(R.id.RL_RelasyonMounNan);
-                        LL_DateMounNanfet = (LinearLayout) dialog.findViewById(R.id.LL_DateMounNanfet);
+                        LL_DateMounNanfet = (LinearLayout) dialog.findViewById(R.id.LL_DateNaissance);
                         LL_LajMounNan = (LinearLayout) dialog.findViewById(R.id.LL_LajMounNan);
 
-                        et_JourIndividu = (EditText) dialog.findViewById(R.id.et_JourIndividu);
+                        et_JourIndividu = (EditText) dialog.findViewById(R.id.et_DateNaissanceJour);
                         //QF.Load_Jour(this, sp_JourIndividu);
 
-                        sp_MoisIndividu = (Spinner) dialog.findViewById(R.id.sp_MoisIndividu);
+                        sp_MoisIndividu = (Spinner) dialog.findViewById(R.id.sp_DateNaissanceMois);
                         QF.Load_Mois(this, sp_MoisIndividu);
 
-                        et_AnneeIndividu = (EditText) dialog.findViewById(R.id.et_AnneeIndividu);
+                        et_AnneeIndividu = (EditText) dialog.findViewById(R.id.et_DateNaissanceAnnee);
                         //QF.Load_Annee(this, sp_AnneeIndividu);
 
                         sp_MounNanMenajLa = (Spinner) dialog.findViewById(R.id.sp_MounNanMenajLa);
@@ -1466,17 +1382,17 @@ public class QuestionnaireIndividuActivity extends BaseActivity implements Seria
                         et_SiyatiIndividu.setEnabled(false);
                         QF.setReponse(sp_Sexe, "" + Ind.getQp4Sexe(), Constant.CLASSE_KEY_VALUE_MODEL);
                         sp_Sexe.setEnabled(false);
-                        QF.setReponse(sp_RelasyonMounNan, "" + Ind.getQp3LienDeParente(), Constant.CLASSE_KEY_VALUE_MODEL);
+                        QF.setReponse(sp_RelasyonMounNan, "" + Ind.getQ9LienDeParente(), Constant.CLASSE_KEY_VALUE_MODEL);
                         sp_RelasyonMounNan.setEnabled(false);
 
-                        QF.setReponseDate(et_JourIndividu, sp_MoisIndividu, et_AnneeIndividu, "" + Ind.getQp5JourMoisAnneeDateNaissance());
+                        QF.setReponseDate(et_JourIndividu, sp_MoisIndividu, et_AnneeIndividu, "" + Ind.getQ7JourMoisAnneeDateNaissance());
                         et_JourIndividu.setEnabled(false);
                         sp_MoisIndividu.setEnabled(false);
                         et_AnneeIndividu.setEnabled(false);
-                        et_AgeIndividu.setText(""+Ind.getQp5bAge());
+                        et_AgeIndividu.setText(""+Ind.getQ8Age());
                         //QF.setReponse(et_AgeIndividu, "" + Ind.getQp5bAge(), Constant.CLASSE_KEY_VALUE_MODEL);
                         et_AgeIndividu.setEnabled(false);
-                        QF.setReponse(sp_MounNanMenajLa, "" + Ind.getQp3HabiteDansMenage(), Constant.CLASSE_KEY_VALUE_MODEL);
+                        QF.setReponse(sp_MounNanMenajLa, "" + Ind.getQ5HabiteDansMenage(), Constant.CLASSE_KEY_VALUE_MODEL);
                         sp_MounNanMenajLa.setEnabled(false);
 
                         QF.setqPrecedent("P5");

@@ -40,7 +40,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="0dp"
-                        android:text="@string/Label_Titre_Form_MounKapVivNanMenajLa"
+                        android:text="@string/Label_Titre_Form_MounKiPaNanMenajLa"
                         android:textAlignment="center"
                         android:textColor="@color/bootstrap_brand_primary"
                         android:textSize="22dp" />
@@ -164,13 +164,14 @@
                         android:layout_weight="1"
                         >
                         <TextView
+                            android:id="@+id/tv_EstMortOuQuitter"
                             style="@style/LabelStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/label_Eske_se_isit_la_toujou_rete" />
+                            android:text="@string/label_EstMortOuQuitter" />
 
                         <RelativeLayout
-                            android:id="@+id/RL_MounNanMenajLa"
+                            android:id="@+id/RL_EstMortOuQuitter"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/my_shape"
@@ -178,7 +179,7 @@
                             android:orientation="horizontal">
 
                             <Spinner
-                                android:id="@+id/sp_MounNanMenajLa"
+                                android:id="@+id/sp_EstMortOuQuitter"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
@@ -201,19 +202,20 @@
                                 android:layout_gravity="center"
                                 android:src="@mipmap/my_drop" />
                         </RelativeLayout>
+
                     </LinearLayout>
 
                 </LinearLayout>
 
+
                     <TextView
-                        android:id="@+id/tv_MembreMenageDepuisQuand"
                         style="@style/LabelStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/label_MembreMenageDepuisQuand" />
+                        android:text="@string/label_Eske_se_isit_la_toujou_rete" />
 
                     <RelativeLayout
-                        android:id="@+id/RL_MembreMenageDepuisQuand"
+                        android:id="@+id/RL_MounNanMenajLa"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/my_shape"
@@ -221,7 +223,7 @@
                         android:orientation="horizontal">
 
                         <Spinner
-                            android:id="@+id/sp_MembreMenageDepuisQuand"
+                            android:id="@+id/sp_MounNanMenajLa"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
@@ -246,21 +248,21 @@
                     </RelativeLayout>
 
                     <TextView
-                        android:id="@+id/tv_DateMembreMenage"
+                        android:id="@+id/tv_DateQuitterMenage"
                         style="@style/LabelStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/label_DateMembreMenage" />
+                        android:text="@string/label_DateQuitterMenage" />
 
                     <LinearLayout
-                        android:id="@+id/LL_DateMembreMenage"
+                        android:id="@+id/LL_DateQuitterMenage"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="0dp"
                         android:orientation="horizontal">
 
                         <EditText
-                            android:id="@+id/et_DateMembreMenageJour"
+                            android:id="@+id/et_DateQuitterMenageJour"
                             android:hint="@string/label_Jour"
                             android:layout_width="300dp"
                             android:layout_height="wrap_content"
@@ -287,7 +289,7 @@
                             android:orientation="horizontal">
 
                             <Spinner
-                                android:id="@+id/sp_DateMembreMenageMois"
+                                android:id="@+id/sp_DateQuitterMenageMois"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
@@ -308,7 +310,89 @@
                         </RelativeLayout>
 
                         <EditText
-                            android:id="@+id/et_DateMembreMenageAnnee"
+                            android:id="@+id/et_DateQuitterMenageAnnee"
+                            android:hint="@string/label_Annee"
+                            android:layout_width="300dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/my_shape"
+                            android:layout_weight="1"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                            android:inputType="number"
+                            android:maxLength="4"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:imeActionId="@+id/imeActionId_EtReponse"
+                            android:imeActionLabel="@string/label_QuestionSuivante"
+                            android:imeOptions="actionUnspecified"
+                            android:padding="10dp"
+                            />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_DateMouri"
+                        style="@style/LabelStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_DateMouri" />
+
+                    <LinearLayout
+                        android:id="@+id/LL_DateMouri"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/et_DateMouriJour"
+                            android:hint="@string/label_Jour"
+                            android:layout_width="300dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/my_shape"
+                            android:layout_weight="1"
+                            android:inputType="number"
+                            android:maxLength="2"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:imeActionId="@+id/imeActionId_EtReponse"
+                            android:imeActionLabel="@string/label_QuestionSuivante"
+                            android:imeOptions="actionUnspecified"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginRight="@dimen/activity_horizontal_margin"
+                            android:padding="10dp"
+                            />
+
+                        <RelativeLayout
+                            android:layout_width="300dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/my_shape"
+                            android:focusableInTouchMode="false"
+                            android:orientation="horizontal">
+
+                            <Spinner
+                                android:id="@+id/sp_DateMouriMois"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center"
+                                android:background="@android:color/transparent"
+                                android:focusableInTouchMode="false"
+                                android:gravity="center"
+                                android:prompt="@string/label_Chwazi_yon_Mois"
+                                android:spinnerMode="dialog" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center"
+                                android:src="@mipmap/my_drop" />
+                        </RelativeLayout>
+
+                        <EditText
+                            android:id="@+id/et_DateMouriAnnee"
                             android:hint="@string/label_Annee"
                             android:layout_width="300dp"
                             android:layout_height="wrap_content"

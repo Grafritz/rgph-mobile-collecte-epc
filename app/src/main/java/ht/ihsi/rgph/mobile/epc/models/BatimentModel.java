@@ -9,7 +9,7 @@ import ht.ihsi.rgph.mobile.epc.utilities.ToastUtility;
 import ht.ihsi.rgph.mobile.epc.utilities.Tools;
 
 /**
- * Created by ajordany on 3/21/2016.
+ * Created by Jfduvers on 3/21/2016.
  */
 public class BatimentModel extends BaseModel {
 
@@ -25,17 +25,11 @@ public class BatimentModel extends BaseModel {
     private String qlocalite;
     private String qadresse;
     private String qrec;
-    private String qrgph;
+    private String qepc;
     private Short qb1Etat;
     private Short qb2Type;
-    private Short qb3NombreEtage;
-    private Short qb4MateriauMur;
-    private Short qb5MateriauToit;
-    private Short qb6StatutOccupation;
-    private Short qb7Utilisation1;
-    private Short qb7Utilisation2;
-    private Short qb8NbreLogeCollectif;
-    private Short qb8NbreLogeIndividuel;
+    private Short qb3StatutOccupation;
+    private Short qb4NbreLogeIndividuel;
     private Short statut;
     private String dateEnvoi;
     private Boolean isValidated;
@@ -55,12 +49,6 @@ public class BatimentModel extends BaseModel {
     private String callFormulaireLogementEndividyel;
     public static QueryRecordMngr queryRecordMngr;
 
-    /*private Short qb7Utilisation1Mere;
-    private Short qb7Utilisation2Mere;
-    private Short qb7Utilisation1Test;
-    private Short qb7Utilisation2Test;*/
-    //endregion
-
     //region CONSTRUCTEURS
     public BatimentModel() {
         BlankData();
@@ -68,8 +56,7 @@ public class BatimentModel extends BaseModel {
 
     private void BlankData() {
         batimentId = Long.valueOf(0);
-        qb8NbreLogeCollectif = 0;
-        qb8NbreLogeIndividuel = 0;
+        qb4NbreLogeIndividuel = 0;
     }
     //endregion
 
@@ -162,12 +149,12 @@ public class BatimentModel extends BaseModel {
         this.qrec = qrec;
     }
 
-    public String getQrgph() {
-        return qrgph;
+    public String getQepc() {
+        return qepc;
     }
 
-    public void setQrgph(String qrgph) {
-        this.qrgph = qrgph;
+    public void setQepc(String qepc) {
+        this.qepc = qepc;
     }
 
     public Short getQb1Etat() {
@@ -186,68 +173,20 @@ public class BatimentModel extends BaseModel {
         this.qb2Type = qb2Type;
     }
 
-    public Short getQb3NombreEtage() {
-        return qb3NombreEtage;
+    public Short getQb3StatutOccupation() {
+        return qb3StatutOccupation;
     }
 
-    public void setQb3NombreEtage(Short qb3NombreEtage) {
-        this.qb3NombreEtage = qb3NombreEtage;
+    public void setQb3StatutOccupation(Short qb3StatutOccupation) {
+        this.qb3StatutOccupation = qb3StatutOccupation;
     }
 
-    public Short getQb4MateriauMur() {
-        return qb4MateriauMur;
+    public Short getQb4NbreLogeIndividuel() {
+        return qb4NbreLogeIndividuel;
     }
 
-    public void setQb4MateriauMur(Short qb4MateriauMur) {
-        this.qb4MateriauMur = qb4MateriauMur;
-    }
-
-    public Short getQb5MateriauToit() {
-        return qb5MateriauToit;
-    }
-
-    public void setQb5MateriauToit(Short qb5MateriauToit) {
-        this.qb5MateriauToit = qb5MateriauToit;
-    }
-
-    public Short getQb6StatutOccupation() {
-        return qb6StatutOccupation;
-    }
-
-    public void setQb6StatutOccupation(Short qb6StatutOccupation) {
-        this.qb6StatutOccupation = qb6StatutOccupation;
-    }
-
-    public Short getQb7Utilisation1() {
-        return qb7Utilisation1;
-    }
-
-    public void setQb7Utilisation1(Short qb7Utilisation1) {
-        this.qb7Utilisation1 = qb7Utilisation1;
-    }
-
-    public Short getQb7Utilisation2() {
-        return qb7Utilisation2;
-    }
-
-    public void setQb7Utilisation2(Short qb7Utilisation2) {
-        this.qb7Utilisation2 = qb7Utilisation2;
-    }
-
-    public Short getQb8NbreLogeCollectif() {
-        return qb8NbreLogeCollectif;
-    }
-
-    public void setQb8NbreLogeCollectif(Short qb8NbreLogeCollectif) {
-        this.qb8NbreLogeCollectif = qb8NbreLogeCollectif;
-    }
-
-    public Short getQb8NbreLogeIndividuel() {
-        return qb8NbreLogeIndividuel;
-    }
-
-    public void setQb8NbreLogeIndividuel(Short qb8NbreLogeIndividuel) {
-        this.qb8NbreLogeIndividuel = qb8NbreLogeIndividuel;
+    public void setQb4NbreLogeIndividuel(Short qb4NbreLogeIndividuel) {
+        this.qb4NbreLogeIndividuel = qb4NbreLogeIndividuel;
     }
 
     public Short getStatut() {
@@ -353,10 +292,17 @@ public class BatimentModel extends BaseModel {
     public void setCodeAgentRecenceur(String codeAgentRecenceur) {
         this.codeAgentRecenceur = codeAgentRecenceur;
     }
+
+    public Boolean getIsVerified() {
+        return isVerified;
+    }
+
+    public void setIsVerified(Boolean isVerified) {
+        this.isVerified = isVerified;
+    }
     //endregion
 
     //region 2 getters and setters
-
     public String getCallFormulaireLogementCollectif() {
         return callFormulaireLogementCollectif;
     }
@@ -369,79 +315,14 @@ public class BatimentModel extends BaseModel {
     public void setCallFormulaireLogementEndividyel(String callFormulaireLogementEndividyel) {
         this.callFormulaireLogementEndividyel = callFormulaireLogementEndividyel;
     }
-
-    /*public Short getQb7Utilisation1Mere() {
-        return qb7Utilisation1Mere;
-    }
-
-    public void setQb7Utilisation1Mere(Short qb7Utilisation1Mere) {
-        this.qb7Utilisation1Mere = qb7Utilisation1Mere;
-    }
-
-    public Short getQb7Utilisation2Mere() {
-        return qb7Utilisation2Mere;
-    }
-
-    public void setQb7Utilisation2Mere(Short qb7Utilisation2Mere) {
-        this.qb7Utilisation2Mere = qb7Utilisation2Mere;
-    }
-
-    public Short getQb7Utilisation1Test() {
-        return qb7Utilisation1Test;
-    }
-
-    public void setQb7Utilisation1Test(Short qb7Utilisation1Test) {
-        this.qb7Utilisation1Test = qb7Utilisation1Test;
-    }
-
-    public Short getQb7Utilisation2Test() {
-        return qb7Utilisation2Test;
-    }
-
-    public void setQb7Utilisation2Test(Short qb7Utilisation2Test) {
-        this.qb7Utilisation2Test = qb7Utilisation2Test;
-    }*/
-
-   /* public String getQb7Utilisation1() {
-        // "GrandeCategorie-SousElement"
-        return qb7Utilisation1Mere + "-" + qb7Utilisation1Test;
-    }
-    public void setQb7Utilisation1(String value) {
-        try {
-            String[] util = value.split("-"); // GrandeCategorie-SousElement
-            String Utilisation1Mere  = util[0]; // GrandeCategorie
-            String Utilisation1 = util[1];  // SousElement
-            qb7Utilisation1Mere = Short.valueOf(Utilisation1Mere);
-            qb7Utilisation1Test = Short.valueOf(Utilisation1);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }*/
-
-    /*public String getQb7Utilisation2() {
-        // "GrandeCategorie-SousElement"
-        return qb7Utilisation2Mere + "-" + qb7Utilisation2Test;
-    }
-    public void setQb7Utilisation2(String value) {
-        try {
-            String[] util = value.split("-"); // GrandeCategorie-SousElement
-            String Utilisation2Mere  = util[0]; // GrandeCategorie
-            String Utilisation2 = util[1];  // SousElement
-            qb7Utilisation2Mere = Short.valueOf(Utilisation2Mere);
-            qb7Utilisation2Test = Short.valueOf(Utilisation2);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }*/
-    //public void setFormDataMngr(FormDataMngr formDataMngr) { this.formDataMngr = formDataMngr; }
     //endregion
 
     //region METHODES
     public static String Check_ContrainteSautChampsValeur(String nomChamps, BatimentModel batimentModel, Long iDKeys, Object dataBase, Boolean ExpulseException)  throws TextEmptyException {
         try{
             String QSuivant = "";
-            if (nomChamps.equalsIgnoreCase(BatimentDao.Properties.Qrgph.columnName)){
-                if( ExpulseException==true &&  batimentModel.getQrgph().trim().equalsIgnoreCase("000") ){
+            if (nomChamps.equalsIgnoreCase(BatimentDao.Properties.Qepc.columnName)){
+                if( ExpulseException==true &&  batimentModel.getQepc().trim().equalsIgnoreCase("000") ){
                     throw new TextEmptyException("Ou pa ka ekri 000 (Nimewo sa a pa dwe  000).");
                 }
             }
@@ -473,166 +354,29 @@ public class BatimentModel extends BaseModel {
                     throw new TextEmptyException("Si Batiman sa okipe li dwe genyen yon itilizasyon.");
                 }
             }*/
-            if (nomChamps.equalsIgnoreCase(BatimentDao.Properties.Qb6StatutOccupation.columnName)){
-                if ( ExpulseException==true &&  batimentModel.getQb6StatutOccupation() == Constant.BATIMAN_TOUJOU_VID_2  ){
+            if (nomChamps.equalsIgnoreCase(BatimentDao.Properties.Qb3StatutOccupation.columnName)){
+                if ( ExpulseException==true &&  batimentModel.getQb3StatutOccupation() == Constant.BATIMAN_TOUJOU_VID_2  ){
                     long NbreLogement_DejaSave = 0;
                     if( ExpulseException==true && batimentModel.getBatimentId() > 0 ){
                         NbreLogement_DejaSave = queryRecordMngr.countLogByBat(batimentModel.getBatimentId());
                         if( ExpulseException==true &&  NbreLogement_DejaSave > 0 ){
-                            throw new TextEmptyException("Ou paka chwazi [ "+ Tools.getString_Reponse("" + batimentModel.getQb6StatutOccupation(), BatimentDao.Properties.Qb6StatutOccupation.columnName) +" ]. "
+                            throw new TextEmptyException("Ou paka chwazi [ "+ Tools.getString_Reponse("" + batimentModel.getQb3StatutOccupation(), BatimentDao.Properties.Qb3StatutOccupation.columnName) +" ]. "
                                     + "\n  paske ou gentan anregistre [" + NbreLogement_DejaSave + "] Lojman pou batiman sa.");
                         }
                     }
                 }
             }
-            if (nomChamps.equalsIgnoreCase(BatimentDao.Properties.Qb7Utilisation1.columnName)){
-                if ( ExpulseException==true &&  batimentModel.getQb7Utilisation1() == Constant.PA_GEN_LOT_ITILIZASYON  ){
-                    throw new TextEmptyException("Si Batiman sa okipe li dwe genyen yon itilizasyon.");
-                }
-            }
-            if (nomChamps.equalsIgnoreCase(BatimentDao.Properties.Qb7Utilisation2.columnName)){
-                //region ITILIZASYON 1 OU ITILIZASYON 2 PA DWE MENM BAGAY
-
-                //region FOr Delete
-                /*if ( ExpulseException==true &&  batimentModel.getQb7Utilisation1() >= 10 && batimentModel.getQb7Utilisation1() <= 18  ){
-                    if( ExpulseException==true &&  batimentModel.getQb7Utilisation2() >= 10 && batimentModel.getQb7Utilisation2() <= 18   ){
-                        throw new TextEmptyException("Yon batiman paka gen de menm prensipal itilizasyon.\n" +
-                                "\n -> Ou te chwazi ["+ Tools.getString_Reponse("1", BatimentDao.Properties.Qb7Utilisation1.columnName) +"] deja." +
-                                "\n\nSi se yon sèl itilizasyon batiman an genyen,\n Chwazi : [ Pa geyen yon dezièm itilizasyon ]");
-                    }
-                }
-                if ( ExpulseException==true &&  batimentModel.getQb7Utilisation1() >= 20 && batimentModel.getQb7Utilisation1() <= 26  ){
-                    if( ExpulseException==true &&  batimentModel.getQb7Utilisation2() >= 20 && batimentModel.getQb7Utilisation2() <= 26   ){
-                        throw new TextEmptyException("Yon batiman paka gen de menm prensipal itilizasyon.\n" +
-                                "\n -> Ou te chwazi ["+ Tools.getString_Reponse("2", BatimentDao.Properties.Qb7Utilisation1.columnName) +"] deja." +
-                                "\n\nSi se yon sèl itilizasyon batiman an genyen,\n Chwazi : [ Pa geyen yon dezièm itilizasyon ]");
-                    }
-                }
-                if ( ExpulseException==true &&  batimentModel.getQb7Utilisation1() >= 30 && batimentModel.getQb7Utilisation1() <= 41  ){
-                    if( ExpulseException==true &&  batimentModel.getQb7Utilisation2() >= 30 && batimentModel.getQb7Utilisation2() <= 41   ){
-                        throw new TextEmptyException("Yon batiman paka gen de menm prensipal itilizasyon.\n" +
-                                "\n -> Ou te chwazi ["+ Tools.getString_Reponse("3", BatimentDao.Properties.Qb7Utilisation1.columnName) +"] deja." +
-                                "\n\nSi se yon sèl itilizasyon batiman an genyen,\n Chwazi : [ Pa geyen yon dezièm itilizasyon ]");
-                    }
-                }*/
-                //endregion
-
-                if ( ExpulseException==true &&  batimentModel.getQb7Utilisation1() == batimentModel.getQb7Utilisation2() ){
-                    throw new TextEmptyException("Yon batiman paka gen de menm prensipal itilizasyon.\n" +
-                            "Si se yon sèl itilizasyon batiman an genyen,\n\n Chwazi : [ Pa geyen yon dezièm itilizasyon ]");
-                }
-
-                //region FOr Delete
-                /* Si la seule utilisation principale (ou les deux utilisations principales) du bâtiment tombe dans les intervalles suivants :
-                20≥B.7 ≤26 ou 30≥B.7 ≤41, introduire un contrôle permettant d'aller au rapport de l'Agent Recenseur */
-                /*if ( batimentModel.getQb7Utilisation1()!= null && batimentModel.getQb7Utilisation1() >= 20 ){
-                    if ( batimentModel.getQb7Utilisation2()!=null && batimentModel.getQb7Utilisation2() == Constant.PA_GEN_LOT_ITILIZASYON ) { // SI PA GENYEN YON DEZYEM ITLIZASYON
-                        if(  ExpulseException==true &&  batimentModel.getBatimentId() > 0 ){ // VERIFYE SI T GEN YON LOJMAN KI ANREJISTRE DEJA
-                            long NbreLogement_DejaSave = 0;
-                            NbreLogement_DejaSave = queryRecordMngr.countLogByBat(batimentModel.getBatimentId());
-                            if( ExpulseException==true &&  NbreLogement_DejaSave > 0 ){
-                                throw new TextEmptyException("Ou paka chwazi [ "+ Tools.getString_Reponse("" + batimentModel.getQb7Utilisation2(), BatimentDao.Properties.Qb7Utilisation1.columnName) +" ]. "
-                                        + "\n  paske ou gentan anregistre [" + NbreLogement_DejaSave + "] Lojman pou batiman sa.");
-                            }
-                        }
-                        QSuivant = Constant.FIN;
-                    }else  if ( batimentModel.getQb7Utilisation2()!=null && batimentModel.getQb7Utilisation2() >= 20 ) { // SI GEN YON LOT ITLIZASYON
-                        if(  ExpulseException==true &&  batimentModel.getBatimentId() > 0 ){ // VERIFYE SI TE GEN YON LOJMAN KI ANREJISTRE DEJA
-                            long NbreLogement_DejaSave = 0;
-                            NbreLogement_DejaSave = queryRecordMngr.countLogByBat(batimentModel.getBatimentId());
-                            if( ExpulseException==true &&  NbreLogement_DejaSave > 0 ){
-                                throw new TextEmptyException("Ou paka chwazi [ "+ Tools.getString_Reponse("" + batimentModel.getQb7Utilisation2(), BatimentDao.Properties.Qb7Utilisation1.columnName) +" ]. "
-                                        + "\n  paske ou gentan anregistre [" + NbreLogement_DejaSave + "] Lojman pou batiman sa.");
-                            }
-                        }
-                        //QSuivant = Constant.FIN;
-                    }else  if ( batimentModel.getQb7Utilisation2()!= null && batimentModel.getQb7Utilisation2() <= 18 ){
-                        QSuivant ="";
-                    }
-                }*/
-                //endregion
-                //endregion
-            }
-            if (nomChamps.equalsIgnoreCase(BatimentDao.Properties.Qb8NbreLogeCollectif.columnName)) {
-                if( ExpulseException==true &&  batimentModel.getBatimentId()!=null && batimentModel.getBatimentId() > 0  ) {
-                    long NbreLogement_DejaSave = queryRecordMngr.countLogByBatAndType(batimentModel.getBatimentId(), Constant.LOJ_KOLEKTIF);
-                    if (batimentModel.getQb8NbreLogeCollectif() < NbreLogement_DejaSave) {
-                        throw new TextEmptyException("Ou paka retire nan kantite ke ou te mete a. "
-                                + "\n  paske ou gentan anregistre [" + NbreLogement_DejaSave + "] Lojman kolektif deja pou batiman sa.");
-                    }
-                }
-                if ( ExpulseException==true
-                        &&  batimentModel.getQb7Utilisation1()!=null
-                        && batimentModel.getQb7Utilisation2()!=null ) {
-
-                    if ( ( batimentModel.getQb7Utilisation1() >= 11
-                            && batimentModel.getQb7Utilisation1() <= 18 )  ) {
-                        // SI GEN YON ITLIZASYON  ki ant 11 et 18 Qb8NbreLogeCollectif Dwe >0
-                        if ( batimentModel.getQb8NbreLogeCollectif() != null
-                                && batimentModel.getQb8NbreLogeCollectif() <= 0) {
-                            throw new TextEmptyException("Ou dwe gen pou pi piti yon lojman kolektif.");
-                        }
-                    }
-                    if ( ( batimentModel.getQb7Utilisation2() >= 11
-                            && batimentModel.getQb7Utilisation2() <= 18 )  ) {
-                        // SI GEN YON ITLIZASYON  ki ant 11 et 18 Qb8NbreLogeCollectif Dwe >0
-                        if ( batimentModel.getQb8NbreLogeCollectif() != null
-                                && batimentModel.getQb8NbreLogeCollectif() <= 0) {
-                            throw new TextEmptyException("Ou dwe gen pou pi piti yon lojman kolektif.");
-                        }
-                    }
-                }
-                if( ExpulseException==true && batimentModel.getQb8NbreLogeCollectif() <= 0 ){
-                    QSuivant = "B8.2";
-                }
-            }//
-            if (nomChamps.equalsIgnoreCase(BatimentDao.Properties.Qb8NbreLogeIndividuel.columnName)){
-                // NbreLogeCollectif OU Qb9NbreLogeIndividuel PA DWE PI PITI KE 1
-                /*if ( ExpulseException==true &&  batimentModel.getQb8NbreLogeCollectif() <= 0 && batimentModel.getQb8NbreLogeIndividuel() <= 0){
-                    *//* Fok yonn nan repons sa yo diferan de « 00 ». verifye enfomasyon an epi korije repons ki pa korek la *//*
-                    throw new TextEmptyException("Ou dwe gen pou pi piti yon lojman kolektif "
-                            + (char)13 + "oubyen yon lojman endividyèl.");
-                }*/
+            if (nomChamps.equalsIgnoreCase(BatimentDao.Properties.Qb4NbreLogeIndividuel.columnName)){
                 if( ExpulseException==true &&  batimentModel.getBatimentId()!=null && batimentModel.getBatimentId() > 0  ) {
                     long NbreLogement_DejaSave = queryRecordMngr.countLogByBatAndType(batimentModel.getBatimentId(), Constant.LOJ_ENDIVIDYEL);
-                    if (ExpulseException == true && batimentModel.getQb8NbreLogeIndividuel() < NbreLogement_DejaSave) {
+                    if (ExpulseException == true && batimentModel.getQb4NbreLogeIndividuel() < NbreLogement_DejaSave) {
                         throw new TextEmptyException("Ou paka retire nan kantite ke ou te mete a. "
                                 + "\n  paske ou gentan anregistre [" + NbreLogement_DejaSave + "] Lojman endividyèl deja pou batiman sa.");
                     }
                 }
-                //if( batimentModel.getQb8NbreLogeCollectif() <= 0 && batimentModel.getQb8NbreLogeIndividuel() <= 0 ){
-                //    QSuivant = Constant.FIN;
-                //}
-                if ( ExpulseException==true &&  batimentModel.getQb7Utilisation1()!=null && batimentModel.getQb7Utilisation2()!=null ) {
-                    if ( batimentModel.getQb7Utilisation1() == 10 || batimentModel.getQb7Utilisation1() == 10 ) {
-                        // SI GEN YON ITLIZASYON  ki ant 20 et 41 Qb8NbreLogeCollectif Dwe >0
-                        if (ExpulseException == true && batimentModel.getQb8NbreLogeIndividuel() != null
-                                && batimentModel.getQb8NbreLogeIndividuel() <= 0) {
-                            throw new TextEmptyException("Ou dwe gen pou pi piti yon lojman endividyèl.");
-                        }
-                    }
-                }
 
-                /*if ( ExpulseException==true &&  batimentModel.getQb7Utilisation1()!=null && batimentModel.getQb7Utilisation2()!=null ) {
-                    if ( (batimentModel.getQb7Utilisation1() > 11 && batimentModel.getQb7Utilisation1() <= 18) ||
-                            (batimentModel.getQb7Utilisation2() > 11 && batimentModel.getQb7Utilisation2() <= 18) ||
-                            (batimentModel.getQb7Utilisation1() == 10 || batimentModel.getQb7Utilisation2() == 10)) {
-                        // SI GEN YON ITLIZASYON  ki ant 11 et 18 Qb8NbreLogeCollectif Dwe >0
-                        if (ExpulseException == true && batimentModel.getQb8NbreLogeCollectif() != null
-                                && batimentModel.getQb8NbreLogeCollectif() <= 0) {
-                            throw new TextEmptyException("Ou dwe gen pou pi piti yon lojman kolektif.");
-                        }
-                    }
-                }*/
-               /* if ( ExpulseException==true &&  batimentModel.getQb7Utilisation1()!=null && batimentModel.getQb7Utilisation1() <= 18 ||
-                        batimentModel.getQb7Utilisation2()!=null && batimentModel.getQb7Utilisation2() <= 18 ) {
-                    // SI GEN YON ITLIZASYON  ki ant 10 et 18 Qb8NbreLogeIndividuel Dwe >0
-                    if (ExpulseException == true && batimentModel.getQb8NbreLogeIndividuel() != null && batimentModel.getQb8NbreLogeIndividuel() <= 0) {
-                        throw new TextEmptyException("Ou dwe gen pou pi piti yon lojman endividyèl.");
-                    }
-                }*/
-                if( ExpulseException==true && batimentModel.getQb8NbreLogeIndividuel()!=null &&
-                        batimentModel.getQb8NbreLogeIndividuel() <= 0 ){
+                if( ExpulseException==true && batimentModel.getQb4NbreLogeIndividuel()!=null &&
+                        batimentModel.getQb4NbreLogeIndividuel() <= 0 ){
                     QSuivant = Constant.FIN;
                 }
             }//

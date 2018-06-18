@@ -7,8 +7,8 @@ import android.util.Log;
 
 import ht.ihsi.rgph.mobile.epc.backend.entities.BatimentDao;
 import ht.ihsi.rgph.mobile.epc.backend.entities.DaoSession;
-import ht.ihsi.rgph.mobile.epc.backend.entities.DecesDao;
-import ht.ihsi.rgph.mobile.epc.backend.entities.EmigreDao;
+//import ht.ihsi.rgph.mobile.epc.backend.entities.DecesDao;
+//import ht.ihsi.rgph.mobile.epc.backend.entities.EmigreDao;
 import ht.ihsi.rgph.mobile.epc.backend.entities.IndividuDao;
 import ht.ihsi.rgph.mobile.epc.backend.entities.LogementDao;
 import ht.ihsi.rgph.mobile.epc.backend.entities.MenageDao;
@@ -16,8 +16,8 @@ import ht.ihsi.rgph.mobile.epc.backend.entities.PersonnelDao;
 import ht.ihsi.rgph.mobile.epc.backend.entities.RapportFinalDao;
 import ht.ihsi.rgph.mobile.epc.backend.entities.RapportRARDao;
 import ht.ihsi.rgph.mobile.epc.backend.entities.Batiment;
-import ht.ihsi.rgph.mobile.epc.backend.entities.Deces;
-import ht.ihsi.rgph.mobile.epc.backend.entities.Emigre;
+//import ht.ihsi.rgph.mobile.epc.backend.entities.Deces;
+//import ht.ihsi.rgph.mobile.epc.backend.entities.Emigre;
 import ht.ihsi.rgph.mobile.epc.backend.entities.Individu;
 import ht.ihsi.rgph.mobile.epc.backend.entities.Logement;
 import ht.ihsi.rgph.mobile.epc.backend.entities.Menage;
@@ -27,8 +27,8 @@ import ht.ihsi.rgph.mobile.epc.exceptions.ManagerException;
 import ht.ihsi.rgph.mobile.epc.exceptions.TextEmptyException;
 import ht.ihsi.rgph.mobile.epc.mappers.ModelMapper;
 import ht.ihsi.rgph.mobile.epc.models.BatimentModel;
-import ht.ihsi.rgph.mobile.epc.models.DecesModel;
-import ht.ihsi.rgph.mobile.epc.models.EmigreModel;
+//import ht.ihsi.rgph.mobile.epc.models.DecesModel;
+//import ht.ihsi.rgph.mobile.epc.models.EmigreModel;
 import ht.ihsi.rgph.mobile.epc.models.IndividuModel;
 import ht.ihsi.rgph.mobile.epc.models.LogementModel;
 import ht.ihsi.rgph.mobile.epc.models.MenageModel;
@@ -90,7 +90,7 @@ public class CURecordMngrImpl extends AbstractDatabaseManager implements CURecor
             if (batimentId != 0) {
                 Batiment bat = batimentDao.load(batimentId);
                 //Batiment bat = batimentDao.loadByRowId(batimentId);
-                Log.d(ToastUtility.TAG, "saveBatiment / Batiment Insert ID:" + bat.getBatimentId() + "/SDE: " + bat.getSdeId() + "REC:" + bat.getQrec() + "RGPH: " + bat.getQrgph());
+                Log.d(ToastUtility.TAG, "saveBatiment / Batiment Insert ID:" + bat.getBatimentId() + "/SDE: " + bat.getSdeId() + "REC:" + bat.getQrec() + " EPC: " + bat.getQepc());
                 batiment.setBatimentId(batimentId);
                 daoSession.clear();
                 return batiment;
@@ -196,88 +196,6 @@ public class CURecordMngrImpl extends AbstractDatabaseManager implements CURecor
             }else {
                 menage.setMenageId(id);
                 return updateMenage(menage, userCode);
-            }
-        }
-    }
-
-    /**
-     * Save a new deces
-     *
-     * @param deces the object deces
-     * @return DecesModel
-     * @throws ManagerException
-     */
-    @Override
-    public synchronized DecesModel saveDeces(DecesModel deces, String userCode) throws ManagerException {
-        if (deces != null) {
-            DecesModel decesModel = new DecesModel();
-            openWritableDb();
-            DecesDao decesDao = daoSession.getDecesDao();
-            long decesId = decesDao.insert(ModelMapper.MapToDeces(deces));
-            if (decesId != 0) {
-                Log.d(ToastUtility.TAG, "saveDeces / Deces Insert ID:" + decesId + " Batiment ID:" + deces.getBatimentId() + " Logement:" + deces.getLogeId() + " SDE:" + deces.getSdeId());
-                decesModel = deces;
-                decesModel.setDecesId(decesId);
-                daoSession.clear();
-                return decesModel;
-            } else {
-                throw new ManagerException("Error while Inserting the deces");
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public DecesModel SaveDeces(Long id, DecesModel deces, int typeEvenement, String userCode) throws ManagerException {
-        if( id <= 0 ){
-            return saveDeces(deces, userCode);
-        }else{
-            if( typeEvenement == Constant.ACTION_AFFICHER ) {
-                return deces;
-            }else {
-                deces.setDecesId(id);
-                return updateDeces(deces, userCode);
-            }
-        }
-    }
-
-    /**
-     * Save a new emigre.
-     *
-     * @param emigre
-     * @return EmigreModel
-     * @throws ManagerException
-     */
-    @Override
-    public synchronized EmigreModel saveEmigre(EmigreModel emigre, String userCode) throws ManagerException {
-        if (emigre != null) {
-            EmigreModel emigreModel = new EmigreModel();
-            openWritableDb();
-            EmigreDao emigreDao = daoSession.getEmigreDao();
-            long emigreId = emigreDao.insert(ModelMapper.MapToEmigre(emigre));
-            if (emigreId != 0) {
-                Log.d(ToastUtility.TAG, "saveEmigre / Emigre Inserted ID:" + emigreId + " Batiment ID:" + emigre.getBatimentId() + " Logement:" + emigre.getLogeId() + " SDE:" + emigre.getSdeId());
-                emigreModel = emigre;
-                emigreModel.setEmigreId(emigreId);
-                daoSession.clear();
-                return emigreModel;
-            } else {
-                throw new ManagerException("Error while inserting the emigre");
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public EmigreModel SaveEmigre(Long id, EmigreModel emigre, int typeEvenement, String userCode) throws ManagerException {
-        if( id <= 0 ){
-            return saveEmigre(emigre, userCode);
-        }else{
-            if( typeEvenement == Constant.ACTION_AFFICHER ) {
-                return emigre;
-            }else {
-                emigre.setEmigreId(id);
-                return updateEmigre(emigre, userCode);
             }
         }
     }
@@ -462,14 +380,6 @@ public class CURecordMngrImpl extends AbstractDatabaseManager implements CURecor
             saveMenage((MenageModel) entite,"");
             return entite;
         }
-        if (entite.getClass() == EmigreModel.class) {
-            saveEmigre((EmigreModel) entite,"");
-            return entite;
-        }
-        if (entite.getClass() == DecesModel.class) {
-            saveDeces((DecesModel) entite,"");
-            return entite;
-        }
         if (entite.getClass() == IndividuModel.class) {
             saveIndividu((IndividuModel) entite,"");
             return entite;
@@ -494,7 +404,7 @@ public class CURecordMngrImpl extends AbstractDatabaseManager implements CURecor
         if (batiment != null) {
             openReadableDb();
             BatimentDao batimentDao = daoSession.getBatimentDao();
-            Log.d(ToastUtility.TAG, "BATIMENT UPDATING / Batiment Insert ID:" + batiment.getBatimentId() + "/SDE: " + batiment.getSdeId() + "REC:" + batiment.getQrec() + "RGPH: " + batiment.getQrgph());
+            Log.d(ToastUtility.TAG, "BATIMENT UPDATING / Batiment Insert ID:" + batiment.getBatimentId() + "/SDE: " + batiment.getSdeId() + "REC:" + batiment.getQrec() + " EPC: " + batiment.getQepc());
             Batiment bat = batimentDao.load(batiment.getBatimentId());
             //Batiment bat = batimentDao.loadByRowId(batiment.getBatimentId());
             if (bat != null) {
@@ -503,7 +413,7 @@ public class CURecordMngrImpl extends AbstractDatabaseManager implements CURecor
                     bat.setBatimentId(batiment.getBatimentId());
 
                     batimentDao.update(bat);
-                    Log.d(ToastUtility.TAG, "BATIMENT UPDATED / Batiment Insert ID:" + bat.getBatimentId() + "/SDE: " + bat.getSdeId() + "REC:" + bat.getQrec() + "RGPH: " + bat.getQrgph());
+                    Log.d(ToastUtility.TAG, "BATIMENT UPDATED / Batiment Insert ID:" + bat.getBatimentId() + "/SDE: " + bat.getSdeId() + "REC:" + bat.getQrec() + " EPC: " + bat.getQepc());
                     daoSession.clear();
                 } catch (Exception ex) {
                     throw new ManagerException("" + ex.getMessage());
@@ -650,115 +560,6 @@ public class CURecordMngrImpl extends AbstractDatabaseManager implements CURecor
     }
 
     /**
-     * Update an Emigre
-     *
-     * @param emigre the object emigre
-     * @return EmigreModel
-     * @throws ManagerException
-     */
-    @Override
-    public synchronized EmigreModel updateEmigre(EmigreModel emigre, String userCode) throws ManagerException {
-        if (emigre != null) {
-            openReadableDb();
-            EmigreDao emigreDao = daoSession.getEmigreDao();
-            Emigre em = emigreDao.load(emigre.getEmigreId());
-            //QueryBuilder qb = emigreDao.queryBuilder();
-            //qb.where(EmigreDao.Properties.BatimentId.eq(emigre.getBatimentId())).and(EmigreDao.Properties.LogeId.eq(emigre.getLogeId()), EmigreDao.Properties.MenageId.eq(emigre.getMenageId()), EmigreDao.Properties.EmigreId.eq(emigre.getEmigreId()));
-            //Emigre em = (Emigre) qb.unique();
-            if (em != null) {
-                try {
-                    em = ModelMapper.MapToEmigre(emigre);
-                    em.setEmigreId(emigre.getEmigreId());
-                    emigreDao.update(em);
-                    Log.d(ToastUtility.TAG, "updateEmigre / Emigre Update:" + em.getEmigreId());
-                    daoSession.clear();
-                    return ModelMapper.MapToEmigreModel(em);
-                } catch (Exception ex) {
-                    throw new ManagerException("" + ex.getMessage());
-                }
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public int updateStatutEmigre(long idEmigre, short Statut, boolean isFieldAllFilled, String userCode) throws ManagerException {
-        if (idEmigre > 0 ) {
-            try {
-                openReadableDb();
-                EmigreDao emigreDao = daoSession.getEmigreDao();
-                Emigre obj = emigreDao.load(idEmigre);
-                if (obj != null) {
-                    obj.setStatut(Statut);
-                    obj.setIsFieldAllFilled(isFieldAllFilled);
-                    emigreDao.update(obj);
-                    return 1;
-                }
-            } catch (Exception ex) {
-                throw new ManagerException("" + ex.getMessage());
-            } finally {
-                daoSession.clear();
-            }
-        }
-        return 0;
-    }
-
-    /**
-     * Update a deces.
-     *
-     * @param deces
-     * @return DecesModel
-     * @throws ManagerException
-     */
-    @Override
-    public synchronized DecesModel updateDeces(DecesModel deces, String userCode) throws ManagerException {
-        if (deces != null) {
-            openReadableDb();
-            DecesDao decesDao = daoSession.getDecesDao();
-            Deces dec = decesDao.load(deces.getDecesId());
-            //QueryBuilder qb = decesDao.queryBuilder();
-            //qb.where(DecesDao.Properties.BatimentId.eq(deces.getBatimentId())).and(DecesDao.Properties.LogeId.eq(deces.getLogeId()),
-            //        DecesDao.Properties.MenageId.eq(deces.getMenageId()), DecesDao.Properties.DecesId.eq(deces.getDecesId()));
-            //Deces dec = (Deces) qb.unique();
-            if (dec != null) {
-                try {
-                    dec = ModelMapper.MapToDeces(deces);
-                    dec.setDecesId(deces.getDecesId());
-                    decesDao.update(dec);
-                    Log.d(ToastUtility.TAG, "updateDeces / Update Found:" + dec.getDecesId());
-                    daoSession.clear();
-                    return ModelMapper.MapToDecesModel(dec);
-                } catch (Exception ex) {
-                    throw new ManagerException("" + ex.getMessage());
-                }
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public int updateStatutDeces(long idDeces, short Statut, boolean isFieldAllFilled, String userCode) throws ManagerException {
-        if (idDeces > 0 ) {
-            try {
-                openReadableDb();
-                DecesDao decesDao = daoSession.getDecesDao();
-                Deces obj = decesDao.load(idDeces);
-                if (obj != null) {
-                    obj.setStatut(Statut);
-                    obj.setIsFieldAllFilled(isFieldAllFilled);
-                    decesDao.update(obj);
-                    return 1;
-                }
-            } catch (Exception ex) {
-                throw new ManagerException("" + ex.getMessage());
-            } finally {
-                daoSession.clear();
-            }
-        }
-        return 0;
-    }
-
-    /**
      * Update an individu.
      *
      * @param individu
@@ -882,14 +683,6 @@ public class CURecordMngrImpl extends AbstractDatabaseManager implements CURecor
                 updateMenage((MenageModel) entite, "");
                 return entite;
             }
-            if (entite.getClass() == EmigreModel.class) {
-                updateEmigre((EmigreModel) entite, "");
-                return entite;
-            }
-            if (entite.getClass() == DecesModel.class) {
-                updateDeces((DecesModel) entite, "");
-                return entite;
-            }
             if (entite.getClass() == IndividuModel.class) {
                 updateIndividu((IndividuModel) entite, "");
                 return entite;
@@ -898,39 +691,6 @@ public class CURecordMngrImpl extends AbstractDatabaseManager implements CURecor
             throw new ManagerException("" + ex.getMessage());
         }
         return null;
-    }
-
-    /**
-     * Increment the number of Logement Collectif in a batiment and change the status
-     *
-     * @param batId  the id of a batiment
-     * @param status the status of the batiment
-     * @return BatimentModel
-     * @throws ManagerException
-     */
-    @Override
-    public synchronized BatimentModel incNbLogCAndStatInBat(long batId, int status) throws ManagerException {
-        if (batId != 0) {
-            BatimentModel batimentModel = new BatimentModel();
-            openReadableDb();
-            BatimentDao batimentDao = daoSession.getBatimentDao();
-            Batiment bat = batimentDao.load(batId);
-            //Batiment bat = batimentDao.loadByRowId(batId);
-            if (bat.getBatimentId() != 0) {
-                short inc = (short) (bat.getQb8NbreLogeCollectif() + 1);
-                bat.setQb8NbreLogeCollectif(inc);
-                bat.setStatut((short) status);
-                openWritableDb();
-                batimentDao.update(bat);
-                Log.d(ToastUtility.TAG, "incNbLogIAndStatInBat / LG Ind Inc");
-                daoSession.clear();
-                return ModelMapper.MapToBatimentModel(bat);
-
-            }
-
-        }
-        return null;
-
     }
 
     /**
@@ -949,8 +709,8 @@ public class CURecordMngrImpl extends AbstractDatabaseManager implements CURecor
             Batiment bat = batimentDao.load(batId);
             //Batiment bat = batimentDao.loadByRowId(batId);
             if (bat.getBatimentId() != 0) {
-                int inc = bat.getQb8NbreLogeIndividuel() + 1;
-                bat.setQb8NbreLogeIndividuel((short) inc);
+                int inc = bat.getQb4NbreLogeIndividuel() + 1;
+                bat.setQb4NbreLogeIndividuel((short) inc);
                 bat.setStatut((short) status);
                 openWritableDb();
                 batimentDao.update(bat);
@@ -1004,8 +764,8 @@ public class CURecordMngrImpl extends AbstractDatabaseManager implements CURecor
             LogementDao logementDao = daoSession.getLogementDao();
             Logement logement = logementDao.load(logId);
             //Logement logement = logementDao.loadByRowId(logId);
-            int inc = logement.getQlin9NbreTotalMenage() + 1;
-            logement.setQlin9NbreTotalMenage((short) inc);
+            int inc = logement.getQlin5NbreTotalMenage() + 1;
+            logement.setQlin5NbreTotalMenage((short) inc);
             logement.setStatut((short) status);
             openWritableDb();
             logementDao.update(logement);
@@ -1031,7 +791,7 @@ public class CURecordMngrImpl extends AbstractDatabaseManager implements CURecor
             MenageDao menageDao = daoSession.getMenageDao();
             Menage menage = menageDao.load(menId);
             //Menage menage = menageDao.loadByRowId(menId);
-            menage.setQm11TotalIndividuVivant(menage.getQm11TotalIndividuVivant() + 1);
+            menage.setQm2TotalIndividuVivant((short) (menage.getQm2TotalIndividuVivant() + 1));
             menage.setStatut((short) status);
             openWritableDb();
             menageDao.update(menage);

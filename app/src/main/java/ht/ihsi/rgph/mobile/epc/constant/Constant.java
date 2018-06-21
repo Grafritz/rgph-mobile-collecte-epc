@@ -384,6 +384,10 @@ import android.view.Gravity;
     int R07_Wi_Lekol_Pwofesyonel_7 = 7;
     int R08_Non_Sant_Alfabetizasyon_8 = 8;
     int R09_Non_Okenn_9 = 9;
+    int R01_Avan_Resansman = 1;
+    int R02_Etranje = 2;
+    int R03_Ayisyen_ak_Etranje = 3;
+
     int R10_Pa_Konnen_10 = 10;
 
     int Selibate_01 = 1;

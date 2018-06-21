@@ -83,7 +83,7 @@
         >
 
         <TextView
-            android:id="@+id/tv_GrandTitre"
+            android:id="@+id/tv_grandtitre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorBgSousCategorie"

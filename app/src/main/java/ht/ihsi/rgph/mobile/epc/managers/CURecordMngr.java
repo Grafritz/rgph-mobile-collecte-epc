@@ -60,7 +60,7 @@ public interface CURecordMngr {
      * @return IndividuModel
      * @throws ManagerException
      */
-    IndividuModel saveIndividu(IndividuModel individu, String userCode) throws ManagerException;
+    IndividuModel InsertIndividu(IndividuModel individu, String userCode) throws ManagerException;
     IndividuModel SaveIndividu(Long id, IndividuModel individu, int typeEvenement, String userCode) throws ManagerException;
 
     /**

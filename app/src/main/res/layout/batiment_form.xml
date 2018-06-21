@@ -36,7 +36,7 @@
                     android:visibility="gone"
                     >
                     <TextView
-                        android:id="@+id/tv_GrandTitre"
+                        android:id="@+id/tv_grandtitre"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="LOKALIZASYON"
@@ -542,27 +542,27 @@
                     android:typeface="serif"
 
                     />
+
                 <Button
                     android:id="@+id/btnContinuer"
-                    android:layout_height="wrap_content"
-                    android:text="@string/label_QuestionSuivante"
-                    android:layout_alignParentRight="true"
-                    android:background="@drawable/layout_selector_bleu"
-                    android:paddingLeft="20dp"
-                    android:layout_margin="5dp"
-                    android:paddingRight="20dp"
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="5dp"
                     android:layout_weight="2"
-                    android:textSize="@dimen/TextSize_Button"
+                    android:background="@drawable/layout_selector_vert"
+                    android:clickable="true"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
                     android:shadowColor="#000"
                     android:shadowDx="2"
                     android:shadowDy="2"
                     android:shadowRadius="1.0"
+                    android:text="@string/label_QuestionSuivante"
                     android:textColor="@color/white"
+                    android:textSize="@dimen/TextSize_Button"
                     android:textStyle="bold"
-                    android:typeface="serif"
-                    android:clickable="true"
-                    />
+                    android:typeface="serif" />
             </LinearLayout>
 
         </LinearLayout>

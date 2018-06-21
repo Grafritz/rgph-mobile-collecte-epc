@@ -79,7 +79,7 @@
             android:background="@drawable/border_shadow">
 
             <TextView
-                android:id="@+id/tv_GrandTitre"
+                android:id="@+id/tv_grandtitre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/bootstrap_edittext_disabled"
@@ -427,7 +427,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/label_QuestionPrecedente"
                     android:layout_margin="5dp"
-                    android:background="@drawable/header_bg"
+                    android:background="@drawable/layout_selector_gris"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
                     android:layout_width="0dp"
@@ -436,7 +436,6 @@
                     android:shadowDx="2"
                     android:shadowDy="2"
                     android:shadowRadius="1.0"
-                    android:textColor="@color/theme_primary"
                     android:textSize="22dp"
                     android:textStyle="bold"
                     android:typeface="serif"

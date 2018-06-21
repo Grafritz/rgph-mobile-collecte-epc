@@ -208,7 +208,7 @@ public class CURecordMngrImpl extends AbstractDatabaseManager implements CURecor
      * @throws ManagerException
      */
     @Override
-    public synchronized IndividuModel saveIndividu(IndividuModel individu, String userCode) throws ManagerException {
+    public synchronized IndividuModel InsertIndividu(IndividuModel individu, String userCode) throws ManagerException {
         if (individu != null) {
             IndividuModel individuModel = new IndividuModel();
             openWritableDb();
@@ -216,7 +216,7 @@ public class CURecordMngrImpl extends AbstractDatabaseManager implements CURecor
             //Individu ind = ModelMapper.MapToIndividu(individu);
             long individuId = individuDao.insert(ModelMapper.MapToIndividu(individu));
             if (individuId != 0) {
-                Log.d(ToastUtility.TAG, "saveIndividu / Save Individu Insert Id:" + individuId + " Batiment ID:" + individu.getBatimentId() + " Logement:" + individu.getLogeId() + " SDE:" + individu.getSdeId()+" NOM:"+individu.getQp2BNom());
+                Log.d(ToastUtility.TAG, "InsertIndividu / Save Individu Insert Id:" + individuId + " Batiment ID:" + individu.getBatimentId() + " Logement:" + individu.getLogeId() + " SDE:" + individu.getSdeId()+" NOM:"+individu.getQp2BNom());
                 individuModel = individu;
                 individuModel.setIndividuId(individuId);
                 daoSession.clear();
@@ -231,7 +231,7 @@ public class CURecordMngrImpl extends AbstractDatabaseManager implements CURecor
     @Override
     public IndividuModel SaveIndividu(Long id, IndividuModel individu, int typeEvenement, String userCode) throws ManagerException {
         if( id <= 0 ){
-            return saveIndividu(individu, userCode);
+            return InsertIndividu(individu, userCode);
         }else{
             if( typeEvenement == Constant.ACTION_AFFICHER ) {
                 return individu;
@@ -381,7 +381,7 @@ public class CURecordMngrImpl extends AbstractDatabaseManager implements CURecor
             return entite;
         }
         if (entite.getClass() == IndividuModel.class) {
-            saveIndividu((IndividuModel) entite,"");
+            InsertIndividu((IndividuModel) entite,"");
             return entite;
         }
         if (entite.getClass() == RapportRARModel.class) {
@@ -569,13 +569,9 @@ public class CURecordMngrImpl extends AbstractDatabaseManager implements CURecor
     @Override
     public synchronized IndividuModel updateIndividu(IndividuModel individu, String userCode) throws ManagerException {
         if (individu != null) {
-            //QueryBuilder qb = individuDao.queryBuilder();
-            //qb.where(IndividuDao.Properties.BatimentId.eq(individu.getBatimentId())).and(IndividuDao.Properties.LogeId.eq(individu.getLogeId()),
-            //        IndividuDao.Properties.MenageId.eq(individu.getMenageId()), IndividuDao.Properties.IndividuId.eq(individu.getIndividuId()));
-            //Individu ind = (Individu) qb.unique();
             openReadableDb();
             IndividuDao individuDao = daoSession.getIndividuDao();
-            Log.d(ToastUtility.TAG, "INDIVIDU UPDATING  ID:" + individu.getIndividuId() );
+            //Log.d(ToastUtility.TAG, "INDIVIDU UPDATING  ID:" + individu.getIndividuId() );
             Individu ind  = individuDao.load(individu.getIndividuId());
             if (ind.getIndividuId() != 0) {
                 try {

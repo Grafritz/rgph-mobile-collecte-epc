@@ -166,7 +166,7 @@ public class QuestionnaireLogementActivity extends BaseActivity implements Seria
             tvHeaderTwo.setText( Html.fromHtml(headerFormTwo) );
 
 
-            tv_GrandTitre = (TextView) this.findViewById(R.id.tv_GrandTitre);
+            tv_GrandTitre = (TextView) this.findViewById(R.id.tv_grandtitre);
             tv_DetailsCategorie = (TextView) this.findViewById(R.id.tv_DetailsCategorie);
             tv_SousDetailsCategorie = (TextView) this.findViewById(R.id.tv_SousDetailsCategorie);
             tv_LibeleQuestion = (TextView) this.findViewById(R.id.tv_LibeleQuestion);
@@ -285,12 +285,12 @@ public class QuestionnaireLogementActivity extends BaseActivity implements Seria
             if (QF.getTbl_TableName() == Constant.FORMULAIRE_LOGEMENT_INDIVIDUEL) {
                 if (QF.getNomChamps().equalsIgnoreCase(Constant.CallFormulaireMenage)) {
                     int nbre_TotalMenage = 0;
-                    if (QF.getLogementModel().getQlin5NbreTotalMenage() != null) {
-                        nbre_TotalMenage = QF.getLogementModel().getQlin5NbreTotalMenage();
-                    }
                     if (QF.getLogementModel().getQlin4IsHaveIndividuDepense() != null &&
                             QF.getLogementModel().getQlin4IsHaveIndividuDepense() == Constant.REPONS_NON_2) {
                         nbre_TotalMenage = 1;
+                    }
+                    if (QF.getLogementModel().getQlin5NbreTotalMenage() != null) {
+                        nbre_TotalMenage = QF.getLogementModel().getQlin5NbreTotalMenage();
                     }
                     // On verifie s'il existe de menage dans le logement Individuel
                     if (nbre_TotalMenage > 0) {
@@ -913,12 +913,12 @@ public class QuestionnaireLogementActivity extends BaseActivity implements Seria
                    QF.SaveInfoDefinitivement(cuRecordMngr, false);
 
                    int nbre_TotalMenage = 0;
-                   if( QF.getLogementModel().getQlin5NbreTotalMenage() != null ){
-                       nbre_TotalMenage = QF.getLogementModel().getQlin5NbreTotalMenage();
-                   }
                    if ( QF.getLogementModel().getQlin4IsHaveIndividuDepense() != null &&
                            QF.getLogementModel().getQlin4IsHaveIndividuDepense() == Constant.REPONS_NON_2 ){
                        nbre_TotalMenage = 1;
+                   }
+                   if( QF.getLogementModel().getQlin5NbreTotalMenage() != null ){
+                       nbre_TotalMenage = QF.getLogementModel().getQlin5NbreTotalMenage();
                    }
                    // On verifie s'il existe de menage dans le logement Individuel
                    if( nbre_TotalMenage > 0 ) {
@@ -1396,7 +1396,7 @@ public class QuestionnaireLogementActivity extends BaseActivity implements Seria
             LL_ListeView.setVisibility(View.GONE);
 
             tv_NumeroIndividu = (TextView) dialog.findViewById(R.id.tv_NumeroIndividu);
-            TextView tv_GrandTitreInd = (TextView) dialog.findViewById(R.id.tv_GrandTitre);
+            TextView tv_GrandTitreInd = (TextView) dialog.findViewById(R.id.tv_grandtitre);
 
             // On lui permet de voir la liste des personnes deja enregistrer.
             LL_FormulaireAdd.setVisibility(View.GONE);
@@ -1508,7 +1508,7 @@ public class QuestionnaireLogementActivity extends BaseActivity implements Seria
                 if (QF.getTbl_TableName() == Constant.FORMULAIRE_LOGEMENT_COLLECTIF) {
                     typeLogementSTR = " Kolektif";
                 }
-                TextView tv_GrandTitreRap = (TextView) dialog.findViewById(R.id.tv_GrandTitre);
+                TextView tv_GrandTitreRap = (TextView) dialog.findViewById(R.id.tv_grandtitre);
                 message = "" + "<b>Rapò sou Lojman " + typeLogementSTR + "</b>";
                 if (QF.getLogementModel().getLogeId() != null) {
                     message += "" + "<b> " + QF.getLogementModel().getQlin1NumeroOrdre() + "</b>";

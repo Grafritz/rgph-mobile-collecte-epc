@@ -283,7 +283,7 @@
     <string name="label_WateKoulwaAkkGaleriPaLadann"><i>(Watè, koulwa ak galeri pa ladann)</i></string>
     <string name="label_KantiteChanmPouDomi">Kantite chanm pou dòmi</string>
     <string name="label_menu_Rapport">Rapò</string>
-    <string name="msg_Developpeur">IHSI 2017 | Développer par: Jean Fritz DUVERSEAU</string>
+    <string name="msg_Developpeur">IHSI 2018 | Développer par: Jean Fritz DUVERSEAU</string>
     <string name="label_Konekte">Konekte</string>
     <string name="msg_GPSNotAvailable">Sèvis lokalizasyon an pa aktive...</string>
     <string name="msg_ActiverLeGPS">Aktive GPS la pou ou ka itilize sèvis lokalizasyon an!</string>
@@ -327,6 +327,10 @@
     <string name="label_DateQuitterMenage">Nan ki dat li te pati, kite manaj la?</string>
     <string name="label_DateMouri">Nan ki dat li te mouri?</string>
     <string name="Label_Titre_Form_MounKiPaNanMenajLa">Moun ki pa nan Menaj la ankò après (Moman, Dat resansman an)</string>
+    <string name="msg_Reponse_Ou_Dwe_Antre_Jou_Moun_nan_rive_nan_menaj_la">Ou dwe antre Jou moun nan rive nan menaj la</string>
+    <string name="msg_Reponse_Ou_Dwe_Chwazi_Mwa_Moun_nan_rive_nan_menaj_la">Ou dwe chwazi Mwa moun nan rive nan menaj la</string>
+    <string name="msg_Reponse_Ou_Dwe_Antre_Ane_Moun_nan_rive_nan_menaj_la">Ou dwe antre Ane moun nan rive nan menaj la</string>
+    <string name="msg_Reponse_Ou_Dwe_Chwazi_Nasyonalite_Moun_nan">Ou Dwe Chwazi Nasyonalite Moun nan</string>
 
 
     <array name="bootstrap_dropdown_example_data">

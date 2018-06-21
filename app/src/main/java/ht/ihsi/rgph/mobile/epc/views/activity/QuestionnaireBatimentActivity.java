@@ -173,7 +173,7 @@ public class QuestionnaireBatimentActivity extends BaseActivity implements Seria
             tvHeaderTwo.setText( Html.fromHtml(headerFormTwo) );
 
 
-            tv_GrandTitre = (TextView) this.findViewById(R.id.tv_GrandTitre);
+            tv_GrandTitre = (TextView) this.findViewById(R.id.tv_grandtitre);
             tv_DetailsCategorie = (TextView) this.findViewById(R.id.tv_DetailsCategorie);
             tv_SousDetailsCategorie = (TextView) this.findViewById(R.id.tv_SousDetailsCategorie);
             tv_LibeleQuestion = (TextView) this.findViewById(R.id.tv_LibeleQuestion);
@@ -296,7 +296,7 @@ public class QuestionnaireBatimentActivity extends BaseActivity implements Seria
 
             QF.context = QuestionnaireBatimentActivity.this;
 
-            tv_GrandTitre2 = (TextView) dialog.findViewById(R.id.tv_GrandTitre);
+            tv_GrandTitre2 = (TextView) dialog.findViewById(R.id.tv_grandtitre);
             tv_SousTitre2 = (TextView) dialog.findViewById(R.id.tv_SousTitre);
 
             et_Latitude = (EditText) dialog.findViewById(R.id.et_Latitude);
@@ -1370,13 +1370,13 @@ public class QuestionnaireBatimentActivity extends BaseActivity implements Seria
                             LL_FormulaireAdd.setVisibility(View.VISIBLE);
                             LL_ListeView.setVisibility(View.GONE);
 
-                            et_NonIndividu = (EditText) dialog.findViewById(R.id.et_NonIndividu);
-                            et_SiyatiIndividu = (EditText) dialog.findViewById(R.id.et_SiyatiIndividu);
-                            sp_Sexe = (Spinner) dialog.findViewById(R.id.sp_Sexe);
-                            QF.Load_Sexe(this, sp_Sexe);
+                            et_02NonIndividu = (EditText) dialog.findViewById(R.id.et_02NonIndividu);
+                            et_03SiyatiIndividu = (EditText) dialog.findViewById(R.id.et_03SiyatiIndividu);
+                            sp_04Sexe = (Spinner) dialog.findViewById(R.id.sp_04Sexe);
+                            QF.Load_Sexe(this, sp_04Sexe);
 
-                            sp_RelasyonMounNan = (Spinner) dialog.findViewById(R.id.sp_RelasyonMounNan);
-                            QF.Load_Relation(this, sp_RelasyonMounNan);
+                            sp_09LienDeParente = (Spinner) dialog.findViewById(R.id.sp_09LienDeParente);
+                            QF.Load_Relation(this, sp_09LienDeParente);
 
                             sp_JourIndividu = (Spinner) dialog.findViewById(R.id.sp_JourIndividu);
                             QF.Load_Jour(this, sp_JourIndividu);
@@ -1431,7 +1431,7 @@ public class QuestionnaireBatimentActivity extends BaseActivity implements Seria
 
                             // On recherche les Individus par numero d'ordre et par IdMenage
                             ID_INDIVIDU = 0;
-                            QF.SetValue_Individu(queryRecordMngr, dialog, ID_INDIVIDU, nbrInd_NoOrdre, Nbre_TotalIndividu, tv_NumeroIndividu, et_NonIndividu, et_SiyatiIndividu, sp_Sexe, sp_RelasyonMounNan, sp_MounNanMenajLa);
+                            QF.Get_Set_Individu_IfExist(queryRecordMngr, dialog, ID_INDIVIDU, nbrInd_NoOrdre, Nbre_TotalIndividu, tv_NumeroIndividu, et_02NonIndividu, et_03SiyatiIndividu, sp_04Sexe, sp_09LienDeParente, sp_05HabiteDansMenage);
                         }
 
                         Button btnQuitter = (Button) dialog.findViewById(R.id.btnQuitter);
@@ -1459,25 +1459,25 @@ public class QuestionnaireBatimentActivity extends BaseActivity implements Seria
                                     int NoOrdreIndividu = ((int) Nbre_Individu_DejaSave + 1);
 
                                     if( Nbre_Individu_DejaSave < Nbre_TotalIndividu_Declarer ) {
-                                        IndividuModel indModel = QF.CheckIndividu_ValueBefore_AndSave( queryRecordMngr, cuRecordMngr, ID_INDIVIDU, NoOrdreIndividu, et_NonIndividu, et_SiyatiIndividu, sp_Sexe, sp_RelasyonMounNan, sp_JourIndividu, sp_MoisIndividu, sp_AnneeIndividu, sp_AgeIndividu);
+                                        IndividuModel indModel = QF.CheckIndividu_ValueBefore_AndSave( queryRecordMngr, cuRecordMngr, ID_INDIVIDU, NoOrdreIndividu, et_02NonIndividu, et_03SiyatiIndividu, sp_04Sexe, sp_09LienDeParente, sp_JourIndividu, sp_MoisIndividu, sp_AnneeIndividu, sp_AgeIndividu);
                                         Nbre_Individu_DejaSave = queryRecordMngr.countIndByMenage(QF.getMenageModel().getMenageId());
                                         NoOrdreIndividu = ((int) Nbre_Individu_DejaSave + 1);
                                     }
 
                                     if( Nbre_Individu_DejaSave < Nbre_TotalIndividu_Declarer ){
-                                        et_NonIndividu.setText(null);
-                                        et_SiyatiIndividu.setText(null);
-                                        sp_Sexe.setSelection(0);
-                                        sp_RelasyonMounNan.setSelection(0);
+                                        et_02NonIndividu.setText(null);
+                                        et_03SiyatiIndividu.setText(null);
+                                        sp_04Sexe.setSelection(0);
+                                        sp_09LienDeParente.setSelection(0);
                                         sp_JourIndividu.setSelection(0);
                                         sp_MoisIndividu.setSelection(0);
                                         sp_AnneeIndividu.setSelection(0);
                                         sp_AgeIndividu.setSelection(0);
-                                        et_NonIndividu.requestFocus();
+                                        et_02NonIndividu.requestFocus();
                                         ID_INDIVIDU = 0;
 
                                         // On recherche les Individus par numero d'ordre et par IdMenage
-                                        QF.SetValue_Individu(queryRecordMngr,  dialog, ID_INDIVIDU, NoOrdreIndividu, Nbre_TotalIndividu_Declarer, tv_NumeroIndividu, et_NonIndividu, et_SiyatiIndividu, sp_Sexe, sp_RelasyonMounNan);
+                                        QF.Get_Set_Individu_IfExist(queryRecordMngr,  dialog, ID_INDIVIDU, NoOrdreIndividu, Nbre_TotalIndividu_Declarer, tv_NumeroIndividu, et_02NonIndividu, et_03SiyatiIndividu, sp_04Sexe, sp_09LienDeParente);
 
                                     }else if( Nbre_Individu_DejaSave == Nbre_TotalIndividu_Declarer ){
                                         if (dialog != null) {
@@ -1681,7 +1681,7 @@ public class QuestionnaireBatimentActivity extends BaseActivity implements Seria
             LL_ListeView.setVisibility(View.GONE);
 
             tv_NumeroIndividu = (TextView) dialog.findViewById(R.id.tv_NumeroIndividu);
-            TextView tv_GrandTitreInd = (TextView) dialog.findViewById(R.id.tv_GrandTitre);
+            TextView tv_GrandTitreInd = (TextView) dialog.findViewById(R.id.tv_grandtitre);
 
             // On lui permet de voir la liste des personnes deja enregistrer.
             LL_FormulaireAdd.setVisibility(View.GONE);
@@ -1775,7 +1775,7 @@ public class QuestionnaireBatimentActivity extends BaseActivity implements Seria
 
                 dialog.setTitle("" + this.getString(R.string.Rappot_Agent_Resenceur));
 
-                TextView tv_GrandTitreRap = (TextView) dialog.findViewById(R.id.tv_GrandTitre);
+                TextView tv_GrandTitreRap = (TextView) dialog.findViewById(R.id.tv_grandtitre);
                 message = "" + "<b>Rapò sou Batiman </b>";
                 if (QF.getBatimentModel().getBatimentId() != null && QF.getBatimentModel().getQrec() != null) {
                     message += "" + "<b> " + QF.getBatimentModel().getBatimentId() + " </b>";

@@ -166,7 +166,7 @@ public class QuestionnaireIndividuActivity extends BaseActivity implements Seria
             tvHeaderTwo.setText( Html.fromHtml(headerFormTwo) );
 
 
-            tv_GrandTitre = (TextView) this.findViewById(R.id.tv_GrandTitre);
+            tv_GrandTitre = (TextView) this.findViewById(R.id.tv_grandtitre);
             tv_DetailsCategorie = (TextView) this.findViewById(R.id.tv_DetailsCategorie);
             tv_SousDetailsCategorie = (TextView) this.findViewById(R.id.tv_SousDetailsCategorie);
             tv_LibeleQuestion = (TextView) this.findViewById(R.id.tv_LibeleQuestion);
@@ -1163,7 +1163,7 @@ public class QuestionnaireIndividuActivity extends BaseActivity implements Seria
                     //tv_GrandTitre2.setText(sharedPreferences.getPrenomEtNom());
                 }
 
-                TextView tv_GrandTitreRap = (TextView) dialog.findViewById(R.id.tv_GrandTitre);
+                TextView tv_GrandTitreRap = (TextView) dialog.findViewById(R.id.tv_grandtitre);
                 message = "" + "<b>Rapò sou Moun </b>";
                 if (QF.getLogementModel().getLogeId() != null) {
                     message += "" + "<b> " + QF.getIndividuModel().getQ1NoOrdre() + "</b>";
@@ -1337,7 +1337,7 @@ public class QuestionnaireIndividuActivity extends BaseActivity implements Seria
                         LinearLayout LL_ListeView = (LinearLayout) dialog.findViewById(R.id.LL_ListeView);
                         LinearLayout LL_FormulaireAdd = (LinearLayout) dialog.findViewById(R.id.LL_FormulaireAdd);
                         tv_NumeroIndividu = (TextView) dialog.findViewById(R.id.tv_NumeroIndividu);
-                        TextView tv_GrandTitreInd = (TextView) dialog.findViewById(R.id.tv_GrandTitre);
+                        TextView tv_GrandTitreInd = (TextView) dialog.findViewById(R.id.tv_grandtitre);
 
                         //dialog.setTitle("Ajoute Moun nan menaj sa [" + nbrInd_NoOrdre + " / " + Nbre_TotalIndividu + "]");
                         tv_GrandTitreInd.setText("Moun " + nbrInd_NoOrdre + "");
@@ -1349,29 +1349,29 @@ public class QuestionnaireIndividuActivity extends BaseActivity implements Seria
                         sp_Sexe = (Spinner) dialog.findViewById(R.id.sp_Sexe);
                         QF.Load_Sexe(this, sp_Sexe);
 
-                        sp_RelasyonMounNan = (Spinner) dialog.findViewById(R.id.sp_RelasyonMounNan);
+                        sp_RelasyonMounNan = (Spinner) dialog.findViewById(R.id.sp_09LienDeParente);
                         QF.Load_Relation(this, sp_RelasyonMounNan);
 
-                        tv_RelasyonMounNan = (TextView) dialog.findViewById(R.id.tv_RelasyonMounNan);
-                        tv_DateMounNanfet = (TextView) dialog.findViewById(R.id.tv_DateNaissance);
+                        tv_RelasyonMounNan = (TextView) dialog.findViewById(R.id.tv_09LienDeParente);
+                        tv_DateMounNanfet = (TextView) dialog.findViewById(R.id.tv_07DateNaissance);
                         tv_LageMounNan = (TextView) dialog.findViewById(R.id.tv_LageMounNan);
-                        RL_RelasyonMounNan = (RelativeLayout) dialog.findViewById(R.id.RL_RelasyonMounNan);
-                        LL_DateMounNanfet = (LinearLayout) dialog.findViewById(R.id.LL_DateNaissance);
-                        LL_LajMounNan = (LinearLayout) dialog.findViewById(R.id.LL_LajMounNan);
+                        RL_RelasyonMounNan = (RelativeLayout) dialog.findViewById(R.id.RL_09LienDeParente);
+                        LL_DateMounNanfet = (LinearLayout) dialog.findViewById(R.id.LL_07DateNaissance);
+                        LL_LajMounNan = (LinearLayout) dialog.findViewById(R.id.LL_08LajMounNan);
 
-                        et_JourIndividu = (EditText) dialog.findViewById(R.id.et_DateNaissanceJour);
+                        et_JourIndividu = (EditText) dialog.findViewById(R.id.et_07DateNaissanceJour);
                         //QF.Load_Jour(this, sp_JourIndividu);
 
-                        sp_MoisIndividu = (Spinner) dialog.findViewById(R.id.sp_DateNaissanceMois);
+                        sp_MoisIndividu = (Spinner) dialog.findViewById(R.id.sp_07DateNaissanceMois);
                         QF.Load_Mois(this, sp_MoisIndividu);
 
-                        et_AnneeIndividu = (EditText) dialog.findViewById(R.id.et_DateNaissanceAnnee);
+                        et_AnneeIndividu = (EditText) dialog.findViewById(R.id.et_07DateNaissanceAnnee);
                         //QF.Load_Annee(this, sp_AnneeIndividu);
 
-                        sp_MounNanMenajLa = (Spinner) dialog.findViewById(R.id.sp_MounNanMenajLa);
+                        sp_MounNanMenajLa = (Spinner) dialog.findViewById(R.id.sp_05HabiteDansMenage);
                         QF.Load_MounNanMenajLa(this, sp_MounNanMenajLa);
 
-                        et_AgeIndividu = (EditText) dialog.findViewById(R.id.et_AgeIndividu);
+                        et_AgeIndividu = (EditText) dialog.findViewById(R.id.et_08AgeIndividu);
                         //QF.Load_Age(this, sp_AgeIndividu);
 
                         dialog.setTitle("Kontinye Pran Enfòmasyon sou MOUN #" + nbrInd_NoOrdre);
@@ -1390,7 +1390,7 @@ public class QuestionnaireIndividuActivity extends BaseActivity implements Seria
                         sp_MoisIndividu.setEnabled(false);
                         et_AnneeIndividu.setEnabled(false);
                         et_AgeIndividu.setText(""+Ind.getQ8Age());
-                        //QF.setReponse(et_AgeIndividu, "" + Ind.getQp5bAge(), Constant.CLASSE_KEY_VALUE_MODEL);
+                        //QF.setReponse(et_08AgeIndividu, "" + Ind.getQp5bAge(), Constant.CLASSE_KEY_VALUE_MODEL);
                         et_AgeIndividu.setEnabled(false);
                         QF.setReponse(sp_MounNanMenajLa, "" + Ind.getQ5HabiteDansMenage(), Constant.CLASSE_KEY_VALUE_MODEL);
                         sp_MounNanMenajLa.setEnabled(false);

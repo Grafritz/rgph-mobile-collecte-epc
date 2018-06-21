@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+   <!-- <color name="primaryColor">#3F51B5</color>-->
+    <!--<color name="primaryDarkColor">#303F9F</color>-->
     <color name="colorAccent">#ff8800</color>
     <color name="colorOrange">#ff8800</color>
     <color name="colorGreenDark">#006633</color>
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorRed">#B71C1C</color>
+
+    <color name="primaryColor">#00796b</color>
+    <color name="primaryLightColor">#48a999</color>
+    <color name="primaryDarkColor">#004c40</color>
+    <color name="primaryTextColor">#ffffff</color>
+
+    <color name="secondaryColor">#00685b</color>
+    <color name="secondaryLightColor">#439688</color>
+    <color name="secondaryDarkColor">#003d32</color>
+    <color name="secondaryTextColor">#ffffff</color>
 
     <color name="year">#999999</color>
     <color name="title">#000000</color><!-- #222222 #004B95-->
@@ -19,10 +29,13 @@
     <color name="colorBgGrandTitre">#304FFE</color>
     <color name="colorBgSousCategorie">#8C9EFF</color>
 
-
-    <color name="theme_primary">#2196F3</color>
+    <!--<color name="theme_primary">#2196F3</color>
     <color name="theme_primary_dark">#1976D2</color>
-    <color name="theme_primary_light">#BBDEFB</color>
+    <color name="theme_primary_light">#BBDEFB</color>-->
+
+    <color name="theme_primary_dark">#388E3C</color>
+    <color name="theme_primary">#4CAF50</color>
+    <color name="theme_primary_light">#C8E6C9</color>
 
     <color name="theme_background">#FFFFFF</color>
     <color name="theme_background_inverse">#212121</color>

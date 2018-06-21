@@ -1005,7 +1005,7 @@ public class DisplayListActivity extends BaseActivity {
                 //if (Constant.FORMULAIRE_BATIMENT == QF.getTbl_TableName()){}
             }
 
-            TextView tv_GrandTitreRap = (TextView) dialog.findViewById(R.id.tv_GrandTitre);
+            TextView tv_GrandTitreRap = (TextView) dialog.findViewById(R.id.tv_grandtitre);
             tv_GrandTitreRap.setText(Html.fromHtml("" + title));
 
             //region sp_Rezon

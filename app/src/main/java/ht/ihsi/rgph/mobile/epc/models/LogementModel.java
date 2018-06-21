@@ -275,6 +275,13 @@ public class LogementModel extends BaseModel{
             String QSuivant = "";
 
             //region LOGEMENT INDIVIDUEL
+
+            if (nomChamps.equalsIgnoreCase(LogementDao.Properties.Qlin4IsHaveIndividuDepense.columnName)){
+                if ( logementModel.getQlin4IsHaveIndividuDepense()!=null
+                        && logementModel.getQlin4IsHaveIndividuDepense() == Constant.REPONS_NON_2  ) {
+                    logementModel.setQlin5NbreTotalMenage((short) 1);
+                }
+            }
             //LIN5 - KONBYEN MENAJ* ANTOU KAP VIV NAN LOJMAN SA A SI W METE MENAJ PAW LA LADAN N?
             if (nomChamps.equalsIgnoreCase(LogementDao.Properties.Qlin5NbreTotalMenage.columnName)) {
             /* Si LIN4 = 1,  alors LIN5≥ 2

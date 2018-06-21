@@ -900,6 +900,7 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
             ex.printStackTrace();
         }
     }//
+
     public void Load_PossibiliteReponse(Context context, FormDataMngr formDataMngr, Spinner spinner) {
         try {
             List<QuestionReponseModel> reponseModelList1 = formDataMngr.searchQuestionReponseByQuestion(this.getCodeQuestion());
@@ -911,6 +912,26 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
             // Creating adapter for spinner
             ArrayAdapter<QuestionReponseModel> dataAdapter = new ArrayAdapter<QuestionReponseModel>(context, R.layout.simple_list_item_1, reponseModelList);
             //ArrayAdapter<QuestionReponseModel> dataAdapter = new ArrayAdapter<QuestionReponseModel>(context, android.R.layout.simple_list_item_1, reponseModelList);
+            // Drop down layout style - list view with radio button
+            dataAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
+            // attaching data adapter to spinner
+            spinner.setAdapter(dataAdapter);
+        } catch (Exception ex) {
+            ToastUtility.LogCat("Exception-Load_PossibiliteReponse(): getMessage: ", ex);
+            Tools.AlertDialogMsg(context, ex.getMessage(), "E");
+            ex.printStackTrace();
+        }
+    }//
+    public void Load_PossibiliteReponse(Context context, FormDataMngr formDataMngr, Spinner spinner, String CodeQuestion) {
+        try {
+            List<QuestionReponseModel> reponseModelList1 = formDataMngr.searchQuestionReponseByQuestion(CodeQuestion);
+            ArrayList<QuestionReponseModel> reponseModelList = new ArrayList<QuestionReponseModel>();
+            reponseModelList.add(new QuestionReponseModel("", "", "", "- " + context.getResources().getString(R.string.label_Chwazi_yon_Repons).toString() + " - "));
+            if (reponseModelList1 != null) {
+                reponseModelList.addAll(reponseModelList1);
+            }
+            // Creating adapter for spinner
+            ArrayAdapter<QuestionReponseModel> dataAdapter = new ArrayAdapter<QuestionReponseModel>(context, R.layout.simple_list_item_1, reponseModelList);
             // Drop down layout style - list view with radio button
             dataAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
             // attaching data adapter to spinner
@@ -1700,147 +1721,230 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
         }
     }//
 
-    public IndividuModel CheckIndividu_ValueBefore_AndSave(QueryRecordMngr queryRecordMngr, CURecordMngr cuRecordMngr, long ID_INDIVIDU, int nbrInd_NoOrdre, EditText et_NonIndividu, EditText et_SiyatiIndividu,
-                                                           Spinner sp_Sexe, Spinner sp_RelasyonMounNan
-            , EditText et_JourIndividu, Spinner sp_MoisIndividu, EditText et_AnneeIndividu, EditText et_AgeIndividu, Spinner sp_MounNanMenajLa) throws TextEmptyException {
+    public IndividuModel CheckIndividu_ValueBefore_AndSave(QueryRecordMngr queryRecordMngr, CURecordMngr cuRecordMngr
+            , long ID_INDIVIDU, int nbrInd_NoOrdre
+            , EditText et_02NonIndividu, EditText et_03SiyatiIndividu
+            ,Spinner sp_04Sexe, Spinner sp_05HabiteDansMenage
+            ,Spinner sp_06MembreMenageDepuisQuand, EditText et_06DateMembreMenageJour ,Spinner sp_06DateMembreMenageMois, EditText et_06DateMembreMenageAnnee
+            ,EditText et_07DateNaissanceJour, Spinner sp_07DateNaissanceMois, EditText et_07DateNaissanceAnnee
+            ,EditText et_08AgeIndividu ,Spinner sp_09LienDeParente
+            ,Spinner sp_10Nationalite, Spinner sp_10PaysNationalite, Spinner sp_11NiveauEtude, Spinner sp_12StatutMatrimonial) throws TextEmptyException {
         try {
             String message = "";
             String ValReponse = "";
+            QuestionReponseModel questionReponseModel = null;
             KeyValueModel keyValueModel = null;
-            et_NonIndividu.setError(null);
-            String NonIndividu = et_NonIndividu.getText().toString();
+            et_02NonIndividu.setError(null);
+            String _02NonIndividu = et_02NonIndividu.getText().toString();
 
-            et_SiyatiIndividu.setError(null);
-            String SiyatiIndividu = et_SiyatiIndividu.getText().toString();
+            et_03SiyatiIndividu.setError(null);
+            String _03SiyatiIndividu = et_03SiyatiIndividu.getText().toString();
 
-            if (TextUtils.isEmpty(NonIndividu)) {
+            if (TextUtils.isEmpty(_02NonIndividu)) {
                 message = context.getString(R.string.msg_Reponse_Ou_Dwe_Ekri_Non_Moun_Nan);
-                et_NonIndividu.setError(message);
-                et_NonIndividu.requestFocus();
+                et_02NonIndividu.setError(message);
+                et_02NonIndividu.requestFocus();
                 throw new TextEmptyException(message);
             }
 
-            if (TextUtils.isEmpty(SiyatiIndividu)) {
+            if (TextUtils.isEmpty(_03SiyatiIndividu)) {
                 message = context.getString(R.string.msg_Reponse_Ou_Dwe_Ekri_Siyati_Moun_Nan);
-                et_SiyatiIndividu.setError(message);
-                et_SiyatiIndividu.requestFocus();
+                et_03SiyatiIndividu.setError(message);
+                et_03SiyatiIndividu.requestFocus();
                 throw new TextEmptyException(message);
             }
-            keyValueModel = ((KeyValueModel) sp_Sexe.getSelectedItem());
-            String sexe = keyValueModel.getKey();
-            if (TextUtils.isEmpty(sexe)) {
+            questionReponseModel = ((QuestionReponseModel) sp_04Sexe.getSelectedItem());
+            String _04Sexe = questionReponseModel.getCodeReponse();
+            if (TextUtils.isEmpty(_04Sexe)) {
                 throw new TextEmptyException(context.getString(R.string.msg_Reponse_Ou_Dwe_Chwazi_Seks_Moun_nan));
             }
-            keyValueModel = ((KeyValueModel) sp_MounNanMenajLa.getSelectedItem());
-            String mounNanMenajLa = keyValueModel.getKey();
-            if (TextUtils.isEmpty(mounNanMenajLa)) {
+            questionReponseModel = ((QuestionReponseModel) sp_05HabiteDansMenage.getSelectedItem());
+            String _05HabiteDansMenage = questionReponseModel.getCodeReponse();
+            if (TextUtils.isEmpty(_05HabiteDansMenage)) {
                 throw new TextEmptyException(context.getString(R.string.msg_Reponse_Ou_Dwe_Di_Si_MounNanMenajLa));
             }
 
             String _message = "";
-            String relasyonMounNan = "0";
-            String jour = "0";
-            String mois = "0";
-            String annee ="0";
-            String ageIndividu ="000";
-            /*if( mounNanMenajLa.equalsIgnoreCase(""+ Constant.WI_LI_TOUJOU_LA_MEN_LI_OKIPE_NAN_ZAFE_MANJE_A_PA_02) ||
-                    mounNanMenajLa.equalsIgnoreCase(""+ Constant.WI_MEN_LI_DEPLASE_POU_PLIS_PASE_6_MWA_04) ||
-                    mounNanMenajLa.equalsIgnoreCase(""+ Constant.LI_FENK_VINI_LI_GEN_LI_GEN_ENTANSYON_RETE_LA_08) ||
-                    mounNanMenajLa.equalsIgnoreCase(""+ Constant.LI_NAN_KAY_LA_POU_MWENS_KE_6_MWA_09) ){*/
+            String _09LienDeParente = "0", _06MembreMenageDepuisQuand = "0";
+            String jourMembreMenage = "0", jourNais = "0";
+            String moisMembreMenage = "0", moisNais = "0";
+            String anneeMembreMenage = "0", anneeNais = "0";
+            String _08AgeIndividu = "000";
+            String _10Nationalite = "0", _10PaysNationalite = "", _11NiveauEtude = "0", _12StatutMatrimonial = "0";
             Boolean isMounNanMenajLa = false;
 
-                if (mounNanMenajLa.equalsIgnoreCase("1") ||
-                        mounNanMenajLa.equalsIgnoreCase("3") ||
-                        mounNanMenajLa.equalsIgnoreCase("5") ||
-                        mounNanMenajLa.equalsIgnoreCase("6") ||
-                        mounNanMenajLa.equalsIgnoreCase("7")) {
-                    isMounNanMenajLa = true;
-                }
+            Calendar mydate = new GregorianCalendar();
+            int anneeSysteme = mydate.get(Calendar.YEAR);
 
-            if( nbrInd_NoOrdre <= 1 && !isMounNanMenajLa ) { // si se premye moun nan...
+            if (!questionReponseModel.getQSuivant().equalsIgnoreCase(Constant.FIN)) {
+                isMounNanMenajLa = true;
+            }
+
+            if (nbrInd_NoOrdre <= 1 && !isMounNanMenajLa) { // si se premye moun nan...
                 throw new TextEmptyException("Moun sa a se chèf menaj la pou li ye. \n Ou dwe antre Chèf menaj la avan!");
             }
-            if( isMounNanMenajLa ) {
-
-                keyValueModel = ((KeyValueModel) sp_RelasyonMounNan.getSelectedItem());
-                relasyonMounNan = keyValueModel.getKey();
-                if (TextUtils.isEmpty(relasyonMounNan)) {
-                    throw new TextEmptyException(context.getString(R.string.msg_Reponse_Ou_Dwe_Chwazi_Relasyon_Moun_nan));
+            if (isMounNanMenajLa) {
+                //region [ _06MembreMenageDepuisQuand ]
+                questionReponseModel = ((QuestionReponseModel) sp_06MembreMenageDepuisQuand.getSelectedItem());
+                _06MembreMenageDepuisQuand = questionReponseModel.getCodeReponse();
+                if (TextUtils.isEmpty(_06MembreMenageDepuisQuand)) {
+                    message = context.getString(R.string.msg_Reponse_Ou_Dwe);
+                    message += " " + context.getString(R.string.label_MembreMenageDepuisQuand);
+                    throw new TextEmptyException(message);
                 }
+                //Si repons moun nan pa egal a 1 [ MembreMenageDepuisQuand != 1 ]
+                if (!_06MembreMenageDepuisQuand.equalsIgnoreCase("" + Constant.R01_Avan_Resansman)) {
+                    et_06DateMembreMenageJour.setError(null);
+                    et_06DateMembreMenageAnnee.setError(null);
+                    jourMembreMenage = et_06DateMembreMenageJour.getText().toString();
+                    KeyValueModel keyValueMoisMembreMenage = ((KeyValueModel) sp_06DateMembreMenageMois.getSelectedItem());
+                    moisMembreMenage = ((KeyValueModel) sp_06DateMembreMenageMois.getSelectedItem()).getKey();
+                    anneeMembreMenage = et_06DateMembreMenageAnnee.getText().toString();
 
-                if (nbrInd_NoOrdre <= 1 && Short.parseShort(relasyonMounNan) != Constant.Chef_menaj_la_01) { // si se premye moun nan...
-                    throw new TextEmptyException("Moun sa a se chèf menaj la pou li ye. \n Ou dwe antre Chèf menaj la avan!");
-                }
-                if (nbrInd_NoOrdre >= 2 && Short.parseShort(relasyonMounNan) == Constant.Chef_menaj_la_01) {
-                    throw new TextEmptyException("Ou paka chwazi moun sa tou pou chèf menaj la. \n Ou te antre Chèf menaj la avan!");
-                }
-                Calendar mydate = new GregorianCalendar();
-                int anneeSysteme = mydate.get(Calendar.YEAR);
+                    if (TextUtils.isEmpty(jourMembreMenage)) {
+                        _message = context.getString(R.string.msg_Reponse_Ou_Dwe_Antre_Jou_Moun_nan_rive_nan_menaj_la);
+                        et_06DateMembreMenageJour.setError(_message);
+                        et_06DateMembreMenageJour.requestFocus();
+                        throw new TextEmptyException(_message);
 
-                et_JourIndividu.setError(null);
-                et_AnneeIndividu.setError(null);
-                et_AgeIndividu.setError(null);
-                jour = et_JourIndividu.getText().toString();
-                KeyValueModel keyValueMois = ((KeyValueModel) sp_MoisIndividu.getSelectedItem());
-                mois = ((KeyValueModel) sp_MoisIndividu.getSelectedItem()).getKey();
-                annee = et_AnneeIndividu.getText().toString();
+                    } else if (TextUtils.isEmpty(moisMembreMenage)) {
+                        throw new TextEmptyException(context.getString(R.string.msg_Reponse_Ou_Dwe_Chwazi_Mwa_Moun_nan_rive_nan_menaj_la));
 
-                if (TextUtils.isEmpty(jour)) {
+                    } else if (TextUtils.isEmpty(anneeMembreMenage)) {
+                        _message = context.getString(R.string.msg_Reponse_Ou_Dwe_Antre_Ane_Moun_nan_rive_nan_menaj_la);
+                        et_06DateMembreMenageAnnee.setError(_message);
+                        et_06DateMembreMenageAnnee.requestFocus();
+                        throw new TextEmptyException(_message);
+                    }
+
+                    Tools.Check_DataField_CHIFFRE_LETTRE(context, Constant.CHIFFRE, et_06DateMembreMenageJour);
+                    Tools.Check_DataField_CHIFFRE_LETTRE(context, Constant.CHIFFRE, et_06DateMembreMenageAnnee);
+                    Tools.Check_Constraint_NombreCaratereMinimal(Constant.CHIFFRE, 4, et_06DateMembreMenageAnnee);
+
+                    int jourInt = Integer.parseInt(jourMembreMenage);
+                    if (jourInt <= 0) { // Si moun nan konn jou a li tape 00
+                        _message = context.getString(R.string.msg_Reponse_Ou_Dwe_Antre_JouA);
+                        et_06DateMembreMenageJour.setError(_message);
+                        et_06DateMembreMenageJour.requestFocus();
+                        et_06DateMembreMenageJour.selectAll();
+                        throw new TextEmptyException(_message);
+                    }
+
+                    if (keyValueMoisMembreMenage != null) { // Verifye si jou a pa 99 sa vle di si moun nan konn jou a
+                        if (!jourMembreMenage.equalsIgnoreCase("99")) { // Si moun nan konn jou a
+                            if (jourInt > Integer.parseInt(keyValueMoisMembreMenage.getOtherValue())) { // Verifye si jou a pi gran ke limit jou pou mwa a
+                                _message = context.getString(R.string.msg_Reponse_Jou_ou_antre_a_Pa_bon);
+                                et_06DateMembreMenageJour.setError(_message);
+                                et_06DateMembreMenageJour.requestFocus();
+                                et_06DateMembreMenageJour.selectAll();
+                                //IsAgeIndividuVerify=true;
+                                throw new TextEmptyException(_message);
+
+                            } else if (jourInt == 29) { // Verifye si jou a pi gran ke limit jou pou mwa a
+                                if (moisMembreMenage.equalsIgnoreCase("" + Constant.MOIS_FEVRIER_02)) { // Si mwa a se Fevriye=2
+                                    if (!anneeMembreMenage.equalsIgnoreCase("" + Constant.ANNEE_PA_KONNEN_9999ANS)) { // Si moun nan konn ane , si li pa 9999
+                                        if (!Tools.IsLeapYear(Integer.parseInt(anneeMembreMenage))) { // Verifye si se yon ane bisextil
+                                            _message = context.getString(R.string.msg_Reponse_Jou_ou_antre_a_Pa_bon);
+                                            et_06DateMembreMenageJour.setError(_message);
+                                            et_06DateMembreMenageJour.requestFocus();
+                                            et_06DateMembreMenageJour.selectAll();
+                                            //IsAgeIndividuVerify=true;
+                                            throw new TextEmptyException(_message);
+                                        } else {
+                                            if (anneeSysteme < Integer.parseInt(anneeMembreMenage)) {
+                                                _message = "Atansyon! Atansyon!...\n Dat sistèm nan se :" + Tools.getDateString_ddMMyyyy_HHmmss_a()
+                                                        + "\nOu paka antre [ " + anneeMembreMenage + " ] pou ane moun nan te rive nan menaj la.";
+                                                et_06DateMembreMenageAnnee.setError(_message);
+                                                et_06DateMembreMenageAnnee.requestFocus();
+                                                et_06DateMembreMenageAnnee.selectAll();
+                                                //IsAgeIndividuVerify = true;
+                                                throw new TextEmptyException(_message);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (!anneeMembreMenage.equalsIgnoreCase("" + Constant.ANNEE_PA_KONNEN_9999ANS)) { // Si moun nan konn ane , si li pa 9999
+                        if (anneeSysteme < Integer.parseInt(anneeMembreMenage)) {
+                            _message = "Atansyon! \nDat sistèm nan se :" + Tools.getDateString_ddMMyyyy_HHmmss_a()
+                                    + "\nOu paka antre [ " + anneeMembreMenage + " ] pou ane moun nan te rive nan menaj la.";
+                            et_06DateMembreMenageAnnee.setError(_message);
+                            et_06DateMembreMenageAnnee.requestFocus();
+                            et_06DateMembreMenageAnnee.selectAll();
+                            //IsAgeIndividuVerify=true;
+                            throw new TextEmptyException(_message);
+                        }
+                    }
+                }//
+                //endregion
+
+                //region [ _07DateNaissance ]
+                et_07DateNaissanceJour.setError(null);
+                et_07DateNaissanceAnnee.setError(null);
+                et_08AgeIndividu.setError(null);
+                jourNais = et_07DateNaissanceJour.getText().toString();
+                KeyValueModel keyValueMoisNais = ((KeyValueModel) sp_07DateNaissanceMois.getSelectedItem());
+                moisNais = ((KeyValueModel) sp_07DateNaissanceMois.getSelectedItem()).getKey();
+                anneeNais = et_07DateNaissanceAnnee.getText().toString();
+
+                if (TextUtils.isEmpty(jourNais)) {
                     _message = context.getString(R.string.msg_Reponse_Ou_Dwe_Antre_JouFet_Moun_nan);
-                    et_JourIndividu.setError(_message);
-                    et_JourIndividu.requestFocus();
+                    et_07DateNaissanceJour.setError(_message);
+                    et_07DateNaissanceJour.requestFocus();
                     throw new TextEmptyException(_message);
 
-                } else if (TextUtils.isEmpty(mois)) {
+                } else if (TextUtils.isEmpty(moisNais)) {
                     throw new TextEmptyException(context.getString(R.string.msg_Reponse_Ou_Dwe_Chwazi_MwaFet_Moun_nan));
 
-                } else if (TextUtils.isEmpty(annee)) {
+                } else if (TextUtils.isEmpty(anneeNais)) {
                     _message = context.getString(R.string.msg_Reponse_Ou_Dwe_Antre_AneFet_Moun_nan);
-                    et_AnneeIndividu.setError(_message);
-                    et_AnneeIndividu.requestFocus();
+                    et_07DateNaissanceAnnee.setError(_message);
+                    et_07DateNaissanceAnnee.requestFocus();
                     throw new TextEmptyException(_message);
                 }
 
-                Tools.Check_DataField_CHIFFRE_LETTRE(context, Constant.CHIFFRE, et_JourIndividu);
-                Tools.Check_DataField_CHIFFRE_LETTRE(context, Constant.CHIFFRE, et_AnneeIndividu);
-                Tools.Check_Constraint_NombreCaratereMinimal(Constant.CHIFFRE, 4, et_AnneeIndividu);
+                Tools.Check_DataField_CHIFFRE_LETTRE(context, Constant.CHIFFRE, et_07DateNaissanceJour);
+                Tools.Check_DataField_CHIFFRE_LETTRE(context, Constant.CHIFFRE, et_07DateNaissanceAnnee);
+                Tools.Check_Constraint_NombreCaratereMinimal(Constant.CHIFFRE, 4, et_07DateNaissanceAnnee);
 
-                int jourInt = Integer.parseInt(jour);
+                int jourInt = Integer.parseInt(jourNais);
                 if (jourInt <= 0) { // Si moun nan konn jou a li tape 00
                     _message = context.getString(R.string.msg_Reponse_Ou_Dwe_Antre_JouA);
-                    et_JourIndividu.setError(_message);
-                    et_JourIndividu.requestFocus();
-                    et_JourIndividu.selectAll();
+                    et_07DateNaissanceJour.setError(_message);
+                    et_07DateNaissanceJour.requestFocus();
+                    et_07DateNaissanceJour.selectAll();
                     throw new TextEmptyException(_message);
                 }
 
-                if (keyValueMois != null) { // Verifye si jou a pa 99 sa vle di si moun nan konn jou a
-                    if (!jour.equalsIgnoreCase("99")) { // Si moun nan konn jou a
-                        if (jourInt > Integer.parseInt(keyValueMois.getOtherValue())) { // Verifye si jou a pi gran ke limit jou pou mwa a
+                if (keyValueMoisNais != null) { // Verifye si jou a pa 99 sa vle di si moun nan konn jou a
+                    if (!jourNais.equalsIgnoreCase("99")) { // Si moun nan konn jou a
+                        if (jourInt > Integer.parseInt(keyValueMoisNais.getOtherValue())) { // Verifye si jou a pi gran ke limit jou pou mwa a
                             _message = context.getString(R.string.msg_Reponse_Jou_ou_antre_a_Pa_bon);
-                            et_JourIndividu.setError(_message);
-                            et_JourIndividu.requestFocus();
-                            et_JourIndividu.selectAll();
-                            IsAgeIndividuVerify=true;
+                            et_07DateNaissanceJour.setError(_message);
+                            et_07DateNaissanceJour.requestFocus();
+                            et_07DateNaissanceJour.selectAll();
+                            IsAgeIndividuVerify = true;
                             throw new TextEmptyException(_message);
 
                         } else if (jourInt == 29) { // Verifye si jou a pi gran ke limit jou pou mwa a
-                            if (mois.equalsIgnoreCase( "" + Constant.MOIS_FEVRIER_02 )) { // Si mwa a se Fevriye=2
-                                if (!annee.equalsIgnoreCase( "" + Constant.ANNEE_PA_KONNEN_9999ANS )) { // Si moun nan konn ane , si li pa 9999
-                                    if( !Tools.IsLeapYear( Integer.parseInt(annee) ) ) { // Verifye si se yon ane bisextil
+                            if (moisNais.equalsIgnoreCase("" + Constant.MOIS_FEVRIER_02)) { // Si mwa a se Fevriye=2
+                                if (!anneeNais.equalsIgnoreCase("" + Constant.ANNEE_PA_KONNEN_9999ANS)) { // Si moun nan konn ane , si li pa 9999
+                                    if (!Tools.IsLeapYear(Integer.parseInt(anneeNais))) { // Verifye si se yon ane bisextil
                                         _message = context.getString(R.string.msg_Reponse_Jou_ou_antre_a_Pa_bon);
-                                        et_JourIndividu.setError(_message);
-                                        et_JourIndividu.requestFocus();
-                                        et_JourIndividu.selectAll();
-                                        IsAgeIndividuVerify=true;
+                                        et_07DateNaissanceJour.setError(_message);
+                                        et_07DateNaissanceJour.requestFocus();
+                                        et_07DateNaissanceJour.selectAll();
+                                        IsAgeIndividuVerify = true;
                                         throw new TextEmptyException(_message);
-                                    }else{
-                                        if(  anneeSysteme < Integer.parseInt(annee) ) {
+                                    } else {
+                                        if (anneeSysteme < Integer.parseInt(anneeNais)) {
                                             _message = "Atansyon! Atansyon!...\n Dat sistèm nan se :" + Tools.getDateString_ddMMyyyy_HHmmss_a()
-                                                    + "\nOu paka antre [ " + annee + " ] pou ane moun nan fèt.";
-                                            et_AnneeIndividu.setError(_message);
-                                            et_AnneeIndividu.requestFocus();
-                                            et_AnneeIndividu.selectAll();
+                                                    + "\nOu paka antre [ " + anneeNais + " ] pou ane moun nan fèt.";
+                                            et_07DateNaissanceAnnee.setError(_message);
+                                            et_07DateNaissanceAnnee.requestFocus();
+                                            et_07DateNaissanceAnnee.selectAll();
                                             IsAgeIndividuVerify = true;
                                             throw new TextEmptyException(_message);
                                         }
@@ -1850,58 +1954,119 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
                         }
                     }
                 }
-                if (!annee.equalsIgnoreCase( "" + Constant.ANNEE_PA_KONNEN_9999ANS )) { // Si moun nan konn ane , si li pa 9999
-                    if (anneeSysteme < Integer.parseInt(annee)) {
+                if (!anneeNais.equalsIgnoreCase("" + Constant.ANNEE_PA_KONNEN_9999ANS)) { // Si moun nan konn ane , si li pa 9999
+                    if (anneeSysteme < Integer.parseInt(anneeNais)) {
                         _message = "Atansyon! \nDat sistèm nan se :" + Tools.getDateString_ddMMyyyy_HHmmss_a()
-                                + "\nOu paka antre [ " + annee + " ] pou ane  [ " + NonIndividu + " " + SiyatiIndividu.toUpperCase() + " ] fèt.";
-                        et_AnneeIndividu.setError(_message);
-                        et_AnneeIndividu.requestFocus();
-                        et_AnneeIndividu.selectAll();
-                        IsAgeIndividuVerify=true;
+                                + "\nOu paka antre [ " + anneeNais + " ] pou ane  [ " + _02NonIndividu + " " + _03SiyatiIndividu.toUpperCase() + " ] fèt.";
+                        et_07DateNaissanceAnnee.setError(_message);
+                        et_07DateNaissanceAnnee.requestFocus();
+                        et_07DateNaissanceAnnee.selectAll();
+                        IsAgeIndividuVerify = true;
                         throw new TextEmptyException(_message);
                     }
                 }
+                //endregion
 
-                ageIndividu = et_AgeIndividu.getText().toString();
-                if (TextUtils.isEmpty(ageIndividu)) {
+                //region [ _08AgeIndividu ]
+                _08AgeIndividu = et_08AgeIndividu.getText().toString();
+                if (TextUtils.isEmpty(_08AgeIndividu)) {
                     message = context.getString(R.string.msg_Reponse_Ou_Dwe_Antre_Laj_Moun_nan);
-                    et_AgeIndividu.setError(message);
-                    et_AgeIndividu.requestFocus();
-                    et_AgeIndividu.selectAll();
-                    IsAgeIndividuVerify=true;
+                    et_08AgeIndividu.setError(message);
+                    et_08AgeIndividu.requestFocus();
+                    et_08AgeIndividu.selectAll();
+                    IsAgeIndividuVerify = true;
                     throw new TextEmptyException(message);
                 }
 
-                Tools.Check_DataField_CHIFFRE_LETTRE(context, Constant.CHIFFRE, et_AgeIndividu);
-                //Tools.Check_Constraint_NombreCaratereMinimal(Constant.CHIFFRE, 3, et_AgeIndividu);
+                Tools.Check_DataField_CHIFFRE_LETTRE(context, Constant.CHIFFRE, et_08AgeIndividu);
 
-                if (!ageIndividu.equalsIgnoreCase("999")) { // Si moun nan konn ane , si li pa 9999
-                    if ( Integer.parseInt(ageIndividu) > Constant.AGE_120ANS ) {
+                if (!_08AgeIndividu.equalsIgnoreCase("999")) { // Si moun nan konn ane , si li pa 9999
+                    if (Integer.parseInt(_08AgeIndividu) > Constant.AGE_120ANS) {
                         _message = "Atansyon verifye laj ou antre a. Limit laj la dwe " + Constant.AGE_120ANS + " ane ";
-                        et_AgeIndividu.setError(_message);
-                        et_AgeIndividu.requestFocus();
-                        et_AgeIndividu.selectAll();
-                        IsAgeIndividuVerify=true;
+                        et_08AgeIndividu.setError(_message);
+                        et_08AgeIndividu.requestFocus();
+                        et_08AgeIndividu.selectAll();
+                        IsAgeIndividuVerify = true;
                         throw new TextEmptyException(_message);
                     }
 
-                    int ageDiff = ( anneeSysteme - Integer.parseInt(annee) );
-                    if (!annee.equalsIgnoreCase("9999")) { // Si moun nan konn ane , si li pa 9999
-                        if( IsAgeIndividuVerify ) {
-                            if (Integer.parseInt(ageIndividu) != ageDiff) {
-                                _message = "Atansyon verifye laj ou antre a ak dènye lè ["+ NonIndividu +"] te fete anivèsè li.";
-                                _message += "\n\nPaske pou systèm nan moun sa ta dwe genyen [ " + ageDiff + " ] ane si li fèt nan ane [ " + annee + " ]";
-                                _message +=  "\n\nTandiske w antre [ " + ageIndividu + " ] ane pou moun sa a.";
+                    int ageDiff = (anneeSysteme - Integer.parseInt(anneeNais));
+                    if (!anneeNais.equalsIgnoreCase("9999")) { // Si moun nan konn ane , si li pa 9999
+                        if (IsAgeIndividuVerify) {
+                            if (Integer.parseInt(_08AgeIndividu) != ageDiff) {
+                                _message = "Atansyon verifye laj ou antre a ak dènye lè [" + _02NonIndividu + "] te fete anivèsè li.";
+                                _message += "\n\nPaske pou systèm nan moun sa ta dwe genyen [ " + ageDiff + " ] ane si li fèt nan ane [ " + anneeNais + " ]";
+                                _message += "\n\nTandiske w antre [ " + _08AgeIndividu + " ] ane pou moun sa a.";
                                 _message += "\n\nSi w vle kite l konsa retouche bouton [Kontinye] a.";
-                                et_AgeIndividu.setError(_message);
-                                et_AgeIndividu.requestFocus();
-                                et_AgeIndividu.selectAll();
+                                et_08AgeIndividu.setError(_message);
+                                et_08AgeIndividu.requestFocus();
+                                et_08AgeIndividu.selectAll();
                                 IsAgeIndividuVerify = false;
                                 throw new TextEmptyException(_message);
                             }
                         }
                     }
                 }
+                //endregion
+
+                //region [ _09LienDeParente ]
+                questionReponseModel = ((QuestionReponseModel) sp_09LienDeParente.getSelectedItem());
+                _09LienDeParente = questionReponseModel.getCodeReponse();
+                if (TextUtils.isEmpty(_09LienDeParente)) {
+                    throw new TextEmptyException(context.getString(R.string.msg_Reponse_Ou_Dwe_Chwazi_Relasyon_Moun_nan));
+                }
+
+                if (nbrInd_NoOrdre <= 1 && Short.parseShort(_09LienDeParente) != Constant.Chef_menaj_la_01) { // si se premye moun nan...
+                    throw new TextEmptyException("Moun sa a se chèf menaj la pou li ye. \n Ou dwe antre Chèf menaj la avan!");
+                }
+                if (nbrInd_NoOrdre >= 2 && Short.parseShort(_09LienDeParente) == Constant.Chef_menaj_la_01) {
+                    throw new TextEmptyException("Ou paka chwazi moun sa tou pou chèf menaj la. \n Ou te antre Chèf menaj la avan!");
+                }
+                //endregion
+
+                //region [ _10Nationalite ]
+                questionReponseModel = ((QuestionReponseModel) sp_10Nationalite.getSelectedItem());
+                _10Nationalite = questionReponseModel.getCodeReponse();
+                if (TextUtils.isEmpty(_10Nationalite)) {
+                    throw new TextEmptyException(context.getString(R.string.msg_Reponse_Ou_Dwe_Chwazi_Nasyonalite_Moun_nan));
+                }
+
+                if (_10Nationalite.equalsIgnoreCase("" + Constant.R02_Etranje)
+                        || _10Nationalite.equalsIgnoreCase("" + Constant.R03_Ayisyen_ak_Etranje)) {
+                    keyValueModel = ((KeyValueModel) sp_10PaysNationalite.getSelectedItem());
+                    _10PaysNationalite = keyValueModel.getKey();
+                    if (TextUtils.isEmpty(_10PaysNationalite)) {
+                        message = context.getString(R.string.msg_Reponse_Ou_Dwe);
+                        message += " di " + context.getString(R.string.label_PaysNationalite);
+                        throw new TextEmptyException(message);
+                    }
+                }
+                //endregion
+
+                //region [ _11NiveauEtude ]
+                int age = Integer.parseInt(_08AgeIndividu);
+                if (age >= Constant.AGE_03ANS) {
+                    questionReponseModel = ((QuestionReponseModel) sp_11NiveauEtude.getSelectedItem());
+                    _11NiveauEtude = questionReponseModel.getCodeReponse();
+                    if (TextUtils.isEmpty(_11NiveauEtude)) {
+                        message = context.getString(R.string.msg_Reponse_Ou_Dwe);
+                        message += " di " + context.getString(R.string.label_NiveauEtude);
+                        throw new TextEmptyException(message);
+                    }
+                }
+                //endregion
+
+                //region [ _12StatutMatrimonial ]
+                if (age >= Constant.AGE_10ANS) {
+                    questionReponseModel = ((QuestionReponseModel) sp_12StatutMatrimonial.getSelectedItem());
+                    _12StatutMatrimonial = questionReponseModel.getCodeReponse();
+                    if (TextUtils.isEmpty(_12StatutMatrimonial)) {
+                        message = context.getString(R.string.msg_Reponse_Ou_Dwe_Chwazi);
+                        message += " " + context.getString(R.string.label_StatutMatrimonial);
+                        throw new TextEmptyException(message);
+                    }
+                }
+                //endregion
             }//
 
             // --- Contrainte lieu au document de specification --- //
@@ -1911,36 +2076,35 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
             individuModel.setBatimentId(this.menageModel.getBatimentId());
             individuModel.setLogeId(this.menageModel.getLogeId());
             individuModel.setMenageId(this.menageModel.getMenageId());
-            individuModel.setQp2APrenom(NonIndividu);
-            individuModel.setQp2BNom(SiyatiIndividu);
-            individuModel.setQ9LienDeParente(Short.valueOf(relasyonMounNan));
-            individuModel.setQ5HabiteDansMenage(Short.valueOf(mounNanMenajLa));
-            individuModel.setQp4Sexe(Short.valueOf(sexe));
-            individuModel.setQ8Age(Short.valueOf(ageIndividu));
-            individuModel.setQ7DateNaissanceJour(Short.valueOf(jour));
-            individuModel.setQ7DateNaissanceMois(Short.valueOf(mois));
-            individuModel.setQ7DateNaissanceAnnee(Integer.valueOf(annee));
-            individuModel.setDateDebutCollecte(this.dateDebutCollecte);
+            individuModel.setQp2APrenom(_02NonIndividu);
+            individuModel.setQp2BNom(_03SiyatiIndividu);
+            individuModel.setQp4Sexe(Short.valueOf(_04Sexe));
+            individuModel.setQ5HabiteDansMenage(Short.valueOf(_05HabiteDansMenage));
+            individuModel.setQ6aMembreMenageDepuisQuand(Short.valueOf(_06MembreMenageDepuisQuand));
+            individuModel.setQ6bDateMembreMenageJour(Short.valueOf(jourMembreMenage));
+            individuModel.setQ6bDateMembreMenageMois(Short.valueOf(moisMembreMenage));
+            individuModel.setQ6bDateMembreMenageAnnee(Integer.valueOf(anneeMembreMenage));
 
-            if (individuModel.getQ5HabiteDansMenage() == 2 ||
-                    individuModel.getQ5HabiteDansMenage() == 4 ||
-                    individuModel.getQ5HabiteDansMenage() == 8 ||
-                    individuModel.getQ5HabiteDansMenage() == 9) {
-                individuModel.setIsFieldAllFilled(true);
-                individuModel.setStatut((short) Constant.STATUT_MODULE_KI_FINI_1);
-                if ( (short) nbrInd_NoOrdre <= 1 ) {
-                    throw new TextEmptyException(context.getString(R.string.msg_Reponse_Ou_Dwe_Chwazi_Laj_Moun_nan));
-                }
-            } else {
-                individuModel.setIsFieldAllFilled(false);
-                individuModel.setStatut((short) Constant.STATUT_MODULE_KI_PA_FINI_3);
-            }
+            individuModel.setQ7DateNaissanceJour(Short.valueOf(jourNais));
+            individuModel.setQ7DateNaissanceMois(Short.valueOf(moisNais));
+            individuModel.setQ7DateNaissanceAnnee(Integer.valueOf(anneeNais));
+
+            individuModel.setQ8Age(Short.valueOf(_08AgeIndividu));
+            individuModel.setQ9LienDeParente(Short.valueOf(_09LienDeParente));
+            individuModel.setQp10Nationalite(Short.valueOf(_10Nationalite));
+            individuModel.setQp10PaysNationalite(_10PaysNationalite);
+            individuModel.setQ11NiveauEtude(Short.valueOf(_11NiveauEtude));
+            individuModel.setQ12StatutMatrimonial(Short.valueOf(_12StatutMatrimonial));
+
+            individuModel.setDateDebutCollecte(this.dateDebutCollecte);
+            individuModel.setIsFieldAllFilled(true);
+            individuModel.setStatut((short) Constant.STATUT_MODULE_KI_FINI_1);
 
             IndividuModel.queryRecordMngr = queryRecordMngr;
             IndividuModel.Check_ContrainteSautChampsValeur(individuModel);
             SaveInfoIndividu(cuRecordMngr, ID_INDIVIDU, individuModel);
 
-            IsAgeIndividuVerify=true;
+            IsAgeIndividuVerify = true;
             return individuModel;
         } catch (Exception ex) {
             ToastUtility.LogCat("Exception-CheckIndividu_ValueBefore(): getMessage: ", ex);
@@ -2951,26 +3115,120 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
     }
     //endregion
 
+    //region CHECK VALUES
+    public void VisibleOrHide_06DateMembreMenage(String CodeReponse
+            ,TextView tv_06DateMembreMenage, LinearLayout LL_06DateMembreMenage) {
+        try{
+            tv_06DateMembreMenage.setVisibility(View.GONE);
+            LL_06DateMembreMenage.setVisibility(View.GONE);
+            if ( CodeReponse != null) {
+                if ( !CodeReponse.trim().equalsIgnoreCase("" + Constant.R01_Avan_Resansman) ) {
+                    tv_06DateMembreMenage.setVisibility(View.VISIBLE);
+                    LL_06DateMembreMenage.setVisibility(View.VISIBLE);
+                }
+            }
+        }catch (Exception ex) {
+            ToastUtility.LogCat("Exception:VisibleOrHide_06DateMembreMenage", ex);
+        }
+    }
+    public void VisibleOrHide_11NiveauEtude_12StatutMatrimonial(int age
+            ,TextView tv_11NiveauEtude, RelativeLayout RL_11NiveauEtude
+            ,TextView tv_12StatutMatrimonial, RelativeLayout RL_12StatutMatrimonial) {
+        try{
+            tv_11NiveauEtude.setVisibility(View.GONE);
+            RL_11NiveauEtude.setVisibility(View.GONE);
+
+            tv_12StatutMatrimonial.setVisibility(View.GONE);
+            RL_12StatutMatrimonial.setVisibility(View.GONE);
+
+            if( age >= Constant.AGE_03ANS ){
+                tv_11NiveauEtude.setVisibility(View.VISIBLE);
+                RL_11NiveauEtude.setVisibility(View.VISIBLE);
+            }
+            if( age > Constant.AGE_10ANS ){
+                tv_12StatutMatrimonial.setVisibility(View.VISIBLE);
+                RL_12StatutMatrimonial.setVisibility(View.VISIBLE);
+            }
+        }catch (Exception ex) {
+            ToastUtility.LogCat("Exception:VisibleOrHide_06DateMembreMenage", ex);
+        }
+    }
+    //endregion
+
     //region SET VALUES
-    public void SetValue_Individu(QueryRecordMngr queryRecordMngr,   Dialog dialog, long ID_INDIVIDU, int nbrInd_NoOrdre, int Nbre_TotalIndividu, TextView tv_NumeroIndividu
-            , EditText et_NonIndividu, EditText et_SiyatiIndividu, Spinner sp_Sexe, Spinner sp_RelasyonMounNan, Spinner sp_MounNanMenajLa) {
+    public IndividuModel Get_Set_Individu_IfExist(QueryRecordMngr queryRecordMngr, Dialog dialog, long ID_INDIVIDU
+            , int nbrInd_NoOrdre, int Nbre_TotalIndividu, TextView tv_NumeroIndividu
+            , EditText et_02NonIndividu, EditText et_03SiyatiIndividu, Spinner sp_04Sexe
+            , Spinner sp_05HabiteDansMenage , Spinner sp_06MembreMenageDepuisQuand
+            , TextView tv_06DateMembreMenage, LinearLayout LL_06DateMembreMenage
+            , EditText et_06DateMembreMenageJour, Spinner sp_06DateMembreMenageMois, EditText et_06DateMembreMenageAnnee
+            , EditText et_07DateNaissanceJour, Spinner sp_07DateNaissanceMois, EditText et_07DateNaissanceAnnee
+            , EditText et_08AgeIndividu, TextView tv_11NiveauEtude, RelativeLayout RL_11NiveauEtude , TextView tv_12StatutMatrimonial, RelativeLayout RL_12StatutMatrimonial
+            , Spinner sp_09LienDeParente , Spinner sp_10Nationalite, TextView tv_10PaysNationalite, RelativeLayout RL_10PaysNationalite
+            , Spinner sp_10PaysNationalite, Spinner sp_11NiveauEtude, Spinner sp_12StatutMatrimonial) {
+
         IndividuModel.queryRecordMngr = queryRecordMngr;
         IndividuModel individuModel = IndividuModel.GetIndividu(nbrInd_NoOrdre, this.getMenageModel().getMenageId());
         if( individuModel != null ){
             ID_INDIVIDU = individuModel.getIndividuId();
             nbrInd_NoOrdre = individuModel.getQ1NoOrdre();
-            dialog.setTitle("Modifye Moun sa nan menaj sa [" + nbrInd_NoOrdre + " / " + Nbre_TotalIndividu + "]");
-            tv_NumeroIndividu.setText("Moun " + individuModel.getQ1NoOrdre());
+            //dialog.setTitle("Modifye Moun sa nan menaj sa [" + nbrInd_NoOrdre + " / " + Nbre_TotalIndividu + "]");
+            tv_NumeroIndividu.setText(" Modifye [ Moun #" + individuModel.getQ1NoOrdre() +" ]");
 
-            et_NonIndividu.setText("" + individuModel.getQp2APrenom());
-            et_SiyatiIndividu.setText("" + individuModel.getQp2BNom());
-            this.setReponse(sp_Sexe, "" + individuModel.getQp4Sexe(), Constant.CLASSE_KEY_VALUE_MODEL);
-            this.setReponse(sp_RelasyonMounNan, "" + individuModel.getQ9LienDeParente(), Constant.CLASSE_KEY_VALUE_MODEL);
-            this.setReponse(sp_MounNanMenajLa, "" + individuModel.getQ5HabiteDansMenage(), Constant.CLASSE_KEY_VALUE_MODEL);
+            et_02NonIndividu.setText("" + individuModel.getQp2APrenom());
+            et_03SiyatiIndividu.setText("" + individuModel.getQp2BNom());
+
+            this.setReponse(sp_04Sexe, "" + individuModel.getQp4Sexe(), Constant.CLASSE_REPONSE_MODEL);
+            this.setReponse(sp_05HabiteDansMenage, "" + individuModel.getQ5HabiteDansMenage(), Constant.CLASSE_REPONSE_MODEL);
+
+            this.setReponse(sp_06MembreMenageDepuisQuand, "" + individuModel.getQ6aMembreMenageDepuisQuand(), Constant.CLASSE_REPONSE_MODEL);
+            this.VisibleOrHide_06DateMembreMenage( ""+individuModel.getQ6aMembreMenageDepuisQuand(), tv_06DateMembreMenage, LL_06DateMembreMenage);
+            this.setReponseDate(et_06DateMembreMenageJour, sp_06DateMembreMenageMois,et_06DateMembreMenageAnnee, "" + individuModel.getQ6bJourMoisAnneeDateMembreMenage());
+
+            this.setReponseDate(et_07DateNaissanceJour, sp_07DateNaissanceMois,et_07DateNaissanceAnnee, "" + individuModel.getQ7JourMoisAnneeDateNaissance());
+
+            et_08AgeIndividu.setText("" + individuModel.getQ8Age());
+            this.VisibleOrHide_11NiveauEtude_12StatutMatrimonial( individuModel.getQ8Age()
+                    , tv_11NiveauEtude, RL_11NiveauEtude, tv_12StatutMatrimonial, RL_12StatutMatrimonial );
+
+            this.setReponse(sp_09LienDeParente, "" + individuModel.getQ9LienDeParente(), Constant.CLASSE_REPONSE_MODEL);
+            this.setReponse(sp_10Nationalite, "" + individuModel.getQp10Nationalite(), Constant.CLASSE_REPONSE_MODEL);
+            if( !individuModel.getQp10PaysNationalite().trim().equalsIgnoreCase("" + Constant.R01_Avan_Resansman)) {
+                tv_10PaysNationalite.setVisibility(View.VISIBLE);
+                RL_10PaysNationalite.setVisibility(View.VISIBLE);
+            }
+            this.setReponse(sp_10Nationalite, "" + individuModel.getQp10Nationalite(), Constant.CLASSE_REPONSE_MODEL);
+            this.setReponse(sp_10PaysNationalite, "" + individuModel.getQp10PaysNationalite(), Constant.CLASSE_KEY_VALUE_MODEL);
+            this.setReponse(sp_11NiveauEtude, "" + individuModel.getQ11NiveauEtude(), Constant.CLASSE_REPONSE_MODEL);
+            this.setReponse(sp_12StatutMatrimonial, "" + individuModel.getQ12StatutMatrimonial(), Constant.CLASSE_REPONSE_MODEL);
+
         }else{
-            dialog.setTitle("Ajoute Moun sa nan menaj sa [" + nbrInd_NoOrdre + " / " + Nbre_TotalIndividu + "]");
-            tv_NumeroIndividu.setText("Moun " + nbrInd_NoOrdre);
+            //dialog.setTitle("Ajoute Moun sa nan menaj sa [" + nbrInd_NoOrdre + " / " + Nbre_TotalIndividu + "]");
+            tv_NumeroIndividu.setText("Moun #" + nbrInd_NoOrdre);
+            et_02NonIndividu.setText(null);
+            et_03SiyatiIndividu.setText(null);
+            sp_04Sexe.setSelection(0);
+            sp_05HabiteDansMenage.setSelection(0);
+
+            sp_06MembreMenageDepuisQuand.setSelection(0);
+            et_06DateMembreMenageJour.setText("");
+            sp_06DateMembreMenageMois.setSelection(0);
+            et_06DateMembreMenageAnnee.setText("");
+
+            et_07DateNaissanceJour.setText("");
+            sp_07DateNaissanceMois.setSelection(0);
+            et_07DateNaissanceAnnee.setText("");
+
+            et_08AgeIndividu.setText("");
+            sp_09LienDeParente.setSelection(0);
+            sp_10Nationalite.setSelection(0);
+            sp_10PaysNationalite.setSelection(0);
+            sp_11NiveauEtude.setSelection(0);
+            sp_12StatutMatrimonial.setSelection(0);
+
+            et_02NonIndividu.requestFocus();
         }
+        return individuModel;
     }
 
     public void SetValueTempInfoQuestion(int typeDeSauvegarde, String codeQuestion, String CodeReponse, String NomChamps)  {
@@ -3948,7 +4206,7 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
                 {
                     statutFormulaire = "" +  Constant.STATUT_MODULE_KI_FINI_1;
                 }
-                SetKey_Value("dateFinCollecte", "" + dateFinCollecte);
+                SetKey_Value( MenageDao.Properties.DateFinCollecte.columnName, "" + dateFinCollecte);
             }else{
                 statutFormulaire = "" + Constant.STATUT_MODULE_KI_PA_FINI_3;
             }
@@ -3957,9 +4215,9 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
                 //    isFillAllField = Constant.OUI_1;
                 //}
             }
-            this.SetKey_Value("statut", statutFormulaire);
-            this.SetKey_Value("isFieldAllFilled", isFillAllField);
-            this.SetKey_Value("dureeSaisie", "" + getDureeSaisie(dateFinCollecte));
+            this.SetKey_Value( MenageDao.Properties.Statut.columnName, statutFormulaire);
+            this.SetKey_Value( MenageDao.Properties.IsFieldAllFilled.columnName, isFillAllField);
+            this.SetKey_Value( MenageDao.Properties.DureeSaisie.columnName, "" + getDureeSaisie(dateFinCollecte));
 
             //if (tbl_TableName == Constant.FORMULAIRE_DECES || tbl_TableName == Constant.FORMULAIRE_EMIGRE){
             //    SetKey_Value("dateFinCollecte", "" + dateFinCollecte);

@@ -36,7 +36,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tv_GrandTitre"
+                        android:id="@+id/tv_grandtitre"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="0dp"
@@ -170,7 +170,7 @@
                             android:text="@string/label_Eske_se_isit_la_toujou_rete" />
 
                         <RelativeLayout
-                            android:id="@+id/RL_MounNanMenajLa"
+                            android:id="@+id/RL_05HabiteDansMenage"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/my_shape"
@@ -178,7 +178,7 @@
                             android:orientation="horizontal">
 
                             <Spinner
-                                android:id="@+id/sp_MounNanMenajLa"
+                                android:id="@+id/sp_05HabiteDansMenage"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
@@ -205,15 +205,21 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/LL_AllField_Suite"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
                     <TextView
-                        android:id="@+id/tv_MembreMenageDepuisQuand"
+                        android:id="@+id/tv_06MembreMenageDepuisQuand"
                         style="@style/LabelStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/label_MembreMenageDepuisQuand" />
 
                     <RelativeLayout
-                        android:id="@+id/RL_MembreMenageDepuisQuand"
+                        android:id="@+id/RL_06MembreMenageDepuisQuand"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/my_shape"
@@ -221,7 +227,7 @@
                         android:orientation="horizontal">
 
                         <Spinner
-                            android:id="@+id/sp_MembreMenageDepuisQuand"
+                            android:id="@+id/sp_06MembreMenageDepuisQuand"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
@@ -246,21 +252,22 @@
                     </RelativeLayout>
 
                     <TextView
-                        android:id="@+id/tv_DateMembreMenage"
+                        android:id="@+id/tv_06DateMembreMenage"
                         style="@style/LabelStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/label_DateMembreMenage" />
 
                     <LinearLayout
-                        android:id="@+id/LL_DateMembreMenage"
+                        android:id="@+id/LL_06DateMembreMenage"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="0dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        >
 
                         <EditText
-                            android:id="@+id/et_DateMembreMenageJour"
+                            android:id="@+id/et_06DateMembreMenageJour"
                             android:hint="@string/label_Jour"
                             android:layout_width="300dp"
                             android:layout_height="wrap_content"
@@ -287,7 +294,7 @@
                             android:orientation="horizontal">
 
                             <Spinner
-                                android:id="@+id/sp_DateMembreMenageMois"
+                                android:id="@+id/sp_06DateMembreMenageMois"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
@@ -308,7 +315,7 @@
                         </RelativeLayout>
 
                         <EditText
-                            android:id="@+id/et_DateMembreMenageAnnee"
+                            android:id="@+id/et_06DateMembreMenageAnnee"
                             android:hint="@string/label_Annee"
                             android:layout_width="300dp"
                             android:layout_height="wrap_content"
@@ -328,21 +335,21 @@
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/tv_DateNaissance"
+                        android:id="@+id/tv_07DateNaissance"
                         style="@style/LabelStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/label_DateMounNanfet" />
 
                     <LinearLayout
-                        android:id="@+id/LL_DateNaissance"
+                        android:id="@+id/LL_07DateNaissance"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="0dp"
                         android:orientation="horizontal">
 
                         <EditText
-                            android:id="@+id/et_DateNaissanceJour"
+                            android:id="@+id/et_07DateNaissanceJour"
                             android:layout_width="300dp"
                             android:layout_height="wrap_content"
                             android:layout_alignParentTop="true"
@@ -368,7 +375,7 @@
                             android:orientation="horizontal">
 
                             <Spinner
-                                android:id="@+id/sp_DateNaissanceMois"
+                                android:id="@+id/sp_07DateNaissanceMois"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
@@ -389,7 +396,7 @@
                         </RelativeLayout>
 
                         <EditText
-                            android:id="@+id/et_DateNaissanceAnnee"
+                            android:id="@+id/et_07DateNaissanceAnnee"
                             android:hint="@string/label_Annee"
                             android:layout_width="300dp"
                             android:layout_height="wrap_content"
@@ -409,7 +416,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/LL_LajMounNan"
+                        android:id="@+id/LL_08LajMounNan"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="0dp"
@@ -423,7 +430,7 @@
                             android:text="@string/label_LageMounNan" />
 
                         <EditText
-                            android:id="@+id/et_AgeIndividu"
+                            android:id="@+id/et_08AgeIndividu"
                             android:hint="@string/label_LageMounNan"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -440,14 +447,14 @@
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/tv_RelasyonMounNan"
+                        android:id="@+id/tv_09LienDeParente"
                         style="@style/LabelStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/label_RelasyonMounNan" />
 
                     <RelativeLayout
-                        android:id="@+id/RL_RelasyonMounNan"
+                        android:id="@+id/RL_09LienDeParente"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/my_shape"
@@ -455,7 +462,7 @@
                         android:orientation="horizontal">
 
                         <Spinner
-                            android:id="@+id/sp_RelasyonMounNan"
+                            android:id="@+id/sp_09LienDeParente"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
@@ -480,14 +487,14 @@
                     </RelativeLayout>
 
                     <TextView
-                        android:id="@+id/tv_Nationalite"
+                        android:id="@+id/tv_10Nationalite"
                         style="@style/LabelStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/label_Nationalite" />
 
                     <RelativeLayout
-                        android:id="@+id/RL_Nationalite"
+                        android:id="@+id/RL_10Nationalite"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/my_shape"
@@ -495,7 +502,7 @@
                         android:orientation="horizontal">
 
                         <Spinner
-                            android:id="@+id/sp_Nationalite"
+                            android:id="@+id/sp_10Nationalite"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
@@ -520,14 +527,14 @@
                     </RelativeLayout>
 
                     <TextView
-                        android:id="@+id/tv_PaysNationalite"
+                        android:id="@+id/tv_10PaysNationalite"
                         style="@style/LabelStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/label_PaysNationalite" />
 
                     <RelativeLayout
-                        android:id="@+id/RL_PaysNationalite"
+                        android:id="@+id/RL_10PaysNationalite"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/my_shape"
@@ -535,7 +542,7 @@
                         android:orientation="horizontal">
 
                         <Spinner
-                            android:id="@+id/sp_PaysNationalite"
+                            android:id="@+id/sp_10PaysNationalite"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
@@ -560,14 +567,14 @@
                     </RelativeLayout>
 
                     <TextView
-                        android:id="@+id/tv_NiveauEtude"
+                        android:id="@+id/tv_11NiveauEtude"
                         style="@style/LabelStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/label_NiveauEtude" />
 
                     <RelativeLayout
-                        android:id="@+id/RL_NiveauEtude"
+                        android:id="@+id/RL_11NiveauEtude"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/my_shape"
@@ -575,7 +582,7 @@
                         android:orientation="horizontal">
 
                         <Spinner
-                            android:id="@+id/sp_NiveauEtude"
+                            android:id="@+id/sp_11NiveauEtude"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
@@ -600,14 +607,14 @@
                     </RelativeLayout>
 
                     <TextView
-                        android:id="@+id/tv_StatutMatrimonial"
+                        android:id="@+id/tv_12StatutMatrimonial"
                         style="@style/LabelStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/label_StatutMatrimonial" />
 
                     <RelativeLayout
-                        android:id="@+id/RL_StatutMatrimonial"
+                        android:id="@+id/RL_12StatutMatrimonial"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/my_shape"
@@ -615,7 +622,7 @@
                         android:orientation="horizontal">
 
                         <Spinner
-                            android:id="@+id/sp_StatutMatrimonial"
+                            android:id="@+id/sp_12StatutMatrimonial"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
@@ -638,6 +645,7 @@
                             android:layout_gravity="center"
                             android:src="@mipmap/my_drop" />
                     </RelativeLayout>
+                </LinearLayout>
 
                 </LinearLayout>
             </LinearLayout>
@@ -664,35 +672,10 @@
                     android:shadowRadius="1.0"
                     android:text="@string/label_QuestionPrecedente"
                     android:textColor="@color/colorBlack"
-                    android:textSize="22dp"
+                    android:textSize="20dp"
                     android:typeface="serif"
 
                     />
-                <!--<Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/label_Quit"
-                    android:id="@+id/btnQuitter"
-                    android:background="@color/bootstrap_brand_secondary_border"
-                    android:paddingLeft="@dimen/activity_10dp"
-                    android:paddingRight="@dimen/activity_10dp"
-                    android:layout_marginRight="@dimen/activity_10dp"
-                    />-->
-
-                <!--<Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/label_QuestionSuivante"
-                    android:id="@+id/btnContinuer"
-                    android:background="@color/bootstrap_brand_primary"
-                    android:textColor="@color/colorWhite"
-                    android:paddingLeft="@dimen/activity_10dp"
-                    android:paddingRight="@dimen/activity_10dp"
-                    android:layout_marginLeft="@dimen/activity_10dp"
-                    android:layout_marginRight="@dimen/activity_10dp"
-                    />-->
                 <Button
                     android:id="@+id/btnContinuer"
                     android:layout_width="0dp"
@@ -700,7 +683,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/layout_selector_bleu"
+                    android:background="@drawable/layout_selector_vert"
                     android:clickable="true"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
@@ -710,7 +693,7 @@
                     android:shadowRadius="1.0"
                     android:text="@string/label_QuestionSuivante"
                     android:textColor="@color/white"
-                    android:textSize="22dp"
+                    android:textSize="20dp"
                     android:textStyle="bold"
                     android:typeface="serif"
 

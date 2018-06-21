@@ -8,7 +8,10 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.text.Html;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.ContextMenu;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -113,33 +116,33 @@ public class QuestionnaireMenageActivity extends BaseActivity implements Seriali
 
     private RowDataListModel rowDada;
     public Dialog dialog;
-    EditText et_NonIndividu;
-    EditText et_SiyatiIndividu;
-    Spinner sp_Sexe;
-    Spinner sp_RelasyonMounNan;
-    TextView tv_NumeroIndividu;
+    EditText et_02NonIndividu;
+    EditText et_03SiyatiIndividu;
+    Spinner sp_04Sexe;
+    Spinner sp_09LienDeParente;
+    TextView tv_NumeroIndividu, tv_06MembreMenageDepuisQuand;
     long ID_INDIVIDU = 0;
     private List<RowDataListModel> targetList = new ArrayList<RowDataListModel>();
     private RecyclerView recyclerView;
     private DisplayListAdapter mAdapter;
     EditText et_JourIndividu;
     Spinner sp_MoisIndividu;
-    EditText et_AnneeIndividu;
-    EditText et_AgeIndividu;
-    Spinner sp_MounNanMenajLa;
+    EditText et_06DateMembreMenageJour, et_AnneeIndividu, et_08AgeIndividu, et_06DateMembreMenageAnnee;
+    Spinner sp_06MembreMenageDepuisQuand, sp_06DateMembreMenageMois, sp_07DateNaissanceMois, sp_05HabiteDansMenage;
+    Spinner sp_11NiveauEtude, sp_12StatutMatrimonial, sp_10Nationalite, sp_10PaysNationalite;
     ScrollView scrollView2;
 
-    TextView tv_RelasyonMounNan;
-    TextView tv_DateMounNanfet;
-    TextView tv_LageMounNan;
-    RelativeLayout RL_RelasyonMounNan;
-    LinearLayout LL_DateMounNanfet;
-    LinearLayout LL_LajMounNan;
+    TextView tv_06DateMembreMenage, tv_07DateNaissance, tv_09LienDeParente, tv_DateMounNanfet;
+    TextView tv_10Nationalite, tv_11NiveauEtude, tv_10PaysNationalite, tv_12StatutMatrimonial;
+    EditText et_07DateNaissanceJour, et_07DateNaissanceAnnee;
+    RelativeLayout RL_06MembreMenageDepuisQuand, RL_09LienDeParente, RL_11NiveauEtude, RL_12StatutMatrimonial;
+    RelativeLayout RL_10Nationalite, RL_10PaysNationalite;
+    LinearLayout LL_AllField_Suite, LL_06DateMembreMenage, LL_07DateNaissance, LL_DateMounNanfet, LL_08LajMounNan;
 
 
     ContrainteReponse contrainte = new ContrainteReponse();
     public static List<TempInfoQuestion> tempInfoQuestions;
-
+    public int NoOrdreIndividu = 1;
     //region LogementModel PopUp
     LogementModel logementM_OBJ = null;
     MenageModel menageM_OBJ = null;
@@ -186,7 +189,7 @@ public class QuestionnaireMenageActivity extends BaseActivity implements Seriali
             tvHeaderTwo.setText( Html.fromHtml(headerFormTwo) );
 
 
-            tv_GrandTitre = (TextView) this.findViewById(R.id.tv_GrandTitre);
+            tv_GrandTitre = (TextView) this.findViewById(R.id.tv_grandtitre);
             tv_DetailsCategorie = (TextView) this.findViewById(R.id.tv_DetailsCategorie);
             tv_SousDetailsCategorie = (TextView) this.findViewById(R.id.tv_SousDetailsCategorie);
             tv_LibeleQuestion = (TextView) this.findViewById(R.id.tv_LibeleQuestion);
@@ -284,125 +287,6 @@ public class QuestionnaireMenageActivity extends BaseActivity implements Seriali
     //region EVENTS CONTROLS
     @Override
     protected void onResume() {
-        try {
-            if (QF.getTbl_TableName() == Constant.FORMULAIRE_MENAGE) {
-                if (QF.getNomChamps().equalsIgnoreCase(Constant.CallFormulaireEmigre)) {
-                    int NbreTotalEmigre = 0;
-                    /*if (QF.getMenageModel().getQn1Emigration() != null && QF.getMenageModel().getQn1Emigration() == Constant.REPONS_WI_1) {
-                        if ( QF.getMenageModel().getQn1NbreEmigre() != null && QF.getMenageModel().getQn1NbreEmigre() > 0) {
-                            NbreTotalEmigre = QF.getMenageModel().getQn1NbreEmigre();
-                        }
-                    }*/
-                    // On verifie s'il existe d'emigrer dans le menage
-                    /*if (NbreTotalEmigre > 0) {
-                        long nbreTotalEmigre_DejaSave = queryRecordMngr.countEmigrerByMenage(QF.getMenageModel().getMenageId());
-                        if (CounterForEmigre >= NbreTotalEmigre) {
-                            ShowListInformations(Constant.FORMULAIRE_EMIGRE, (int) nbreTotalEmigre_DejaSave);
-                        } else {
-                            // On selectionne l'emigrer qui n'a pas un statut FINI
-                            EmigreModel emigM = null;
-                            do {
-                                CounterForEmigre += 1;
-                                emigM = queryRecordMngr.searchEmigre_ByNoOrdre_ByIdMenage(CounterForEmigre,  QF.getMenageModel().getMenageId() );
-                            }
-                            while (emigM == null && CounterForEmigre < NbreTotalEmigre && nbreTotalEmigre_DejaSave > 0);
-
-                            if (emigM != null) {
-                                this.SetFieldEmigre(emigM, NbreTotalEmigre, Constant.ACTION_MOFIDIER);
-
-                                message = "Kontinye pran enfòmasyon sou Emigre " + emigM.getQn1numeroOrdre() + " a";
-                                ToastUtility.ToastMessage(this, message, Constant.GravityCenter);
-                            }else{
-                                if (NbreTotalEmigre == nbreTotalEmigre_DejaSave) {
-                                    // On Passe a la question suivante
-                                    Suivant_Click();
-                                } else {
-                                    Precedent_Click(QF);
-                                }
-                            }
-                        }
-
-                    }*/
-                /*} else if (QF.getNomChamps().equalsIgnoreCase(Constant.CallFormulaireDeces)) {
-                    int NbreTotalDeces = 0;
-                    if ( QF.getMenageModel().getQd1Deces() != null && QF.getMenageModel().getQd1Deces() == Constant.REPONS_WI_1) {
-                        if ( QF.getMenageModel().getQd1NbreDecede() != null && QF.getMenageModel().getQd1NbreDecede() > 0) {
-                            NbreTotalDeces = QF.getMenageModel().getQd1NbreDecede();
-                        }
-                    }
-                    // On verifie s'il existe de logement Collectif
-                    if (NbreTotalDeces > 0) {
-                        long nbreTotalDeces_DejaSave = queryRecordMngr.countDecesByMenage(QF.getMenageModel().getMenageId());
-                        int nbr_ou_NoOrdre = ((int) nbreTotalDeces_DejaSave + 1);
-                        if (CounterForDeces >= NbreTotalDeces) {
-                            ShowListInformations(Constant.FORMULAIRE_DECES, (int) nbreTotalDeces_DejaSave);
-                        } else {
-                            // On selectionne le deces qui n'a pas un statut FINI
-                            DecesModel decesM = null;
-                            do {
-                                CounterForDeces += 1;
-                                decesM = queryRecordMngr.searchDeces_ByNoOrdre_ByIdMenage(CounterForDeces,  QF.getMenageModel().getMenageId() );
-                            }
-                            while (decesM == null && CounterForDeces < NbreTotalDeces && nbreTotalDeces_DejaSave > 0);
-
-                            if (decesM != null) {
-                                this.SetFieldDeces(decesM, NbreTotalDeces, Constant.ACTION_MOFIDIER);
-
-                                message = "Kontinye pran enfòmasyon sou Moun mouri " + decesM.getQd2NoOrdre() + " a";
-                                ToastUtility.ToastMessage(this, message, Constant.GravityCenter);
-                            }else{
-                                if (NbreTotalDeces == nbreTotalDeces_DejaSave) {
-                                    // On Passe a la question suivante
-                                    Suivant_Click();
-                                } else {
-                                    Precedent_Click(QF);
-                                }
-                            }
-                        }
-                    }*/
-                } else if (QF.getNomChamps().equalsIgnoreCase(Constant.CallFormulaireIndividuMenage)) {
-                    int Nbre_TotalIndividu = 0;
-                    if (QF.getMenageModel().getQm2TotalIndividuVivant() != null ) {
-                        Nbre_TotalIndividu = QF.getMenageModel().getQm2TotalIndividuVivant();
-                    }
-                    if( Nbre_TotalIndividu > 0 ){
-                        long nbreTotalIndividu_DejaSave = queryRecordMngr.countIndByMenage(QF.getMenageModel().getMenageId());
-                        int nbr_ou_NoOrdre = ((int) nbreTotalIndividu_DejaSave + 1);
-                        if (CounterForIndividu >= Nbre_TotalIndividu) {
-                            ShowListInformations(Constant.FORMULAIRE_INDIVIDUS, (int) nbreTotalIndividu_DejaSave);
-                        } else {
-                            // On selectionne le deces qui n'a pas un statut FINI
-                            IndividuModel indM = null;
-                            do {
-                                CounterForIndividu += 1;
-                                indM = queryRecordMngr.searchIndividu_ByNoOrdre_ByIdMenage(CounterForIndividu,  QF.getMenageModel().getMenageId(), true);
-                            }
-                            while (indM == null && CounterForIndividu <= Nbre_TotalIndividu && nbreTotalIndividu_DejaSave > 0);
-
-                            if (indM != null) {
-                                this.SetFieldIndividu(indM, Nbre_TotalIndividu, Constant.ACTION_MOFIDIER);
-
-                                message = "Kontinye pran enfòmasyon sou Moun " + indM.getQ1NoOrdre() + " a";
-                                ToastUtility.ToastMessage(this, message, Constant.GravityCenter);
-                            }else{
-                                if (Nbre_TotalIndividu == nbreTotalIndividu_DejaSave) {
-                                    // On Passe a la question suivante
-                                    Suivant_Click();
-                                } else {
-                                    Precedent_Click(QF);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }catch (Exception ex) {
-            message = "";
-            ToastUtility.LogCat("Exception: onResume :" + message +" / " + ex.toString());
-            Tools.AlertDialogMsg(this, message +"\n"+ ex.getMessage());
-            ex.printStackTrace();
-        }
-        ToastUtility.LogCat(this, "on Resume : ");
         super.onResume();
     }
     //
@@ -798,6 +682,7 @@ public class QuestionnaireMenageActivity extends BaseActivity implements Seriali
             }
         };
     }
+
     public RadioListAdapterKeyValue.OnItemClickListenerKeyValue getItemClickListenerKeyValue(){
         return new RadioListAdapterKeyValue.OnItemClickListenerKeyValue(){
             @Override
@@ -840,41 +725,38 @@ public class QuestionnaireMenageActivity extends BaseActivity implements Seriali
     //endregion
 
     //region PopUp Add LISTE Individus DANS MENAGE
-    public void ShowPopUp_AddIndividus(){
-        try{
-            if ( QF.getTbl_TableName() == Constant.FORMULAIRE_MENAGE ) {
+    public void ShowPopUp_AddIndividus() {
+        try {
+            if (QF.getTbl_TableName() == Constant.FORMULAIRE_MENAGE) {
                 //region [ Qm11CallFormListeIndividu ]
                 if (QF.getNomChamps().equalsIgnoreCase(Constant.Qm11CallFormListeIndividu)) {
                     // Save Formulaire D'abord
                     QF.SaveInfoDefinitivement(cuRecordMngr, false);
 
-                    long Nbre_Individu_DejaSave = queryRecordMngr.countIndByMenage(QF.getMenageModel().getMenageId());
-                    int nbrInd_NoOrdre = ((int) Nbre_Individu_DejaSave + 1);
+                    //long Nbre_Individu_DejaSave = queryRecordMngr.countIndByMenage(QF.getMenageModel().getMenageId());
+                    //int NoOrdreIndividu = 1;//((int) Nbre_Individu_DejaSave + 1);
                     int Nbre_TotalIndividu = QF.getMenageModel().getQm2TotalIndividuVivant();
 
-                    if ( Nbre_TotalIndividu > 0 ){
+                    if (Nbre_TotalIndividu > 0) {
                         // On Affiche le popUp pour la saisie des individus
-                        //ShowListInformations(Constant.FORMULAIRE_INDIVIDUS,  Nbre_TotalIndividu);
-
                         dialog = new Dialog(this);
                         dialog.setContentView(R.layout.individus_form);
                         dialog.setCancelable(false);
                         scrollView2 = (ScrollView) dialog.findViewById(R.id.scrollView2);
-                        LinearLayout LLGrandTitre = (LinearLayout) dialog.findViewById(R.id.LLGrandTitre);
-                        LLGrandTitre.setVisibility(View.GONE);
+                        //LinearLayout LLGrandTitre = (LinearLayout) dialog.findViewById(R.id.LLGrandTitre);
+                        //LLGrandTitre.setVisibility(View.GONE);
                         LinearLayout LL_ListeView = (LinearLayout) dialog.findViewById(R.id.LL_ListeView);
                         LinearLayout LL_FormulaireAdd = (LinearLayout) dialog.findViewById(R.id.LL_FormulaireAdd);
                         tv_NumeroIndividu = (TextView) dialog.findViewById(R.id.tv_NumeroIndividu);
-                        TextView tv_GrandTitreInd = (TextView) dialog.findViewById(R.id.tv_GrandTitre);
+                        LL_AllField_Suite = (LinearLayout) dialog.findViewById(R.id.LL_AllField_Suite);
 
-                        //message = "" + "<b>Menaj " + QF.getMenageModel().getQm1NoOrdre() + "</b>";
-                        //tv_GrandTitreInd.setText(Html.fromHtml("" + message));
-
+                        //region [ LISTE INDIVIDU ]
+                        /*
                         if (Nbre_TotalIndividu == Nbre_Individu_DejaSave) {
+                            //region [ LISTE INDIVIDU ]
                             // On lui permet de voir la liste des personnes deja enregistrer.
-                            //dialog.setTitle("Moun ki nan menaj sa [" + Nbre_TotalIndividu + "]");
-                            LLGrandTitre.setVisibility(View.VISIBLE);
-                            tv_GrandTitreInd.setText(Html.fromHtml("Ou antre <b>[" + Nbre_Individu_DejaSave +  "/"+ Nbre_TotalIndividu +"] Moun</b> pou Menaj "+ QF.getMenageModel().getQm1NoOrdre() +" sa"));
+                            //LLGrandTitre.setVisibility(View.VISIBLE);
+                            //tv_GrandTitreInd.setText(Html.fromHtml("Ou antre <b>[" + Nbre_Individu_DejaSave +  "/"+ Nbre_TotalIndividu +"] Moun</b> pou Menaj "+ QF.getMenageModel().getQm1NoOrdre() +" sa"));
                             LL_FormulaireAdd.setVisibility(View.GONE);
                             LL_ListeView.setVisibility(View.VISIBLE);
 
@@ -896,112 +778,239 @@ public class QuestionnaireMenageActivity extends BaseActivity implements Seriali
                             targetList = queryRecordMngr.searchListIndividu_ByMenage(QF.getMenageModel().getMenageId());
                             mAdapter.setFilter(targetList);
                             //new AsynDisplayDataList_IndividuTask().execute();
-                            /*if (dialog != null) {
+                            *//*if (dialog != null) {
                                 dialog.dismiss();
                             }
-                            Suivant_Click();*/
-                        }else{
-                            //dialog.setTitle("Ajoute Moun nan menaj sa [" + nbrInd_NoOrdre + " / " + Nbre_TotalIndividu + "]");
-                            tv_GrandTitreInd.setText("Ajoute Moun nan menaj sa [" + nbrInd_NoOrdre + " / " + Nbre_TotalIndividu + "]");
-                            LL_FormulaireAdd.setVisibility(View.VISIBLE);
-                            LL_ListeView.setVisibility(View.GONE);
+                            Suivant_Click();*//*
+                            //endregion
+                        }else{}
+                        */
+                        //endregion
 
-                            et_NonIndividu = (EditText) dialog.findViewById(R.id.et_NonIndividu);
-                            //et_NonIndividu.addTextChangedListener(TextChanged_NonListener);
-                            et_SiyatiIndividu = (EditText) dialog.findViewById(R.id.et_SiyatiIndividu);
-                            sp_Sexe = (Spinner) dialog.findViewById(R.id.sp_Sexe);
-                            QF.Load_Sexe(this, sp_Sexe);
+                        //region [ FORM INDIVIDU ]
+                        LL_FormulaireAdd.setVisibility(View.VISIBLE);
+                        LL_ListeView.setVisibility(View.GONE);
 
-                            sp_RelasyonMounNan = (Spinner) dialog.findViewById(R.id.sp_RelasyonMounNan);
-                            QF.Load_Relation(this, sp_RelasyonMounNan);
+                        et_02NonIndividu = (EditText) dialog.findViewById(R.id.et_NonIndividu);
+                        //et_02NonIndividu.addTextChangedListener(TextChanged_NonListener);
+                        et_03SiyatiIndividu = (EditText) dialog.findViewById(R.id.et_SiyatiIndividu);
 
-                            tv_RelasyonMounNan = (TextView) dialog.findViewById(R.id.tv_RelasyonMounNan);
-                            tv_DateMounNanfet = (TextView) dialog.findViewById(R.id.tv_DateNaissance);
-                            tv_LageMounNan = (TextView) dialog.findViewById(R.id.tv_LageMounNan);
-                            RL_RelasyonMounNan = (RelativeLayout) dialog.findViewById(R.id.RL_RelasyonMounNan);
-                            LL_DateMounNanfet = (LinearLayout) dialog.findViewById(R.id.LL_DateNaissance);
-                            LL_LajMounNan = (LinearLayout) dialog.findViewById(R.id.LL_LajMounNan);
+                        // 04
+                        sp_04Sexe = (Spinner) dialog.findViewById(R.id.sp_Sexe);
+                        QF.Load_PossibiliteReponse(this, formDataMngr, sp_04Sexe, "MP2.4");
 
-                            et_JourIndividu = (EditText) dialog.findViewById(R.id.et_DateNaissanceJour);
-                            //QF.Load_Jour(this, sp_JourIndividu);
-
-                            sp_MoisIndividu = (Spinner) dialog.findViewById(R.id.sp_DateNaissanceMois);
-                            QF.Load_Mois(this, sp_MoisIndividu);
-
-                            et_AnneeIndividu = (EditText) dialog.findViewById(R.id.et_DateNaissanceAnnee);
-                            //QF.Load_Annee(this, sp_AnneeIndividu);
-
-                            sp_MounNanMenajLa = (Spinner) dialog.findViewById(R.id.sp_MounNanMenajLa);
-                            QF.Load_MounNanMenajLa(this, sp_MounNanMenajLa);
-                            sp_MounNanMenajLa.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                @Override
-                                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                    //region TEST POUR LE CHARGEMENT
-                                    try{
-                                         KeyValueModel keyValueRezon = null;
-                                        if (parent.getId() == R.id.sp_MounNanMenajLa) {
-                                            keyValueRezon = ((KeyValueModel) sp_MounNanMenajLa.getSelectedItem());
-                                        }
-
-                                        tv_RelasyonMounNan.setVisibility(View.VISIBLE);
-                                        RL_RelasyonMounNan.setVisibility(View.VISIBLE);
-                                        tv_DateMounNanfet.setVisibility(View.VISIBLE);
-                                        LL_DateMounNanfet.setVisibility(View.VISIBLE);
-                                        tv_LageMounNan.setVisibility(View.VISIBLE);
-                                        LL_LajMounNan.setVisibility(View.VISIBLE);
-
-                                        if (keyValueRezon != null){
-                                            if( !keyValueRezon.getKey().trim().equalsIgnoreCase("")) {
-                                                if (parent.getId() == R.id.sp_MounNanMenajLa) {
-                                                    if( keyValueRezon.getKey().equalsIgnoreCase(""+ Constant.WI_LI_TOUJOU_LA_MEN_LI_OKIPE_NAN_ZAFE_MANJE_A_PA_02) ||
-                                                            keyValueRezon.getKey().equalsIgnoreCase(""+ Constant.WI_MEN_LI_DEPLASE_POU_PLIS_PASE_6_MWA_04) ||
-                                                            keyValueRezon.getKey().equalsIgnoreCase(""+ Constant.LI_FENK_VINI_LI_GEN_LI_GEN_ENTANSYON_RETE_LA_08) ||
-                                                            keyValueRezon.getKey().equalsIgnoreCase(""+ Constant.LI_NAN_KAY_LA_POU_MWENS_KE_6_MWA_09) ){
-                                                        tv_RelasyonMounNan.setVisibility(View.GONE);
-                                                        RL_RelasyonMounNan.setVisibility(View.GONE);
-                                                        tv_DateMounNanfet.setVisibility(View.GONE);
-                                                        LL_DateMounNanfet.setVisibility(View.GONE);
-                                                        tv_LageMounNan.setVisibility(View.GONE);
-                                                        LL_LajMounNan.setVisibility(View.GONE);
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }catch (Exception ex)        {
-                                        ToastUtility.LogCat("Exception :-: sp_MounNanMenajLa:onItemSelected(): getMessage: " + ex.getMessage() + " \n toString: " + ex.toString());
-                                        ex.printStackTrace();
-                                    }
-                                    //endregion
-                                }
-
-                                @Override
-                                public void onNothingSelected(AdapterView<?> parent) {
-
-                                }
-                            });
-
-                            et_AgeIndividu = (EditText) dialog.findViewById(R.id.et_AgeIndividu);
-                            //QF.Load_Age(this, et_AgeIndividu);
-
-                            tv_NumeroIndividu.setText("Moun " + nbrInd_NoOrdre);
-
-                            // On recherche les Individus par numero d'ordre et par IdMenage
-                            ID_INDIVIDU = 0;
-                            QF.SetValue_Individu(queryRecordMngr, dialog, ID_INDIVIDU, nbrInd_NoOrdre, Nbre_TotalIndividu, tv_NumeroIndividu, et_NonIndividu, et_SiyatiIndividu, sp_Sexe, sp_RelasyonMounNan, sp_MounNanMenajLa);
-                        }
-
-                        Button btnQuitter = (Button) dialog.findViewById(R.id.btnQuitter);
-                        btnQuitter.setOnClickListener(new View.OnClickListener(){
+                        // 05 Habite Dans Menage
+                        sp_05HabiteDansMenage = (Spinner) dialog.findViewById(R.id.sp_05HabiteDansMenage);
+                        QF.Load_PossibiliteReponse(this, formDataMngr, sp_05HabiteDansMenage, "MP2.5");
+                        sp_05HabiteDansMenage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
-                            public void onClick(View v) {
-                                if (dialog != null) {
-                                    dialog.dismiss();
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                //region TEST POUR LE CHARGEMENT
+                                try {
+                                    QuestionReponseModel questionReponseModel = null;
+                                    questionReponseModel = ((QuestionReponseModel) sp_05HabiteDansMenage.getSelectedItem());
+                                    LL_AllField_Suite.setVisibility(View.GONE);
+
+                                    if (questionReponseModel != null) {
+                                        if (!questionReponseModel.getQSuivant().trim().equalsIgnoreCase(Constant.FIN)) {
+                                            LL_AllField_Suite.setVisibility(View.VISIBLE);
+                                        }
+                                    }
+                                } catch (Exception ex) {
+                                    ToastUtility.LogCat("Exception :-: sp_05HabiteDansMenage:onItemSelected(): getMessage: " + ex.getMessage() + " \n toString: " + ex.toString());
+                                    ex.printStackTrace();
                                 }
-                                // On va a la question suivante
-                                Precedent_Click(QF);
+                                //endregion
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+
                             }
                         });
-                        final int _NoOrdre = nbrInd_NoOrdre;
+                        // 06 A
+                        tv_06MembreMenageDepuisQuand = (TextView) dialog.findViewById(R.id.tv_06MembreMenageDepuisQuand);
+                        RL_06MembreMenageDepuisQuand = (RelativeLayout) dialog.findViewById(R.id.RL_06MembreMenageDepuisQuand);
+                        sp_06MembreMenageDepuisQuand = (Spinner) dialog.findViewById(R.id.sp_06MembreMenageDepuisQuand);
+                        QF.Load_PossibiliteReponse(this, formDataMngr, sp_06MembreMenageDepuisQuand, "MP2.6.A");
+                        sp_06MembreMenageDepuisQuand.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                //region TEST POUR LE CHARGEMENT
+                                try {
+                                    QuestionReponseModel questionReponseModel = null;
+                                    questionReponseModel = ((QuestionReponseModel) sp_06MembreMenageDepuisQuand.getSelectedItem());
+                                    tv_06DateMembreMenage.setVisibility(View.GONE);
+                                    LL_06DateMembreMenage.setVisibility(View.GONE);
+                                    if (questionReponseModel != null) {
+                                        QF.VisibleOrHide_06DateMembreMenage(questionReponseModel.getCodeReponse()
+                                                , tv_06DateMembreMenage, LL_06DateMembreMenage);
+                                    }
+                                } catch (Exception ex) {
+                                    ToastUtility.LogCat("Exception :-: sp_06MembreMenageDepuisQuand:onItemSelected(): getMessage: " + ex.getMessage() + " \n toString: " + ex.toString());
+                                    ex.printStackTrace();
+                                }
+                                //endregion
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+
+                            }
+                        });
+                        // 06 B
+                        tv_06DateMembreMenage = (TextView) dialog.findViewById(R.id.tv_06DateMembreMenage);
+                        LL_06DateMembreMenage = (LinearLayout) dialog.findViewById(R.id.LL_06DateMembreMenage);
+                        tv_06DateMembreMenage.setVisibility(View.GONE);
+                        LL_06DateMembreMenage.setVisibility(View.GONE);
+                        // 06.B
+                        et_06DateMembreMenageJour = (EditText) dialog.findViewById(R.id.et_06DateMembreMenageJour);
+                        sp_06DateMembreMenageMois = (Spinner) dialog.findViewById(R.id.sp_06DateMembreMenageMois);
+                        QF.Load_Mois(this, sp_06DateMembreMenageMois);
+                        et_06DateMembreMenageAnnee = (EditText) dialog.findViewById(R.id.et_06DateMembreMenageAnnee);
+
+                        // 07
+                        tv_07DateNaissance = (TextView) dialog.findViewById(R.id.tv_07DateNaissance);
+                        LL_07DateNaissance = (LinearLayout) dialog.findViewById(R.id.LL_07DateNaissance);
+                        et_07DateNaissanceJour = (EditText) dialog.findViewById(R.id.et_07DateNaissanceJour);
+                        sp_07DateNaissanceMois = (Spinner) dialog.findViewById(R.id.sp_07DateNaissanceMois);
+                        QF.Load_Mois(this, sp_07DateNaissanceMois);
+                        et_07DateNaissanceAnnee = (EditText) dialog.findViewById(R.id.et_07DateNaissanceAnnee);
+
+                        // 08
+                        LL_08LajMounNan = (LinearLayout) dialog.findViewById(R.id.LL_08LajMounNan);
+                        et_08AgeIndividu = (EditText) dialog.findViewById(R.id.et_08AgeIndividu);
+                        et_08AgeIndividu.addTextChangedListener(new TextWatcher() {
+                            @Override
+                            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                            }
+
+                            @Override
+                            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                                String ageStr = et_08AgeIndividu.getText().toString();
+                                int age = 0;
+                                if (!TextUtils.isEmpty(ageStr)) {
+                                    age = Integer.parseInt(ageStr);
+                                }
+                                QF.VisibleOrHide_11NiveauEtude_12StatutMatrimonial(age
+                                        , tv_11NiveauEtude, RL_11NiveauEtude
+                                        , tv_12StatutMatrimonial, RL_12StatutMatrimonial);
+                            }
+
+                            @Override
+                            public void afterTextChanged(Editable editable) {
+
+                            }
+                        });
+
+                        // 09
+                        tv_09LienDeParente = (TextView) dialog.findViewById(R.id.tv_09LienDeParente);
+                        RL_09LienDeParente = (RelativeLayout) dialog.findViewById(R.id.RL_09LienDeParente);
+                        sp_09LienDeParente = (Spinner) dialog.findViewById(R.id.sp_09LienDeParente);
+                        QF.Load_PossibiliteReponse(this, formDataMngr, sp_09LienDeParente, "MP2.9");
+
+                        // 10 A
+                        tv_10Nationalite = (TextView) dialog.findViewById(R.id.tv_10Nationalite);
+                        RL_10Nationalite = (RelativeLayout) dialog.findViewById(R.id.RL_10Nationalite);
+                        sp_10Nationalite = (Spinner) dialog.findViewById(R.id.sp_10Nationalite);
+                        QF.Load_PossibiliteReponse(this, formDataMngr, sp_10Nationalite, "MP2.10");
+                        sp_10Nationalite.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                //region TEST POUR LE CHARGEMENT
+                                try {
+                                    QuestionReponseModel questionReponseModel = null;
+                                    questionReponseModel = ((QuestionReponseModel) sp_10Nationalite.getSelectedItem());
+                                    tv_10PaysNationalite.setVisibility(View.GONE);
+                                    RL_10PaysNationalite.setVisibility(View.GONE);
+
+                                    if (questionReponseModel != null) {
+                                        if ( questionReponseModel.getCodeReponse().trim().equalsIgnoreCase("" + Constant.R02_Etranje)
+                                                ||  questionReponseModel.getCodeReponse().trim().equalsIgnoreCase("" + Constant.R03_Ayisyen_ak_Etranje)) {
+                                            tv_10PaysNationalite.setVisibility(View.VISIBLE);
+                                            RL_10PaysNationalite.setVisibility(View.VISIBLE);
+                                        }
+                                    }
+                                } catch (Exception ex) {
+                                    ToastUtility.LogCat("Exception :-: sp_10Nationalite:onItemSelected(): getMessage: " + ex.getMessage() + " \n toString: " + ex.toString());
+                                    ex.printStackTrace();
+                                }
+                                //endregion
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+
+                            }
+                        });
+                        // 10 B
+                        tv_10PaysNationalite = (TextView) dialog.findViewById(R.id.tv_10PaysNationalite);
+                        RL_10PaysNationalite = (RelativeLayout) dialog.findViewById(R.id.RL_10PaysNationalite);
+                        tv_10PaysNationalite.setVisibility(View.GONE);
+                        RL_10PaysNationalite.setVisibility(View.GONE);
+                        sp_10PaysNationalite = (Spinner) dialog.findViewById(R.id.sp_10PaysNationalite);
+                        QF.Load_Pays(formDataMngr, sp_10PaysNationalite);
+
+                        // 11
+                        tv_11NiveauEtude = (TextView) dialog.findViewById(R.id.tv_11NiveauEtude);
+                        RL_11NiveauEtude = (RelativeLayout) dialog.findViewById(R.id.RL_11NiveauEtude);
+                        sp_11NiveauEtude = (Spinner) dialog.findViewById(R.id.sp_11NiveauEtude);
+                        QF.Load_PossibiliteReponse(this, formDataMngr, sp_11NiveauEtude, "MP2.11");
+
+                        // 12
+                        tv_12StatutMatrimonial = (TextView) dialog.findViewById(R.id.tv_12StatutMatrimonial);
+                        RL_12StatutMatrimonial = (RelativeLayout) dialog.findViewById(R.id.RL_12StatutMatrimonial);
+                        sp_12StatutMatrimonial = (Spinner) dialog.findViewById(R.id.sp_12StatutMatrimonial);
+                        QF.Load_PossibiliteReponse(this, formDataMngr, sp_12StatutMatrimonial, "MP2.12");
+
+                        tv_NumeroIndividu.setText("Moun #" + NoOrdreIndividu);
+
+                        // On recherche les Individus par numero d'ordre et par IdMenage
+                        ID_INDIVIDU = 0;
+                        IndividuModel individuModel = QF.Get_Set_Individu_IfExist(queryRecordMngr, dialog, ID_INDIVIDU, NoOrdreIndividu, Nbre_TotalIndividu
+                                , tv_NumeroIndividu, et_02NonIndividu, et_03SiyatiIndividu, sp_04Sexe
+                                , sp_05HabiteDansMenage, sp_06MembreMenageDepuisQuand
+                                , tv_06DateMembreMenage, LL_06DateMembreMenage
+                                , et_06DateMembreMenageJour, sp_06DateMembreMenageMois, et_06DateMembreMenageAnnee
+                                , et_07DateNaissanceJour, sp_07DateNaissanceMois, et_07DateNaissanceAnnee
+                                , et_08AgeIndividu, tv_11NiveauEtude, RL_11NiveauEtude, tv_12StatutMatrimonial, RL_12StatutMatrimonial
+                                , sp_09LienDeParente, sp_10Nationalite, tv_10PaysNationalite, RL_10PaysNationalite
+                                , sp_10PaysNationalite, sp_11NiveauEtude, sp_12StatutMatrimonial);
+                        if (individuModel != null && individuModel.getIndividuId() != null) {
+                            ID_INDIVIDU = individuModel.getIndividuId();
+                        }
+                        //endregion
+                        //}
+
+                        Button btnQuitter = (Button) dialog.findViewById(R.id.btnQuitter);
+                        btnQuitter.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (NoOrdreIndividu > 1) {
+                                    int Nbre_TotalIndividu = QF.getMenageModel().getQm2TotalIndividuVivant();
+                                    NoOrdreIndividu -= 1;
+                                    IndividuModel individuModel = QF.Get_Set_Individu_IfExist(queryRecordMngr, dialog, ID_INDIVIDU, NoOrdreIndividu, Nbre_TotalIndividu
+                                            , tv_NumeroIndividu, et_02NonIndividu, et_03SiyatiIndividu, sp_04Sexe
+                                            , sp_05HabiteDansMenage, sp_06MembreMenageDepuisQuand
+                                            , tv_06DateMembreMenage, LL_06DateMembreMenage
+                                            , et_06DateMembreMenageJour, sp_06DateMembreMenageMois, et_06DateMembreMenageAnnee
+                                            , et_07DateNaissanceJour, sp_07DateNaissanceMois, et_07DateNaissanceAnnee
+                                            , et_08AgeIndividu, tv_11NiveauEtude, RL_11NiveauEtude, tv_12StatutMatrimonial, RL_12StatutMatrimonial
+                                            , sp_09LienDeParente, sp_10Nationalite, tv_10PaysNationalite, RL_10PaysNationalite
+                                            , sp_10PaysNationalite, sp_11NiveauEtude, sp_12StatutMatrimonial);
+                                    if (individuModel != null && individuModel.getIndividuId() != null) {
+                                        ID_INDIVIDU = individuModel.getIndividuId();
+                                    }
+                                } else {
+                                    if (dialog != null) {
+                                        dialog.dismiss();
+                                    }
+                                    // On va a la question suivante
+                                    Precedent_Click(QF);
+                                }
+                            }
+                        });
 
                         // Buttons
                         Button btnContinuer = (Button) dialog.findViewById(R.id.btnContinuer);
@@ -1011,33 +1020,67 @@ public class QuestionnaireMenageActivity extends BaseActivity implements Seriali
                                 QF.context = QuestionnaireMenageActivity.this;
                                 try {
                                     int Nbre_TotalIndividu_Declarer = QF.getMenageModel().getQm2TotalIndividuVivant();
-                                    long Nbre_Individu_DejaSave = queryRecordMngr.countIndByMenage(QF.getMenageModel().getMenageId());
-                                    int NoOrdreIndividu = ((int) Nbre_Individu_DejaSave + 1);
+                                    // On recherche l'individu par le numero d'ordre
+                                    //long NbreIndividu_DejaSave = queryRecordMngr.countIndByMenage(QF.getMenageModel().getMenageId());
 
-                                    if( Nbre_Individu_DejaSave < Nbre_TotalIndividu_Declarer ) {
-                                        IndividuModel indModel = QF.CheckIndividu_ValueBefore_AndSave( queryRecordMngr, cuRecordMngr, ID_INDIVIDU, NoOrdreIndividu, et_NonIndividu, et_SiyatiIndividu
-                                                , sp_Sexe, sp_RelasyonMounNan, et_JourIndividu, sp_MoisIndividu, et_AnneeIndividu, et_AgeIndividu, sp_MounNanMenajLa);
-                                        Nbre_Individu_DejaSave = queryRecordMngr.countIndByMenage(QF.getMenageModel().getMenageId());
-                                        NoOrdreIndividu = ((int) Nbre_Individu_DejaSave + 1);
-                                    }
+                                    if (NoOrdreIndividu <= Nbre_TotalIndividu_Declarer) {
+                                        IndividuModel indModel = QF.CheckIndividu_ValueBefore_AndSave(queryRecordMngr, cuRecordMngr
+                                                , ID_INDIVIDU, NoOrdreIndividu, et_02NonIndividu, et_03SiyatiIndividu
+                                                , sp_04Sexe, sp_05HabiteDansMenage
+                                                , sp_06MembreMenageDepuisQuand, et_06DateMembreMenageJour, sp_06DateMembreMenageMois, et_06DateMembreMenageAnnee
+                                                , et_07DateNaissanceJour, sp_07DateNaissanceMois, et_07DateNaissanceAnnee
+                                                , et_08AgeIndividu, sp_09LienDeParente
+                                                , sp_10Nationalite, sp_10PaysNationalite, sp_11NiveauEtude, sp_12StatutMatrimonial);
 
-                                    if( Nbre_Individu_DejaSave < Nbre_TotalIndividu_Declarer ){
-                                        et_NonIndividu.setText(null);
-                                        et_SiyatiIndividu.setText(null);
-                                        sp_Sexe.setSelection(0);
-                                        sp_RelasyonMounNan.setSelection(0);
-                                        et_JourIndividu.setText("");
-                                        sp_MoisIndividu.setSelection(0);
-                                        et_AnneeIndividu.setText("");
-                                        et_AgeIndividu.setText("");
-                                        et_NonIndividu.requestFocus();
-                                        sp_MounNanMenajLa.setSelection(0);
-                                        ID_INDIVIDU = 0;
+                                        //NbreIndividu_DejaSave = queryRecordMngr.countIndByMenage(QF.getMenageModel().getMenageId());
+                                        NoOrdreIndividu = (NoOrdreIndividu + 1);
+
+                                        if ( NoOrdreIndividu > Nbre_TotalIndividu_Declarer) {
+                                            if (dialog != null) {
+                                                dialog.dismiss();
+                                            }
+                                            NoOrdreIndividu=Nbre_TotalIndividu_Declarer;
+                                            Suivant_Click();
+                                        }
+                                        et_02NonIndividu.setText(null);
+                                        et_03SiyatiIndividu.setText(null);
+                                        sp_04Sexe.setSelection(0);
+                                        sp_05HabiteDansMenage.setSelection(0);
+
+                                        sp_06MembreMenageDepuisQuand.setSelection(0);
+                                        et_06DateMembreMenageJour.setText("");
+                                        sp_06DateMembreMenageMois.setSelection(0);
+                                        et_06DateMembreMenageAnnee.setText("");
+
+                                        et_07DateNaissanceJour.setText("");
+                                        sp_07DateNaissanceMois.setSelection(0);
+                                        et_07DateNaissanceAnnee.setText("");
+
+                                        et_08AgeIndividu.setText("");
+                                        sp_09LienDeParente.setSelection(0);
+                                        sp_10Nationalite.setSelection(0);
+                                        sp_10PaysNationalite.setSelection(0);
+                                        sp_11NiveauEtude.setSelection(0);
+                                        sp_12StatutMatrimonial.setSelection(0);
+
+                                        et_02NonIndividu.requestFocus();
+                                        //ID_INDIVIDU = 0;
 
                                         // On recherche les Individus par numero d'ordre et par IdMenage
-                                        QF.SetValue_Individu(queryRecordMngr,  dialog, ID_INDIVIDU, NoOrdreIndividu, Nbre_TotalIndividu_Declarer, tv_NumeroIndividu, et_NonIndividu, et_SiyatiIndividu, sp_Sexe, sp_RelasyonMounNan, sp_MounNanMenajLa);
+                                        IndividuModel individuModel = QF.Get_Set_Individu_IfExist(queryRecordMngr, dialog, ID_INDIVIDU, NoOrdreIndividu, Nbre_TotalIndividu_Declarer
+                                                , tv_NumeroIndividu, et_02NonIndividu, et_03SiyatiIndividu, sp_04Sexe
+                                                , sp_05HabiteDansMenage, sp_06MembreMenageDepuisQuand
+                                                , tv_06DateMembreMenage, LL_06DateMembreMenage
+                                                , et_06DateMembreMenageJour, sp_06DateMembreMenageMois, et_06DateMembreMenageAnnee
+                                                , et_07DateNaissanceJour, sp_07DateNaissanceMois, et_07DateNaissanceAnnee
+                                                , et_08AgeIndividu, tv_11NiveauEtude, RL_11NiveauEtude, tv_12StatutMatrimonial, RL_12StatutMatrimonial
+                                                , sp_09LienDeParente, sp_10Nationalite, tv_10PaysNationalite, RL_10PaysNationalite
+                                                , sp_10PaysNationalite, sp_11NiveauEtude, sp_12StatutMatrimonial);
 
-                                    }else if( Nbre_Individu_DejaSave == Nbre_TotalIndividu_Declarer ){
+                                        if (individuModel != null && individuModel.getIndividuId() != null) {
+                                            ID_INDIVIDU = individuModel.getIndividuId();
+                                        }
+                                    } else if (NoOrdreIndividu == Nbre_TotalIndividu_Declarer) {
                                         if (dialog != null) {
                                             dialog.dismiss();
                                         }
@@ -1045,10 +1088,10 @@ public class QuestionnaireMenageActivity extends BaseActivity implements Seriali
                                     }
                                 } catch (TextEmptyException ex) {
                                     Tools.AlertDialogMsg(QuestionnaireMenageActivity.this, ex.getMessage());
-                                    ToastUtility.LogCat("TextEmptyException: btnQuitter.setOnClickListener() :" + ex.getMessage()+" \n "+ ex.toString());
+                                    ToastUtility.LogCat("TextEmptyException: btnQuitter.setOnClickListener() :" + ex.getMessage() + " \n " + ex.toString());
                                 } catch (Exception ex) {
-                                    ToastUtility.ToastMessage(QuestionnaireMenageActivity.this, ex.getMessage()+" \n "+ ex.toString());
-                                    ToastUtility.LogCat("Exception: btnQuitter.setOnClickListener() :" + ex.getMessage()+" \n "+ ex.toString());
+                                    ToastUtility.ToastMessage(QuestionnaireMenageActivity.this, ex.getMessage() + " \n " + ex.toString());
+                                    ToastUtility.LogCat("Exception: btnQuitter.setOnClickListener() :" + ex.getMessage() + " \n " + ex.toString());
                                 }
                             }
                         });
@@ -1058,23 +1101,22 @@ public class QuestionnaireMenageActivity extends BaseActivity implements Seriali
                 //endregion
 
                 //region [ CallFormListeAncienMembreMenage ]
-                if( QF.getNomChamps().equalsIgnoreCase( Constant.CallFormListeAncienMembreMenage ) ) {
+                if (QF.getNomChamps().equalsIgnoreCase(Constant.CallFormListeAncienMembreMenage)) {
 
                 }
                 //endregion
-
             }
-        }catch (TextEmptyException  ex) {
+        } catch (TextEmptyException ex) {
             Tools.AlertDialogMsg(this, ex.getMessage());
             ToastUtility.LogCat("TextEmptyException: Suivant_Click :" + ex.getMessage());
-        }catch (ManagerException ex) {
+        } catch (ManagerException ex) {
             message = "Erreur au niveau du Manager";
-            Tools.AlertDialogMsg(this, message +"\n"+ ex.getMessage());
+            Tools.AlertDialogMsg(this, message + "\n" + ex.getMessage());
             ToastUtility.LogCat("ManagerException: Suivant_Click :" + ex.getMessage());
         } catch (Exception ex) {
             message = "Erreur au niveau de la sauvegarde";
-            ToastUtility.LogCat("Exception: Suivant_Click :" + message +" / " + ex.toString());
-            Tools.AlertDialogMsg(this, message +"\n"+ ex.getMessage());
+            ToastUtility.LogCat("Exception: Suivant_Click :" + message + " / " + ex.toString());
+            Tools.AlertDialogMsg(this, message + "\n" + ex.getMessage());
             ex.printStackTrace();
         }
     }
@@ -1114,6 +1156,7 @@ public class QuestionnaireMenageActivity extends BaseActivity implements Seriali
 
                         if ( MenModel != null ) {
                             //region "MenageModel"
+                            NoOrdreIndividu=1; // Reinitialisation du nombre d'individu
                             String dateDebutCollect = Tools.getDateString_MMddyyyy_HHmmss_a();
                             menageM_OBJ = new MenageModel();
                             MenageModel.queryRecordMngr = queryRecordMngr;
@@ -1171,6 +1214,7 @@ public class QuestionnaireMenageActivity extends BaseActivity implements Seriali
                 } else {
                     //region menageModel
                     String dateDebutCollect = Tools.getDateString_MMddyyyy_HHmmss_a();
+                    NoOrdreIndividu=1; // Reinitialisation du nombre d'individu
                     MenageModel menageModel = new MenageModel();
                     MenageModel.queryRecordMngr = queryRecordMngr;
                     menageModel.setSdeId(QF.getLogementModel().getSdeId());
@@ -1693,7 +1737,7 @@ public class QuestionnaireMenageActivity extends BaseActivity implements Seriali
             LL_ListeView.setVisibility(View.GONE);
 
             tv_NumeroIndividu = (TextView) dialog.findViewById(R.id.tv_NumeroIndividu);
-            TextView tv_GrandTitreInd = (TextView) dialog.findViewById(R.id.tv_GrandTitre);
+            TextView tv_GrandTitreInd = (TextView) dialog.findViewById(R.id.tv_grandtitre);
 
             // On lui permet de voir la liste des personnes deja enregistrer.
             LL_FormulaireAdd.setVisibility(View.GONE);
@@ -1823,7 +1867,7 @@ public class QuestionnaireMenageActivity extends BaseActivity implements Seriali
                 //Shared_Preferences sharedPreferences = null;
                 //sharedPreferences = Tools.SharedPreferences(this);
 
-                TextView tv_GrandTitreRap = (TextView) dialog.findViewById(R.id.tv_GrandTitre);
+                TextView tv_GrandTitreRap = (TextView) dialog.findViewById(R.id.tv_grandtitre);
                 message = "" + "<b>Rapò sou Menaj </b>";
                 if (QF.getMenageModel().getMenageId() != null) {
                     message += "" + "<b> " + QF.getMenageModel().getQm1NoOrdre() + "</b>";
@@ -1894,13 +1938,13 @@ public class QuestionnaireMenageActivity extends BaseActivity implements Seriali
                                 dialog.dismiss();
                             }
                             // Gestionnaire de statut du menage
-                            int statut = QF.SetStatutMenage(queryRecordMngr, cuRecordMngr);
-                            if( statut == Constant.STATUT_RANPLI_NET_11 ){
-                                ShowRapport_RAR_Final();
-                            }else {
+                            //int statut = QF.SetStatutMenage(queryRecordMngr, cuRecordMngr);
+                            //if( statut == Constant.STATUT_RANPLI_NET_11 ){
+                            //    ShowRapport_RAR_Final();
+                            //}else {
                                 // On met le boucle ici pour le menage
                                 AddMenage_EnBoucle();
-                            }
+                            //}
                         } catch (TextEmptyException ex) {
                             Tools.AlertDialogMsg(QuestionnaireMenageActivity.this, ex.getMessage());
                             ToastUtility.LogCat("TextEmptyException: ShowRapport_RAR() :" + ex.getMessage());

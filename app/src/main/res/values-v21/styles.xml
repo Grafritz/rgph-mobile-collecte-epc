@@ -9,8 +9,8 @@
 
     <style name="AppMyTheme_NoActionBar" parent="@style/Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
         <item name="colorAccent">@color/colorAccent</item>
         <!--<item name="android:textColorPrimary">@color/colorWhite</item>-->
 

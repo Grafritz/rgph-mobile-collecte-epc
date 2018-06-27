@@ -63,6 +63,7 @@ import ht.ihsi.rgph.mobile.epc.utilities.Shared_Preferences;
     //EmigreModel searchEmigre_ByNoOrdre_ByIdMenage(int noOrdre, long idMenage) throws ManagerException;
     //DecesModel searchDeces_ByNoOrdre_ByIdMenage(int noOrdre, long idMenage) throws ManagerException;
     IndividuModel searchIndividu_ByNoOrdre_ByIdMenage(int NoOrdre, long IdMenage, boolean statut) throws ManagerException;
+    AncienMembreModel searchAncienMembre_ByNoOrdre_ByIdMenage(int NoOrdre, long IdMenage, boolean statut) throws ManagerException;
 
     MenageModel searchMenage_ByNoOrdre_ByIdLogement(int NoOrdre, long idLogement) throws ManagerException;
 

@@ -1131,6 +1131,33 @@ public class QueryRecordMngrImpl extends AbstractDatabaseManager implements Quer
     }
 
     @Override
+    public AncienMembreModel searchAncienMembre_ByNoOrdre_ByIdMenage(int NoOrdre, long IdMenage, boolean statut) throws ManagerException {
+        AncienMembreModel result=null;
+        try {
+            openReadableDb();
+            AncienMembre ind = daoSession.getAncienMembreDao().queryBuilder()
+                    .where(AncienMembreDao.Properties.Q1NoOrdre.eq(NoOrdre))
+                    .where(AncienMembreDao.Properties.MenageId.eq(IdMenage)).unique();
+            if(ind!=null){
+                if( statut ){
+                    if( ind.getStatut() != null && ind.getStatut() != Constant.STATUT_MODULE_KI_FINI_1 ) {
+                        result = ModelMapper.MapToAncienMembreModel(ind);
+                    }else{
+                        result = null;
+                    }
+                }else {
+                    result= ModelMapper.MapToAncienMembreModel(ind);
+                }
+            }
+            daoSession.clear();
+        }catch(Exception ex){
+            Log.e(MANAGERS, "<> unable to get data AncienMembre by NoOrdre, IdMenage from the database \n "+ex.getMessage());
+            throw  new ManagerException("<> unable to get data AncienMembre by NoOrdre, IdMenage from the database",ex);
+        }
+        return result;
+    }
+
+    @Override
     public MenageModel searchMenage_ByNoOrdre_ByIdLogement(int NoOrdre, long idLogement) throws ManagerException {
         //Log.i(MANAGERS, "Inside of searchMenage_ByNoOrdre_ByIdLogement!"
         //        + "NoOrdre:" + NoOrdre +" / idLogement:" +idLogement);

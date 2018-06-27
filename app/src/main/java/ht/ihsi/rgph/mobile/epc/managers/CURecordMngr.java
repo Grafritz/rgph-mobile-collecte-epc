@@ -2,6 +2,7 @@ package ht.ihsi.rgph.mobile.epc.managers;
 
 import ht.ihsi.rgph.mobile.epc.exceptions.ManagerException;
 import ht.ihsi.rgph.mobile.epc.exceptions.TextEmptyException;
+import ht.ihsi.rgph.mobile.epc.models.AncienMembreModel;
 import ht.ihsi.rgph.mobile.epc.models.BatimentModel;
 //import ht.ihsi.rgph.mobile.epc.models.DecesModel;
 //import ht.ihsi.rgph.mobile.epc.models.EmigreModel;
@@ -62,6 +63,9 @@ public interface CURecordMngr {
      */
     IndividuModel InsertIndividu(IndividuModel individu, String userCode) throws ManagerException;
     IndividuModel SaveIndividu(Long id, IndividuModel individu, int typeEvenement, String userCode) throws ManagerException;
+
+    AncienMembreModel SaveAncienMembre(Long id, AncienMembreModel ancienMembre, int typeEvenement, String userCode) throws ManagerException;
+    AncienMembreModel InsertAncienMembre(AncienMembreModel individu, String userCode) throws ManagerException;
 
     /**
      * Save a new rapportRAR
@@ -130,6 +134,7 @@ public interface CURecordMngr {
      * @throws ManagerException
      */
     IndividuModel updateIndividu(IndividuModel individu, String userCode) throws ManagerException;
+    AncienMembreModel updateAncienMembre(AncienMembreModel individu, String userCode) throws ManagerException;
     int updateStatutIndividu(long idIndividu, short Statut, boolean isFieldAllFilled, String userCode) throws ManagerException;
 
 

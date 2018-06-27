@@ -219,6 +219,7 @@
     <string name="label_KodDistriSipevisyon">Kòd Distri Sipevisyon (DS)</string>
     <string name="label_Chwazi_MounNanMenajLa">Chwazi moun nan menaj la</string>
     <string name="msg_Reponse_Ou_Dwe_Di_Si_MounNanMenajLa">Ou dwe di si moun nan menaj la</string>
+    <string name="msg_Reponse_Ou_Dwe_Di_Si_li_kite_menaj_la_oswa_si_li_mouri">Ou dwe di si li kite menaj la oswa si li mouri</string>
     <string name="label_Zone">Zòn</string>
     <string name="label_Chwazi_yon_Zone">Chwazi yon Zòn</string>
     <string name="msg_Reponse_Ou_Dwe_Chwazi_Yon_Zon">Ou dwe chwazi yon Zòn</string>
@@ -331,6 +332,14 @@
     <string name="msg_Reponse_Ou_Dwe_Chwazi_Mwa_Moun_nan_rive_nan_menaj_la">Ou dwe chwazi Mwa moun nan rive nan menaj la</string>
     <string name="msg_Reponse_Ou_Dwe_Antre_Ane_Moun_nan_rive_nan_menaj_la">Ou dwe antre Ane moun nan rive nan menaj la</string>
     <string name="msg_Reponse_Ou_Dwe_Chwazi_Nasyonalite_Moun_nan">Ou Dwe Chwazi Nasyonalite Moun nan</string>
+
+    <string name="msg_Reponse_Ou_Dwe_Antre_Jou_Moun_nan_PatiKite_menaj_la">Ou dwe antre Jou moun nan Pati Kite menaj la</string>
+    <string name="msg_Reponse_Ou_Dwe_Chwazi_Mwa_Moun_nan_PatiKite_menaj_la">Ou dwe chwazi Mwa moun nan Pati Kite menaj la</string>
+    <string name="msg_Reponse_Ou_Dwe_Antre_Ane_Moun_nan_PatiKite_menaj_la">Ou dwe antre Ane moun nan Pati Kite menaj la</string>
+
+    <string name="msg_Reponse_Ou_Dwe_Antre_Jou_Moun_nan_te_mouri">Ou dwe antre Jou moun nan te mouri</string>
+    <string name="msg_Reponse_Ou_Dwe_Chwazi_Mwa_Moun_nan_te_mouri">Ou dwe chwazi Mwa moun nan te mouri</string>
+    <string name="msg_Reponse_Ou_Dwe_Antre_Ane_Moun_nan_te_mouri">Ou dwe antre Ane moun nan te mouri</string>
 
 
     <array name="bootstrap_dropdown_example_data">

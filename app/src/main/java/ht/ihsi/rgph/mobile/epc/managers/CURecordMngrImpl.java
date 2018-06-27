@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import ht.ihsi.rgph.mobile.epc.backend.entities.AncienMembre;
+import ht.ihsi.rgph.mobile.epc.backend.entities.AncienMembreDao;
 import ht.ihsi.rgph.mobile.epc.backend.entities.BatimentDao;
 import ht.ihsi.rgph.mobile.epc.backend.entities.DaoSession;
 //import ht.ihsi.rgph.mobile.epc.backend.entities.DecesDao;
@@ -26,6 +28,7 @@ import ht.ihsi.rgph.mobile.epc.constant.Constant;
 import ht.ihsi.rgph.mobile.epc.exceptions.ManagerException;
 import ht.ihsi.rgph.mobile.epc.exceptions.TextEmptyException;
 import ht.ihsi.rgph.mobile.epc.mappers.ModelMapper;
+import ht.ihsi.rgph.mobile.epc.models.AncienMembreModel;
 import ht.ihsi.rgph.mobile.epc.models.BatimentModel;
 //import ht.ihsi.rgph.mobile.epc.models.DecesModel;
 //import ht.ihsi.rgph.mobile.epc.models.EmigreModel;
@@ -242,6 +245,40 @@ public class CURecordMngrImpl extends AbstractDatabaseManager implements CURecor
         }
     }
 
+    @Override
+    public AncienMembreModel SaveAncienMembre(Long id, AncienMembreModel ancienMembre, int typeEvenement, String userCode) throws ManagerException {
+        if( id <= 0 ){
+            return InsertAncienMembre(ancienMembre, userCode);
+        }else{
+            if( typeEvenement == Constant.ACTION_AFFICHER ) {
+                return ancienMembre;
+            }else {
+                ancienMembre.setAncienMembreId(id);
+                return updateAncienMembre(ancienMembre, userCode);
+            }
+        }
+    }
+
+    @Override
+    public AncienMembreModel InsertAncienMembre(AncienMembreModel ancienMembre, String userCode) throws ManagerException {
+        if (ancienMembre != null) {
+            AncienMembreModel ancienMembreModel = new AncienMembreModel();
+            openWritableDb();
+            AncienMembreDao ancienMembreIdDao = daoSession.getAncienMembreDao();
+            long AncienMId = ancienMembreIdDao.insert(ModelMapper.MapToAncienMembre(ancienMembre));
+            if (AncienMId != 0) {
+                Log.d(ToastUtility.TAG, "InsertAncienMembre / Save Individu Insert Id:" + AncienMId + " Batiment ID:" + ancienMembre.getBatimentId() + " Logement:" + ancienMembre.getLogeId() + " SDE:" + ancienMembre.getSdeId()+" NOM:"+ancienMembre.getQp2BNom());
+                ancienMembreModel = ancienMembre;
+                ancienMembreModel.setAncienMembreId(AncienMId);
+                daoSession.clear();
+                return ancienMembreModel;
+            } else {
+                throw new ManagerException("Error while inserting the ancienMembre");
+            }
+        }
+        return null;
+    }
+
     /**
      * Save a new rapportRAR
      *
@@ -382,6 +419,10 @@ public class CURecordMngrImpl extends AbstractDatabaseManager implements CURecor
         }
         if (entite.getClass() == IndividuModel.class) {
             InsertIndividu((IndividuModel) entite,"");
+            return entite;
+        }
+        if (entite.getClass() == AncienMembreModel.class) {
+            InsertAncienMembre((AncienMembreModel) entite,"");
             return entite;
         }
         if (entite.getClass() == RapportRARModel.class) {
@@ -590,6 +631,29 @@ public class CURecordMngrImpl extends AbstractDatabaseManager implements CURecor
     }
 
     @Override
+    public synchronized AncienMembreModel updateAncienMembre(AncienMembreModel individu, String userCode) throws ManagerException {
+        if (individu != null) {
+            openReadableDb();
+            AncienMembreDao ancienMembreDao = daoSession.getAncienMembreDao();
+            //Log.d(ToastUtility.TAG, "INDIVIDU UPDATING  ID:" + individu.getIndividuId() );
+            AncienMembre ind  = ancienMembreDao.load(individu.getAncienMembreId());
+            if (ind.getAncienMembreId() != 0) {
+                try {
+                    ind = ModelMapper.MapToAncienMembre(individu);
+                    ind.setAncienMembreId(individu.getAncienMembreId());
+                    ancienMembreDao.update(ind);
+                    Log.d(ToastUtility.TAG, "updateAncienMembre / AncienMembre Update:" + ind.getAncienMembreId());
+                    daoSession.clear();
+                    return ModelMapper.MapToAncienMembreModel(ind);
+                } catch (Exception ex) {
+                    throw new ManagerException("Impossible De faire la mise à jour" );
+                }
+            }
+        }
+        return null;
+    }
+
+    @Override
     public int updateStatutIndividu(long idIndividu, short Statut, boolean isFieldAllFilled, String userCode) throws ManagerException {
         if (idIndividu > 0 ) {
             try {
@@ -681,6 +745,10 @@ public class CURecordMngrImpl extends AbstractDatabaseManager implements CURecor
             }
             if (entite.getClass() == IndividuModel.class) {
                 updateIndividu((IndividuModel) entite, "");
+                return entite;
+            }
+            if (entite.getClass() == AncienMembreModel.class) {
+                updateAncienMembre((AncienMembreModel) entite, "");
                 return entite;
             }
         } catch (Exception ex) {

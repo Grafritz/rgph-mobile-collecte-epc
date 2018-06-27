@@ -388,6 +388,8 @@ import android.view.Gravity;
     int R02_Etranje = 2;
     int R03_Ayisyen_ak_Etranje = 3;
 
+    int R03_Li_Mouri = 3;
+
     int R10_Pa_Konnen_10 = 10;
 
     int Selibate_01 = 1;

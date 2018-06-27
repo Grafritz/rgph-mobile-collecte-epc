@@ -503,7 +503,7 @@ public class AncienMembreModel  extends BaseModel{
     //endregion
 
     //region METHODES
-    public static void Check_ContrainteSautChampsValeur(AncienMembreModel individuModel)  throws TextEmptyException {
+    public static void Check_ContrainteSautChampsValeur(AncienMembreModel ancienMembreModel)  throws TextEmptyException {
         try {
             //region P1A-P12.2 "KARAKTERISTIK MOUN NAN -|- POU TOUT MANM MENAJ LA -|- KARAKTERISTIK DEMOGRAFIK"
             //P3	KI RELASYON OSWA KISA {0} YE  POU CHÈF MENAJ LA?
@@ -512,29 +512,29 @@ public class AncienMembreModel  extends BaseModel{
                     Dans le cas d'un ménage, établir la relation entre P1 et P3, vérifier que si P1=01 alors P3 =01
                     Si P1=01 et que P3 ≥ 02 faites apparaitre un message d’erreur et permettre de vérifier M11 */
             Boolean isMounNanMenajLa = false;
-            if( individuModel.getQ6HabiteDansMenage()==1 ||
-                    individuModel.getQ6HabiteDansMenage()==3 ||
-                    individuModel.getQ6HabiteDansMenage()==5 ||
-                    individuModel.getQ6HabiteDansMenage()==6 ||
-                    individuModel.getQ6HabiteDansMenage()==7 ) {
+            if( ancienMembreModel.getQ6HabiteDansMenage()==1 ||
+                    ancienMembreModel.getQ6HabiteDansMenage()==3 ||
+                    ancienMembreModel.getQ6HabiteDansMenage()==5 ||
+                    ancienMembreModel.getQ6HabiteDansMenage()==6 ||
+                    ancienMembreModel.getQ6HabiteDansMenage()==7 ) {
                 isMounNanMenajLa=true;
             }
-            if ( !isMounNanMenajLa && individuModel.getQ1NoOrdre() <= 1) {
+            if ( !isMounNanMenajLa && ancienMembreModel.getQ1NoOrdre() <= 1) {
                 throw new TextEmptyException("Moun sa a se chèf menaj la pou li ye.\n Ou dwe antre Chèf menaj la avan!");
             }
 
-            if ( isMounNanMenajLa && individuModel.getQ1NoOrdre() <= 1 &&
-                    individuModel.getQ10LienDeParente() > Constant.Chef_menaj_la_01) {
+            if ( isMounNanMenajLa && ancienMembreModel.getQ1NoOrdre() <= 1 &&
+                    ancienMembreModel.getQ10LienDeParente() > Constant.Chef_menaj_la_01) {
                 throw new TextEmptyException("Moun sa a se chèf menaj la pou li ye. \n Ou dwe antre Chèf menaj la avan!");
             }
-            if ( isMounNanMenajLa && individuModel.getQ1NoOrdre() >= 2 &&
-                    individuModel.getQ10LienDeParente() == Constant.Chef_menaj_la_01) {
+            if ( isMounNanMenajLa && ancienMembreModel.getQ1NoOrdre() >= 2 &&
+                    ancienMembreModel.getQ10LienDeParente() == Constant.Chef_menaj_la_01) {
                 throw new TextEmptyException("Ou paka chwazi moun sa tou pou se chèf menaj la. \n Ou te antre Chèf menaj la avan!");
             }
-            if ( isMounNanMenajLa && individuModel.getQ10LienDeParente() == Constant.Chef_menaj_la_01 &&
-                    individuModel.getQ9Age() < Constant.AGE_15ANS) {
+            if ( isMounNanMenajLa && ancienMembreModel.getQ10LienDeParente() == Constant.Chef_menaj_la_01 &&
+                    ancienMembreModel.getQ9Age() < Constant.AGE_15ANS) {
                 throw new TextEmptyException("Menaj la dwe gen yon sèl chèf epi fòk li genyen " + Constant.AGE_15ANS + " lane aswa plis."
-                        + "\n\nSètifye si se " + individuModel.getQp2APrenom() + " " + individuModel.getQp2BNom()
+                        + "\n\nSètifye si se " + ancienMembreModel.getQp2APrenom() + " " + ancienMembreModel.getQp2BNom()
                         + " ki chef menaj lan. ");
             }
             //}
@@ -543,148 +543,148 @@ public class AncienMembreModel  extends BaseModel{
             /* Le numéro d’ordre doit être unique.
                 Dans le cas d'un ménage, établir la relation entre P1 et P3, vérifier que si P1=01 alors P3 =01
                 Si P1=01 et que P3 ≥ 02 faites apparaitre un message d’erreur et permettre de vérifier M11 */
-            //if (  isMounNanMenajLa && individuModel.getObjLogement() != null ) {
+            //if (  isMounNanMenajLa && ancienMembreModel.getObjLogement() != null ) {
             // TEST POUR LOGEMENT INDIVIDUEL SEULEMENT
-            if ( isMounNanMenajLa && individuModel.getQ1NoOrdre() <= 1 &&
-                    individuModel.getQ10LienDeParente() > Constant.Chef_menaj_la_01 ) {
+            if ( isMounNanMenajLa && ancienMembreModel.getQ1NoOrdre() <= 1 &&
+                    ancienMembreModel.getQ10LienDeParente() > Constant.Chef_menaj_la_01 ) {
                 throw new TextEmptyException("Moun sa a se chèf menaj la pou li ye. \n Ou dwe antre Chèf menaj la avan!");
             }
-            if ( isMounNanMenajLa && individuModel.getQ1NoOrdre() >= 2 &&
-                    individuModel.getQ10LienDeParente() == Constant.Chef_menaj_la_01 ) {
+            if ( isMounNanMenajLa && ancienMembreModel.getQ1NoOrdre() >= 2 &&
+                    ancienMembreModel.getQ10LienDeParente() == Constant.Chef_menaj_la_01 ) {
                 throw new TextEmptyException("Ou paka chwazi moun sa tou pou se chèf menaj la. \n Ou te antre Chèf menaj la avan!");
             }
             //}
             //}
             // P4 - ÈSKE {0} SE  ?  [  ]
             //if (nomChamps.equalsIgnoreCase(IndividuDao.Properties.Qp4Sexe.columnName)){
-            if ( isMounNanMenajLa && individuModel.getQ1NoOrdre() >= 2) {
+            if ( isMounNanMenajLa && ancienMembreModel.getQ1NoOrdre() >= 2) {
                 // ON RECHERCHE LES INFORMATIONS SUR LE CHEF DU MENAGE DEJA ENREGISTRER
-                AncienMembreModel individuCM = null;
-                if ( individuModel.getMenageId() != null && individuModel.getMenageId() > 0) {
-                    individuCM = GetIndividu(1, Constant.Chef_menaj_la_01, individuModel.getMenageId(), Constant.FORMULAIRE_MENAGE);
+                AncienMembreModel ancienMembreM = null;
+                if ( ancienMembreModel.getMenageId() != null && ancienMembreModel.getMenageId() > 0) {
+                    ancienMembreM = GetIndividu(1, Constant.Chef_menaj_la_01, ancienMembreModel.getMenageId(), Constant.FORMULAIRE_MENAGE);
                 }
 
-                if (individuCM == null) {
+                if (ancienMembreM == null) {
                     throw new TextEmptyException("Ou pa te anregistre yon chef menaj. \n Ou te dwe antre Chèf menaj la avan!");
                 } else {
                         /*  Si P4= 1 pour P3 = 01 alors P4 = 2 pour P3 = 02
                             Si P4=2  pour P3 = 01 alors P4= 1 pour P3 = 02
                             Dans le cas où le chef de ménage a un conjoint dans le ménage. Le sexe du chef de ménage et celui de son conjoint doit être différent */
                         /* Si P4= 1 pour P3 = 01 alors P4 = 1 pour P3 = 02 , de même si P4=2 pour P3=01 alors P4=2 pour P3=02, afficher un message d’erreur et permettre de vérifier l’information */
-                    if (individuCM.getQp4Sexe() == individuModel.getQp4Sexe() &&
-                            individuModel.getQ10LienDeParente() == Constant.Mari_Madanm_02) {
-                        throw new TextEmptyException("Chef menaj la [ " + individuCM.getQp2BNom() + " " + individuCM.getQp2APrenom() + " ] paka gen menm sèks ak konjwen li  [ "
-                                + individuModel.getQp2BNom() + " " + individuModel.getQp2APrenom() + " ].");
+                    if (ancienMembreM.getQp4Sexe() == ancienMembreModel.getQp4Sexe() &&
+                            ancienMembreModel.getQ10LienDeParente() == Constant.Mari_Madanm_02) {
+                        throw new TextEmptyException("Chef menaj la [ " + ancienMembreM.getQp2BNom() + " " + ancienMembreM.getQp2APrenom() + " ] paka gen menm sèks ak konjwen li  [ "
+                                + ancienMembreModel.getQp2BNom() + " " + ancienMembreModel.getQp2APrenom() + " ].");
                     }
                 }
                 //}
                 //}
 
                 //region Etablir une relation entre l’âge du CM et celui de son (sa) fils/fille (Père/Mère).
-                //if (individuModel.getQ1NoOrdre() >= 2) {
+                //if (ancienMembreModel.getQ1NoOrdre() >= 2) {
                /* // ON RECHERCHE LES INFORMATIONS SUR LE CHEF DU MENAGE DEJA ENREGISTRER
-                IndividuModel individuCM = null;
-                if (individuModel.getMenageId() != null && individuModel.getMenageId() > 0) {
-                    individuCM = GetIndividu(1, Constant.Chef_menaj_la_01, individuModel.getMenageId(), Constant.FORMULAIRE_MENAGE);
+                IndividuModel ancienMembreM = null;
+                if (ancienMembreModel.getMenageId() != null && ancienMembreModel.getMenageId() > 0) {
+                    ancienMembreM = GetIndividu(1, Constant.Chef_menaj_la_01, ancienMembreModel.getMenageId(), Constant.FORMULAIRE_MENAGE);
                 }*/
 
-                if (individuCM == null) {
+                if (ancienMembreM == null) {
                     throw new TextEmptyException("Ou pa te anregistre yon chef menaj. \n Ou te dwe antre Chèf menaj la avan!");
                 } else {
                     int differenceceAge = 0;
-                    String NomCompletCM = individuCM.getQp2APrenom() + " " + individuCM.getQp2BNom();
-                    String NomCompletInd = individuModel.getQp2APrenom() + " " + individuModel.getQp2BNom();
+                    String NomCompletCM = ancienMembreM.getQp2APrenom() + " " + ancienMembreM.getQp2BNom();
+                    String NomCompletInd = ancienMembreModel.getQp2APrenom() + " " + ancienMembreModel.getQp2BNom();
                     //#00 Verifye si chef menaj la pi gran ke papa li oswa manman li
-                    /*if ( individuCM.getQp5bAge() != Constant.AGE_PA_KONNEN_999ANS
-                            && individuModel.getQp5bAge() != Constant.AGE_PA_KONNEN_999ANS
-                            && individuModel.getQ10LienDeParente() == Constant.Papa_Manman_06
-                            && individuCM.getQp5bAge() > individuModel.getQp5bAge() ) {
-                        throw new TextEmptyException("Atansyon, verifye laj [ " + NomCompletInd + " ], ou di li genyen [ " + individuModel.getQp5bAge() + " ] ane.\n"
-                                + "Li pa dwe pi gran ke Chef Menaj la [ " + NomCompletCM + " ] ki genyen [ " + individuCM.getQp5bAge() + " ] ane." );
+                    /*if ( ancienMembreM.getQp5bAge() != Constant.AGE_PA_KONNEN_999ANS
+                            && ancienMembreModel.getQp5bAge() != Constant.AGE_PA_KONNEN_999ANS
+                            && ancienMembreModel.getQ10LienDeParente() == Constant.Papa_Manman_06
+                            && ancienMembreM.getQp5bAge() > ancienMembreModel.getQp5bAge() ) {
+                        throw new TextEmptyException("Atansyon, verifye laj [ " + NomCompletInd + " ], ou di li genyen [ " + ancienMembreModel.getQp5bAge() + " ] ane.\n"
+                                + "Li pa dwe pi gran ke Chef Menaj la [ " + NomCompletCM + " ] ki genyen [ " + ancienMembreM.getQp5bAge() + " ] ane." );
                     }*/
                     //#1 Si CM (P3=1) est une femme, la différence d'âge entre ce CM (P3=1) et le (la) fils/fille (P3=03) est >13 ans. Dans le cas contraire voir message
-                    //differenceceAge = ( individuModel.getQp5bAge() - individuCM.getQp5bAge() );
-                    if ( individuCM.getQ9Age() != Constant.AGE_PA_KONNEN_999ANS
-                            && individuModel.getQ9Age() != Constant.AGE_PA_KONNEN_999ANS
-                            && individuCM.getQp4Sexe() == Constant.FEMME_2 &&
-                            individuModel.getQ10LienDeParente() == Constant.Pitit_gason_Ou_Piti_fi_03 ){
+                    //differenceceAge = ( ancienMembreModel.getQp5bAge() - ancienMembreM.getQp5bAge() );
+                    if ( ancienMembreM.getQ9Age() != Constant.AGE_PA_KONNEN_999ANS
+                            && ancienMembreModel.getQ9Age() != Constant.AGE_PA_KONNEN_999ANS
+                            && ancienMembreM.getQp4Sexe() == Constant.FEMME_2 &&
+                            ancienMembreModel.getQ10LienDeParente() == Constant.Pitit_gason_Ou_Piti_fi_03 ){
 
-                        differenceceAge = ( individuCM.getQ9Age() - individuModel.getQ9Age() );
+                        differenceceAge = ( ancienMembreM.getQ9Age() - ancienMembreModel.getQ9Age() );
 
                         if ( differenceceAge <= Constant.AGE_13ANS) {
-                            throw new TextEmptyException("Tanpri, verifye laj moun sa [ " + NomCompletInd + " ] ( " + individuModel.getQ9Age() + " ane ) "
-                                    +"ak relasyon ke li genyen ak chef menaj la  [ " + NomCompletCM + " ] ( " + individuCM.getQ9Age() + " ane ), \n"
+                            throw new TextEmptyException("Tanpri, verifye laj moun sa [ " + NomCompletInd + " ] ( " + ancienMembreModel.getQ9Age() + " ane ) "
+                                    +"ak relasyon ke li genyen ak chef menaj la  [ " + NomCompletCM + " ] ( " + ancienMembreM.getQ9Age() + " ane ), \n"
                                     + "Diferans laj ant de moun sa yo dwe pi piti ke " + Constant.AGE_13ANS + " zan");
                         }
                     }
                     //#2 Si CM (P3=1) est un homme, la différence d'âge entre ce CM (P3=1) et le (la) fils/fille (P3=03) est >15 ans
-                    if (individuCM.getQ9Age() != Constant.AGE_PA_KONNEN_999ANS
-                            && individuModel.getQ9Age() != Constant.AGE_PA_KONNEN_999ANS
-                            && individuCM.getQp4Sexe() == Constant.HOMME_1
-                            && individuModel.getQ10LienDeParente() == Constant.Pitit_gason_Ou_Piti_fi_03) {
+                    if (ancienMembreM.getQ9Age() != Constant.AGE_PA_KONNEN_999ANS
+                            && ancienMembreModel.getQ9Age() != Constant.AGE_PA_KONNEN_999ANS
+                            && ancienMembreM.getQp4Sexe() == Constant.HOMME_1
+                            && ancienMembreModel.getQ10LienDeParente() == Constant.Pitit_gason_Ou_Piti_fi_03) {
 
-                        differenceceAge = ( individuCM.getQ9Age() - individuModel.getQ9Age() );
+                        differenceceAge = ( ancienMembreM.getQ9Age() - ancienMembreModel.getQ9Age() );
 
                         if ( differenceceAge <= Constant.AGE_15ANS ) {
-                            throw new TextEmptyException("Tanpri, verifye laj moun sa [ " + NomCompletInd + " ] ( " + individuModel.getQ9Age() + " ane ) "
-                                    +"ak relasyon ke li genyen ak chef menaj la  [ " + NomCompletCM + " ] ( " + individuCM.getQ9Age() + " ane ), \n"
+                            throw new TextEmptyException("Tanpri, verifye laj moun sa [ " + NomCompletInd + " ] ( " + ancienMembreModel.getQ9Age() + " ane ) "
+                                    +"ak relasyon ke li genyen ak chef menaj la  [ " + NomCompletCM + " ] ( " + ancienMembreM.getQ9Age() + " ane ), \n"
                                     + "Diferans laj ant de moun sa yo dwe pi piti ke " + Constant.AGE_15ANS + " zan");
                         }
                     }
 
                     //#3 Si CM (P3=1) est une femme, la différence d'âge entre ce CM (P3=1) et le (la) petit (e) fils/fille (P3=07) est >28 ans
-                    if ( individuCM.getQ9Age() != Constant.AGE_PA_KONNEN_999ANS
-                            && individuModel.getQ9Age() != Constant.AGE_PA_KONNEN_999ANS
-                            && individuCM.getQp4Sexe() == Constant.FEMME_2 &&
-                            individuModel.getQ10LienDeParente() == Constant.Pitit_Pitit_Gason_Ou_Pitit_Pitit_fi_07 ){
+                    if ( ancienMembreM.getQ9Age() != Constant.AGE_PA_KONNEN_999ANS
+                            && ancienMembreModel.getQ9Age() != Constant.AGE_PA_KONNEN_999ANS
+                            && ancienMembreM.getQp4Sexe() == Constant.FEMME_2 &&
+                            ancienMembreModel.getQ10LienDeParente() == Constant.Pitit_Pitit_Gason_Ou_Pitit_Pitit_fi_07 ){
 
-                        differenceceAge = ( individuCM.getQ9Age() - individuModel.getQ9Age() );
+                        differenceceAge = ( ancienMembreM.getQ9Age() - ancienMembreModel.getQ9Age() );
 
                         if( differenceceAge <= Constant.AGE_28ANS) {
-                            throw new TextEmptyException("Tanpri, verifye laj moun sa [ " + NomCompletInd + " ] ( " + individuModel.getQ9Age() + " ane ) "
-                                    +"ak relasyon ke li genyen ak chef menaj la [ " + NomCompletCM + " ] ( " + individuCM.getQ9Age() + " ane ), \n"
+                            throw new TextEmptyException("Tanpri, verifye laj moun sa [ " + NomCompletInd + " ] ( " + ancienMembreModel.getQ9Age() + " ane ) "
+                                    +"ak relasyon ke li genyen ak chef menaj la [ " + NomCompletCM + " ] ( " + ancienMembreM.getQ9Age() + " ane ), \n"
                                     + "Diferans laj ant de moun sa yo dwe pi piti ke " + Constant.AGE_28ANS + " zan");
                         }
                     }
                     //#4 Si CM (P3=1) est un homme, la différence d'âge entre ce CM (P3=1) et le (la) petit (e) fils/fille (P3=07)  est >32 ans
-                    if ( individuCM.getQ9Age() != Constant.AGE_PA_KONNEN_999ANS
-                            && individuModel.getQ9Age() != Constant.AGE_PA_KONNEN_999ANS
-                            && individuCM.getQp4Sexe() == Constant.HOMME_1 &&
-                            individuModel.getQ10LienDeParente() == Constant.Pitit_Pitit_Gason_Ou_Pitit_Pitit_fi_07 ){
+                    if ( ancienMembreM.getQ9Age() != Constant.AGE_PA_KONNEN_999ANS
+                            && ancienMembreModel.getQ9Age() != Constant.AGE_PA_KONNEN_999ANS
+                            && ancienMembreM.getQp4Sexe() == Constant.HOMME_1 &&
+                            ancienMembreModel.getQ10LienDeParente() == Constant.Pitit_Pitit_Gason_Ou_Pitit_Pitit_fi_07 ){
 
-                        differenceceAge = ( individuCM.getQ9Age() - individuModel.getQ9Age() );
+                        differenceceAge = ( ancienMembreM.getQ9Age() - ancienMembreModel.getQ9Age() );
 
                         if(  differenceceAge <= Constant.AGE_32ANS) {
-                            throw new TextEmptyException("Tanpri, verifye laj moun sa [ " + NomCompletInd + " ] ( " + individuModel.getQ9Age() + " ane ) "
-                                    +"ak relasyon ke li genyen ak chef menaj la [ " + NomCompletCM + " ] ( " + individuCM.getQ9Age() + " ane ), \n"
+                            throw new TextEmptyException("Tanpri, verifye laj moun sa [ " + NomCompletInd + " ] ( " + ancienMembreModel.getQ9Age() + " ane ) "
+                                    +"ak relasyon ke li genyen ak chef menaj la [ " + NomCompletCM + " ] ( " + ancienMembreM.getQ9Age() + " ane ), \n"
                                     + "Diferans laj ant de moun sa yo dwe pi piti ke " + Constant.AGE_32ANS + " zan");
                         }
                     }
                     //#5 Si CM (P3=1) est une femme, la différence d'âge entre le (la) père/mère (P3=06) et ce Chef du Ménage (P3=1)   est >13 ans
-                    if ( individuCM.getQ9Age() != Constant.AGE_PA_KONNEN_999ANS
-                            && individuModel.getQ9Age() != Constant.AGE_PA_KONNEN_999ANS
-                            && individuCM.getQp4Sexe() == Constant.FEMME_2
-                            && individuModel.getQ10LienDeParente() == Constant.Papa_Manman_06 ){
+                    if ( ancienMembreM.getQ9Age() != Constant.AGE_PA_KONNEN_999ANS
+                            && ancienMembreModel.getQ9Age() != Constant.AGE_PA_KONNEN_999ANS
+                            && ancienMembreM.getQp4Sexe() == Constant.FEMME_2
+                            && ancienMembreModel.getQ10LienDeParente() == Constant.Papa_Manman_06 ){
 
-                        differenceceAge = ( individuModel.getQ9Age() - individuCM.getQ9Age() );
+                        differenceceAge = ( ancienMembreModel.getQ9Age() - ancienMembreM.getQ9Age() );
 
                         if(  differenceceAge <= Constant.AGE_13ANS ) {
-                            throw new TextEmptyException("Tanpri, verifye laj moun sa [ " + NomCompletInd + " ] ( " + individuModel.getQ9Age() + " ane ) "
-                                    +"ak relasyon ke li genyen ak chef menaj la [ " + NomCompletCM + " ] ( " + individuCM.getQ9Age() + " ane ), \n"
+                            throw new TextEmptyException("Tanpri, verifye laj moun sa [ " + NomCompletInd + " ] ( " + ancienMembreModel.getQ9Age() + " ane ) "
+                                    +"ak relasyon ke li genyen ak chef menaj la [ " + NomCompletCM + " ] ( " + ancienMembreM.getQ9Age() + " ane ), \n"
                                     + "Diferans laj ant de moun sa yo dwe pi piti ke " + Constant.AGE_13ANS + " zan");
                         }
                     }
                     //#6 Si CM (P3=1) est un homme, la différence d'âge entre le (la) père/mère (P3=06) et ce Chef du Ménage est >15 ans
-                    if ( individuCM.getQ9Age() != Constant.AGE_PA_KONNEN_999ANS
-                            && individuModel.getQ9Age() != Constant.AGE_PA_KONNEN_999ANS
-                            && individuCM.getQp4Sexe() == Constant.HOMME_1
-                            && individuModel.getQ10LienDeParente() == Constant.Papa_Manman_06){
+                    if ( ancienMembreM.getQ9Age() != Constant.AGE_PA_KONNEN_999ANS
+                            && ancienMembreModel.getQ9Age() != Constant.AGE_PA_KONNEN_999ANS
+                            && ancienMembreM.getQp4Sexe() == Constant.HOMME_1
+                            && ancienMembreModel.getQ10LienDeParente() == Constant.Papa_Manman_06){
 
-                        differenceceAge = ( individuModel.getQ9Age() - individuCM.getQ9Age() );
+                        differenceceAge = ( ancienMembreModel.getQ9Age() - ancienMembreM.getQ9Age() );
 
                         if(  differenceceAge <= Constant.AGE_15ANS ) {
-                            throw new TextEmptyException("Tanpri, verifye laj moun sa [ " + NomCompletInd + " ] ( " + individuModel.getQ9Age() + " ane ) "
-                                    +"ak relasyon ke li genyen ak chef menaj la [ " + NomCompletCM + " ] ( " + individuCM.getQ9Age() + " ane ), \n"
+                            throw new TextEmptyException("Tanpri, verifye laj moun sa [ " + NomCompletInd + " ] ( " + ancienMembreModel.getQ9Age() + " ane ) "
+                                    +"ak relasyon ke li genyen ak chef menaj la [ " + NomCompletCM + " ] ( " + ancienMembreM.getQ9Age() + " ane ), \n"
                                     + "Diferans laj ant de moun sa yo dwe pi piti ke " + Constant.AGE_15ANS + " zan");
                         }
                     }
@@ -1078,9 +1078,9 @@ public class AncienMembreModel  extends BaseModel{
         }
     }
 
-    public static IndividuModel GetIndividu(int noOrdre, long idMenage) {
+    public static AncienMembreModel GetIndividu(int noOrdre, long idMenage) {
         try {
-            return queryRecordMngr.searchIndividu_ByNoOrdre_ByIdMenage(noOrdre, idMenage,false);
+            return queryRecordMngr.searchAncienMembre_ByNoOrdre_ByIdMenage(noOrdre, idMenage,false);
         } catch (ManagerException e) {
             ToastUtility.LogCat("E", "ManagerException: GetIndividu() | getMessage:" + e.getMessage() + " /n toString:" + e.toString());
             return null;

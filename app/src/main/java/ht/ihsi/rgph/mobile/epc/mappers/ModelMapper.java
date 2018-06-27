@@ -575,6 +575,14 @@ public class ModelMapper {
         return result;
     }
 
+    public static List<AncienMembreModel> MapToAncienMembreModel(List<AncienMembre> inds) {
+        List<AncienMembreModel> result = new ArrayList<AncienMembreModel>();
+        for (AncienMembre ind : inds) {
+            result.add(MapToAncienMembreModel(ind));
+        }
+        return result;
+    }
+
     public static List<PaysModel> MapToPays(List<Pays> payses) {
         List<PaysModel> result = new ArrayList<>() ;
         if(payses!=null && payses.size()>0) {
@@ -899,6 +907,46 @@ public class ModelMapper {
         ind.setCodeAgentRecenceur(entity.getCodeAgentRecenceur());
         ind.setIsVerified(entity.getIsVerified());
         return ind;
+    }
+
+    public static AncienMembre MapToAncienMembre(AncienMembreModel entity) {
+        AncienMembre anc = new AncienMembre();
+        anc.setAncienMembreId(entity.getAncienMembreId());
+        anc.setMenageId(entity.getMenageId());
+        anc.setLogeId(entity.getLogeId());
+        anc.setBatimentId(entity.getBatimentId());
+        anc.setSdeId(entity.getSdeId());
+        anc.setQ1NoOrdre(entity.getQ1NoOrdre());
+        anc.setQp2APrenom(entity.getQp2APrenom());
+        anc.setQp2BNom(entity.getQp2BNom());
+        anc.setQp4Sexe(entity.getQp4Sexe());
+        anc.setQ5EstMortOuQuitter(entity.getQ5EstMortOuQuitter());
+        anc.setQ6HabiteDansMenage(entity.getQ6HabiteDansMenage());
+        anc.setQ7DateQuitterMenageJour(entity.getQ7DateQuitterMenageJour());
+        anc.setQ7DateQuitterMenageMois(entity.getQ7DateQuitterMenageMois());
+        anc.setQ7DateQuitterMenageAnnee(entity.getQ7DateQuitterMenageAnnee());
+        anc.setQ7bDateMouriJour(entity.getQ7bDateMouriJour());
+        anc.setQ7bDateMouriMois(entity.getQ7bDateMouriMois());
+        anc.setQ7bDateMouriAnnee(entity.getQ7bDateMouriAnnee());
+        anc.setQ8DateNaissanceJour(entity.getQ8DateNaissanceJour());
+        anc.setQ8DateNaissanceMois(entity.getQ8DateNaissanceMois());
+        anc.setQ8DateNaissanceAnnee(entity.getQ8DateNaissanceAnnee());
+        anc.setQ9Age(entity.getQ9Age());
+        anc.setQ10LienDeParente(entity.getQ10LienDeParente());
+        anc.setQ11Nationalite(entity.getQ11Nationalite());
+        anc.setQ11PaysNationalite(entity.getQ11PaysNationalite());
+        anc.setQ12NiveauEtude(entity.getQ12NiveauEtude());
+        anc.setQ12StatutMatrimonial(entity.getQ12StatutMatrimonial());
+        anc.setStatut(entity.getStatut());
+        anc.setIsValidated(entity.getIsValidated());
+        anc.setIsFieldAllFilled(entity.getIsFieldAllFilled());
+        anc.setDateDebutCollecte(entity.getDateDebutCollecte());
+        anc.setDateFinCollecte(entity.getDateFinCollecte());
+        anc.setDureeSaisie(entity.getDureeSaisie());
+        anc.setIsContreEnqueteMade(entity.getIsContreEnqueteMade());
+        anc.setCodeAgentRecenceur(entity.getCodeAgentRecenceur());
+        anc.setIsVerified(entity.getIsVerified());
+        return anc;
     }
     //endregion
 

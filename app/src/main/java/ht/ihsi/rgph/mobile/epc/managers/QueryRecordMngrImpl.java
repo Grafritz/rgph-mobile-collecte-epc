@@ -887,6 +887,76 @@ public class QueryRecordMngrImpl extends AbstractDatabaseManager implements Quer
         return result;
     }
 
+    @Override
+    public List<RowDataListModel> SearchAll_Logement_NotFinish(long batimentId, int categLogement) throws ManagerException {
+        List<RowDataListModel> result=null;
+        try {
+            openReadableDb();
+            List<Logement> inds=daoSession.getLogementDao().queryBuilder()
+                    .where(LogementDao.Properties.BatimentId.eq(batimentId))
+                    .whereOr( LogementDao.Properties.Statut.eq(Constant.STATUT_MODULE_KI_MAL_RANPLI_2),  LogementDao.Properties.Statut.eq(Constant.STATUT_MODULE_KI_PA_FINI_3))
+                    .where(LogementDao.Properties.QlCategLogement.eq(categLogement)).list();
+            result= ModelMapper.MapToRowsLogement(context, inds) ;
+            daoSession.clear();
+        }catch(Exception ex){
+            Log.e(MANAGERS, "Exception <> unable to get data from the database"+ex.getMessage());
+            throw  new ManagerException("<> unable to get data from the database",ex);
+        }
+        return result;
+    }
+
+    @Override
+    public List<RowDataListModel> SearchAll_Logement_Finish(long batimentId, int categLogement) throws ManagerException {
+        List<RowDataListModel> result=null;
+        try {
+            openReadableDb();
+            List<Logement> inds=daoSession.getLogementDao().queryBuilder()
+                    .where(LogementDao.Properties.BatimentId.eq(batimentId))
+                    .where( LogementDao.Properties.Statut.eq(Constant.STATUT_MODULE_KI_FINI_1))
+                    .where(LogementDao.Properties.QlCategLogement.eq(categLogement)).list();
+            result= ModelMapper.MapToRowsLogement(context, inds) ;
+            daoSession.clear();
+        }catch(Exception ex){
+            Log.e(MANAGERS, "Exception <> unable to get data from the database"+ex.getMessage());
+            throw  new ManagerException("<> unable to get data from the database",ex);
+        }
+        return result;
+    }
+
+    @Override
+    public List<RowDataListModel> SearchAll_Menage_NotFinish(long logementId) throws ManagerException {
+        List<RowDataListModel> result=null;
+        try {
+            openReadableDb();
+            List<Menage> inds=daoSession.getMenageDao().queryBuilder()
+                    .whereOr( MenageDao.Properties.Statut.eq(Constant.STATUT_MODULE_KI_MAL_RANPLI_2),  MenageDao.Properties.Statut.eq(Constant.STATUT_MODULE_KI_PA_FINI_3))
+                    .where(MenageDao.Properties.LogeId.eq( logementId )).list();
+            result= ModelMapper.MapToRowsMenage(context, inds) ;
+            daoSession.clear();
+        }catch(Exception ex){
+            Log.e(MANAGERS, "Exception <> unable to get data from the database"+ex.getMessage());
+            throw  new ManagerException("<> unable to get data from the database",ex);
+        }
+        return result;
+    }
+
+    @Override
+    public List<RowDataListModel> SearchAll_Menage_Finish(long logementId) throws ManagerException {
+        List<RowDataListModel> result=null;
+        try {
+            openReadableDb();
+            List<Menage> inds=daoSession.getMenageDao().queryBuilder()
+                    .where( MenageDao.Properties.Statut.eq(Constant.STATUT_MODULE_KI_FINI_1))
+                    .where(MenageDao.Properties.LogeId.eq( logementId )).list();
+            result= ModelMapper.MapToRowsMenage(context, inds) ;
+            daoSession.clear();
+        }catch(Exception ex){
+            Log.e(MANAGERS, "Exception <> unable to get data from the database"+ex.getMessage());
+            throw  new ManagerException("<> unable to get data from the database",ex);
+        }
+        return result;
+    }
+
     /**
      * Get an individu by menage
      *

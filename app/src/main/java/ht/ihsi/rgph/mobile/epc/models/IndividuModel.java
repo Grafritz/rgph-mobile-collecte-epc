@@ -1002,9 +1002,9 @@ public class IndividuModel extends BaseModel{
         try {
             if( Type_FORMULAIRE == Constant.FORMULAIRE_MENAGE ) {
                 return queryRecordMngr.searchIndividu_ByNoOrdre_ByIdLienDeParente_ByIdMenage(noOrdre, idLienDeParente, idMenageOuLogement);
-            }else if( Type_FORMULAIRE == Constant.FORMULAIRE_LOGEMENT_COLLECTIF ) {
-                return queryRecordMngr.searchIndividu_ByNoOrdre_ByIdLienDeParente_ByIdLogement(noOrdre, idLienDeParente, idMenageOuLogement);
-            }
+            }//else if( Type_FORMULAIRE == Constant.FORMULAIRE_LOGEMENT_COLLECTIF ) {
+            //    return queryRecordMngr.searchIndividu_ByNoOrdre_ByIdLienDeParente_ByIdLogement(noOrdre, idLienDeParente, idMenageOuLogement);
+            //}
             return null;
         } catch (ManagerException e) {
             ToastUtility.LogCat( "ManagerException: GetIndividu() :", e);

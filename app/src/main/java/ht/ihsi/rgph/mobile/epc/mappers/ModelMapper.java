@@ -911,7 +911,7 @@ public class ModelMapper {
 
     public static AncienMembre MapToAncienMembre(AncienMembreModel entity) {
         AncienMembre anc = new AncienMembre();
-        anc.setAncienMembreId(entity.getAncienMembreId());
+        //anc.setAncienMembreId(entity.getAncienMembreId());
         anc.setMenageId(entity.getMenageId());
         anc.setLogeId(entity.getLogeId());
         anc.setBatimentId(entity.getBatimentId());

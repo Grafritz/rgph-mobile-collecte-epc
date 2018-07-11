@@ -1776,6 +1776,8 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
 
             Calendar mydate = new GregorianCalendar();
             int anneeSysteme = mydate.get(Calendar.YEAR);
+            int moisSysteme = (1 + mydate.get(Calendar.MONTH));
+            int jourSysteme = mydate.get(Calendar.DAY_OF_MONTH);
 
             if (!questionReponseModel.getQSuivant().equalsIgnoreCase(Constant.FIN)) {
                 isMounNanMenajLa = true;
@@ -1833,7 +1835,7 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
                     }
 
                     if (keyValueMoisMembreMenage != null) { // Verifye si jou a pa 99 sa vle di si moun nan konn jou a
-                        if (!jourMembreMenage.equalsIgnoreCase("99")) { // Si moun nan konn jou a
+                        if (!jourMembreMenage.equalsIgnoreCase("" + Constant.JOUR_PA_KONNEN_99ANS)) { // Si moun nan konn jou a
                             if (jourInt > Integer.parseInt(keyValueMoisMembreMenage.getOtherValue())) { // Verifye si jou a pi gran ke limit jou pou mwa a
                                 _message = context.getString(R.string.msg_Reponse_Jou_ou_antre_a_Pa_bon);
                                 et_06DateMembreMenageJour.setError(_message);
@@ -1875,8 +1877,29 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
                             et_06DateMembreMenageAnnee.setError(_message);
                             et_06DateMembreMenageAnnee.requestFocus();
                             et_06DateMembreMenageAnnee.selectAll();
-                            //IsAgeIndividuVerify=true;
                             throw new TextEmptyException(_message);
+                        }
+                        if ( anneeSysteme == Integer.parseInt(anneeMembreMenage)) {
+                            if ( !moisMembreMenage.equalsIgnoreCase("" + Constant.MOIS_PA_KONNEN_99ANS) ) { // Si moun nan konn ane , si li pa 9999
+                                if ( moisSysteme < Integer.parseInt(moisMembreMenage)) {
+                                    _message = "Atansyon! \nDat sistèm nan se :" + Tools.getDateString_ddMMyyyy_HHmmss_a()
+                                            + "\nOu paka chwazi mwa sa pou mwa moun nan te rive nan menaj la.";
+                                    sp_06DateMembreMenageMois.requestFocus();
+                                    throw new TextEmptyException(_message);
+                                }
+                                if ( moisSysteme == Integer.parseInt(moisMembreMenage) ) {
+                                    if ( !jourMembreMenage.equalsIgnoreCase("" + Constant.JOUR_PA_KONNEN_99ANS) ) { // Si moun nan konn jou a
+                                        if ( jourSysteme < Integer.parseInt(jourMembreMenage)) {
+                                            _message = "Atansyon! \nDat sistèm nan se :" + Tools.getDateString_ddMMyyyy_HHmmss_a()
+                                                    + "\nOu paka antre jou sa pou jou moun nan te rive nan menaj la.";
+                                            et_06DateMembreMenageJour.setError(_message);
+                                            et_06DateMembreMenageJour.requestFocus();
+                                            et_06DateMembreMenageJour.selectAll();
+                                            throw new TextEmptyException(_message);
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }//
@@ -1958,7 +1981,7 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
                         }
                     }
                 }
-                if (!anneeNais.equalsIgnoreCase("" + Constant.ANNEE_PA_KONNEN_9999ANS)) { // Si moun nan konn ane , si li pa 9999
+                if ( !anneeNais.equalsIgnoreCase("" + Constant.ANNEE_PA_KONNEN_9999ANS) ) { // Si moun nan konn ane , si li pa 9999
                     if (anneeSysteme < Integer.parseInt(anneeNais)) {
                         _message = "Atansyon! \nDat sistèm nan se :" + Tools.getDateString_ddMMyyyy_HHmmss_a()
                                 + "\nOu paka antre [ " + anneeNais + " ] pou ane  [ " + _02NonIndividu + " " + _03SiyatiIndividu.toUpperCase() + " ] fèt.";
@@ -1967,6 +1990,28 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
                         et_07DateNaissanceAnnee.selectAll();
                         IsAgeIndividuVerify = true;
                         throw new TextEmptyException(_message);
+                    }
+                    if ( anneeSysteme == Integer.parseInt(anneeNais)) {
+                        if ( !moisNais.equalsIgnoreCase("" + Constant.MOIS_PA_KONNEN_99ANS) ) { // Si moun nan konn ane , si li pa 9999
+                            if ( moisSysteme < Integer.parseInt(moisNais)) {
+                                _message = "Atansyon! \nDat sistèm nan se :" + Tools.getDateString_ddMMyyyy_HHmmss_a()
+                                        + "\nOu paka chwazi mwa sa pou mwa moun nan fèt.";
+                                sp_07DateNaissanceMois.requestFocus();
+                                throw new TextEmptyException(_message);
+                            }
+                            if ( moisSysteme == Integer.parseInt(moisNais) ) {
+                                if ( !jourNais.equalsIgnoreCase("" + Constant.JOUR_PA_KONNEN_99ANS) ) { // Si moun nan konn jou a
+                                    if ( jourSysteme < Integer.parseInt(jourNais) ) {
+                                        _message = "Atansyon! \nDat sistèm nan se :" + Tools.getDateString_ddMMyyyy_HHmmss_a()
+                                                + "\nOu paka antre jou sa pou jou moun nan fèt.";
+                                        et_07DateNaissanceJour.setError(_message);
+                                        et_07DateNaissanceJour.requestFocus();
+                                        et_07DateNaissanceJour.selectAll();
+                                        throw new TextEmptyException(_message);
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
                 //endregion
@@ -2199,6 +2244,8 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
 
             Calendar mydate = new GregorianCalendar();
             int anneeSysteme = mydate.get(Calendar.YEAR);
+            int moisSysteme = (1 + mydate.get(Calendar.MONTH));
+            int jourSysteme = mydate.get(Calendar.DAY_OF_MONTH);
 
             if (!questionReponseModel.getQSuivant().equalsIgnoreCase(Constant.FIN)) {
                 isMounNanMenajLa = true;
@@ -2290,12 +2337,34 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
                         if (!anneeQuitterMenage.equalsIgnoreCase("" + Constant.ANNEE_PA_KONNEN_9999ANS)) { // Si moun nan konn ane , si li pa 9999
                             if (anneeSysteme < Integer.parseInt(anneeQuitterMenage)) {
                                 _message = "Atansyon! \nDat sistèm nan se :" + Tools.getDateString_ddMMyyyy_HHmmss_a()
-                                        + "\nOu paka antre [ " + anneeQuitterMenage + " ] pou ane moun nan te rive nan menaj la.";
+                                        + "\nOu paka antre [ " + anneeQuitterMenage + " ] pou ane moun nan te pati kite menaj la.";
                                 et_Q7DateQuitterMenageAnnee.setError(_message);
                                 et_Q7DateQuitterMenageAnnee.requestFocus();
                                 et_Q7DateQuitterMenageAnnee.selectAll();
                                 //IsAgeIndividuVerify=true;
                                 throw new TextEmptyException(_message);
+                            }
+                            if ( anneeSysteme == Integer.parseInt(anneeQuitterMenage)) {
+                                if ( !moisQuitterMenage.equalsIgnoreCase("" + Constant.MOIS_PA_KONNEN_99ANS) ) { // Si moun nan konn ane , si li pa 9999
+                                    if ( moisSysteme < Integer.parseInt(moisQuitterMenage)) {
+                                        _message = "Atansyon! \nDat sistèm nan se :" + Tools.getDateString_ddMMyyyy_HHmmss_a()
+                                                + "\nOu paka chwazi mwa sa pou mwa moun nan te pati kite menaj la.";
+                                        sp_Q7DateQuitterMenageMois.requestFocus();
+                                        throw new TextEmptyException(_message);
+                                    }
+                                    if ( moisSysteme == Integer.parseInt(moisQuitterMenage) ) {
+                                        if ( !jourQuitterMenage.equalsIgnoreCase("" + Constant.JOUR_PA_KONNEN_99ANS) ) { // Si moun nan konn jou a
+                                            if ( jourSysteme < Integer.parseInt(jourQuitterMenage)) {
+                                                _message = "Atansyon! \nDat sistèm nan se :" + Tools.getDateString_ddMMyyyy_HHmmss_a()
+                                                        + "\nOu paka antre jou sa pou jou moun nan te pati kite menaj la.";
+                                                et_Q7DateQuitterMenageJour.setError(_message);
+                                                et_Q7DateQuitterMenageJour.requestFocus();
+                                                et_Q7DateQuitterMenageJour.selectAll();
+                                                throw new TextEmptyException(_message);
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     //endregion
@@ -2380,6 +2449,28 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
                                 et_Q7bDateMouriAnnee.requestFocus();
                                 et_Q7bDateMouriAnnee.selectAll();
                                 throw new TextEmptyException(_message);
+                            }
+                            if ( anneeSysteme == Integer.parseInt(anneeMouri)) {
+                                if ( !moisMouri.equalsIgnoreCase("" + Constant.MOIS_PA_KONNEN_99ANS) ) { // Si moun nan konn ane , si li pa 9999
+                                    if ( moisSysteme < Integer.parseInt(moisMouri)) {
+                                        _message = "Atansyon! \nDat sistèm nan se :" + Tools.getDateString_ddMMyyyy_HHmmss_a()
+                                                + "\nOu paka chwazi mwa sa pou mwa moun nan te mouri.";
+                                        sp_Q7bDateMouriMois.requestFocus();
+                                        throw new TextEmptyException(_message);
+                                    }
+                                    if ( moisSysteme == Integer.parseInt(moisMouri) ) {
+                                        if ( !jourMouri.equalsIgnoreCase("" + Constant.JOUR_PA_KONNEN_99ANS) ) { // Si moun nan konn jou a
+                                            if ( jourSysteme < Integer.parseInt(jourMouri)) {
+                                                _message = "Atansyon! \nDat sistèm nan se :" + Tools.getDateString_ddMMyyyy_HHmmss_a()
+                                                        + "\nOu paka antre jou sa pou jou moun nan te mouri.";
+                                                et_Q7bDateMouriJour.setError(_message);
+                                                et_Q7bDateMouriJour.requestFocus();
+                                                et_Q7bDateMouriJour.selectAll();
+                                                throw new TextEmptyException(_message);
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     //endregion
@@ -2470,6 +2561,28 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
                         et_Q8DateNaissanceAnnee.selectAll();
                         IsAgeIndividuVerify = true;
                         throw new TextEmptyException(_message);
+                    }
+                    if ( anneeSysteme == Integer.parseInt(anneeNais)) {
+                        if ( !moisNais.equalsIgnoreCase("" + Constant.MOIS_PA_KONNEN_99ANS) ) { // Si moun nan konn ane , si li pa 9999
+                            if ( moisSysteme < Integer.parseInt(moisNais)) {
+                                _message = "Atansyon! \nDat sistèm nan se :" + Tools.getDateString_ddMMyyyy_HHmmss_a()
+                                        + "\nOu paka chwazi mwa sa pou mwa moun nan te fèt.";
+                                sp_Q8DateNaissanceMois.requestFocus();
+                                throw new TextEmptyException(_message);
+                            }
+                            if ( moisSysteme == Integer.parseInt(moisNais) ) {
+                                if ( !jourNais.equalsIgnoreCase("" + Constant.JOUR_PA_KONNEN_99ANS) ) { // Si moun nan konn jou a
+                                    if ( jourSysteme < Integer.parseInt(jourNais)) {
+                                        _message = "Atansyon! \nDat sistèm nan se :" + Tools.getDateString_ddMMyyyy_HHmmss_a()
+                                                + "\nOu paka antre jou sa pou jou moun nan te fèt.";
+                                        et_Q8DateNaissanceJour.setError(_message);
+                                        et_Q8DateNaissanceJour.requestFocus();
+                                        et_Q8DateNaissanceJour.selectAll();
+                                        throw new TextEmptyException(_message);
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
                 //endregion
@@ -3723,8 +3836,9 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
         if( ancienMembreModel != null ){
             ID_INDIVIDU = ancienMembreModel.getAncienMembreId();
             nbrInd_NoOrdre = ancienMembreModel.getQ1NoOrdre();
-            //dialog.setTitle("Modifye Moun sa nan menaj sa [" + nbrInd_NoOrdre + " / " + Nbre_TotalIndividu + "]");
-            tv_NumeroIndividu.setText(" Modifye [ Ansyen Manm #" + ancienMembreModel.getQ1NoOrdre() +" ]");
+            String msg = " Modifye [ Ansyen Manm #" + ancienMembreModel.getQ1NoOrdre() + " / " + Nbre_TotalIndividu +" ]";
+            dialog.setTitle(msg);
+            tv_NumeroIndividu.setText(msg);
 
             et_Qp2APrenom.setText("" + ancienMembreModel.getQp2APrenom());
             et_Qp2BNom.setText("" + ancienMembreModel.getQp2BNom());
@@ -3762,8 +3876,9 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
             this.setReponse(sp_Q13StatutMatrimonial, "" + ancienMembreModel.getQ12StatutMatrimonial(), Constant.CLASSE_REPONSE_MODEL);
 
         }else{
-            //dialog.setTitle("Ajoute Moun sa nan menaj sa [" + nbrInd_NoOrdre + " / " + Nbre_TotalIndividu + "]");
-            tv_NumeroIndividu.setText("Ansyen Manm #" + nbrInd_NoOrdre);
+            String msg = " [ Ansyen Manm #" + nbrInd_NoOrdre + " / " + Nbre_TotalIndividu +" ]";
+            dialog.setTitle(msg);
+            tv_NumeroIndividu.setText(msg);
             et_Qp2APrenom.setText(null);
             et_Qp2BNom.setText(null);
             sp_Qp4Sexe.setSelection(0);
@@ -3810,8 +3925,9 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
         if( individuModel != null ){
             ID_INDIVIDU = individuModel.getIndividuId();
             nbrInd_NoOrdre = individuModel.getQ1NoOrdre();
-            //dialog.setTitle("Modifye Moun sa nan menaj sa [" + nbrInd_NoOrdre + " / " + Nbre_TotalIndividu + "]");
-            tv_NumeroIndividu.setText(" Modifye [ Moun #" + individuModel.getQ1NoOrdre() +" ]");
+            String msg = " Modifye [ Moun #" + individuModel.getQ1NoOrdre() + " / " + Nbre_TotalIndividu +" ]";
+            dialog.setTitle(msg);
+            tv_NumeroIndividu.setText(msg);
 
             et_02NonIndividu.setText("" + individuModel.getQp2APrenom());
             et_03SiyatiIndividu.setText("" + individuModel.getQp2BNom());
@@ -3842,7 +3958,10 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
 
         }else{
             //dialog.setTitle("Ajoute Moun sa nan menaj sa [" + nbrInd_NoOrdre + " / " + Nbre_TotalIndividu + "]");
-            tv_NumeroIndividu.setText("Moun #" + nbrInd_NoOrdre);
+            ID_INDIVIDU=0;
+            String msg = " [ Moun #" + nbrInd_NoOrdre + " / " + Nbre_TotalIndividu +" ]";
+            dialog.setTitle(msg);
+            tv_NumeroIndividu.setText(msg);
             et_02NonIndividu.setText(null);
             et_03SiyatiIndividu.setText(null);
             sp_04Sexe.setSelection(0);

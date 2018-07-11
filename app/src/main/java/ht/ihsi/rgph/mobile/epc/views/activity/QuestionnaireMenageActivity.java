@@ -1006,6 +1006,8 @@ public class QuestionnaireMenageActivity extends BaseActivity implements Seriali
                                                 , et_08AgeIndividu, sp_09LienDeParente
                                                 , sp_10Nationalite, sp_10PaysNationalite, sp_11NiveauEtude, sp_12StatutMatrimonial);
 
+                                        message = "Enfòmasyon anrejistre avèk siksè...";
+                                        ToastUtility.ToastMessage(QuestionnaireMenageActivity.this, message, Constant.GravityCenter);
                                         //NbreIndividu_DejaSave = queryRecordMngr.countIndByMenage(QF.getMenageModel().getMenageId());
                                         NoOrdreIndividu = (NoOrdreIndividu + 1);
 
@@ -1016,7 +1018,9 @@ public class QuestionnaireMenageActivity extends BaseActivity implements Seriali
                                             NoOrdreIndividu=Nbre_TotalIndividu_Declarer;
                                             Suivant_Click();
                                         }
-                                        et_02NonIndividu.setText(null);
+
+                                        //region [ Clean ]
+                                        /*et_02NonIndividu.setText(null);
                                         et_03SiyatiIndividu.setText(null);
                                         sp_04Sexe.setSelection(0);
                                         sp_05HabiteDansMenage.setSelection(0);
@@ -1037,8 +1041,10 @@ public class QuestionnaireMenageActivity extends BaseActivity implements Seriali
                                         sp_11NiveauEtude.setSelection(0);
                                         sp_12StatutMatrimonial.setSelection(0);
 
-                                        et_02NonIndividu.requestFocus();
-                                        //ID_INDIVIDU = 0;
+                                        et_02NonIndividu.requestFocus();*/
+                                        //endregion
+
+                                        ID_INDIVIDU = 0;
 
                                         // On recherche les Individus par numero d'ordre et par IdMenage
                                         IndividuModel individuModel = QF.Get_Set_Individu_IfExist(queryRecordMngr, dialog, ID_INDIVIDU, NoOrdreIndividu, Nbre_TotalIndividu_Declarer
@@ -1062,10 +1068,10 @@ public class QuestionnaireMenageActivity extends BaseActivity implements Seriali
                                     }
                                 } catch (TextEmptyException ex) {
                                     Tools.AlertDialogMsg(QuestionnaireMenageActivity.this, ex.getMessage());
-                                    ToastUtility.LogCat("TextEmptyException: btnQuitter.setOnClickListener() :" + ex.getMessage() + " \n " + ex.toString());
+                                    ToastUtility.LogCat("TextEmptyException: btnContinuer.setOnClickListener() :" + ex.getMessage() + " \n " + ex.toString());
                                 } catch (Exception ex) {
-                                    ToastUtility.ToastMessage(QuestionnaireMenageActivity.this, ex.getMessage() + " \n " + ex.toString());
-                                    ToastUtility.LogCat("Exception: btnQuitter.setOnClickListener() :" + ex.getMessage() + " \n " + ex.toString());
+                                    ToastUtility.ToastMessage( QuestionnaireMenageActivity.this, ex.getMessage());
+                                    ToastUtility.LogCat("Exception: btnContinuer.setOnClickListener() :" + ex.getMessage() + " \n " + ex.toString());
                                 }
                             }
                         });
@@ -1369,7 +1375,8 @@ public class QuestionnaireMenageActivity extends BaseActivity implements Seriali
                                             NoOrdreAncienMembre=Nbre_TotalAncienMembre_Declarer;
                                             Suivant_Click();
                                         }
-                                        et_Qp2APrenom.setText(null);
+                                        //region [ Clean ]
+                                        /*et_Qp2APrenom.setText(null);
                                         et_Qp2BNom.setText(null);
                                         sp_Qp4Sexe.setSelection(0);
                                         sp_Q5EstMortOuQuitter.setSelection(0);
@@ -1394,8 +1401,9 @@ public class QuestionnaireMenageActivity extends BaseActivity implements Seriali
                                         sp_Q12NiveauEtude.setSelection(0);
                                         sp_Q13StatutMatrimonial.setSelection(0);
 
-                                        et_02NonIndividu.requestFocus();
-                                        //ID_INDIVIDU = 0;
+                                        et_02NonIndividu.requestFocus();*/
+                                        //endregion
+                                        ID_INDIVIDU = 0;
 
                                         // On recherche les Individus par numero d'ordre et par IdMenage
                                         AncienMembreModel individuModel = QF.Get_Set_AncienMembre_IfExist(queryRecordMngr, dialog, ID_INDIVIDU, NoOrdreAncienMembre, Nbre_TotalAncienMembre_Declarer
@@ -1423,7 +1431,7 @@ public class QuestionnaireMenageActivity extends BaseActivity implements Seriali
                                     Tools.AlertDialogMsg(QuestionnaireMenageActivity.this, ex.getMessage());
                                     ToastUtility.LogCat("TextEmptyException: btnQuitter.setOnClickListener() :" + ex.getMessage() + " \n " + ex.toString());
                                 } catch (Exception ex) {
-                                    ToastUtility.ToastMessage(QuestionnaireMenageActivity.this, ex.getMessage() + " \n " + ex.toString());
+                                    ToastUtility.ToastMessage(QuestionnaireMenageActivity.this, ex.getMessage());
                                     ToastUtility.LogCat("Exception: btnQuitter.setOnClickListener() :" + ex.getMessage() + " \n " + ex.toString());
                                 }
                             }
@@ -1472,8 +1480,9 @@ public class QuestionnaireMenageActivity extends BaseActivity implements Seriali
                 if (nbre_TotalMenage == nbreTotalMenage_DejaSave) {
                     // On lui permet de voir la liste des personnes deja enregistrer.
                     // Calcul Statut du Menage en generale
-                    finish();
+                    //finish();
                     if( QuestionnaireLogementActivity.CounterForMenage_LogInd >= nbre_TotalMenage  ) {
+                        QuestionnaireLogementActivity.IsActivityMenageClose =true;
                         finish();
                     }else{
                         // On selectionne le Logement qui n'a pas un statut FINI
@@ -1522,19 +1531,19 @@ public class QuestionnaireMenageActivity extends BaseActivity implements Seriali
                             tempInfoQuestions = new ArrayList<TempInfoQuestion>();
                             toolbar.setTitle(headerFormOne);
 
-                            message = "Kontinye pran enfòmasyon sou Menaj " + menageM_OBJ.getQm1NoOrdre() + " an";
+                            message = "Kontinye pran enfòmasyon sou Menaj " + menageM_OBJ.getQm1NoOrdre() + " la";
                             ToastUtility.ToastMessage(this, message, Constant.GravityCenter);
                             //Tools.AlertDialogMsg(this, message, "S");
                             //endregion
                         }else {
                             if ( nbre_TotalMenage == nbreTotalMenage_DejaSave ) {
                                 //
-                                if (QF.getqSuivant().toString().equalsIgnoreCase(Constant.FIN)) {
-                                    finish();
-                                }else {
+                                //if (QF.getqSuivant().toString().equalsIgnoreCase(Constant.FIN)) {
+                                //    finish();
+                                //}else {
                                     // On Passe a la question suivante
                                     Suivant_Click();
-                                }
+                                //}
                             } else {
                                 Precedent_Click(QF);
                             }
@@ -1555,6 +1564,7 @@ public class QuestionnaireMenageActivity extends BaseActivity implements Seriali
                     menageModel.setLogeId(QF.getLogementModel().getLogeId());
                     menageModel.setObjLogement(QF.getLogementModel());
                     menageModel.setDateDebutCollecte(dateDebutCollect.toString());
+                    QuestionnaireLogementActivity.CounterForMenage_LogInd = nbr_ou_NoOrdre;
 
                     ModuleModel moduleModel = formDataMngr.checkModule(Constant.FORMULAIRE_MENAGE, Constant.ACTIF);
                     QF = new QuestionnaireFormulaireUtility(moduleModel, menageModel, Constant.FORMULAIRE_MENAGE, formDataMngr);
@@ -1574,9 +1584,11 @@ public class QuestionnaireMenageActivity extends BaseActivity implements Seriali
                     tvHeaderTwo.setText(headerFormTwo.toUpperCase());
                     tempInfoQuestions = new ArrayList<TempInfoQuestion>();
                     toolbar.setTitle(headerFormOne);
+
                     int ouDejaAntre = nbr_ou_NoOrdre - 1;
 
-                    message = "Kòmanse pran enfòmasyon sou Menaj " + nbr_ou_NoOrdre + " an!";
+                    message = "Kòmanse pran enfòmasyon sou Menaj " + nbr_ou_NoOrdre + " la!";
+                    message += "\n[ Ou deja antre "+ ouDejaAntre + " / " + nbre_TotalMenage + "]";
                     ToastUtility.ToastMessage(this, message, Constant.GravityCenter);
                     //Tools.AlertDialogMsg(this, message, "S");
                     //endregion
@@ -1787,7 +1799,8 @@ public class QuestionnaireMenageActivity extends BaseActivity implements Seriali
     private void Precedent_Click( QuestionnaireFormulaireUtility QF ){
         try{
             if (QF.getqPrecedent().toString().equalsIgnoreCase(Constant.DEBUT)) {
-                finish();
+                //QuestionnaireLogementActivity.IsActivityMenageClose =true;
+                //finish();
             }else {
                 Remove_QuestionEncours(QF, true);
                 JumpToMenu = true;
@@ -1937,6 +1950,7 @@ public class QuestionnaireMenageActivity extends BaseActivity implements Seriali
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        QuestionnaireLogementActivity.IsActivityMenageClose =true;
                         finish();
                     }
                 }
@@ -1946,9 +1960,9 @@ public class QuestionnaireMenageActivity extends BaseActivity implements Seriali
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (dialog != null) {
-                            dialog.dismiss();
-                        }
+                        //if (dialog != null) {
+                        //    dialog.dismiss();
+                        //}
                         //finish();
                     }
                 }
@@ -2171,14 +2185,8 @@ public class QuestionnaireMenageActivity extends BaseActivity implements Seriali
                             if (dialog != null) {
                                 dialog.dismiss();
                             }
-                            // Gestionnaire de statut du menage
-                            //int statut = QF.SetStatutMenage(queryRecordMngr, cuRecordMngr);
-                            //if( statut == Constant.STATUT_RANPLI_NET_11 ){
-                            //    ShowRapport_RAR_Final();
-                            //}else {
-                                // On met le boucle ici pour le menage
-                                AddMenage_EnBoucle();
-                            //}
+                            // On met le boucle ici pour le menage
+                            AddMenage_EnBoucle();
                         } catch (TextEmptyException ex) {
                             Tools.AlertDialogMsg(QuestionnaireMenageActivity.this, ex.getMessage());
                             ToastUtility.LogCat("TextEmptyException: ShowRapport_RAR() :" + ex.getMessage());
@@ -2192,13 +2200,15 @@ public class QuestionnaireMenageActivity extends BaseActivity implements Seriali
 
                 //region Buttons btnContinuerEtChangerdeModule
                 btnContinuerEtChangerdeModule = (Button) dialog.findViewById(R.id.btnContinuerEtChangerdeModule);
-                LinearLayout_messageChangerdeModule.setVisibility(View.VISIBLE);
-                Short nbre_TotalMenage = 0;
-                if (QF.getLogementModel().getQlin5NbreTotalMenage() != null) {
-                    nbre_TotalMenage = QF.getLogementModel().getQlin5NbreTotalMenage();
-                }
-                if (QuestionnaireLogementActivity.CounterForMenage_LogInd - 1 >= nbre_TotalMenage) {
+                LinearLayout_messageChangerdeModule.setVisibility(View.GONE);
+
+                long Counter_ForMenage_LogInd = QuestionnaireLogementActivity.CounterForMenage_LogInd;
+                long NbreTotalMenage = QF.getLogementModel().getQlin5NbreTotalMenage();
+                if( Counter_ForMenage_LogInd == NbreTotalMenage ) {
                     LinearLayout_messageChangerdeModule.setVisibility(View.GONE);
+                }
+                if( Counter_ForMenage_LogInd < NbreTotalMenage ) {
+                    LinearLayout_messageChangerdeModule.setVisibility(View.VISIBLE);
                 }
                 btnContinuerEtChangerdeModule.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -2209,10 +2219,11 @@ public class QuestionnaireMenageActivity extends BaseActivity implements Seriali
                             if (dialog != null) {
                                 dialog.dismiss();
                             }
-                            QuestionnaireLogementActivity.CounterForMenage_LogInd = QF.getLogementModel().getQlin5NbreTotalMenage();
+                            QuestionnaireLogementActivity.CounterForMenage_LogInd = QF.getLogementModel().getQlin5NbreTotalMenage()+1;
                             finishAfter = true;
 
                             if (finishAfter) {
+                                QuestionnaireLogementActivity.IsActivityMenageClose =true;
                                 finish();
                             } else {
                                 // Gestionnaire de statut du menage

@@ -178,7 +178,7 @@
     <string name="msg_TitreAccueil_FR"><b>Institut Haïtien de Statistique et d\'Informatique <strong>(IHSI)</strong></b></string>
     <string name="msg_TitreAccueil_CR">Enstiti Ayisyen Estatistik ak Enfòmatik</string>
     <string name="msg_SousTitreAccueil_FR">Recencement Général de la Population et de l\'habitat</string>
-    <string name="msg_SousTitreAccueil_CR">Ve Resansman Jeneral Popilasyon ak Abita \n (RGPH)</string>
+    <string name="msg_SousTitreAccueil_CR">Ankèt Pos Sansitè (EPC)</string>
     <string name="msg_Pa_gen_moun_vivan">Pa gen moun ki vivan nan lojman sa.</string>
     <string name="msg_Reponse_Ou_Dwe_Chwazi_Yon_SeksyonKominal">Ou dwe chwazi yon Seksyon Kominal</string>
     <string name="label_Jour">Jou</string>

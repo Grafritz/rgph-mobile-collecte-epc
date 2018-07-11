@@ -121,18 +121,24 @@ public class DisplayListAdapter extends RecyclerView.Adapter<DisplayListAdapter.
             view.setClickable(true);
             // view.animate();
             view.setOnClickListener(this);
-
         }
 
         @Override
         public void onClick(View v) {
             if(!row.isEmpty()){
-                if( listType != Constant.LIST_MODULE_INDIVIDU_LIST_ONLY
+                if( listType == Constant.LIST_MODULE_LOGEMENT_NOT_FINISH_LIST_ONLY
+                        || listType == Constant.LIST_MODULE_MENAGE_NOT_FINISH_LIST_ONLY ){
+                    if ( onItemClickListener != null ) {
+                        onItemClickListener.onItemModuleClick(row);
+                    }
+                    overflowIcon.setVisibility(View.GONE);
+                }else if( listType != Constant.LIST_MODULE_INDIVIDU_LIST_ONLY
                         && listType != Constant.LIST_MODULE_LOGEMENT_LIST_ONLY
                         && listType != Constant.LIST_MODULE_MENAGE_LIST_ONLY
                         && listType != Constant.LIST_MODULE_BATIMENT_LIST_ONLY
                         && listType != Constant.LIST_MODULE_EMIGRER_LIST_ONLY
                         && listType != Constant.LIST_MODULE_DECES_LIST_ONLY ) {
+                    overflowIcon.setVisibility(View.GONE);
 
                     if( profilId == Constant.PRIVILEGE_AGENT && statutModule == Constant.STATUT_MODULE_KI_FINI_1 ){
                         // Pas de Menu
@@ -173,7 +179,7 @@ public class DisplayListAdapter extends RecyclerView.Adapter<DisplayListAdapter.
                 popup.getMenu().removeItem(R.id.item_Kontinye);
                 popup.getMenu().removeItem(R.id.item_Rapport);
                 popup.getMenu().removeItem(R.id.item_RetounenMalRanpli);
-                overflowIcon.setVisibility(View.INVISIBLE);
+                overflowIcon.setVisibility(View.GONE);
                 //popup.getMenu().removeItem(R.id.item_module_menu);
             }else{
                 //popup.getMenu().findItem(R.id.item_module_menu).setEnabled(row.isModuleMenu());
@@ -339,6 +345,7 @@ public class DisplayListAdapter extends RecyclerView.Adapter<DisplayListAdapter.
                 return "";
             }
         }
+
         public String getModuleName_Fille(){
             if(listType==Constant.LIST_MODULE_BATIMENT){
                 return Constant.MODULE_NAME_BATIMAN;
@@ -364,16 +371,16 @@ public class DisplayListAdapter extends RecyclerView.Adapter<DisplayListAdapter.
             };
         }
 
-        private View.OnClickListener getClickMenuListener(){
-            return new View.OnClickListener(){
-                @Override
-                public void onClick(View v) {
-                    if (onItemClickListener != null) {
-                        onItemClickListener.onItemMenuClick(row);
-                    }
-                }
-            };
-        }
+        //private View.OnClickListener getClickMenuListener(){
+        //    return new View.OnClickListener(){
+        //        @Override
+        //        public void onClick(View v) {
+        //            if (onItemClickListener != null) {
+        //                onItemClickListener.onItemMenuClick(row);
+        //            }
+        //        }
+        //    };
+        //}
 
         public void bind(RowDataListModel row){
             this.row=row;
@@ -390,14 +397,29 @@ public class DisplayListAdapter extends RecyclerView.Adapter<DisplayListAdapter.
                 overflowIcon.setVisibility(View.INVISIBLE);
             }
 
+            if( listType == Constant.LIST_MODULE_LOGEMENT_NOT_FINISH_LIST_ONLY
+                    || listType == Constant.LIST_MODULE_MENAGE_NOT_FINISH_LIST_ONLY ){
+                overflowIcon.setVisibility(View.GONE);
+            }
+            if( listType==Constant.LIST_MODULE_INDIVIDU_LIST_ONLY
+                    || listType==Constant.LIST_MODULE_LOGEMENT_LIST_ONLY
+                    || listType==Constant.LIST_MODULE_MENAGE_LIST_ONLY
+                    || listType==Constant.LIST_MODULE_BATIMENT_LIST_ONLY
+                    || listType==Constant.LIST_MODULE_EMIGRER_LIST_ONLY
+                    || listType==Constant.LIST_MODULE_DECES_LIST_ONLY ){
+                overflowIcon.setVisibility(View.GONE);
+            }
         }
 
         public int getIcon(){
-            if(listType== Constant.LIST_MODULE_BATIMENT || listType==Constant.LIST_MODULE_BATIMENT_LIST_ONLY ){
+            if( listType== Constant.LIST_MODULE_LOGEMENT_NOT_FINISH_LIST_ONLY
+                    || listType == Constant.LIST_MODULE_MENAGE_NOT_FINISH_LIST_ONLY ){
+                return R.drawable.ic_logement_notfinish;
+            }else if(listType== Constant.LIST_MODULE_BATIMENT || listType==Constant.LIST_MODULE_BATIMENT_LIST_ONLY ){
                 return R.drawable.ic_batiment;
             }else if(listType==Constant.LIST_MODULE_LOGEMENT_COLLECTIF
                     || listType==Constant.LIST_MODULE_LOGEMENT_INDIVIDUEL || listType==Constant.LIST_MODULE_LOGEMENT_LIST_ONLY ){
-                return R.drawable.ic_batiment;
+                return R.drawable.ic_logement;
             }else if(listType==Constant.LIST_MODULE_MENAGE || listType==Constant.LIST_MODULE_MENAGE_LIST_ONLY ){
                 return R.drawable.ic_menage;
             }else if(listType==Constant.LIST_MODULE_EMIGRE || listType==Constant.LIST_MODULE_EMIGRER_LIST_ONLY ){
@@ -420,9 +442,9 @@ public class DisplayListAdapter extends RecyclerView.Adapter<DisplayListAdapter.
 
     //Interface on row click listener
     public interface OnItemClickListener {
-        void onItemClick(RowDataListModel entity);
+        //void onItemClick(RowDataListModel entity);
         void onItemModuleClick(RowDataListModel entity);
-        void onItemMenuClick(RowDataListModel entity);
+        //void onItemMenuClick(RowDataListModel entity);
     }
 
     public interface OnMenuItemClickListener{

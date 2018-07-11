@@ -32,6 +32,7 @@ import ht.ihsi.rgph.mobile.R;
 import ht.ihsi.rgph.mobile.epc.constant.Constant;
 import ht.ihsi.rgph.mobile.epc.exceptions.ManagerException;
 import ht.ihsi.rgph.mobile.epc.exceptions.TextEmptyException;
+import ht.ihsi.rgph.mobile.epc.models.BatimentModel;
 import ht.ihsi.rgph.mobile.epc.models.CommuneModel;
 import ht.ihsi.rgph.mobile.epc.models.IndividuModel;
 import ht.ihsi.rgph.mobile.epc.models.KeyValueModel;
@@ -110,7 +111,7 @@ public class QuestionnaireLogementActivity extends BaseActivity implements Seria
     private String headerFormTwo;
 
     private RowDataListModel rowDada;
-    public Dialog dialog;
+    public Dialog dialog, dialogIL, dialogMenNotFinish;
     EditText et_NonIndividu;
     EditText et_SiyatiIndividu;
     Spinner sp_Sexe;
@@ -128,14 +129,16 @@ public class QuestionnaireLogementActivity extends BaseActivity implements Seria
 
     ContrainteReponse contrainte = new ContrainteReponse();
     public static List<TempInfoQuestion> tempInfoQuestions;
+    public static boolean IsActivityMenageClose = false;
 
-    //region LogementModel PopUp
+    //region Pop Up
     LogementModel logementM_OBJ = null;
     public static int CounterForIndividu_LogCol = 1;
     public static int CounterForMenage_LogInd = 1;
     //endregion
 
 //endregion
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -145,6 +148,7 @@ public class QuestionnaireLogementActivity extends BaseActivity implements Seria
         toolbar.setTitle(Html.fromHtml("<b>" + getString(R.string.app_name) + "</b>"));
         setSupportActionBar(toolbar);
         try {
+            QuestionnaireBatimentActivity.IsActivityLogeClose =false;
             tempInfoQuestions = new ArrayList<TempInfoQuestion>();
             // .|. \\ QF.getDateInfo(this);
             init(Constant.FORM_DATA_MANAGER);
@@ -278,41 +282,125 @@ public class QuestionnaireLogementActivity extends BaseActivity implements Seria
         }
     }//
 
-    //region EVENTS CONTROLS
-    @Override
-    protected void onResume() {
+    //region GET DATA : GetFieldValuesQuestionInfo- ...
+    private void GetFieldValuesQuestionInfo(QuestionnaireFormulaireUtility qf) {
         try {
-            if (QF.getTbl_TableName() == Constant.FORMULAIRE_LOGEMENT_INDIVIDUEL) {
-                if (QF.getNomChamps().equalsIgnoreCase(Constant.CallFormulaireMenage)) {
-                    int nbre_TotalMenage = 0;
-                    if (QF.getLogementModel().getQlin4IsHaveIndividuDepense() != null &&
-                            QF.getLogementModel().getQlin4IsHaveIndividuDepense() == Constant.REPONS_NON_2) {
-                        nbre_TotalMenage = 1;
-                    }
-                    if (QF.getLogementModel().getQlin5NbreTotalMenage() != null) {
-                        nbre_TotalMenage = QF.getLogementModel().getQlin5NbreTotalMenage();
-                    }
-                    // On verifie s'il existe de menage dans le logement Individuel
-                    if (nbre_TotalMenage > 0) {
-                        long nbreTotalMenage_DejaSave = queryRecordMngr.countMenageByLog(QF.getLogementModel().getLogeId());
-                        if ( CounterForMenage_LogInd >= nbre_TotalMenage) {
-                            ShowListInformations(Constant.LOJ_ENDIVIDYEL, (int) nbreTotalMenage_DejaSave);
-                        } else {
+
+            QuestionnaireFormulaireUtility.SetFieldValuesQuestionInfo( this, formDataMngr,  qf
+                    , tv_DetailsCategorie , tv_SousDetailsCategorie , tv_DetailQuestion , tv_GrandTitre , toolbar
+                    , tv_LibeleQuestion , tv_Commune , tv_SectionCommune
+                    , recyclerViewReponse, LL_RecyclerView, radioListAdapter,  getItemClickListener(), radioListAdapterKeyValue,  getItemClickListenerKeyValue()
+                    , et_Reponse , sp_Reponse , RelativeLayout_Reponse , sp_Reponse2 , RelativeLayout_Reponse2 , sp_Reponse3 , RelativeLayout_Reponse3
+                    , LinearLDate , RL_Jour , sp_Jour , sp_Mois , sp_Annee
+                    , LL_GaconEtFille, LL_AppareilEtAnimaux,tv_Reponse, tv_Gason, tv_Fi,et_Gason, et_Fi
+                    , et_ApareyRadyo, et_Televizyon, et_FrijideFrize, et_FouElektrikFouAkGaz, et_OdinatePCLaptopTabletNimerik, et_BisikletMotosiklet, et_VwatiMachin
+                    , et_KannotBato, et_InvetePanoSoleJeneratrisDelko, et_MiletChwalBourik, et_BefVach, et_KochonKabrit, et_BetVolayPoulKok, btn_Precedent, btn_Suivant
+                    , LinearLDate_SaisieJJ_SelectMM_SaisieAAAA, et_Jour, sp_Mois2 , et_Annee);
+
+            /* Dialog pupUp Formulaire liste individu dans le menage */
+            SetReponseValue_DataBase(qf);
+
+            /* Add Individu dans Logement */
+            //AddIndividu_LogementCollectif();
+
+            /* Add Menage dans Logement individuel */
+            AddMenage_LogementIndividuel();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//
+    //endregion
+
+    //region  Add Logement | AddMenage | AddIndividu | PopUp List_Logement
+    public void AddLogement_EnBoucle(){
+        try{
+           Show_Form_Add_Logement();
+        }catch (Exception ex) {
+            ToastUtility.LogCat("Exception: ShowPopUp_AddLogement :" + ex.getMessage() +" / " + ex.toString());
+            Tools.AlertDialogMsg(this, ex.getMessage() +"\n"+ ex.toString());
+            ex.printStackTrace();
+        }
+    }
+
+    private void Show_Form_Add_Logement() {
+        try{
+            ///*******************************************////
+            //      Gestionnaire de statut du Logement      //
+            ///*******************************************////
+            int typeLogement = Constant.LOJ_KOLEKTIF;
+            if ( QF.getTbl_TableName() == Constant.FORMULAIRE_LOGEMENT_INDIVIDUEL ) {
+                typeLogement = Constant.LOJ_ENDIVIDYEL;
+            }
+            int statut = QF.SetStatutLogement(queryRecordMngr, cuRecordMngr, typeLogement);
+            // On fait appel au Rapport de l'agent recenseur
+            //this.ShowRapport_RAR(statut);
+
+            boolean isShowRapport = false;
+
+            //region FORMULAIRE_LOGEMENT_INDIVIDUEL
+            if( QF.getTbl_TableName() == Constant.FORMULAIRE_LOGEMENT_INDIVIDUEL ){
+                //region LOGEMENT INDIVIDUEL
+                int NbreLogeEndividyel = QF.getBatimentModel().getQb4NbreLogeIndividuel();
+                // On verifie s'il existe de logement Individuel
+                if( NbreLogeEndividyel > 0 ) {
+                    long nbreLogement_DejaSave = queryRecordMngr.countLogByBatAndType(QF.getBatimentModel().getBatimentId(), Constant.LOJ_ENDIVIDYEL);
+                    int nbr_ou_NoOrdre = ((int) nbreLogement_DejaSave + 1);
+                    if (NbreLogeEndividyel == nbreLogement_DejaSave) {
+                        // On lui permet de voir la liste des personnes deja enregistrer.
+                        // Calcul Statut du Logement individuel en generale */
+                        //region PAUSE
+                        /**/
+                        if( QuestionnaireBatimentActivity.CounterForLogeEndividyel >= NbreLogeEndividyel  ) {
+                            QuestionnaireBatimentActivity.IsActivityLogeClose =true;
+                            finish();
+                        }else{
                             // On selectionne le Logement qui n'a pas un statut FINI
-                            MenageModel menM = null;
-                            do {
-                                CounterForMenage_LogInd += 1;
-                                menM = queryRecordMngr.searchMenage_ByNoOrdre_ByIdLogement(CounterForMenage_LogInd, QF.getLogementModel().getLogeId());
-                            }
-                            while (menM == null && CounterForMenage_LogInd < nbre_TotalMenage && nbreTotalMenage_DejaSave > 0);
+                            LogementModel logM = null;
+                            do{
+                                logM = queryRecordMngr.searchLogementByNoOrdreByTypeLogByIdBatiment( QuestionnaireBatimentActivity.CounterForLogeEndividyel, Constant.LOJ_ENDIVIDYEL, QF.getBatimentModel().getBatimentId() );
+                                QuestionnaireBatimentActivity.CounterForLogeEndividyel += 1;
+                            }while (logM == null && QuestionnaireBatimentActivity.CounterForLogeEndividyel <= NbreLogeEndividyel );
 
-                            if ( menM != null ) {
-                                this.SetFieldMenage(menM, nbre_TotalMenage, Constant.ACTION_MOFIDIER);
+                            if ( logM != null ) {
+                                //region "logementM_OBJ"
+                                String dateDebutCollect = Tools.getDateString_MMddyyyy_HHmmss_a();
+                                logementM_OBJ = new LogementModel();
+                                LogementModel.cuRecordMngr = cuRecordMngr;
+                                LogementModel.formDataMngr = formDataMngr;
+                                logementM_OBJ.setDateDebutCollecte(dateDebutCollect.toString()) ;
+                                logementM_OBJ = logM;
+                                // Objet Batimtnent
+                                logementM_OBJ.setBatimentId(QF.getBatimentModel().getBatimentId());
+                                logementM_OBJ.setObjBatiment(QF.getBatimentModel());
+                                //
+                                //QuestionnaireBatimentActivity.CounterForLogeEndividyel += (int)logementM_OBJ.getQlin1NumeroOrdre();
 
-                                message = "Kontinye pran enfòmasyon sou Menaj " + menM.getQm1NoOrdre() + " an";
+                                ModuleModel moduleModel = formDataMngr.checkModule(Constant.FORMULAIRE_LOGEMENT_INDIVIDUEL, Constant.ACTIF);
+                                QF = new QuestionnaireFormulaireUtility(moduleModel, logementM_OBJ, Constant.FORMULAIRE_LOGEMENT_INDIVIDUEL, formDataMngr);
+                                QF.context = QuestionnaireLogementActivity.this;
+                                if(logementM_OBJ!=null && logementM_OBJ.getDateDebutCollecte()!=null && !logementM_OBJ.getDateDebutCollecte().equalsIgnoreCase("") ) {
+                                    dateDebutCollect = logementM_OBJ.getDateDebutCollecte();
+                                    QF.setDateDebutCollecte(dateDebutCollect);
+                                }else{
+                                    QF.setDateDebutCollecte(dateDebutCollect);
+                                }
+                                GetFieldValuesQuestionInfo(QF);
+                                headerFormOne = "MODIFYE LOJMAN ENDIVIDYèl " + logementM_OBJ.getQlin1NumeroOrdre() + "/" + NbreLogeEndividyel;
+                                headerFormTwo = "Batiman " + QF.getBatimentModel().getBatimentId() + " | EPC:" + QF.getBatimentModel().getQepc();
+
+                                tvHeaderOne.setText(headerFormOne.toUpperCase());
+                                tvHeaderTwo.setText(headerFormTwo.toUpperCase());
+                                tempInfoQuestions = new ArrayList<TempInfoQuestion>();
+                                toolbar.setTitle(headerFormOne.toUpperCase());
+
+
+                                message = "Kontinye pran enfòmasyon sou Lojman kolektif " + logementM_OBJ.getQlin1NumeroOrdre() + " la";
                                 ToastUtility.ToastMessage(this, message, Constant.GravityCenter);
+                                //Tools.AlertDialogMsg(this, message, "S");
+                                //endregion
                             } else {
-                                if (nbre_TotalMenage == nbreTotalMenage_DejaSave) {
+                                if ( NbreLogeEndividyel == nbreLogement_DejaSave ) {
                                     // On lui permet de voir la liste des personnes deja enregistrer.
                                     // On Passe a la question suivante
                                     Suivant_Click();
@@ -320,19 +408,345 @@ public class QuestionnaireLogementActivity extends BaseActivity implements Seria
                                     Precedent_Click(QF);
                                 }
                             }
+                        }/**/
+                        //endregion
+                        //finish();
+                    }else{
+                        String dateDebutCollect = Tools.getDateString_MMddyyyy_HHmmss_a();
+                        logementM_OBJ = new LogementModel();
+                        LogementModel.cuRecordMngr = cuRecordMngr;
+                        LogementModel.formDataMngr = formDataMngr;
+                        logementM_OBJ.setSdeId(QF.getBatimentModel().getSdeId());
+                        logementM_OBJ.setQlCategLogement((short) Constant.LOJ_ENDIVIDYEL);
+                        logementM_OBJ.setQlin1NumeroOrdre((short)  nbr_ou_NoOrdre);
+                        logementM_OBJ.setDateDebutCollecte(dateDebutCollect.toString()) ;
+                        // Objet Batimtnent
+                        logementM_OBJ.setBatimentId(QF.getBatimentModel().getBatimentId());
+                        logementM_OBJ.setObjBatiment(QF.getBatimentModel());
+                        QuestionnaireBatimentActivity.CounterForLogeEndividyel = nbr_ou_NoOrdre;//+1;
+
+                        ModuleModel moduleModel = formDataMngr.checkModule(Constant.FORMULAIRE_LOGEMENT_INDIVIDUEL, Constant.ACTIF);
+                        QF = new QuestionnaireFormulaireUtility( moduleModel, logementM_OBJ, Constant.FORMULAIRE_LOGEMENT_INDIVIDUEL, formDataMngr);
+                        QF.context = QuestionnaireLogementActivity.this;
+                        if(logementM_OBJ!=null && logementM_OBJ.getDateDebutCollecte()!=null && !logementM_OBJ.getDateDebutCollecte().equalsIgnoreCase("") ) {
+                            dateDebutCollect = logementM_OBJ.getDateDebutCollecte();
+                            QF.setDateDebutCollecte(dateDebutCollect);
+                        }else{
+                            QF.setDateDebutCollecte(dateDebutCollect);
+                        }
+                        GetFieldValuesQuestionInfo(QF);
+                        headerFormOne = "LOJMAN ENDIVIDYèl " + nbr_ou_NoOrdre +"/" + NbreLogeEndividyel;
+                        headerFormTwo = "Batiman " + QF.getBatimentModel().getBatimentId() + " | EPC:" + QF.getBatimentModel().getQepc();
+
+                        tvHeaderOne.setText(headerFormOne.toUpperCase());
+                        tvHeaderTwo.setText(headerFormTwo.toUpperCase());
+                        tempInfoQuestions = new ArrayList<TempInfoQuestion>();
+                        toolbar.setTitle(headerFormOne.toUpperCase());
+
+                        int ouDejaAntre = nbr_ou_NoOrdre - 1;
+
+                        message = "Kòmanse pran enfòmasyon sou lojman endividyèl " + nbr_ou_NoOrdre + " a";
+                        message += "\n[ Ou deja antre "+ ouDejaAntre + " / " + NbreLogeEndividyel + "]";
+                        ToastUtility.ToastMessage(this, message, Constant.GravityCenter);
+                        //Tools.AlertDialogMsg(this, message, "S");
+                    }
+                }
+                //endregion
+            }
+            //endregion
+        }catch (ManagerException ex) {
+            message = "Erreur:";
+            Tools.AlertDialogMsg(this, message +"\n"+ ex.getMessage());
+            ToastUtility.LogCat("ManagerException: Show_Form_Add_Logement :" + ex.toString());
+        } catch (Exception ex) {
+            message = "Erreur:";
+            ToastUtility.LogCat("Exception: Show_Form_Add_Logement :" + message +" / " + ex.toString());
+            Tools.AlertDialogMsg(this, message +"\n"+ ex.toString());
+            ex.printStackTrace();
+        }
+
+    }
+
+    private void AddMenage_LogementIndividuel() {
+        try{
+           if ( QF.getTbl_TableName() == Constant.FORMULAIRE_LOGEMENT_INDIVIDUEL ) {
+               if (QF.getNomChamps().equalsIgnoreCase(Constant.CallFormulaireMenage)) {
+                   // ON enregistre d'abord le Logement
+                   QF.SaveInfoDefinitivement(cuRecordMngr, false);
+
+                   int nbre_TotalMenage_Declarer = 0, NbrTotalMenage_NotFinish=0, NbrTotalMenage_Finish=0;
+                   List<RowDataListModel> ListAll_Menage_NotFinish=null, ListAll_Menage_Finish=null;
+                   if ( QF.getLogementModel().getQlin4IsHaveIndividuDepense() != null &&
+                           QF.getLogementModel().getQlin4IsHaveIndividuDepense() == Constant.REPONS_NON_2 ){
+                       nbre_TotalMenage_Declarer = 1;
+                   }
+                   if( QF.getLogementModel().getQlin5NbreTotalMenage() != null ){
+                       nbre_TotalMenage_Declarer = QF.getLogementModel().getQlin5NbreTotalMenage();
+                   }
+                   // On verifie s'il existe de menage dans le logement Individuel
+                   if( nbre_TotalMenage_Declarer > 0 ) {
+                       long nbreMenage_DejaSave = queryRecordMngr.countMenageByLog(QF.getLogementModel().getLogeId());
+                       // On recherche le nombre de Menage non fini
+                       ListAll_Menage_NotFinish = queryRecordMngr.SearchAll_Menage_NotFinish(QF.getLogementModel().getLogeId());
+                       if( ListAll_Menage_NotFinish!=null && ListAll_Menage_NotFinish.size()>0) {
+                           NbrTotalMenage_NotFinish = ListAll_Menage_NotFinish.size();
+                       }
+                       // On recherche le nombre de Menage fini
+                       ListAll_Menage_Finish = queryRecordMngr.SearchAll_Menage_Finish(QF.getLogementModel().getLogeId() );
+                       if( ListAll_Menage_Finish!=null && ListAll_Menage_Finish.size()>0) {
+                           NbrTotalMenage_Finish = ListAll_Menage_Finish.size();
+                       }
+                       int nbr_ou_NoOrdre = ((int) nbreMenage_DejaSave + 1);
+
+                       if (nbre_TotalMenage_Declarer == nbreMenage_DejaSave) {
+                           /*/ Ici on doit Affiche le formulaire du premier menage qui n'est pas encore fini
+                            // Et qui est soit remplit Totalement ou pas */
+                           if( CounterForMenage_LogInd >= nbre_TotalMenage_Declarer ) {
+                               if( NbrTotalMenage_Finish == nbre_TotalMenage_Declarer ) {
+                                   // Ici on doit Afficher le formulaire du premier logement qui n'est pas encore fini
+                                   // Et qui est soit remplit Totalement ou pas
+                                   ShowListInformationsMenage( Constant.LOJ_ENDIVIDYEL, (int) nbreMenage_DejaSave);
+                               }else{
+                                   // Bay moun nan yon list pou li chwazi ak ki lojman ke li vle komanse
+                                   // Si gen plis ke 2 lojman ki pako fini.
+                                   Show_ListMenage_NotFinish(ListAll_Menage_NotFinish, Constant.LOJ_ENDIVIDYEL,  (int) nbreMenage_DejaSave);
+                               }
+                           }else {
+                               // Bay moun nan yon list pou li chwazi ak ki lojman ke li vle komanse
+                               // Si gen plis ke 2 lojman ki pako fini.
+                               Show_ListMenage_NotFinish(ListAll_Menage_NotFinish, Constant.LOJ_ENDIVIDYEL,  (int) nbreMenage_DejaSave);
+                               /*int NoOrdreMen = 0;
+                               // On selectionne le Menage qui n'a pas un statut FINI
+                               MenageModel menM = null;
+                               do {
+                                   NoOrdreMen += 1;
+                                   CounterForMenage_LogInd = NoOrdreMen;
+                                   menM = queryRecordMngr.searchMenage_ByNoOrdre_ByIdLogement(NoOrdreMen, QF.getLogementModel().getLogeId());
+                               }
+                               while ( menM == null && CounterForMenage_LogInd < nbre_TotalMenage_Declarer );
+
+                               if ( menM != null) {
+                                   this.SetFieldMenage(menM, nbre_TotalMenage_Declarer, Constant.ACTION_MOFIDIER);
+
+                                   message = "Kontinye pran enfòmasyon sou Menaj " + menM.getQm1NoOrdre() + " an";
+                                   ToastUtility.ToastMessage(this, message, Constant.GravityCenter);
+                                   //Tools.AlertDialogMsg(this, message, "S");
+                               } else {
+                                   if ( nbre_TotalMenage_Declarer == nbreMenage_DejaSave ) {
+                                       // On lui permet de voir la liste des personnes deja enregistrer.
+                                       ShowListInformationsMenage(Constant.LOJ_ENDIVIDYEL, (int) nbreMenage_DejaSave);
+                                       // On Passe a la question suivante
+                                       //Suivant_Click();
+                                   } else {
+                                       Precedent_Click(QF);
+                                   }
+                               }*/
+                           }
+                       }else{
+                           if( NbrTotalMenage_NotFinish >=1 ){
+                               // Bay moun nan yon list pou li chwazi ak ki lojman ke li vle komanse
+                               // Si gen plis ke 2 lojman ki pako fini.
+                               Show_ListMenage_NotFinish(ListAll_Menage_NotFinish, Constant.LOJ_ENDIVIDYEL,  (int) nbreMenage_DejaSave);
+                           }else{
+
+                               AddNewMenage( nbr_ou_NoOrdre, nbre_TotalMenage_Declarer);
+                           }
+                       }
+                   }
+               }
+            }
+        }catch (TextEmptyException  ex) {
+            Tools.AlertDialogMsg(this, ex.getMessage());
+            ToastUtility.LogCat("TextEmptyException: AddIndividu_LogementCollectif :", ex);
+        }catch (ManagerException ex) {
+            message = "Erreur:";
+            Tools.AlertDialogMsg(this, message +"\n"+ ex.getMessage());
+            ToastUtility.LogCat("ManagerException: AddIndividu_LogementCollectif :", ex);
+        } catch (Exception ex) {
+            message = "Erreur:";
+            ToastUtility.LogCat("Exception: AddIndividu_LogementCollectif :", ex);
+            Tools.AlertDialogMsg(this, message +"\n"+ ex.toString());
+            ex.printStackTrace();
+        }
+    }
+
+    private void SetFieldIndividus(IndividuModel indM, int nbreTotalIndividus, int actions) {
+        try{
+            String dateDebutCollect = Tools.getDateString_MMddyyyy_HHmmss_a();
+            IndividuModel individuM_OBJ = new IndividuModel();
+            IndividuModel.queryRecordMngr = queryRecordMngr;
+            individuM_OBJ.setSdeId(QF.getLogementModel().getSdeId());
+            //individuM_OBJ.setQp1NoOrdre((short) nbr_ou_NoOrdre);
+            individuM_OBJ.setDateDebutCollecte(dateDebutCollect) ;
+            individuM_OBJ = indM;
+            // Objet Batimtnent
+            individuM_OBJ.setBatimentId(QF.getBatimentModel().getBatimentId());
+            individuM_OBJ.setObjBatiment(QF.getBatimentModel());
+            // Objet Logement
+            individuM_OBJ.setLogeId(QF.getLogementModel().getLogeId());
+            individuM_OBJ.setObjLogement(QF.getLogementModel());
+
+            // Objet Menage
+            individuM_OBJ.setMenageId((long) 0);
+            individuM_OBJ.setObjMenage(null);
+            /*if( QF.getLogementModel() != null && QF.getLogementModel().getQlCategLogement() != null &&
+                    QF.getLogementModel().getQlCategLogement() == Constant.LOJ_ENDIVIDYEL ){
+                individuM_OBJ.setMenageId(QF.getMenageModel().getMenageId());
+                individuM_OBJ.setObjMenage(QF.getMenageModel());
+            }*/
+
+            String actionStr = "NOUVO MOUN ";
+            if ( actions == Constant.ACTION_MOFIDIER ){
+                actionStr = " MODIFYE MOUN ";
+            }
+
+            ModuleModel moduleModel = formDataMngr.checkModule(Constant.FORMULAIRE_INDIVIDUS, Constant.ACTIF);
+            Intent intent = new Intent(this, QuestionnaireIndividuActivity.class);
+            QFD = new QuestionnaireFormulaireUtility( moduleModel, individuM_OBJ, Constant.FORMULAIRE_INDIVIDUS, formDataMngr);
+
+            if(individuM_OBJ!=null && individuM_OBJ.getDateDebutCollecte()!=null && !individuM_OBJ.getDateDebutCollecte().equalsIgnoreCase("") ) {
+                dateDebutCollect = individuM_OBJ.getDateDebutCollecte();
+                QFD.setDateDebutCollecte(dateDebutCollect);
+            }else{
+                QFD.setDateDebutCollecte(dateDebutCollect);
+            }
+            intent.putExtra(Constant.PARAM_QUESTIONNAIRE_FORMULAIRE, QFD);
+            intent.putExtra(Constant.PARAM_FORM_HEADER_ONE, actionStr + individuM_OBJ.getQ1NoOrdre() +"/" + nbreTotalIndividus);
+            intent.putExtra(Constant.PARAM_FORM_HEADER_TWO, " Lojman Kolektif " +  QF.getLogementModel().getQlin1NumeroOrdre()
+                    + " | Batiman " +  QF.getLogementModel().getBatimentId() + " | EPC: " +  QF.getBatimentModel().getQepc()  );
+            startActivity(intent);
+
+        } catch (Exception ex) {
+            message = "Erreur:";
+            ToastUtility.LogCat("Exception: SetFieldIndividus :", ex);
+            Tools.AlertDialogMsg(this, message +"\n"+ ex.toString());
+            ex.printStackTrace();
+        }
+    }
+
+    private void AddNewMenage( int nbr_ou_NoOrdre, int NbreLog_Declarer ) {
+        try{
+            ToastUtility.ToastMessage(this, "Kòmanse Pran Enfomasyon sou Menaj " + nbr_ou_NoOrdre + " an", Constant.GravityCenter);
+
+            String dateDebutCollect = Tools.getDateString_MMddyyyy_HHmmss_a();
+            MenageModel menageModel = new MenageModel();
+            MenageModel.queryRecordMngr = queryRecordMngr;
+            menageModel.setSdeId(QF.getLogementModel().getSdeId());
+            menageModel.setQm1NoOrdre((short) nbr_ou_NoOrdre);
+            menageModel.setDateDebutCollecte(dateDebutCollect) ;
+            QuestionnaireLogementActivity.CounterForMenage_LogInd = nbr_ou_NoOrdre;
+
+            this.SetFieldMenage(menageModel, NbreLog_Declarer, Constant.ACTION_NOUVEAU);
+
+        }catch (Exception ex) {
+            message = "Erreur:";
+            ToastUtility.LogCat("Exception: AddNewMenage :" + message +" / " + ex.toString());
+            Tools.AlertDialogMsg(this, message +"\n"+ ex.toString());
+            ex.printStackTrace();
+        }
+    }
+
+    private void SetFieldMenage(MenageModel indM, int nbre_TotalMenage, int actions) {
+        try{
+            short numOrdre =1;
+            String dateDebutCollect = Tools.getDateString_MMddyyyy_HHmmss_a();
+            MenageModel menageM_OBJ = new MenageModel();
+            IndividuModel.queryRecordMngr = queryRecordMngr;
+            menageM_OBJ.setSdeId(QF.getLogementModel().getSdeId());
+            //menageM_OBJ.setQp1NoOrdre((short) nbr_ou_NoOrdre);
+            menageM_OBJ.setDateDebutCollecte(dateDebutCollect) ;
+            menageM_OBJ = indM;
+            //numOrdre += (int)menageM_OBJ.getQm1NoOrdre();
+            //QuestionnaireMenageActivity.CounterForEmigre = numOrdre;
+            // Objet Batimtnent
+            menageM_OBJ.setBatimentId(QF.getBatimentModel().getBatimentId());
+            menageM_OBJ.setObjBatiment(QF.getBatimentModel());
+            // Objet Logement
+            menageM_OBJ.setLogeId(QF.getLogementModel().getLogeId());
+            menageM_OBJ.setObjLogement(QF.getLogementModel());
+
+            String actionStr = "NOUVO MENAJ ";
+            if ( actions == Constant.ACTION_MOFIDIER ){
+                actionStr = " MODIFYE MENAJ ";
+            }
+
+            ModuleModel moduleModel = formDataMngr.checkModule(Constant.FORMULAIRE_MENAGE, Constant.ACTIF);
+            Intent intent = new Intent(this, QuestionnaireMenageActivity.class);
+            QFD = new QuestionnaireFormulaireUtility( moduleModel, menageM_OBJ, Constant.FORMULAIRE_MENAGE, formDataMngr);
+
+            if(menageM_OBJ!=null && menageM_OBJ.getDateDebutCollecte()!=null && !menageM_OBJ.getDateDebutCollecte().equalsIgnoreCase("") ) {
+                dateDebutCollect = menageM_OBJ.getDateDebutCollecte();
+                QFD.setDateDebutCollecte(dateDebutCollect);
+            }else{
+                QFD.setDateDebutCollecte(dateDebutCollect);
+            }
+            intent.putExtra(Constant.PARAM_QUESTIONNAIRE_FORMULAIRE, QFD);
+            intent.putExtra(Constant.PARAM_FORM_HEADER_ONE, actionStr + menageM_OBJ.getQm1NoOrdre() +"/" + nbre_TotalMenage);
+            intent.putExtra(Constant.PARAM_FORM_HEADER_TWO, " Lojman Endividèl " +  QF.getLogementModel().getQlin1NumeroOrdre()
+                    + " | Batiman " +  QF.getLogementModel().getBatimentId() + " | EPC: " +  QF.getBatimentModel().getQepc()  );
+            startActivity(intent);
+
+        } catch (Exception ex) {
+            message = "Erreur:";
+            ToastUtility.LogCat("Exception: SetFieldIndividus :" + message +" / " + ex.toString());
+            Tools.AlertDialogMsg(this, message +"\n"+ ex.toString());
+            ex.printStackTrace();
+        }
+    }
+    //endregion
+
+    //region EVENTS CONTROLS
+    @Override
+    protected void onResume() {
+        try {
+            if (IsActivityMenageClose) {
+                if (QF.getTbl_TableName() == Constant.FORMULAIRE_LOGEMENT_INDIVIDUEL) {
+                    if (QF.getNomChamps().equalsIgnoreCase(Constant.CallFormulaireMenage)) {
+                        int nbre_TotalMenage = 0;
+                        if (QF.getLogementModel().getQlin4IsHaveIndividuDepense() != null &&
+                                QF.getLogementModel().getQlin4IsHaveIndividuDepense() == Constant.REPONS_NON_2) {
+                            nbre_TotalMenage = 1;
+                        }
+                        if (QF.getLogementModel().getQlin5NbreTotalMenage() != null) {
+                            nbre_TotalMenage = QF.getLogementModel().getQlin5NbreTotalMenage();
+                        }
+                        // On verifie s'il existe de menage dans le logement Individuel
+                        if (nbre_TotalMenage > 0) {
+                            long nbreTotalMenage_DejaSave = queryRecordMngr.countMenageByLog(QF.getLogementModel().getLogeId());
+                            if (CounterForMenage_LogInd >= nbre_TotalMenage) {
+                                ShowListInformationsMenage(Constant.LOJ_ENDIVIDYEL, (int) nbreTotalMenage_DejaSave);
+                            } else {
+                                // On selectionne le Logement qui n'a pas un statut FINI
+                                /*MenageModel menM = null;
+                                do {
+                                    CounterForMenage_LogInd += 1;
+                                    menM = queryRecordMngr.searchMenage_ByNoOrdre_ByIdLogement(CounterForMenage_LogInd, QF.getLogementModel().getLogeId());
+                                }
+                                while (menM == null && CounterForMenage_LogInd < nbre_TotalMenage && nbreTotalMenage_DejaSave > 0);
+
+                                if (menM != null) {
+                                    this.SetFieldMenage(menM, nbre_TotalMenage, Constant.ACTION_MOFIDIER);
+
+                                    message = "Kontinye pran enfòmasyon sou Menaj " + menM.getQm1NoOrdre() + " an";
+                                    ToastUtility.ToastMessage(this, message, Constant.GravityCenter);
+                                } else {*/
+                                if (nbre_TotalMenage == nbreTotalMenage_DejaSave) {
+                                    // On lui permet de voir la liste des personnes deja enregistrer.
+                                    // On Passe a la question suivante
+                                    Suivant_Click();
+                                } else {
+                                    Precedent_Click(QF);
+                                }
+                                //}
+                            }
                         }
                     }
                 }
             }
-        }catch (ManagerException ex) {
-            message = "Erreur:";
-            Tools.AlertDialogMsg(this, message +"\n"+ ex.getMessage());
-            ToastUtility.LogCat("ManagerException: onResume :" + ex.toString());
-            ex.printStackTrace();
         } catch (Exception ex) {
             message = "Erreur:";
-            ToastUtility.LogCat("Exception: onResume :" + message +" / " + ex.toString());
-            Tools.AlertDialogMsg(this, message +"\n"+ ex.toString());
+            ToastUtility.LogCat("Exception: onResume :" + message + " / " + ex.toString());
+            Tools.AlertDialogMsg(this, message + "\n" + ex.toString());
             ex.printStackTrace();
         }
         ToastUtility.LogCat(this, "on Resume : ");
@@ -392,11 +806,11 @@ public class QuestionnaireLogementActivity extends BaseActivity implements Seria
 
                         // On met le boucle ici pour les individu
                         // AddLogement_EnBoucle();
-                        if( QF.getTbl_TableName() == Constant.FORMULAIRE_LOGEMENT_COLLECTIF ) {
-                            QuestionnaireBatimentActivity.CounterForLogeCollectif += 1;
-                        }else{
-                            QuestionnaireBatimentActivity.CounterForLogeEndividyel += 1;
-                        }
+                        //if( QF.getTbl_TableName() == Constant.FORMULAIRE_LOGEMENT_COLLECTIF ) {
+                        //    QuestionnaireBatimentActivity.CounterForLogeCollectif ;+= 1;
+                        //}else{
+                        //    QuestionnaireBatimentActivity.CounterForLogeEndividyel; += 1;
+                        //}
                         QF.context = QuestionnaireLogementActivity.this;
                         finishAfter=true;
                         this.ShowRapport_RAR( Constant.STATUT_PA_FIN_RANPLI_22);
@@ -726,373 +1140,6 @@ public class QuestionnaireLogementActivity extends BaseActivity implements Seria
     }
     //endregion
 
-    //region GET DATA : GetFieldValuesQuestionInfo- ...
-    private void GetFieldValuesQuestionInfo(QuestionnaireFormulaireUtility qf) {
-        try {
-
-            QuestionnaireFormulaireUtility.SetFieldValuesQuestionInfo( this, formDataMngr,  qf
-                    , tv_DetailsCategorie , tv_SousDetailsCategorie , tv_DetailQuestion , tv_GrandTitre , toolbar
-                    , tv_LibeleQuestion , tv_Commune , tv_SectionCommune
-                    , recyclerViewReponse, LL_RecyclerView, radioListAdapter,  getItemClickListener(), radioListAdapterKeyValue,  getItemClickListenerKeyValue()
-                    , et_Reponse , sp_Reponse , RelativeLayout_Reponse , sp_Reponse2 , RelativeLayout_Reponse2 , sp_Reponse3 , RelativeLayout_Reponse3
-                    , LinearLDate , RL_Jour , sp_Jour , sp_Mois , sp_Annee
-                    , LL_GaconEtFille, LL_AppareilEtAnimaux,tv_Reponse, tv_Gason, tv_Fi,et_Gason, et_Fi
-                    , et_ApareyRadyo, et_Televizyon, et_FrijideFrize, et_FouElektrikFouAkGaz, et_OdinatePCLaptopTabletNimerik, et_BisikletMotosiklet, et_VwatiMachin
-                    , et_KannotBato, et_InvetePanoSoleJeneratrisDelko, et_MiletChwalBourik, et_BefVach, et_KochonKabrit, et_BetVolayPoulKok, btn_Precedent, btn_Suivant
-                    , LinearLDate_SaisieJJ_SelectMM_SaisieAAAA, et_Jour, sp_Mois2 , et_Annee);
-
-            /* Dialog pupUp Formulaire liste individu dans le menage */
-            SetReponseValue_DataBase(qf);
-
-            /* Add Individu dans Logement */
-            //AddIndividu_LogementCollectif();
-
-            /* Add Menage dans Logement individuel */
-            AddMenage_LogementIndividuel();
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }//
-    //endregion
-
-    //region  Add Logement | AddMenage | AddIndividu | PopUp List_Logement
-    public void AddLogement_EnBoucle(){
-        try{
-           Show_Form_Add_Logement();
-        }catch (Exception ex) {
-            ToastUtility.LogCat("Exception: ShowPopUp_AddLogement :" + ex.getMessage() +" / " + ex.toString());
-            Tools.AlertDialogMsg(this, ex.getMessage() +"\n"+ ex.toString());
-            ex.printStackTrace();
-        }
-    }
-
-    private void Show_Form_Add_Logement() {
-        try{
-            ///*******************************************////
-            //      Gestionnaire de statut du Logement      //
-            ///*******************************************////
-            int typeLogement = Constant.LOJ_KOLEKTIF;
-            if ( QF.getTbl_TableName() == Constant.FORMULAIRE_LOGEMENT_INDIVIDUEL ) {
-                typeLogement = Constant.LOJ_ENDIVIDYEL;
-            }
-            int statut = QF.SetStatutLogement(queryRecordMngr, cuRecordMngr, typeLogement);
-            // On fait appel au Rapport de l'agent recenseur
-            //this.ShowRapport_RAR(statut);
-
-            boolean isShowRapport = false;
-
-            //region FORMULAIRE_LOGEMENT_INDIVIDUEL
-            if( QF.getTbl_TableName() == Constant.FORMULAIRE_LOGEMENT_INDIVIDUEL ){
-                //region LOGEMENT INDIVIDUEL
-                int NbreLogeEndividyel = QF.getBatimentModel().getQb4NbreLogeIndividuel();
-                // On verifie s'il existe de logement Individuel
-                if( NbreLogeEndividyel > 0 ) {
-                    long nbreLogement_DejaSave = queryRecordMngr.countLogByBatAndType(QF.getBatimentModel().getBatimentId(), Constant.LOJ_ENDIVIDYEL);
-                    int nbr_ou_NoOrdre = ((int) nbreLogement_DejaSave + 1);
-                    if (NbreLogeEndividyel == nbreLogement_DejaSave) {
-                        // On lui permet de voir la liste des personnes deja enregistrer.
-                        /* Calcul Statut du Logement individuel en generale */
-                        //region PAUSE
-                        /**/if( QuestionnaireBatimentActivity.CounterForLogeEndividyel >= NbreLogeEndividyel  ) {
-                            finish();
-                        }else{
-                            // On selectionne le Logement qui n'a pas un statut FINI
-                            LogementModel logM = null;
-                            do{
-                                logM = queryRecordMngr.searchLogementByNoOrdreByTypeLogByIdBatiment( QuestionnaireBatimentActivity.CounterForLogeEndividyel, Constant.LOJ_ENDIVIDYEL, QF.getBatimentModel().getBatimentId() );
-                                QuestionnaireBatimentActivity.CounterForLogeEndividyel += 1;
-                            }while (logM == null && QuestionnaireBatimentActivity.CounterForLogeEndividyel <= NbreLogeEndividyel );
-
-                            if ( logM != null ) {
-                                //region "logementM_OBJ"
-                                String dateDebutCollect = Tools.getDateString_MMddyyyy_HHmmss_a();
-                                logementM_OBJ = new LogementModel();
-                                LogementModel.cuRecordMngr = cuRecordMngr;
-                                LogementModel.formDataMngr = formDataMngr;
-                                logementM_OBJ.setDateDebutCollecte(dateDebutCollect.toString()) ;
-                                logementM_OBJ = logM;
-                                // Objet Batimtnent
-                                logementM_OBJ.setBatimentId(QF.getBatimentModel().getBatimentId());
-                                logementM_OBJ.setObjBatiment(QF.getBatimentModel());
-
-                                ModuleModel moduleModel = formDataMngr.checkModule(Constant.FORMULAIRE_LOGEMENT_INDIVIDUEL, Constant.ACTIF);
-                                QF = new QuestionnaireFormulaireUtility(moduleModel, logementM_OBJ, Constant.FORMULAIRE_LOGEMENT_INDIVIDUEL, formDataMngr);
-                                QF.context = QuestionnaireLogementActivity.this;
-                                if(logementM_OBJ!=null && logementM_OBJ.getDateDebutCollecte()!=null && !logementM_OBJ.getDateDebutCollecte().equalsIgnoreCase("") ) {
-                                    dateDebutCollect = logementM_OBJ.getDateDebutCollecte();
-                                    QF.setDateDebutCollecte(dateDebutCollect);
-                                }else{
-                                    QF.setDateDebutCollecte(dateDebutCollect);
-                                }
-                                GetFieldValuesQuestionInfo(QF);
-                                headerFormOne = "MODIFYE LOJMAN ENDIVIDYèl " + logementM_OBJ.getQlin1NumeroOrdre() + "/" + NbreLogeEndividyel;
-                                headerFormTwo = "Batiman " + QF.getBatimentModel().getBatimentId() + " | EPC:" + QF.getBatimentModel().getQepc();
-
-                                tvHeaderOne.setText(headerFormOne.toUpperCase());
-                                tvHeaderTwo.setText(headerFormTwo.toUpperCase());
-                                tempInfoQuestions = new ArrayList<TempInfoQuestion>();
-                                toolbar.setTitle(headerFormOne.toUpperCase());
-
-
-                                message = "Kontinye pran enfòmasyon sou Lojman kolektif " + logementM_OBJ.getQlin1NumeroOrdre() + " la";
-                                ToastUtility.ToastMessage(this, message, Constant.GravityCenter);
-                                //Tools.AlertDialogMsg(this, message, "S");
-                                //endregion
-                            } else {
-                                if ( NbreLogeEndividyel == nbreLogement_DejaSave ) {
-                                    // On lui permet de voir la liste des personnes deja enregistrer.
-                                    // On Passe a la question suivante
-                                    Suivant_Click();
-                                } else {
-                                    Precedent_Click(QF);
-                                }
-                            }
-                        }/**/
-                        //endregion
-                        finish();
-                    }else{
-                        String dateDebutCollect = Tools.getDateString_MMddyyyy_HHmmss_a();
-                        logementM_OBJ = new LogementModel();
-                        LogementModel.cuRecordMngr = cuRecordMngr;
-                        LogementModel.formDataMngr = formDataMngr;
-                        logementM_OBJ.setSdeId(QF.getBatimentModel().getSdeId());
-                        logementM_OBJ.setQlCategLogement((short) Constant.LOJ_ENDIVIDYEL);
-                        logementM_OBJ.setQlin1NumeroOrdre((short)  nbr_ou_NoOrdre);
-                        logementM_OBJ.setDateDebutCollecte(dateDebutCollect.toString()) ;
-                        // Objet Batimtnent
-                        logementM_OBJ.setBatimentId(QF.getBatimentModel().getBatimentId());
-                        logementM_OBJ.setObjBatiment(QF.getBatimentModel());
-
-                        ModuleModel moduleModel = formDataMngr.checkModule(Constant.FORMULAIRE_LOGEMENT_INDIVIDUEL, Constant.ACTIF);
-                        QF = new QuestionnaireFormulaireUtility( moduleModel, logementM_OBJ, Constant.FORMULAIRE_LOGEMENT_INDIVIDUEL, formDataMngr);
-                        QF.context = QuestionnaireLogementActivity.this;
-                        if(logementM_OBJ!=null && logementM_OBJ.getDateDebutCollecte()!=null && !logementM_OBJ.getDateDebutCollecte().equalsIgnoreCase("") ) {
-                            dateDebutCollect = logementM_OBJ.getDateDebutCollecte();
-                            QF.setDateDebutCollecte(dateDebutCollect);
-                        }else{
-                            QF.setDateDebutCollecte(dateDebutCollect);
-                        }
-                        GetFieldValuesQuestionInfo(QF);
-                        headerFormOne = "LOJMAN ENDIVIDYèl " + nbr_ou_NoOrdre +"/" + NbreLogeEndividyel;
-                        headerFormTwo = "Batiman " + QF.getBatimentModel().getBatimentId() + " | EPC:" + QF.getBatimentModel().getQepc();
-
-                        tvHeaderOne.setText(headerFormOne.toUpperCase());
-                        tvHeaderTwo.setText(headerFormTwo.toUpperCase());
-                        tempInfoQuestions = new ArrayList<TempInfoQuestion>();
-                        toolbar.setTitle(headerFormOne.toUpperCase());
-
-                        int ouDejaAntre = nbr_ou_NoOrdre - 1;
-
-                        message = "Kòmanse pran enfòmasyon sou lojman endividyèl " + nbr_ou_NoOrdre + " a \n [ Ou deja antre "+ ouDejaAntre + " / " + NbreLogeEndividyel + "]";
-                        ToastUtility.ToastMessage(this, message, Constant.GravityCenter);
-                        //Tools.AlertDialogMsg(this, message, "S");
-                    }
-                }
-                //endregion
-            }
-            //endregion
-        }catch (ManagerException ex) {
-            message = "Erreur:";
-            Tools.AlertDialogMsg(this, message +"\n"+ ex.getMessage());
-            ToastUtility.LogCat("ManagerException: Show_Form_Add_Logement :" + ex.toString());
-        } catch (Exception ex) {
-            message = "Erreur:";
-            ToastUtility.LogCat("Exception: Show_Form_Add_Logement :" + message +" / " + ex.toString());
-            Tools.AlertDialogMsg(this, message +"\n"+ ex.toString());
-            ex.printStackTrace();
-        }
-
-    }
-
-    private void AddMenage_LogementIndividuel() {
-        try{
-           if ( QF.getTbl_TableName() == Constant.FORMULAIRE_LOGEMENT_INDIVIDUEL ) {
-               if (QF.getNomChamps().equalsIgnoreCase(Constant.CallFormulaireMenage)) {
-                   // ON enregistre d'abord le Logement
-                   QF.SaveInfoDefinitivement(cuRecordMngr, false);
-
-                   int nbre_TotalMenage = 0;
-                   if ( QF.getLogementModel().getQlin4IsHaveIndividuDepense() != null &&
-                           QF.getLogementModel().getQlin4IsHaveIndividuDepense() == Constant.REPONS_NON_2 ){
-                       nbre_TotalMenage = 1;
-                   }
-                   if( QF.getLogementModel().getQlin5NbreTotalMenage() != null ){
-                       nbre_TotalMenage = QF.getLogementModel().getQlin5NbreTotalMenage();
-                   }
-                   // On verifie s'il existe de menage dans le logement Individuel
-                   if( nbre_TotalMenage > 0 ) {
-                       long nbreTotalMenage_DejaSave = queryRecordMngr.countMenageByLog(QF.getLogementModel().getLogeId());
-                       int nbr_ou_NoOrdre = ((int) nbreTotalMenage_DejaSave + 1);
-                       if (nbre_TotalMenage == nbreTotalMenage_DejaSave) {
-                           /*/ Ici on doit Affiche le formulaire du premier menage qui n'est pas encore fini
-                            // Et qui est soit remplit Totalement ou pas */
-                           if( CounterForMenage_LogInd >= nbre_TotalMenage ) {
-                               // On lui permet de voir la liste des Menages deja enregistrer.
-                               ShowListInformations(Constant.LOJ_ENDIVIDYEL, (int) nbreTotalMenage_DejaSave);
-                           }else {
-                               int NoOrdreMen = 0;
-                               // On selectionne le Menage qui n'a pas un statut FINI
-                               MenageModel menM = null;
-                               do {
-                                   NoOrdreMen += 1;
-                                   CounterForMenage_LogInd = NoOrdreMen;
-                                   menM = queryRecordMngr.searchMenage_ByNoOrdre_ByIdLogement(NoOrdreMen, QF.getLogementModel().getLogeId());
-                               }
-                               while ( menM == null && CounterForMenage_LogInd < nbre_TotalMenage );
-
-                               if ( menM != null) {
-                                   this.SetFieldMenage(menM, nbre_TotalMenage, Constant.ACTION_MOFIDIER);
-
-                                   message = "Kontinye pran enfòmasyon sou Menaj " + menM.getQm1NoOrdre() + " an";
-                                   ToastUtility.ToastMessage(this, message, Constant.GravityCenter);
-                                   //Tools.AlertDialogMsg(this, message, "S");
-                               } else {
-                                   if ( nbre_TotalMenage == nbreTotalMenage_DejaSave ) {
-                                       // On lui permet de voir la liste des personnes deja enregistrer.
-                                       ShowListInformations(Constant.LOJ_ENDIVIDYEL, (int) nbreTotalMenage_DejaSave);
-                                       // On Passe a la question suivante
-                                       //Suivant_Click();
-                                   } else {
-                                       Precedent_Click(QF);
-                                   }
-                               }
-                           }
-                       }else{
-                           String dateDebutCollect = Tools.getDateString_MMddyyyy_HHmmss_a();
-                           MenageModel menageModel = new MenageModel();
-                           MenageModel.queryRecordMngr = queryRecordMngr;
-                           menageModel.setSdeId(QF.getLogementModel().getSdeId());
-                           menageModel.setQm1NoOrdre((short) nbr_ou_NoOrdre);
-                           menageModel.setDateDebutCollecte(dateDebutCollect) ;
-
-                           this.SetFieldMenage(menageModel, nbre_TotalMenage, Constant.ACTION_MOFIDIER);
-
-                           message = "Kòmanse pran enfòmasyon sou Menaj " + nbr_ou_NoOrdre + " la";
-                           ToastUtility.ToastMessage(this, message, Constant.GravityCenter);
-                           //Tools.AlertDialogMsg(this, message, "S");
-                       }
-                   }
-               }
-            }
-        }catch (TextEmptyException  ex) {
-            Tools.AlertDialogMsg(this, ex.getMessage());
-            ToastUtility.LogCat("TextEmptyException: AddIndividu_LogementCollectif :", ex);
-        }catch (ManagerException ex) {
-            message = "Erreur:";
-            Tools.AlertDialogMsg(this, message +"\n"+ ex.getMessage());
-            ToastUtility.LogCat("ManagerException: AddIndividu_LogementCollectif :", ex);
-        } catch (Exception ex) {
-            message = "Erreur:";
-            ToastUtility.LogCat("Exception: AddIndividu_LogementCollectif :", ex);
-            Tools.AlertDialogMsg(this, message +"\n"+ ex.toString());
-            ex.printStackTrace();
-        }
-    }
-
-    private void SetFieldIndividus(IndividuModel indM, int nbreTotalIndividus, int actions) {
-        try{
-            String dateDebutCollect = Tools.getDateString_MMddyyyy_HHmmss_a();
-            IndividuModel individuM_OBJ = new IndividuModel();
-            IndividuModel.queryRecordMngr = queryRecordMngr;
-            individuM_OBJ.setSdeId(QF.getLogementModel().getSdeId());
-            //individuM_OBJ.setQp1NoOrdre((short) nbr_ou_NoOrdre);
-            individuM_OBJ.setDateDebutCollecte(dateDebutCollect) ;
-            individuM_OBJ = indM;
-            // Objet Batimtnent
-            individuM_OBJ.setBatimentId(QF.getBatimentModel().getBatimentId());
-            individuM_OBJ.setObjBatiment(QF.getBatimentModel());
-            // Objet Logement
-            individuM_OBJ.setLogeId(QF.getLogementModel().getLogeId());
-            individuM_OBJ.setObjLogement(QF.getLogementModel());
-
-            // Objet Menage
-            individuM_OBJ.setMenageId((long) 0);
-            individuM_OBJ.setObjMenage(null);
-            /*if( QF.getLogementModel() != null && QF.getLogementModel().getQlCategLogement() != null &&
-                    QF.getLogementModel().getQlCategLogement() == Constant.LOJ_ENDIVIDYEL ){
-                individuM_OBJ.setMenageId(QF.getMenageModel().getMenageId());
-                individuM_OBJ.setObjMenage(QF.getMenageModel());
-            }*/
-
-            String actionStr = "NOUVO MOUN ";
-            if ( actions == Constant.ACTION_MOFIDIER ){
-                actionStr = " MODIFYE MOUN ";
-            }
-
-            ModuleModel moduleModel = formDataMngr.checkModule(Constant.FORMULAIRE_INDIVIDUS, Constant.ACTIF);
-            Intent intent = new Intent(this, QuestionnaireIndividuActivity.class);
-            QFD = new QuestionnaireFormulaireUtility( moduleModel, individuM_OBJ, Constant.FORMULAIRE_INDIVIDUS, formDataMngr);
-
-            if(individuM_OBJ!=null && individuM_OBJ.getDateDebutCollecte()!=null && !individuM_OBJ.getDateDebutCollecte().equalsIgnoreCase("") ) {
-                dateDebutCollect = individuM_OBJ.getDateDebutCollecte();
-                QFD.setDateDebutCollecte(dateDebutCollect);
-            }else{
-                QFD.setDateDebutCollecte(dateDebutCollect);
-            }
-            intent.putExtra(Constant.PARAM_QUESTIONNAIRE_FORMULAIRE, QFD);
-            intent.putExtra(Constant.PARAM_FORM_HEADER_ONE, actionStr + individuM_OBJ.getQ1NoOrdre() +"/" + nbreTotalIndividus);
-            intent.putExtra(Constant.PARAM_FORM_HEADER_TWO, " Lojman Kolektif " +  QF.getLogementModel().getQlin1NumeroOrdre()
-                    + " | Batiman " +  QF.getLogementModel().getBatimentId() + " | EPC: " +  QF.getBatimentModel().getQepc()  );
-            startActivity(intent);
-
-        } catch (Exception ex) {
-            message = "Erreur:";
-            ToastUtility.LogCat("Exception: SetFieldIndividus :", ex);
-            Tools.AlertDialogMsg(this, message +"\n"+ ex.toString());
-            ex.printStackTrace();
-        }
-    }
-
-    private void SetFieldMenage(MenageModel indM, int nbre_TotalMenage, int actions) {
-        try{
-            short numOrdre =1;
-            String dateDebutCollect = Tools.getDateString_MMddyyyy_HHmmss_a();
-            MenageModel menageM_OBJ = new MenageModel();
-            IndividuModel.queryRecordMngr = queryRecordMngr;
-            menageM_OBJ.setSdeId(QF.getLogementModel().getSdeId());
-            //menageM_OBJ.setQp1NoOrdre((short) nbr_ou_NoOrdre);
-            menageM_OBJ.setDateDebutCollecte(dateDebutCollect) ;
-            menageM_OBJ = indM;
-            //numOrdre += (int)menageM_OBJ.getQm1NoOrdre();
-            //QuestionnaireMenageActivity.CounterForEmigre = numOrdre;
-            // Objet Batimtnent
-            menageM_OBJ.setBatimentId(QF.getBatimentModel().getBatimentId());
-            menageM_OBJ.setObjBatiment(QF.getBatimentModel());
-            // Objet Logement
-            menageM_OBJ.setLogeId(QF.getLogementModel().getLogeId());
-            menageM_OBJ.setObjLogement(QF.getLogementModel());
-
-            String actionStr = "NOUVO MENAJ ";
-            if ( actions == Constant.ACTION_MOFIDIER ){
-                actionStr = " MODIFYE MENAJ ";
-            }
-
-            ModuleModel moduleModel = formDataMngr.checkModule(Constant.FORMULAIRE_MENAGE, Constant.ACTIF);
-            Intent intent = new Intent(this, QuestionnaireMenageActivity.class);
-            QFD = new QuestionnaireFormulaireUtility( moduleModel, menageM_OBJ, Constant.FORMULAIRE_MENAGE, formDataMngr);
-
-            if(menageM_OBJ!=null && menageM_OBJ.getDateDebutCollecte()!=null && !menageM_OBJ.getDateDebutCollecte().equalsIgnoreCase("") ) {
-                dateDebutCollect = menageM_OBJ.getDateDebutCollecte();
-                QFD.setDateDebutCollecte(dateDebutCollect);
-            }else{
-                QFD.setDateDebutCollecte(dateDebutCollect);
-            }
-            intent.putExtra(Constant.PARAM_QUESTIONNAIRE_FORMULAIRE, QFD);
-            intent.putExtra(Constant.PARAM_FORM_HEADER_ONE, actionStr + menageM_OBJ.getQm1NoOrdre() +"/" + nbre_TotalMenage);
-            intent.putExtra(Constant.PARAM_FORM_HEADER_TWO, " Lojman Endividèl " +  QF.getLogementModel().getQlin1NumeroOrdre()
-                    + " | Batiman " +  QF.getLogementModel().getBatimentId() + " | EPC: " +  QF.getBatimentModel().getQepc()  );
-            startActivity(intent);
-
-        } catch (Exception ex) {
-            message = "Erreur:";
-            ToastUtility.LogCat("Exception: SetFieldIndividus :" + message +" / " + ex.toString());
-            Tools.AlertDialogMsg(this, message +"\n"+ ex.toString());
-            ex.printStackTrace();
-        }
-    }
-    //endregion
-
     //region EVENTS REPONSE
     public RadioListAdapter.OnItemClickListener getItemClickListener(){
         return new RadioListAdapter.OnItemClickListener(){
@@ -1114,6 +1161,7 @@ public class QuestionnaireLogementActivity extends BaseActivity implements Seria
             }
         };
     }
+
     public RadioListAdapterKeyValue.OnItemClickListenerKeyValue getItemClickListenerKeyValue(){
         return new RadioListAdapterKeyValue.OnItemClickListenerKeyValue(){
             @Override
@@ -1122,6 +1170,23 @@ public class QuestionnaireLogementActivity extends BaseActivity implements Seria
                 message = keyValueModel.toString();
                 ToastUtility.ToastMessage(QuestionnaireLogementActivity.this, message, Constant.GravityCenter);
                 Suivant_Click();
+            }
+        };
+    }
+
+    private DisplayListAdapter.OnItemClickListener GetOnItemClickListener(){
+        return new DisplayListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemModuleClick( RowDataListModel row ) {
+                if (QF.getTbl_TableName() == Constant.FORMULAIRE_LOGEMENT_COLLECTIF) {
+                    //message = String.format(getString(R.string.label_msgInfoRapport), " Lojman Kolektif ", " Batiman " + QF.getBatimentModel().getBatimentId());
+
+                } else if (QF.getTbl_TableName() == Constant.FORMULAIRE_LOGEMENT_INDIVIDUEL) {
+                    //MenageModel menageModel = (MenageModel)  row.getModel();
+                    //message = "NumeroOrdre: "+ menageModel.getQm1NoOrdre();
+                    //ToastUtility.ToastMessage(QuestionnaireLogementActivity.this, message, Constant.GravityCenter);
+                    goToForm(row, Constant.ACTION_MOFIDIER);
+                }
             }
         };
     }
@@ -1205,7 +1270,7 @@ public class QuestionnaireLogementActivity extends BaseActivity implements Seria
     private void Precedent_Click( QuestionnaireFormulaireUtility QF ){
         try{
             if (QF.getqPrecedent().toString().equalsIgnoreCase(Constant.DEBUT)) {
-                finish();
+                //finish();
             }else {
                 Remove_QuestionEncours(QF, true);
                 JumpToMenu = true;
@@ -1359,9 +1424,9 @@ public class QuestionnaireLogementActivity extends BaseActivity implements Seria
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (dialog != null) {
-                            dialog.dismiss();
-                        }
+                        //if (dialog != null) {
+                        //    dialog.dismiss();
+                        //}
                         //finish();
                     }
                 }
@@ -1371,6 +1436,7 @@ public class QuestionnaireLogementActivity extends BaseActivity implements Seria
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        QuestionnaireBatimentActivity.IsActivityLogeClose =true;
                         finish();
                     }
                 }
@@ -1381,22 +1447,22 @@ public class QuestionnaireLogementActivity extends BaseActivity implements Seria
     //endregion
 
     //region LISTE INFOS
-    public void ShowListInformations(int typeLogement, int Nbre_TotalElement){
+    public void ShowListInformationsMenage(int typeLogement, int Nbre_TotalElement){
         try{
             infoUser = Tools.SharedPreferences(this);
             if (infoUser != null && infoUser.getProfileId() != null) {
                 profilId = infoUser.getProfileId();
             }
-            dialog = new Dialog(this);
-            dialog.setContentView(R.layout.individus_form);
-            dialog.setCancelable(false);
-            LinearLayout LL_ListeView = (LinearLayout) dialog.findViewById(R.id.LL_ListeView);
-            LinearLayout LL_FormulaireAdd = (LinearLayout) dialog.findViewById(R.id.LL_FormulaireAdd);
+            dialogIL = new Dialog(this);
+            dialogIL.setContentView(R.layout.individus_form);
+            dialogIL.setCancelable(false);
+            LinearLayout LL_ListeView = (LinearLayout) dialogIL.findViewById(R.id.LL_ListeView);
+            LinearLayout LL_FormulaireAdd = (LinearLayout) dialogIL.findViewById(R.id.LL_FormulaireAdd);
             LL_FormulaireAdd.setVisibility(View.VISIBLE);
             LL_ListeView.setVisibility(View.GONE);
 
-            tv_NumeroIndividu = (TextView) dialog.findViewById(R.id.tv_NumeroIndividu);
-            TextView tv_GrandTitreInd = (TextView) dialog.findViewById(R.id.tv_grandtitre);
+            tv_NumeroIndividu = (TextView) dialogIL.findViewById(R.id.tv_NumeroIndividu);
+            TextView tv_GrandTitreInd = (TextView) dialogIL.findViewById(R.id.tv_grandtitre);
 
             // On lui permet de voir la liste des personnes deja enregistrer.
             LL_FormulaireAdd.setVisibility(View.GONE);
@@ -1404,7 +1470,7 @@ public class QuestionnaireLogementActivity extends BaseActivity implements Seria
             tv_NumeroIndividu.setVisibility(View.GONE);
 
             //initialize the recycle view
-            recyclerView = (RecyclerView)  dialog.findViewById(R.id.recycler_view);
+            recyclerView = (RecyclerView)  dialogIL.findViewById(R.id.recycler_view);
 
             StaggeredGridLayoutManager gridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
             // Attach the layout manager to the recycler view
@@ -1429,35 +1495,35 @@ public class QuestionnaireLogementActivity extends BaseActivity implements Seria
                 targetList = queryRecordMngr.searchListMenage_ByLogement(QF.getLogementModel().getLogeId());
             }
 
-            dialog.setTitle( lojmantypeSTR);
+            dialogIL.setTitle( lojmantypeSTR);
 
             mAdapter.setFilter(targetList);
 
             //EVENTS
             // Buttons btnQuitter
-            Button btnQuitter = (Button) dialog.findViewById(R.id.btnQuitter);
+            Button btnQuitter = (Button) dialogIL.findViewById(R.id.btnQuitter);
             btnQuitter.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
-                    if (dialog != null) {
-                        dialog.dismiss();
+                    if (dialogIL != null) {
+                        dialogIL.dismiss();
                     }
                     // On va a la question suivante
                     Precedent_Click(QF);
                 }
             });
             // Buttons btnContinuer
-            Button btnContinuer = (Button) dialog.findViewById(R.id.btnContinuer);
+            Button btnContinuer = (Button) dialogIL.findViewById(R.id.btnContinuer);
             btnContinuer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (dialog != null) {
-                        dialog.dismiss();
+                    if (dialogIL != null) {
+                        dialogIL.dismiss();
                     }
                     Suivant_Click();
                 }
             });
-            dialog.show();
+            dialogIL.show();
         } catch (Exception ex) {
             message = "Erreur :";
             ToastUtility.LogCat("Exception: ShowListInformation :" + message +" / " + ex.toString());
@@ -1465,8 +1531,161 @@ public class QuestionnaireLogementActivity extends BaseActivity implements Seria
             ex.printStackTrace();
         }
     }
+
+    //region LISTE MENAGE NOT FINISH
+    public void Show_ListMenage_NotFinish(List<RowDataListModel> ListAll_Menage_NotFinish, final int typeLogement, int Nbre_TotalElement){
+        try{
+            infoUser = Tools.SharedPreferences(this);
+            if (infoUser != null && infoUser.getProfileId() != null) {
+                profilId = infoUser.getProfileId();
+            }
+            dialogMenNotFinish = new Dialog(this);
+            dialogMenNotFinish.setContentView(R.layout.individus_form);
+            dialogMenNotFinish.setCancelable(false);
+            ScrollView scrollView2 = (ScrollView) dialogMenNotFinish.findViewById(R.id.scrollView2);
+            LinearLayout LL_ListeView = (LinearLayout) dialogMenNotFinish.findViewById(R.id.LL_ListeView);
+            LinearLayout LL_FormulaireAdd = (LinearLayout) dialogMenNotFinish.findViewById(R.id.LL_FormulaireAdd);
+            LL_FormulaireAdd.setVisibility(View.VISIBLE);
+            LL_ListeView.setVisibility(View.GONE);
+
+            tv_NumeroIndividu = (TextView) dialogMenNotFinish.findViewById(R.id.tv_NumeroIndividu);
+            TextView tv_GrandTitreInd = (TextView) dialogMenNotFinish.findViewById(R.id.tv_grandtitre);
+
+            // On lui permet de voir la liste des personnes deja enregistrer.
+            LL_FormulaireAdd.setVisibility(View.GONE);
+            LL_ListeView.setVisibility(View.VISIBLE);
+            tv_NumeroIndividu.setVisibility(View.GONE);
+
+            //initialize the recycle view
+            recyclerView = (RecyclerView)  dialogMenNotFinish.findViewById(R.id.recycler_view);
+
+            StaggeredGridLayoutManager gridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+            // Attach the layout manager to the recycler view
+            gridLayoutManager.setAutoMeasureEnabled(true);
+            recyclerView.setLayoutManager(gridLayoutManager);
+            recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getResources()));
+            recyclerView.setHasFixedSize(true);
+
+            // initialize the adapter
+            DisplayListAdapter mAdapter = new DisplayListAdapter(this, ListAll_Menage_NotFinish, Constant.LIST_MODULE_MENAGE_NOT_FINISH_LIST_ONLY);
+            mAdapter.setOnItemClickListener(GetOnItemClickListener());
+            //inject the adapter into the recycle view
+            recyclerView.setAdapter(mAdapter);
+
+            final int Nbre_TotalElement_Declare =  QF.getBatimentModel().getQb4NbreLogeIndividuel();
+            int Nbre_Total_NotFinish =0, nbr_ou_NoOrdreSuivant=1;
+            String lojmantypeSTR = "";
+
+            //targetList = queryRecordMngr.searchListLogement_ByBatiment_ByCategLogement(QF.getBatimentModel().getBatimentId(), typeLogement);
+            if( ListAll_Menage_NotFinish!=null ) {
+                Nbre_Total_NotFinish=ListAll_Menage_NotFinish.size();
+                mAdapter.setFilter(ListAll_Menage_NotFinish);
+            }
+
+            if( typeLogement == Constant.LOJ_ENDIVIDYEL ){
+                lojmantypeSTR = "Menaj Ki poko fini [" + Nbre_Total_NotFinish +  "/"+  Nbre_TotalElement_Declare +"].";
+                message ="" + lojmantypeSTR;
+                message +="\nChwazi Menaj kew vle kòmanse a!";
+
+                tv_GrandTitreInd.setText(message);
+                CounterForMenage_LogInd=0;
+            }
+            dialogMenNotFinish.setTitle( lojmantypeSTR);
+            nbr_ou_NoOrdreSuivant += Nbre_TotalElement;
+
+            //EVENTS
+            //region Buttons btnQuitter
+            Button btnQuitter = (Button) dialogMenNotFinish.findViewById(R.id.btnQuitter);
+            btnQuitter.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    if (dialogMenNotFinish != null) {
+                        dialogMenNotFinish.dismiss();
+                    }
+                    // On va a la question suivante
+                    Precedent_Click(QF);
+                }
+            });//endregion
+
+            //region Buttons btnContinuer
+            Button btnContinuer = (Button) dialogMenNotFinish.findViewById(R.id.btnContinuer);
+            final int finalNbr_ou_NoOrdreSuivant = nbr_ou_NoOrdreSuivant;
+            btnContinuer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (dialogMenNotFinish != null) {
+                        dialogMenNotFinish.dismiss();
+                    }
+
+                    AddNewMenage( finalNbr_ou_NoOrdreSuivant, Nbre_TotalElement_Declare);
+                }
+            });//endregion
+
+            btnContinuer.setVisibility(View.GONE);
+            if( Nbre_TotalElement_Declare > Nbre_TotalElement ){
+                btnContinuer.setVisibility(View.VISIBLE);
+                btnContinuer.setText("Kòmanse ak #"+ (Nbre_TotalElement+1));
+            }
+
+            dialogMenNotFinish.show();
+        } catch (Exception ex) {
+            message = "Erreur :";
+            ToastUtility.LogCat("Exception: Show_ListMenage_NotFinish :" + message +" / " + ex.toString());
+            Tools.AlertDialogMsg(this, message +"\n"+ ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
+    //endregion
     //endregion
 
+    //region "OPTIONS METHODES"
+    public void goToForm(RowDataListModel row, int typeEvenement){
+        try {
+            ModuleModel moduleModel = null;
+            QuestionnaireFormulaireUtility QFU = null;
+            short numOrdre =1;
+            if (QF.getTbl_TableName() == Constant.FORMULAIRE_LOGEMENT_COLLECTIF) {
+                QuestionnaireFormulaireUtility QF = null;
+
+            } else if (QF.getTbl_TableName() == Constant.FORMULAIRE_LOGEMENT_INDIVIDUEL) {
+                moduleModel = formDataMngr.checkModule(Constant.FORMULAIRE_MENAGE, Constant.ACTIF);
+                if( row != null && moduleModel != null ){
+                    MenageModel menageModel = (MenageModel) row.getModel();
+                    BatimentModel batimentModel = queryRecordMngr.getBatById(menageModel.getBatimentId());
+                    LogementModel logementModel = queryRecordMngr.getLogById(menageModel.getLogeId());
+                    menageModel.setObjBatiment(batimentModel);
+                    menageModel.setObjLogement(logementModel);
+                    QFU = new QuestionnaireFormulaireUtility( moduleModel, menageModel, Constant.FORMULAIRE_MENAGE, formDataMngr);
+                    QFU.TypeEvenement = typeEvenement;
+                    if(menageModel!=null && menageModel.getDateDebutCollecte()!=null && !menageModel.getDateDebutCollecte().equalsIgnoreCase("") ) {
+                        QFU.setDateDebutCollecte(menageModel.getDateDebutCollecte());
+                    }else{
+                        QFU.setDateDebutCollecte(dateString);
+                    }
+                    numOrdre += (int)menageModel.getQm1NoOrdre();
+                    QuestionnaireLogementActivity.CounterForMenage_LogInd = numOrdre;
+
+                    intent = new Intent(this, QuestionnaireMenageActivity.class);
+                    intent.putExtra(Constant.PARAM_QUESTIONNAIRE_FORMULAIRE, QFU);
+                    intent.putExtra(Constant.PARAM_FORM_HEADER_ONE, "MODIFYE MENAJ " + menageModel.getQm1NoOrdre());
+                    intent.putExtra(Constant.PARAM_FORM_HEADER_TWO, " Lojman Endividèl " +  logementModel.getQlin1NumeroOrdre()
+                            + " | Batiman " +  batimentModel.getBatimentId() + " | REC: " +  batimentModel.getQrec()  );
+                    startActivity(intent);
+                }
+            }
+
+            if ( dialogMenNotFinish != null ) {
+                dialogMenNotFinish.dismiss();
+            }
+        }catch (ManagerException e) {
+            ToastUtility.LogCat(this, "ManagerException:goToForm() - getMessage:", e);
+            e.printStackTrace();
+        }catch (Exception ex) {
+            ToastUtility.LogCat(this, "Exception:goToForm() - getMessage:", ex );
+            ex.printStackTrace();
+        }
+    }
+    //endregion
     //region PopUp ShowRapport_RAR
     public void ShowRapport_RAR(int statut) {
         try {
@@ -1598,10 +1817,17 @@ public class QuestionnaireLogementActivity extends BaseActivity implements Seria
 
                 //region Buttons btnContinuerEtChangerdeModule
                 btnContinuerEtChangerdeModule = (Button) dialog.findViewById(R.id.btnContinuerEtChangerdeModule);
-                LinearLayout_messageChangerdeModule.setVisibility(View.VISIBLE);
-                if (QF.getTbl_TableName() == Constant.FORMULAIRE_LOGEMENT_INDIVIDUEL) {
-                    if (QuestionnaireBatimentActivity.CounterForLogeEndividyel >= QF.getBatimentModel().getQb4NbreLogeIndividuel()) {
+                LinearLayout_messageChangerdeModule.setVisibility(View.GONE);
+
+                if ( QF.getTbl_TableName() == Constant.FORMULAIRE_LOGEMENT_INDIVIDUEL ) {
+                    //long nbreLogement_DejaSave = queryRecordMngr.countLogByBatAndType(QF.getBatimentModel().getBatimentId(), Constant.LOJ_ENDIVIDYEL );
+                    long Counter_ForLogeEndividyel = QuestionnaireBatimentActivity.CounterForLogeEndividyel;
+                    long NbreTotalLogeIndividuel = QF.getBatimentModel().getQb4NbreLogeIndividuel();
+                    if( Counter_ForLogeEndividyel == NbreTotalLogeIndividuel ) {
                         LinearLayout_messageChangerdeModule.setVisibility(View.GONE);
+                    }
+                    if( Counter_ForLogeEndividyel < NbreTotalLogeIndividuel ) {
+                        LinearLayout_messageChangerdeModule.setVisibility(View.VISIBLE);
                     }
                 }
                 btnContinuerEtChangerdeModule.setOnClickListener(new View.OnClickListener() {
@@ -1619,6 +1845,7 @@ public class QuestionnaireLogementActivity extends BaseActivity implements Seria
                             }
 
                             if (finishAfter) {
+                                QuestionnaireBatimentActivity.IsActivityLogeClose =true;
                                 finish();
                             } else {
                                 // On met le boucle ici pour les logements

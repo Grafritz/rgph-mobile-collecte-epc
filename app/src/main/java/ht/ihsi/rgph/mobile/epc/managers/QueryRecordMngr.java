@@ -40,6 +40,12 @@ import ht.ihsi.rgph.mobile.epc.utilities.Shared_Preferences;
 
     List<RowDataListModel> searchListLogement_ByBatiment_ByCategLogement(long batimentId, int categLogement) throws ManagerException;
 
+    List<RowDataListModel> SearchAll_Logement_NotFinish(long batimentId, int categLogement) throws ManagerException;
+    List<RowDataListModel> SearchAll_Logement_Finish(long batimentId, int categLogement) throws ManagerException;
+
+    List<RowDataListModel> SearchAll_Menage_NotFinish(long logementId) throws ManagerException;
+    List<RowDataListModel> SearchAll_Menage_Finish(long logementId) throws ManagerException;
+
     List<RowDataListModel> searchListIndByStaAndLog(Short status, long logId)  throws ManagerException;
 
     //List<RowDataListModel> searchListEmigreByMenage(long menageId, Short statut) throws ManagerException;

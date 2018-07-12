@@ -265,12 +265,28 @@ public class MenageModel extends BaseModel{
             }
 
             // ANCIEN MEMBRE
-           if (nomChamps.equalsIgnoreCase(MenageDao.Properties.Qm22TotalAncienMembre.columnName)) {
+            // M2.2.- Eske gen moun ki te toujou fè pati menaj la men ki mouri, pati oswa kite li apre ajan resanse a te pase nan menaj la ?
+           if (nomChamps.equalsIgnoreCase(MenageDao.Properties.Qm22IsHaveAncienMembre.columnName)) {
+                if( menageModel.getMenageId()!=null &&  menageModel.getMenageId() > 0 ) {
+                    if ( menageModel.getQm22IsHaveAncienMembre() != Constant.REPONS_WI_1  ){
+                        long nbreAncienMembreSave = 0;
+                        if( menageModel.getLogeId() > 0 ){
+                            nbreAncienMembreSave = queryRecordMngr.countAncienMembreByMenage(menageModel.getMenageId());
+                            if( nbreAncienMembreSave > 0 ){
+                                throw new TextEmptyException("Ou paka chwazi [ "+ Tools.getString_Reponse("" + menageModel.getQm22IsHaveAncienMembre(), MenageDao.Properties.Qm22IsHaveAncienMembre.columnName) +" ]. "
+                                        + "\npaske ou gentan anregistre [" + nbreAncienMembreSave + "] Ansyen manm pou Menaj sa.");
+                            }
+                        }
+                    }
+                }
+            }
+            //M2.2.1.-	Eske gen moun ki te toujou fè pati menaj la men ki mouri, pati oswa kite li apre ajan resanse a te pase nan menaj la ?
+            if (nomChamps.equalsIgnoreCase(MenageDao.Properties.Qm22TotalAncienMembre.columnName)) {
                 if( menageModel.getMenageId()!=null &&  menageModel.getMenageId() > 0 &&  menageModel.getQm22TotalAncienMembre()!=null ) {
                     long nbreAncienMembreSave = queryRecordMngr.countAncienMembreByMenage(menageModel.getMenageId());
                     if ( nbreAncienMembreSave > menageModel.getQm22TotalAncienMembre()) {
                         throw new TextEmptyException("Ou gentan antre " + nbreAncienMembreSave + " Ansyen Manm."
-                                + "\n \n Ou ka ajoute men ou paka retire sou kantite sa a.");
+                                + "\n\nOu ka ajoute men ou paka retire sou kantite sa a.");
                     }
                 }
             }

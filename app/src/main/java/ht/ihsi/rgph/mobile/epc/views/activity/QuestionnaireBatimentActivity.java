@@ -1591,31 +1591,16 @@ public class QuestionnaireBatimentActivity extends BaseActivity implements Seria
                         }else{
                             // Bay moun nan yon list pou li chwazi ak ki lojman ke li vle komanse
                             // Si gen plis ke 2 lojman ki pako fini.
-                            Show_ListLogement_NotFinish(ListAll_Logement_NotFinish, Constant.LOJ_ENDIVIDYEL,  (int) nbreLogement_DejaSave);
-                            // On selectionne le Logement qui n'a pas un statut FINI
-                            /*int NoOrdreLog = 0;
-                            LogementModel logM = null;
-                            do{
-                                NoOrdreLog +=1;
-                                CounterForLogeEndividyel = NoOrdreLog;
-                                logM = queryRecordMngr.searchLogementByNoOrdreByTypeLogByIdBatiment( NoOrdreLog, Constant.LOJ_ENDIVIDYEL, QF.getBatimentModel().getBatimentId() );
-                             }while (logM == null && CounterForLogeEndividyel <= NbreLogeEndividyel_Declarer );
-
-                            if ( logM != null ){
-                                this.SetFieldLogement(logM, NbreLogeEndividyel_Declarer, Constant.LOJ_ENDIVIDYEL, Constant.ACTION_MOFIDIER);
-
-                                message = "Kontinye pran enfòmasyon sou Lojman Endividyèl " + logementM_OBJ.getQlin1NumeroOrdre() + " a";
-                                ToastUtility.ToastMessage(this, message, Constant.GravityCenter);
+                            //Show_ListLogement_NotFinish(ListAll_Logement_NotFinish, Constant.LOJ_ENDIVIDYEL,  (int) nbreLogement_DejaSave);
+                            if( NbrTotalLogement_Finish == NbreLogeEndividyel_Declarer ) {
+                                // Ici on doit Afficher le formulaire du premier logement qui n'est pas encore fini
+                                // Et qui est soit remplit Totalement ou pas
+                                ShowListInformationsLogement( Constant.LOJ_ENDIVIDYEL, (int) nbreLogement_DejaSave);
                             }else{
-                                if (NbreLogeEndividyel_Declarer == nbreLogement_DejaSave) {
-                                    // On lui permet de voir la liste des personnes deja enregistrer.
-                                    ShowListInformationsLogement( Constant.LOJ_ENDIVIDYEL, (int) nbreLogement_DejaSave);
-                                    // On Passe a la question suivante
-                                    //Suivant_Click();
-                                } else {
-                                    Precedent_Click(QF);
-                                }
-                            }*/
+                                // Bay moun nan yon list pou li chwazi ak ki lojman ke li vle komanse
+                                // Si gen plis ke 2 lojman ki pako fini.
+                                Show_ListLogement_NotFinish(ListAll_Logement_NotFinish, Constant.LOJ_ENDIVIDYEL,  (int) nbreLogement_DejaSave);
+                            }
                         }
                     }else{
                         if( NbrTotalLogement_NotFinish >=1 ){

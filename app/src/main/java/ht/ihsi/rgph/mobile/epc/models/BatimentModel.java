@@ -347,13 +347,22 @@ public class BatimentModel extends BaseModel {
                     }
                 }
             }//
-            // B3 -  KONBYEN ETAJ KAY SA A GENGEN? (Saut DataBase)
 
-           /* if (nomChamps.equalsIgnoreCase(Constant.qb2Type)){
-                if ( batimentModel.getQb7Utilisation1() == Constant.PA_GEN_LOT_ITILIZASYON  ){
-                    throw new TextEmptyException("Si Batiman sa okipe li dwe genyen yon itilizasyon.");
+            // B1.- Nan ki eta kay la ye?
+            if (nomChamps.equalsIgnoreCase(BatimentDao.Properties.Qb1Etat.columnName)){
+                if ( ExpulseException==true &&  batimentModel.getQb1Etat() == Constant.R05_Pa_Konnen_Paske_Li_Pa_Sou_Je  ){
+                    long NbreLogement_DejaSave = 0;
+                    if( ExpulseException==true && batimentModel.getBatimentId() > 0 ){
+                        NbreLogement_DejaSave = queryRecordMngr.countLogByBat(batimentModel.getBatimentId());
+                        if( ExpulseException==true &&  NbreLogement_DejaSave > 0 ){
+                            throw new TextEmptyException("Ou paka chwazi [ "+ Tools.getString_Reponse("" + batimentModel.getQb1Etat(), BatimentDao.Properties.Qb1Etat.columnName) +" ]. "
+                                    + "\npaske ou gentan anregistre [" + NbreLogement_DejaSave + "] Lojman pou batiman sa.");
+                        }
+                    }
                 }
-            }*/
+            }
+
+            // B3.- Eske kay sa a?
             if (nomChamps.equalsIgnoreCase(BatimentDao.Properties.Qb3StatutOccupation.columnName)){
                 if ( ExpulseException==true &&  batimentModel.getQb3StatutOccupation() == Constant.BATIMAN_TOUJOU_VID_2  ){
                     long NbreLogement_DejaSave = 0;
@@ -361,17 +370,18 @@ public class BatimentModel extends BaseModel {
                         NbreLogement_DejaSave = queryRecordMngr.countLogByBat(batimentModel.getBatimentId());
                         if( ExpulseException==true &&  NbreLogement_DejaSave > 0 ){
                             throw new TextEmptyException("Ou paka chwazi [ "+ Tools.getString_Reponse("" + batimentModel.getQb3StatutOccupation(), BatimentDao.Properties.Qb3StatutOccupation.columnName) +" ]. "
-                                    + "\n  paske ou gentan anregistre [" + NbreLogement_DejaSave + "] Lojman pou batiman sa.");
+                                    + "\npaske ou gentan anregistre [" + NbreLogement_DejaSave + "] Lojman pou batiman sa.");
                         }
                     }
                 }
             }
+            // B4.- Nan kay sa a konbyen lojman endividyèl ki genyen?
             if (nomChamps.equalsIgnoreCase(BatimentDao.Properties.Qb4NbreLogeIndividuel.columnName)){
                 if( ExpulseException==true &&  batimentModel.getBatimentId()!=null && batimentModel.getBatimentId() > 0  ) {
                     long NbreLogement_DejaSave = queryRecordMngr.countLogByBatAndType(batimentModel.getBatimentId(), Constant.LOJ_ENDIVIDYEL);
                     if (ExpulseException == true && batimentModel.getQb4NbreLogeIndividuel() < NbreLogement_DejaSave) {
                         throw new TextEmptyException("Ou paka retire nan kantite ke ou te mete a. "
-                                + "\n  paske ou gentan anregistre [" + NbreLogement_DejaSave + "] Lojman endividyèl deja pou batiman sa.");
+                                + "\npaske ou gentan anregistre [" + NbreLogement_DejaSave + "] Lojman endividyèl deja pou batiman sa.");
                     }
                 }
 
@@ -380,7 +390,6 @@ public class BatimentModel extends BaseModel {
                     QSuivant = Constant.FIN;
                 }
             }//
-
             return QSuivant;
         } catch (Exception ex){
             throw ex;

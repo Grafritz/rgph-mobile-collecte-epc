@@ -152,6 +152,11 @@ public class Tools
             }else if (nomChamps.equalsIgnoreCase(LogementDao.Properties.Qlin4IsHaveIndividuDepense.columnName)){
                 keyValueModels.add(new KeyValueModel("1", "1- Wi"));
                 keyValueModels.add(new KeyValueModel("2", "2- Non"));
+                // Menage Dao //
+            }else if (nomChamps.equalsIgnoreCase(MenageDao.Properties.Qm22IsHaveAncienMembre.columnName)){
+                keyValueModels.add(new KeyValueModel("1", "1- Wi"));
+                keyValueModels.add(new KeyValueModel("2", "2- Non"));
+                keyValueModels.add(new KeyValueModel("3", "3- Pa konnen"));
                 // INDIVIDU //
             }else if (nomChamps.equalsIgnoreCase(IndividuDao.Properties.Q12StatutMatrimonial.columnName)){
                 keyValueModels.add(new KeyValueModel("1", "1. Selibatè"));

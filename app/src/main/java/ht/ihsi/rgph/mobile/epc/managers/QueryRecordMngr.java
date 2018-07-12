@@ -110,6 +110,8 @@ import ht.ihsi.rgph.mobile.epc.utilities.Shared_Preferences;
 
     long countLogement_AllFilled_ByBatiment_byTypeLog_ByStatus(long batId, int typelogement, int statutFormulaire, boolean isFillAllField);
 
+    long countMenage_ByLogement(long logementId);
+
     /**
      * Return the number of individu by type of logement.
      *

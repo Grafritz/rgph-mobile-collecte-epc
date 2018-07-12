@@ -294,8 +294,8 @@
     <string name="label_Longitude">Longitid</string>
     <string name="label_ResumeGPS">Pran Pwen GPS</string>
     <string name="msg_Localisation_Non_Disponnible">Lokalizasyon an pa disponib pou moman sa. Eseye anko!</string>
-    <string name="msg_InfoRapportChangerdeModule">Si  ou pa vle kontinye pran infomasyon sou lòt {0} yo</string>
-    <string name="label_msgInfoRapport">Si ou pa vle kontinye pran enfòmasyon sou rès <b>%1$s</b> ki nan <b>%2$s</b> sa</string>
+    <string name="msg_InfoRapportChangerdeModule">Si w pa vle pran infomasyon sou lòt {0} yo</string>
+    <string name="label_msgInfoRapport">Si w pa vle pran enfòmasyon sou rès <b>%1$s</b> ki nan <b>%2$s</b> sa</string>
     <string name="label_GroupeUtilisateur">Group Itilizatè</string>
     <string name="label_NonFanmiMounNan">Non fanmi</string>
     <string name="label_ConfirmationMotDePasse">Konfime kòd sekrè a</string>

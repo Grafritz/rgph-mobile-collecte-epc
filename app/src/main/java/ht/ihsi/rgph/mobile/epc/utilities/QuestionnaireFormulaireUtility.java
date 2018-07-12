@@ -675,10 +675,9 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
                 RecyclerView.LayoutManager lmRecyclerView = recyclerViewReponse.getLayoutManager();
                 if (radioListAdapter.getReponseModelList() != null) {
                     int position = 1;
-
                     for (QuestionReponseModel qRM : radioListAdapter.getReponseModelList()) {
                         if (qRM.getCodeReponse().equalsIgnoreCase(codeReponse)) {
-                            ToastUtility.LogCat("I", "SetReponse : [+] : getCodeReponse: " + qRM.getCodeReponse() + " / getLibelleReponse: " + qRM.getLibelleReponse() + " codeReponse: " + codeReponse);
+                            //ToastUtility.LogCat("I", "SetReponse : [+] : getCodeReponse: " + qRM.getCodeReponse() + " / getLibelleReponse: " + qRM.getLibelleReponse() + " codeReponse: " + codeReponse);
                             //recyclerViewReponse.setSelected(true);
                             //mSelectedItem = lmRecyclerView.getPosition(recyclerViewReponse);
                             radioListAdapter.tryMoveSelection(lmRecyclerView, position);
@@ -699,7 +698,7 @@ public class QuestionnaireFormulaireUtility  extends BaseModel //extends AppComp
                     int position = 1;
                     for (KeyValueModel kvm : reponsModel.getKeyValueModelList()) {
                         if (kvm.getKey().equalsIgnoreCase(codeReponse)) {
-                            ToastUtility.LogCat("I", "SetReponse : [+] : getKey: " + kvm.getKey() + " / getValue: " + kvm.getValue()  + " codeReponse: " + codeReponse);
+                            //ToastUtility.LogCat("I", "SetReponse : [+] : getKey: " + kvm.getKey() + " / getValue: " + kvm.getValue()  + " codeReponse: " + codeReponse);
                             //recyclerViewReponse.setSelected(true);
                             //mSelectedItem = lmRecyclerView.getPosition(recyclerViewReponse);
                             reponsModel.tryMoveSelection(lmRecyclerView, position);

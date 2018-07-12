@@ -117,7 +117,8 @@ public class RadioListAdapter extends RecyclerView.Adapter<RadioListAdapter.Deta
         try {
             int nextSelectItem = mSelectedItem + direction;
             int itemCount = getItemCount();
-            //ToastUtility.LogCat("E", "tryMoveSelection() nextSelectItem : " + nextSelectItem + " \n|  direction : " + direction
+            //ToastUtility.LogCat("E", "tryMoveSelection() nextSelectItem : " + nextSelectItem
+            //        + " \n|  direction : " + direction
             //        + " \n|  mSelectedItem : " + mSelectedItem
             //        + " \n|  itemCount : " + itemCount);
             // If still within valid bounds, move the selection, notify to redraw, and scroll
@@ -129,6 +130,7 @@ public class RadioListAdapter extends RecyclerView.Adapter<RadioListAdapter.Deta
                 //notifyItemChanged(mSelectedItem);
                 layoutManager.scrollToPosition(mSelectedItem);
                 //ToastUtility.LogCat("W", "2 tryMoveSelection() nextSelectItem : " + nextSelectItem + " |  getItemCount : " + itemCount);
+                //mSelectedItem=-1;
                 return true;
             } else {
                 //ToastUtility.LogCat("W", "tryMoveSelection() else (nextSelectItem >= 0 && nextSelectItem < itemCount) \n nextSelectItem : " + nextSelectItem + " |  getItemCount : " + itemCount);

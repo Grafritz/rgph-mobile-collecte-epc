@@ -275,13 +275,36 @@ public class LogementModel extends BaseModel{
             String QSuivant = "";
 
             //region LOGEMENT INDIVIDUEL
-
-            if (nomChamps.equalsIgnoreCase(LogementDao.Properties.Qlin4IsHaveIndividuDepense.columnName)){
-                if ( logementModel.getQlin4IsHaveIndividuDepense()!=null
-                        && logementModel.getQlin4IsHaveIndividuDepense() == Constant.REPONS_NON_2  ) {
-                    logementModel.setQlin5NbreTotalMenage((short) 1);
+            //LIN2.- Eske lojman sa a …?
+            if ( nomChamps.equalsIgnoreCase(LogementDao.Properties.Qlin2StatutOccupation.columnName) ){
+                if ( logementModel.getQlin2StatutOccupation() != Constant.R01_Okipe_toutan_epi_moun_yo_la  ){
+                    long NbreMenage_DejaSave = 0;
+                    if( logementModel.getLogeId() > 0 ){
+                        NbreMenage_DejaSave = queryRecordMngr.countMenage_ByLogement(logementModel.getLogeId());
+                        if( NbreMenage_DejaSave > 0 ){
+                            throw new TextEmptyException("Ou paka chwazi [ "+ Tools.getString_Reponse("" + logementModel.getQlin2StatutOccupation(), LogementDao.Properties.Qlin2StatutOccupation.columnName) +" ]. "
+                                    + "\npaske ou gentan anregistre [" + NbreMenage_DejaSave + "] Menaj pou Lojman sa.");
+                        }
+                    }
                 }
             }
+            // LIN4.- Nan tout moun ki toujou ap viv nan lojman sa a, èske gen youn nan yo oswa yon gwoup nan yo ki mete tet yo ansanm pou fè depans apa pou manje yo, pou yo bwè epi pou lòt bagay ki konsène yo?
+             if (nomChamps.equalsIgnoreCase(LogementDao.Properties.Qlin4IsHaveIndividuDepense.columnName)) {
+                 if (logementModel.getQlin4IsHaveIndividuDepense() != null
+                         && logementModel.getQlin4IsHaveIndividuDepense() == Constant.REPONS_NON_2) {
+
+                     long NbreMenage_DejaSave = 0;
+                     if (logementModel.getLogeId() > 0) {
+                         NbreMenage_DejaSave = queryRecordMngr.countMenage_ByLogement(logementModel.getLogeId());
+                         if (NbreMenage_DejaSave > 1) {
+                             throw new TextEmptyException("Ou paka chwazi [ " + Tools.getString_Reponse("" + logementModel.getQlin4IsHaveIndividuDepense(), LogementDao.Properties.Qlin4IsHaveIndividuDepense.columnName) + " ]. "
+                                     + "\npaske ou gentan anregistre [" + NbreMenage_DejaSave + "] Menaj pou Lojman sa.");
+                         }
+                     }
+
+                     logementModel.setQlin5NbreTotalMenage((short) 1);
+                 }
+             }
             //LIN5 - KONBYEN MENAJ* ANTOU KAP VIV NAN LOJMAN SA A SI W METE MENAJ PAW LA LADAN N?
             if (nomChamps.equalsIgnoreCase(LogementDao.Properties.Qlin5NbreTotalMenage.columnName)) {
             /* Si LIN4 = 1,  alors LIN5≥ 2
@@ -290,8 +313,15 @@ public class LogementModel extends BaseModel{
                         && logementModel.getQlin4IsHaveIndividuDepense()!=null
                         && logementModel.getQlin4IsHaveIndividuDepense() == Constant.REPONS_WI_1
                         && logementModel.getQlin5NbreTotalMenage() <= 1 ){
-                    throw new TextEmptyException("Ou paka mete "+logementModel.getQlin5NbreTotalMenage()+" Menaj nan ka sa a pou kantite menaj yo ki genyen antou."
-                            + "\n\nPaske lèw fe sòm pa ou a ak lòt yo wap jwenn plis ke  " + +logementModel.getQlin5NbreTotalMenage() + " Menaj.");
+                    throw new TextEmptyException("Repons ou an pa dwe pi piti ke 2 Menaj.");
+                }
+                long NbreMenage_DejaSave = 0;
+                if ( logementModel.getLogeId() > 0) {
+                    NbreMenage_DejaSave = queryRecordMngr.countMenage_ByLogement(logementModel.getLogeId());
+                    if ( NbreMenage_DejaSave > logementModel.getQlin5NbreTotalMenage() ) {
+                        throw new TextEmptyException("Ou gentan antre " + NbreMenage_DejaSave + " Menaj."
+                                + "\n\nOu ka ajoute men ou paka retire sou kantite sa a.");
+                    }
                 }
             }
             //endregion

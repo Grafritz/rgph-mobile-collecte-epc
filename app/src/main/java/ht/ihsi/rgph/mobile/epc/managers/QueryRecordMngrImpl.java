@@ -246,6 +246,20 @@ public class QueryRecordMngrImpl extends AbstractDatabaseManager implements Quer
     }
 
     @Override
+    public long countMenage_ByLogement(long logementId) {
+        long result=0;
+        try {
+            openReadableDb();
+            result=daoSession.getMenageDao().queryBuilder()
+                    .where(MenageDao.Properties.LogeId.eq(logementId)).count();
+            daoSession.clear();
+        }catch(Exception ex){
+            Log.e(MANAGERS, "Exception <> unable count data from the database" + ex.getMessage());
+        }
+        return result;
+    }
+
+    @Override
     public long countIndByLog(long logId) {
         //Log.i(MANAGERS, "Inside of countIndByLog!");
         long result=0;
@@ -521,7 +535,8 @@ public class QueryRecordMngrImpl extends AbstractDatabaseManager implements Quer
         try {
             openReadableDb();
             List<Batiment> bats=daoSession.getBatimentDao().queryBuilder()
-                    .where(BatimentDao.Properties.Statut.eq(status)).list();
+                    .where(BatimentDao.Properties.Statut.eq(status))
+                    .orderDesc(BatimentDao.Properties.BatimentId).list();
             result= ModelMapper.MapToRows(context, bats);
             daoSession.clear();
         }catch(Exception ex){

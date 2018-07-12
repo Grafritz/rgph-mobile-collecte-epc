@@ -202,7 +202,7 @@ import android.view.Gravity;
     int BATIMAN_PA_KA_WE_5 = 5;
     //endregion
 
-    int LOJMAN_OKIPE_TOUTAN_MEN_MOUN_YO_LA_1 = 1;
+    int R01_Okipe_toutan_epi_moun_yo_la = 1;
     int LOJMAN_OKIPE_TOUTAN_MEN_MOUN_YO_PA_LA_2 = 2;
     int LOJMAN_OKIPE_YON_LE_KONSA_3 = 3;
     int LOJMAN_PA_OKIPE_4 = 4;
@@ -391,6 +391,7 @@ import android.view.Gravity;
     int R03_Ayisyen_ak_Etranje = 3;
 
     int R03_Li_Mouri = 3;
+    int R05_Pa_Konnen_Paske_Li_Pa_Sou_Je = 5;
 
     int R10_Pa_Konnen_10 = 10;
 

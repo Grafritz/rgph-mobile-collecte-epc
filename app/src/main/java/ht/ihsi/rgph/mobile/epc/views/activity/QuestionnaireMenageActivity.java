@@ -116,7 +116,7 @@ public class QuestionnaireMenageActivity extends BaseActivity implements Seriali
     private String headerFormTwo, headerFormTwoLog;
 
     private RowDataListModel rowDada;
-    public Dialog dialog;
+    public Dialog dialog, dialogRAR;
     EditText et_02NonIndividu;
     EditText et_03SiyatiIndividu;
     Spinner sp_04Sexe;
@@ -2090,32 +2090,32 @@ public class QuestionnaireMenageActivity extends BaseActivity implements Seriali
     public void ShowRapport_RAR(int statut) {
         try {
             if( QF.TypeEvenement != Constant.ACTION_AFFICHER ) {
-                dialog = new Dialog(this);
-                dialog.setContentView(R.layout.rapport_rar);
-                dialog.setCancelable(false);
-                ScrollView scrollView2 = (ScrollView) dialog.findViewById(R.id.scrollView2);
+                dialogRAR = new Dialog(this);
+                dialogRAR.setContentView(R.layout.rapport_rar);
+                dialogRAR.setCancelable(false);
+                ScrollView scrollView2 = (ScrollView) dialogRAR.findViewById(R.id.scrollView2);
 
                 //TextView tv_GrandTitre2 = (TextView) dialog.findViewById(R.id.tv_GrandTitre);
                 //tv_GrandTitre2.setVisibility(View.GONE);
-                sp_Rezon = (Spinner) dialog.findViewById(R.id.sp_Rezon);
+                sp_Rezon = (Spinner) dialogRAR.findViewById(R.id.sp_Rezon);
 
-                LL_LotRezon = (LinearLayout) dialog.findViewById(R.id.LL_LotRezon);
-                tv_LotRezon = (TextView) dialog.findViewById(R.id.tv_LotRezon);
-                et_LotRezon = (EditText) dialog.findViewById(R.id.et_LotRezon);
+                LL_LotRezon = (LinearLayout) dialogRAR.findViewById(R.id.LL_LotRezon);
+                tv_LotRezon = (TextView) dialogRAR.findViewById(R.id.tv_LotRezon);
+                et_LotRezon = (EditText) dialogRAR.findViewById(R.id.et_LotRezon);
 
-                LinearLayout_messageChangerdeModule = (LinearLayout) dialog.findViewById(R.id.LinearLayout_messageChangerdeModule);
+                LinearLayout_messageChangerdeModule = (LinearLayout) dialogRAR.findViewById(R.id.LinearLayout_messageChangerdeModule);
                 //LinearLayout_messageChangerdeModule.setVisibility(View.GONE);
-                tv_messageChangerdeModule = (TextView) dialog.findViewById(R.id.tv_messageChangerdeModule);
+                tv_messageChangerdeModule = (TextView) dialogRAR.findViewById(R.id.tv_messageChangerdeModule);
 
                 message = String.format(getString(R.string.label_msgInfoRapport), " Menaj ", " Lojman Endividyèl " + QF.getLogementModel().getQlin1NumeroOrdre());
                 tv_messageChangerdeModule.setText(Html.fromHtml("" + message));
 
-                dialog.setTitle("" + this.getString(R.string.Rappot_Agent_Resenceur));
+                dialogRAR.setTitle("" + this.getString(R.string.Rappot_Agent_Resenceur));
 
                 //Shared_Preferences sharedPreferences = null;
                 //sharedPreferences = Tools.SharedPreferences(this);
 
-                TextView tv_GrandTitreRap = (TextView) dialog.findViewById(R.id.tv_grandtitre);
+                TextView tv_GrandTitreRap = (TextView) dialogRAR.findViewById(R.id.tv_grandtitre);
                 message = "" + "<b>Rapò sou Menaj </b>";
                 if (QF.getMenageModel().getMenageId() != null) {
                     message += "" + "<b> " + QF.getMenageModel().getQm1NoOrdre() + "</b>";
@@ -2160,12 +2160,12 @@ public class QuestionnaireMenageActivity extends BaseActivity implements Seriali
                 //endregion
 
                 //region Buttons btnQuitter
-                Button btnQuitter = (Button) dialog.findViewById(R.id.btnQuitter);
+                Button btnQuitter = (Button) dialogRAR.findViewById(R.id.btnQuitter);
                 btnQuitter.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (dialog != null) {
-                            dialog.dismiss();
+                        if (dialogRAR != null) {
+                            dialogRAR.dismiss();
                         }
                         // On va a la question suivante
                         Precedent_Click(QF);
@@ -2174,7 +2174,7 @@ public class QuestionnaireMenageActivity extends BaseActivity implements Seriali
                 //endregion
 
                 //region Buttons btnContinuer
-                Button btnContinuer = (Button) dialog.findViewById(R.id.btnContinuer);
+                Button btnContinuer = (Button) dialogRAR.findViewById(R.id.btnContinuer);
                 btnContinuer.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -2182,8 +2182,8 @@ public class QuestionnaireMenageActivity extends BaseActivity implements Seriali
                             Shared_Preferences sharedPreferences = Tools.SharedPreferences(QuestionnaireMenageActivity.this);
                             QF.CheckValueBefore_RapportRAR(sp_Rezon, et_LotRezon, sharedPreferences);
                             //QF.SaveInfoDefinitivement(cuRecordMngr, false);
-                            if (dialog != null) {
-                                dialog.dismiss();
+                            if (dialogRAR != null) {
+                                dialogRAR.dismiss();
                             }
                             // On met le boucle ici pour le menage
                             AddMenage_EnBoucle();
@@ -2199,7 +2199,7 @@ public class QuestionnaireMenageActivity extends BaseActivity implements Seriali
                 //endregion
 
                 //region Buttons btnContinuerEtChangerdeModule
-                btnContinuerEtChangerdeModule = (Button) dialog.findViewById(R.id.btnContinuerEtChangerdeModule);
+                btnContinuerEtChangerdeModule = (Button) dialogRAR.findViewById(R.id.btnContinuerEtChangerdeModule);
                 LinearLayout_messageChangerdeModule.setVisibility(View.GONE);
 
                 long Counter_ForMenage_LogInd = QuestionnaireLogementActivity.CounterForMenage_LogInd;
@@ -2216,8 +2216,8 @@ public class QuestionnaireMenageActivity extends BaseActivity implements Seriali
                         try {
                             Shared_Preferences sharedPreferences = Tools.SharedPreferences(QuestionnaireMenageActivity.this);
                             QF.CheckValueBefore_RapportRAR(sp_Rezon, et_LotRezon, sharedPreferences);
-                            if (dialog != null) {
-                                dialog.dismiss();
+                            if (dialogRAR != null) {
+                                dialogRAR.dismiss();
                             }
                             QuestionnaireLogementActivity.CounterForMenage_LogInd = QF.getLogementModel().getQlin5NbreTotalMenage()+1;
                             finishAfter = true;
@@ -2245,7 +2245,7 @@ public class QuestionnaireMenageActivity extends BaseActivity implements Seriali
                     }
                 });
                 //endregion
-                dialog.show();
+                dialogRAR.show();
             }
         } catch (Exception ex) {
             String message = "Erreur :";

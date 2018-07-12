@@ -514,33 +514,16 @@ public class QuestionnaireLogementActivity extends BaseActivity implements Seria
                            }else {
                                // Bay moun nan yon list pou li chwazi ak ki lojman ke li vle komanse
                                // Si gen plis ke 2 lojman ki pako fini.
-                               Show_ListMenage_NotFinish(ListAll_Menage_NotFinish, Constant.LOJ_ENDIVIDYEL,  (int) nbreMenage_DejaSave);
-                               /*int NoOrdreMen = 0;
-                               // On selectionne le Menage qui n'a pas un statut FINI
-                               MenageModel menM = null;
-                               do {
-                                   NoOrdreMen += 1;
-                                   CounterForMenage_LogInd = NoOrdreMen;
-                                   menM = queryRecordMngr.searchMenage_ByNoOrdre_ByIdLogement(NoOrdreMen, QF.getLogementModel().getLogeId());
+                               //Show_ListMenage_NotFinish(ListAll_Menage_NotFinish, Constant.LOJ_ENDIVIDYEL,  (int) nbreMenage_DejaSave);
+                               if( NbrTotalMenage_Finish == nbre_TotalMenage_Declarer ) {
+                                   // Ici on doit Afficher le formulaire du premier logement qui n'est pas encore fini
+                                   // Et qui est soit remplit Totalement ou pas
+                                   ShowListInformationsMenage( Constant.LOJ_ENDIVIDYEL, (int) nbreMenage_DejaSave);
+                               }else{
+                                   // Bay moun nan yon list pou li chwazi ak ki lojman ke li vle komanse
+                                   // Si gen plis ke 2 lojman ki pako fini.
+                                   Show_ListMenage_NotFinish(ListAll_Menage_NotFinish, Constant.LOJ_ENDIVIDYEL,  (int) nbreMenage_DejaSave);
                                }
-                               while ( menM == null && CounterForMenage_LogInd < nbre_TotalMenage_Declarer );
-
-                               if ( menM != null) {
-                                   this.SetFieldMenage(menM, nbre_TotalMenage_Declarer, Constant.ACTION_MOFIDIER);
-
-                                   message = "Kontinye pran enfòmasyon sou Menaj " + menM.getQm1NoOrdre() + " an";
-                                   ToastUtility.ToastMessage(this, message, Constant.GravityCenter);
-                                   //Tools.AlertDialogMsg(this, message, "S");
-                               } else {
-                                   if ( nbre_TotalMenage_Declarer == nbreMenage_DejaSave ) {
-                                       // On lui permet de voir la liste des personnes deja enregistrer.
-                                       ShowListInformationsMenage(Constant.LOJ_ENDIVIDYEL, (int) nbreMenage_DejaSave);
-                                       // On Passe a la question suivante
-                                       //Suivant_Click();
-                                   } else {
-                                       Precedent_Click(QF);
-                                   }
-                               }*/
                            }
                        }else{
                            if( NbrTotalMenage_NotFinish >=1 ){
